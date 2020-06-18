@@ -28,6 +28,6 @@ class CreateRequestFabricTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_fabrics');
+        Schema::dropIfExists('request_fabric');
     }
 }
