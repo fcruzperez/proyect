@@ -16,7 +16,7 @@
 })(function($, undefined) {
     "use strict";
     // Array of country objects for the flag dropdown.
-    // Here is the criteria for the plugin to support a given country/territory
+    // Here is the criteria for the vendor to support a given country/territory
     // - It has an iso2 code: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     // - It has it's own country calling code (it is not a sub-region of another country): https://en.wikipedia.org/wiki/List_of_country_calling_codes
     // - It has a flag in the region-flags project: https://github.com/behdad/region-flags/tree/gh-pages/png
@@ -69,7 +69,7 @@
         instances: {}
     };
     if (typeof window === "object") window.intlTelInputGlobals = intlTelInputGlobals;
-    // these vars persist through all instances of the plugin
+    // these vars persist through all instances of the vendor
     var id = 0;
     var defaults = {
         // whether or not to allow the dropdown
@@ -126,13 +126,13 @@
             callback(keys[i], obj[keys[i]]);
         }
     };
-    // run a method on each instance of the plugin
+    // run a method on each instance of the vendor
     var forEachInstance = function forEachInstance(method) {
         forEachProp(window.intlTelInputGlobals.instances, function(key) {
             window.intlTelInputGlobals.instances[key][method]();
         });
     };
-    // this is our plugin class that we will create an instance of
+    // this is our vendor class that we will create an instance of
     // eslint-disable-next-line no-unused-vars
     var Iti = /*#__PURE__*/
     function() {
@@ -341,7 +341,7 @@
             value: function _generateMarkup() {
                 // if autocomplete does not exist on the element and its form, then
                 // prevent autocomplete as there's no safe, cross-browser event we can react to, so it can
-                // easily put the plugin in an inconsistent state e.g. the wrong flag selected for the
+                // easily put the vendor in an inconsistent state e.g. the wrong flag selected for the
                 // autocompleted number, which on submit could mean wrong number is saved (esp in nationalMode)
                 if (!this.telInput.hasAttribute("autocomplete") && !(this.telInput.form && this.telInput.form.hasAttribute("autocomplete"))) {
                     this.telInput.setAttribute("autocomplete", "off");
@@ -552,7 +552,7 @@
                 var _this5 = this;
                 // if the user has specified the path to the utils script, fetch it on window.load, else resolve
                 if (this.options.utilsScript && !window.intlTelInputUtils) {
-                    // if the plugin is being initialised after the window.load event has already been fired
+                    // if the vendor is being initialised after the window.load event has already been fired
                     if (window.intlTelInputGlobals.windowLoaded) {
                         window.intlTelInputGlobals.loadUtils(this.options.utilsScript);
                     } else {
@@ -584,7 +584,7 @@
                             // UPDATE: use setTimeout in case their geoIpLookup function calls this callback straight
                             // away (e.g. if they have already done the geo ip lookup somewhere else). Using
                             // setTimeout means that the current thread of execution will finish before executing
-                            // this, which allows the plugin to finish initialising.
+                            // this, which allows the vendor to finish initialising.
                             setTimeout(function() {
                                 return forEachInstance("handleAutoCountry");
                             });
@@ -827,7 +827,7 @@
                 // if we're in nationalMode and we already have US/Canada selected, make sure the number starts
                 // with a +1 so _getDialCode will be able to extract the area code
                 // update: if we dont yet have selectedCountryData, but we're here (trying to update the flag
-                // from the number), that means we're initialising the plugin with a number that already has a
+                // from the number), that means we're initialising the vendor with a number that already has a
                 // dial code, so fine to ignore this bit
                 var number = originalNumber;
                 var selectedDialCode = this.selectedCountryData.dialCode;
@@ -1342,11 +1342,11 @@
     // version
     intlTelInputGlobals.version = "17.0.3";
     var pluginName = "intlTelInput";
-    // A really lightweight plugin wrapper around the constructor,
+    // A really lightweight vendor wrapper around the constructor,
     // preventing against multiple instantiations
     $.fn[pluginName] = function(options) {
         var args = arguments;
-        // Is the first parameter an object (options), or was omitted, instantiate a new instance of the plugin.
+        // Is the first parameter an object (options), or was omitted, instantiate a new instance of the vendor.
         if (options === undefined || typeof options === "object") {
             return this.each(function() {
                 if (!$.data(this, "plugin_" + pluginName)) {
@@ -1362,9 +1362,9 @@
             var returns;
             this.each(function() {
                 var instance = $.data(this, "plugin_" + pluginName);
-                // Tests that there's already a plugin-instance and checks that the requested public method exists
+                // Tests that there's already a vendor-instance and checks that the requested public method exists
                 if (instance instanceof Iti && typeof instance[options] === "function") {
-                    // Call the method of our plugin instance, and pass it the supplied arguments.
+                    // Call the method of our vendor instance, and pass it the supplied arguments.
                     returns = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
                 }
                 // Allow instances to be destroyed via the 'destroy' method

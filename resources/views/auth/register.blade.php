@@ -103,6 +103,7 @@
                         </div>
                     </form>
                 </div>
+{{--                <example-component/>--}}
             </div>
         </div>
     </div>
@@ -110,12 +111,12 @@
 @endsection
 
 @section('stylesheet')
-    <link rel="stylesheet" href="{{asset('plugin/intl-tel-input/css/intlTelInput.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/intl-tel-input/css/intlTelInput.css')}}">
 @endsection
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="{{asset('plugin/intl-tel-input/js/intlTelInput-jquery.min.js')}}"></script>
+    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('vendor/intl-tel-input/js/intlTelInput-jquery.min.js')}}"></script>
     <script>
       $("#mobile").intlTelInput();
     </script>
