@@ -16,3 +16,40 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ * admin routes
+*/
+Route::middleware(['auth', 'role:admin'])
+  ->prefix('admin')
+  ->name('admin.')
+  ->namespace('Admin')
+  ->group(function() {
+  Route::get('dashboard', 'AdminController@dashboard');
+});
+
+/**
+ * client routes
+*/
+Route::middleware(['auth', 'role:client'])
+  ->prefix('client')
+  ->name('client.')
+  ->namespace('Client')
+  ->group(function() {
+    Route::get('home', 'ClientController@home');
+});
+
+/**
+ * designer routes
+*/
+Route::middleware(['auth', 'role:designer'])
+  ->prefix('designer')
+  ->name('designer.')
+  ->namespace('Designer')
+  ->group(function() {
+    Route::get('home', 'DesignerController@home');
+  });
