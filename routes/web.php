@@ -40,7 +40,16 @@ Route::middleware(['auth', 'role:client'])
   ->name('client.')
   ->namespace('Client')
   ->group(function() {
-    Route::get('home', 'ClientController@home');
+    Route::post('home', 'ClientController@savePublish')->name('save_publish');
+    Route::get('new_publish', 'ClientController@showNewPublish')->name('new_publish');
+    Route::get('edit_publish/{rid}', 'ClientController@showUpdatePublish')->name('edit_publish');
+    Route::post('update_publish', 'ClientController@updatePublish')->name('update_publish');
+    Route::get('home', 'ClientController@showPublishes')->name('home');
+
+    Route::post('accept_bid', 'ClientController@acceptBid')->name('accept_bid');
+    Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
+    Route::get('paypal_deposit', 'ClientController@paypalDeposit')->name('paypal_deposit');
+    Route::post('cancel/{rid}', 'ClientController@cancel')->name('cancel');
 });
 
 /**
@@ -51,5 +60,7 @@ Route::middleware(['auth', 'role:designer'])
   ->name('designer.')
   ->namespace('Designer')
   ->group(function() {
-    Route::get('home', 'DesignerController@home');
+    Route::get('home', 'DesignerController@home')->name('home');
+    Route::post('save_bid', 'DesignerController@saveBid')->name('save_bid');
+//    Route::get('')
   });
