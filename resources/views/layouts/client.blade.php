@@ -1,54 +1,82 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+        <!-- Scripts -->
+    {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
-                    </ul>
+    </head>
+    <body>
+        <div id="app">
+            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+                <div class="container">
+                    <a class="navbar-brand" href="{{ url('/client/home') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav mr-auto">
+
+                        </ul>
+                        <div class="collapse navbar-collapse" id="navbarNav" role="tablist">
+                            <ul class="navbar-nav nav nav-tabs">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/client/home">Home<span class="sr-only">(current)</span></a>
                                 </li>
-                            @endif
-                        @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/client/new_publish">New Publish</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/client/withdraw">Withdraw</a>
+                                </li>
+                            </ul>
+                        </div>
+    {{--                    <div class="collapse navbar-collapse" id="navbarNav">--}}
+    {{--                        <ul class="nav nav-tabs" id="myTab" role="tablist">--}}
+    {{--                            <li class="nav-item waves-effect waves-light active">--}}
+    {{--                                <a class="nav-link" href="/client/home" id="home-tab" data-toggle="tab" role="tab">Home</a>--}}
+    {{--                            </li>--}}
+    {{--                            <li class="nav-item waves-effect waves-light">--}}
+    {{--                                <a class="nav-link" href="/client/new_publish" id="profile-tab" data-toggle="tab" role="tab">New Publish</a>--}}
+    {{--                            </li>--}}
+    {{--                            <li class="nav-item waves-effect waves-light">--}}
+    {{--                                <a class="nav-link active" href="/client/withdraw" id="contact-tab" data-toggle="tab" role="tab">Withdraw</a>--}}
+    {{--                            </li>--}}
+    {{--                        </ul>--}}
+    {{--                    </div>--}}
+    {{--                    <ul class="navbar-nav ml-md-5 navbar-dark">--}}
+    {{--                        <li><a class="{{ (\Request::route()->getName() == 'home') ? 'active' : '' }}" href="/client/home" style="padding-right: 20px;"><h4>Home</h4></a></li>--}}
+    {{--                        <li><a class="{{ (\Request::route()->getName() == 'new_publish') ? 'active' : '' }}" href="/client/new_publish" style="padding-right: 20px;"><h4>New Publish</h4></a></li>--}}
+    {{--                        <li><a class="{{ (\Request::route()->getName() == 'withdraw') ? 'active' : '' }}" href="/client/withdraw"><h4>Withdraw</h4></a></li>--}}
+
+    {{--                    </ul>--}}
+
+
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -66,19 +94,21 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
-                    </ul>
+                        </ul>
+                    </div>
+
                 </div>
-            </div>
-        </nav>
+            </nav>
+            <main class="py-4">
+                @yield('content')
+            </main>
+        </div>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+        @yield('stylesheet')
 
-    @yield('stylesheet')
 
-    @yield('js')
-</body>
+        @yield('js')
+
+
+    </body>
 </html>

@@ -7,20 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Request extends Model
 {
     protected $fillable = [
-      'client_id', 'name', 'width', 'height', 'hours', 'technic_id', 'deposit', 'status', 'accepted_offer_id',
+      'client_id', 'image1', 'image2', 'image3', 'image4', 'name', 'width', 'height', 'hours', 'deposit', 'status', 'accepted_offer_id',
       'accepted_at', 'completed_at', 'mediated_at', 'canceled_at'
     ];
 
-    public function images() {
-      return $this->hasMany('App\Models\RequestImage');
-    }
+//    public function images() {
+//      return $this->hasMany('App\Models\RequestImage');
+//    }
 
     public function technics() {
-      return $this->belongsToMany('App\Models\Technic');
+      return $this->belongsToMany('App\Models\Technic', 'request_technic');
     }
 
     public function fabrics() {
-      return $this->belongsToMany('App\Models\Fabric');
+      return $this->belongsToMany('App\Models\Fabric', 'request_fabric');
+    }
+
+    public function formats() {
+        return $this->belongsToMany('App\Models\Format', 'request_format');
     }
 
     public function client() {
