@@ -17,24 +17,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/mail_test', 'MailController@test_email');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 /**
  * admin routes
-*/
+ */
 Route::middleware(['auth', 'role:admin'])
-  ->prefix('admin')
-  ->name('admin.')
-  ->namespace('Admin')
-  ->group(function() {
-  Route::get('dashboard', 'AdminController@dashboard');
-});
+    ->prefix('admin')
+    ->name('admin.')
+    ->namespace('Admin')
+    ->group(function () {
+        Route::get('dashboard', 'AdminController@dashboard');
+    });
 
 /**
  * client routes
-*/
+ */
 Route::middleware(['auth', 'role:client'])
   ->prefix('client')
   ->name('client.')
@@ -54,7 +56,7 @@ Route::middleware(['auth', 'role:client'])
 
 /**
  * designer routes
-*/
+ */
 Route::middleware(['auth', 'role:designer'])
   ->prefix('designer')
   ->name('designer.')
