@@ -3,13 +3,13 @@
 @section('content')
 
     <div>
-        <div>
+        <div class="rate-container">
             <span class="fa fa-star checked_star"></span>
             <span class="fa fa-star checked_star"></span>
             <span class="fa fa-star checked_star"></span>
             <span class="fa fa-star"></span>
             <span class="fa fa-star"></span>
-            <div style="margin-left: 35px; font-weight: bold; color:red;">3</div>
+            <div style="margin-left: 35px; font-weight: bold; color:red;"> 3 </div>
 
         </div>
 
@@ -118,6 +118,12 @@
 
 
 @section('stylesheet')
+
+    <style>
+        .checked_star{
+            color: orange;
+        }
+    </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
