@@ -56,7 +56,6 @@ class ClientController extends Controller
 
         if(!is_null($inputs['formats'])) {
             $format_ids = explode(',', $inputs['formats']);
-
             foreach ($format_ids as $fid) {
                 RequestFormat::create([
                     'request_id' => $request_id,
@@ -96,7 +95,6 @@ class ClientController extends Controller
     public function updatePublish(Request $request)
     {
         $inputs = $request->all();
-//        dd($inputs);
         $validator = Validator::make($inputs, [
 //            'image1' => 'required',
             'name' => 'required',
@@ -111,7 +109,6 @@ class ClientController extends Controller
 
         $rid = $inputs['request_id'];
         $old_publish = Publish::find($rid);
-
         $imageNames = ['image1', 'image2', 'image3', 'image4'];
 
         foreach ($imageNames as $imgname) {
@@ -121,7 +118,6 @@ class ClientController extends Controller
             }
         }
 
-
         $old_publish->name = $inputs['name'];
         $old_publish->width = $inputs['width'];
         $old_publish->height = $inputs['height'];
@@ -129,44 +125,49 @@ class ClientController extends Controller
 
         $old_publish->save();
 
-//
-//        if(!is_null($inputs['formats'])) {
-//            RequestFormat::where('request_id', $rid)->delete();
-//
-//            $format_ids = explode(',', $inputs['formats']);
-//
-//            foreach ($format_ids as $fid) {
-//                RequestFormat::create([
-//                    'request_id' => $rid,
-//                    'format_id' => $fid,
-//                ]);
-//            }
-//        }
-//
-//        if(!is_null($inputs['technics'])) {
-//            RequestFabric::where('request_id', $rid)->delete();
-//            $technic_ids = explode(',', $inputs['technics']);
-//
-//            foreach ($technic_ids as $tid) {
-//                RequestTechnic::create([
-//                    'request_id' => $rid,
-//                    'technic_id' => $tid,
-//                ]);
-//            }
-//        }
-//
-//        if(!is_null($inputs['fabrics'])) {
-//            RequestTechnic::where('request_id', $rid)->delete();
-//            $fabric_ids = explode(',', $inputs['fabrics']);
-//
-//            foreach ($fabric_ids as $id) {
-//                RequestFabric::create([
-//                    'request_id' => $rid,
-//                    'fabric_id' => $id,
-//
-//                ]);
-//            }
-//        }
+
+            RequestFormat::where('request_id', $rid)->delete();
+
+                if(!is_null($inputs['formats'])) {
+
+        $format_ids = explode(',', $inputs['formats']);
+            foreach ($format_ids as $fid) {
+                RequestFormat::create([
+                    'request_id' => $rid,
+                    'format_id' => $fid
+                ]);
+            }
+        }
+
+
+            RequestTechnic::where('request_id', $rid)->delete();
+
+        if(!is_null($inputs['technics'])) {
+
+            $technic_ids = explode(',', $inputs['technics']);
+
+            foreach ($technic_ids as $tid) {
+                RequestTechnic::create([
+                    'request_id' => $rid,
+                    'technic_id' => $tid,
+                ]);
+            }
+        }
+
+
+            RequestFabric::where('request_id', $rid)->delete();
+
+                if(!is_null($inputs['fabrics'])) {
+
+        $fabric_ids = explode(',', $inputs['fabrics']);
+            foreach ($fabric_ids as $id) {
+                RequestFabric::create([
+                    'request_id' => $rid,
+                    'fabric_id' => $id,
+
+                ]);
+            }
+        }
 
        return redirect('/client/home');
 
@@ -222,8 +223,7 @@ class ClientController extends Controller
     public function showDeposit(Request $request) {
 
         $inputs = $request->all();
-
-//                dd($inputs);
+//        dd($inputs);
         $validator = Validator::make($inputs, [
             'request_id' => 'required',
             'offer_id' => 'required',
@@ -231,8 +231,9 @@ class ClientController extends Controller
         if($validator->fails()) {
             return back()->withErrors($validator);
         }
-
-        $data = ['values' => $inputs];
+        $request_id = $inputs['request_id'];
+        $name = Publish::find($request_id)['name'];
+        $data = ['values' => $inputs, 'name' => $name];
         return view('pages.client.show_deposit', $data);
     }
 

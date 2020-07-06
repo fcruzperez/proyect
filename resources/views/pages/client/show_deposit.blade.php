@@ -7,6 +7,9 @@
                 <div class="card">
                     <div class="card-header" style="text-align:center;"><h2>Payment</h2></div>
                     <div class="card-body">
+                        <div class="name" style="font-size: 27px; font-weight:bold; margin-bottom: 20px;" >
+                            <u>{{$name}}</u>
+                        </div>
                         <h5>We will proceed to make the payment for {{$values['price']}}$ and you will receive your order
                             in a maximum time of {{$values['time']}} hours from the payment.</h5>
                     </div>
@@ -18,7 +21,6 @@
                             <button type="button" class="btn btn-danger float-left">CANCEL</button>
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -129,17 +129,16 @@
                                                     $str = $str . $publish->formats[$i]->name . ',';
                                                 }
                                             @endphp
-                                            <option @if((strpos($str, $format->name)) > 0) selected @endif>{{$format->name}}</option>
+                                            <option @if((strpos($str, $format->name)) > 0) selected @endif value="{{$format->id}}">{{$format->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <input type="hidden" name="formats" id="formats">
                             </div>
 
-
                             <div class="form-group row">
                                 <label for="width"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Width:') }}</label>
+                                       class="col-md-4 col-form-label text-md-right">Width:</label>
 
                                 <div class="col-md-6">
                                     <input id="width" type="number" class="form-control {{ $errors->has('width') ? 'is-invalid' : '' }}"
@@ -183,7 +182,7 @@
                                                     $str = $str . $publish->fabrics[$i]->name . ',';
                                                 }
                                             @endphp
-                                            <option @if((strpos($str, $fab->name)) > 0) selected @endif>{{$fab->name}}</option>
+                                            <option @if((strpos($str, $fab->name)) > 0) selected @endif value={{$fab->id}}>{{$fab->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -219,7 +218,7 @@
                                                     $str = $str . $publish->technics[$i]->name . ',';
                                                 }
                                             @endphp
-                                            <option @if((strpos($str, $tech->name)) > 0) selected @endif>{{$tech->name}}</option>
+                                            <option @if((strpos($str, $tech->name)) > 0) selected @endif value={{$tech->id}}>{{$tech->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -261,7 +260,7 @@
     <script>
         $(document).ready(function(){
             $('#format_select').selectpicker();
-        })
+        });
 
         function post() {
             var format_select = $('#format_select').selectpicker('val');

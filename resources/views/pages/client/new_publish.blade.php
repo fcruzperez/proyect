@@ -85,7 +85,7 @@
 
                                     <select id="format_select" name="format" class="selectpicker" multiple>
                                         @foreach($formats as $format)
-                                        <option value="{{$format->id}}">{{$format->name}}</option>
+                                            <option value="{{$format->id}}">{{$format->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -160,7 +160,7 @@
                                 <div class="col-md-6">
                                     <select id="technic_select" name="technic" class="selectpicker" multiple>
                                         @foreach($technics as $tech)
-                                        <option value="{{$tech->id}}">{{$tech->name}}</option>
+                                            <option value="{{$tech->id}}">{{$tech->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -195,14 +195,14 @@
     <script>
         $(document).ready(function(){
             $('#format_select').selectpicker();
-        })
+        });
 
         function post() {
             var format_select = $('#format_select').selectpicker('val');
             var technic_select = $('#technic_select').selectpicker('val');
             var fabric_select = $('#fabric_select').selectpicker('val');
 
-            if(format_select !== null) $('#formats').val(format_select.join());
+            if(format_select !== null) $('#formats').val(format_select.join())
             if(technic_select !== null) $('#technics').val(technic_select.join());
             if(fabric_select !== null) $('#fabrics').val(fabric_select.join());
 

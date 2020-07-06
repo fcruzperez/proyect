@@ -30,7 +30,21 @@ Route::middleware(['auth', 'role:admin'])
   ->namespace('Admin')
   ->group(function() {
   Route::get('dashboard', 'AdminController@dashboard');
-});
+  Route::get('settings','AdminController@settings')->name('settings');
+//  Route::post('save_settings', 'AdminController@saveSettings')->name('save_settings');
+
+
+  Route::post('format_new', 'AdminController@formatNew')->name('format.new');
+  Route::post('format_update', 'AdminController@formatUpdate')->name('format.update');
+  Route::get('format_delete/{id}', 'AdminController@formatDelete')->name('format.delete');
+  Route::post('fabric_new','AdminController@fabricNew')->name('fabric.new');
+  Route::post('fabric_update','AdminController@fabricUpdate')->name('fabric.update');
+  Route::get('fabric_delete/{id}', 'AdminController@fabricDelete')->name('fabric.delete');
+  Route::post('technic_new','AdminController@technicNew')->name('technic.new');
+  Route::post('technic_update','AdminController@technicUpdate')->name('technic.update');
+  Route::get('technic_delete/{id}', 'AdminController@technicDelete')->name('technic.delete');
+
+  });
 
 /**
  * client routes
@@ -41,10 +55,10 @@ Route::middleware(['auth', 'role:client'])
   ->namespace('Client')
   ->group(function() {
     Route::post('home', 'ClientController@savePublish')->name('save_publish');
+    Route::get('home', 'ClientController@showPublishes')->name('home');
     Route::get('new_publish', 'ClientController@showNewPublish')->name('new_publish');
     Route::get('edit_publish/{rid}', 'ClientController@showUpdatePublish')->name('edit_publish');
     Route::post('update_publish', 'ClientController@updatePublish')->name('update_publish');
-    Route::get('home', 'ClientController@showPublishes')->name('home');
 
     Route::post('accept_bid', 'ClientController@acceptBid')->name('accept_bid');
     Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
@@ -60,7 +74,9 @@ Route::middleware(['auth', 'role:designer'])
   ->name('designer.')
   ->namespace('Designer')
   ->group(function() {
-    Route::get('home', 'DesignerController@home')->name('home');
-    Route::post('save_bid', 'DesignerController@saveBid')->name('save_bid');
+    Route::get('posts', 'DesignerController@viewPosts')->name('posts');
+    Route::post('home', 'DesignerController@saveBid')->name('home');
+    Route::get('home', 'DesignerController@home');
+
 //    Route::get('')
   });
