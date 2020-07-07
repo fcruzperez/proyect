@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\ProposalAccepted;
 use App\Http\Controllers\Controller;
+use App\Models\Offer;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
 use App\Models\Technic;
@@ -13,11 +15,26 @@ use App\Models\RequestFormat;
 use App\Models\RequestTechnic;
 use App\Models\RequestImage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Srmklive\PayPal\Services\ExpressCheckout;
+use App\Services\MailService;
 
 class ClientController extends Controller
 {
+    /**
+     * @var ExpressCheckout
+     */
+    protected $paypal;
+    protected $mailService;
+
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+        $this->paypal = new ExpressCheckout();
+    }
+
     public function savePublish(Request $request)
     {
 
@@ -54,7 +71,7 @@ class ClientController extends Controller
         $request_id = $new_publish->id;
 
 
-        if(!is_null($inputs['formats'])) {
+        if (!is_null($inputs['formats'])) {
             $format_ids = explode(',', $inputs['formats']);
             foreach ($format_ids as $fid) {
                 RequestFormat::create([
@@ -64,7 +81,7 @@ class ClientController extends Controller
             }
         }
 
-        if(!is_null($inputs['technics'])) {
+        if (!is_null($inputs['technics'])) {
             $technic_ids = explode(',', $inputs['technics']);
 
             foreach ($technic_ids as $tid) {
@@ -75,7 +92,7 @@ class ClientController extends Controller
             }
         }
 
-        if(!is_null($inputs['fabrics'])) {
+        if (!is_null($inputs['fabrics'])) {
             $fabric_ids = explode(',', $inputs['fabrics']);
 
             foreach ($fabric_ids as $id) {
@@ -87,10 +104,9 @@ class ClientController extends Controller
             }
         }
 
-       return redirect('/client/home');
+        return redirect('/client/home');
 
     }
-
 
     public function updatePublish(Request $request)
     {
@@ -126,11 +142,11 @@ class ClientController extends Controller
         $old_publish->save();
 
 
-            RequestFormat::where('request_id', $rid)->delete();
+        RequestFormat::where('request_id', $rid)->delete();
 
-                if(!is_null($inputs['formats'])) {
+        if (!is_null($inputs['formats'])) {
 
-        $format_ids = explode(',', $inputs['formats']);
+            $format_ids = explode(',', $inputs['formats']);
             foreach ($format_ids as $fid) {
                 RequestFormat::create([
                     'request_id' => $rid,
@@ -140,9 +156,9 @@ class ClientController extends Controller
         }
 
 
-            RequestTechnic::where('request_id', $rid)->delete();
+        RequestTechnic::where('request_id', $rid)->delete();
 
-        if(!is_null($inputs['technics'])) {
+        if (!is_null($inputs['technics'])) {
 
             $technic_ids = explode(',', $inputs['technics']);
 
@@ -155,11 +171,11 @@ class ClientController extends Controller
         }
 
 
-            RequestFabric::where('request_id', $rid)->delete();
+        RequestFabric::where('request_id', $rid)->delete();
 
-                if(!is_null($inputs['fabrics'])) {
+        if (!is_null($inputs['fabrics'])) {
 
-        $fabric_ids = explode(',', $inputs['fabrics']);
+            $fabric_ids = explode(',', $inputs['fabrics']);
             foreach ($fabric_ids as $id) {
                 RequestFabric::create([
                     'request_id' => $rid,
@@ -169,10 +185,9 @@ class ClientController extends Controller
             }
         }
 
-       return redirect('/client/home');
+        return redirect('/client/home');
 
     }
-
 
     public function showNewPublish(Request $request)
     {
@@ -184,7 +199,6 @@ class ClientController extends Controller
 
         return view('pages.client.new_publish', $data);
     }
-
 
     public function showUpdatePublish($rid)
     {
@@ -198,8 +212,6 @@ class ClientController extends Controller
         return view('pages.client.update_publish', $data);
     }
 
-
-
     public function showWithdraw(Request $request)
     {
 //        $technics = Technic::get();
@@ -210,7 +222,9 @@ class ClientController extends Controller
 //        return view('pages.client.new_publish', $data);
 //    }
     }
-    public function showPublishes(Request $request){
+
+    public function showPublishes(Request $request)
+    {
 
         $userId = Auth::id();
         $publishes = Publish::where('client_id', $userId)->get();
@@ -220,30 +234,25 @@ class ClientController extends Controller
 
     }
 
-    public function showDeposit(Request $request) {
+    public function showDeposit(Request $request)
+    {
 
         $inputs = $request->all();
-//        dd($inputs);
         $validator = Validator::make($inputs, [
             'request_id' => 'required',
             'offer_id' => 'required',
         ]);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         }
         $request_id = $inputs['request_id'];
         $name = Publish::find($request_id)['name'];
-        $data = ['values' => $inputs, 'name' => $name];
-        return view('pages.client.show_deposit', $data);
+        $inputs['name'] = $name;
+        return view('pages.client.show_deposit', $inputs);
     }
 
-
-    public function paypalDeposit(Request $request){
-
-        return view('pages.client.paypal_deposit');
-    }
-
-    public function acceptBid(Request $request){
+    public function acceptBid(Request $request)
+    {
         $inputs = $request->all();
 
         $validator = Validator::make($inputs, [
@@ -251,7 +260,7 @@ class ClientController extends Controller
             'offer_id' => 'required|unique:offers,id',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json(['message' => 'wrong parameters'], 400);
         }
 
@@ -260,11 +269,10 @@ class ClientController extends Controller
         $publish->save();
 
         return response()->json(['message' => 'success']);
-
-
     }
 
-    public function cancel($id) {
+    public function cancel($id)
+    {
         $publish = Publish::find($id);
 
         $publish['status'] = 'cancelled';
@@ -273,6 +281,111 @@ class ClientController extends Controller
         return back();
 
     }
+
+    public function deposit(Request $request, $offer_id)
+    {
+        $offer = Offer::find($offer_id);
+        if (!$offer) {
+            return back()->withErrors(['errors' => 'wrong offer id']);
+        }
+        $request = $offer->request;
+
+        Session::put('payment_offer_id', $offer_id);
+        return redirect(route('client.deposit.success'));
+        /*
+        $data = [];
+        $deposit_money = round($offer->price * 1.1);
+
+        $data['items'] = [
+            [
+                'name' => env('APP_NAME'),
+                'price' => $deposit_money,
+                'desc'  => 'Payment '. $deposit_money . 'for task "'. $request->name.'"',
+                'qty' => 1
+            ]
+        ];
+
+        $data['invoice_id'] = $request->id;
+        $data['invoice_description'] = "Order #{$request->id} Invoice";
+        $data['return_url'] = route('client.deposit.success');
+        $data['cancel_url'] = route('client.deposit.cancel');
+        $data['total'] = $deposit_money;
+
+        $response = $this->paypal->setExpressCheckout($data);
+
+//        $response = $provider->setExpressCheckout($data, true);  // for recurring payment(subscription)
+        Session::put('payment_offer_id', $offer->id);
+
+        return redirect($response['paypal_link']);
+        */
+    }
+
+    /**
+     * Responds with a welcome message with instructions
+     */
+    public function deposit_cancel()
+    {
+        Session::forget('payment_offer_id');
+        return view('pages.client.paypal_cancel', ['flag' => 'cancel']);
+    }
+
+    /**
+     * Responds with a welcome message with instructions
+     */
+    public function deposit_success(Request $request)
+    {
+//        $response = $this->paypal->getExpressCheckoutDetails($request->token);
+//
+//        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
+        $offer_id = Session::get('payment_offer_id');
+        Session::forget('payment_offer_id');
+
+        $now = now();
+        $offer = Offer::find($offer_id);
+        $offer->accepted_at = $now;
+        $offer->status = 'accepted';
+        $offer->save();
+
+        $request = $offer->request;
+        $request->status = 'in progress';
+        $request->deposit = $offer->price;
+        $request->accepted_offer_id = $offer->id;
+        $request->accepted_at = $now;
+        $request->save();
+
+        // email notification
+        $tmp = [];
+        foreach ($request->formats as $fmt) {
+            $tmp[] = "in {$fmt->name} format";
+        }
+        $format = implode(' and ', $tmp);
+
+        $params = [
+            'task_name' => $request->name,
+            'format' => $format,
+            'left_time' => $offer->hours
+        ];
+        $receiver = [
+            'from' => config('mail.from.address'),
+            'to' => $offer->designer->email,
+            'subject' => 'You have new order!'
+        ];
+
+        $error = $this->mailService->send('emails.progress_start', $params, $receiver);
+
+        // send push notification
+        event(new ProposalAccepted($offer->designer_id, $request, $offer));
+
+        return view('pages.client.paypal_success', [
+            'request' => $request,
+            'left_time' => $offer->hours,
+        ]);
+//        }
+//
+//        Session::forget('payment_offer_id');
+//        return view('pages.client.paypal_cancel', ['flag' => 'error']);
+    }
+
 }
 
 

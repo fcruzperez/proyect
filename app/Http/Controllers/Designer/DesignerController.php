@@ -18,74 +18,64 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
-
 class DesignerController extends Controller
 {
 
-    public function home(Request $request) {
+    public function home(Request $request)
+    {
 
         $userId = Auth::id();
         $offers = Offer::where('designer_id', $userId)->get();
-//        $request_ids = Offer::where('designer_id', '=', $userId)->pluck('request_id')->toArray();
-//        $publishes = Publish::find($request_ids);
-//        dd($requests);
 
         $data = ['offers' => $offers];
-//        dd($data);
         return view('pages.designer.home', $data);
-
     }
 
-    public function viewPosts(Request $request) {
+    public function viewPosts(Request $request)
+    {
 
-          $desinger_id = Auth::id();
+        $desinger_id = Auth::id();
 
-    //    request_id what is bided
+        $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
 
-          $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
-    //      dd($request_ids);
-          if (!is_null($request_ids)) {
-                $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();
-          }
-          else{
-              $data = Publish::where('status', 'published')->get();
-          }
-          $offers = Offer::get();
-    //      dd($offers);
+        if (!is_null($request_ids)) {
+            $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();
+        } else {
+            $data = Publish::where('status', 'published')->get();
+        }
+        $offers = Offer::get();
 
-          return view('pages.designer.posts',  ['publishes' => $data]);
+        return view('pages.designer.posts', ['publishes' => $data]);
     }
 
-    public function saveBid(Request $request) {
+    public function saveBid(Request $request)
+    {
+        $inputs = $request->all();
 
-          $inputs = $request->all();
+        $validator = Validator::make($inputs, [
+            'request_id' => 'required',
+            'bid_price' => 'required',
+            'bid_time' => 'required',
+        ]);
 
-    //      dd($inputs);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
 
-          $validator = Validator::make($inputs, [
-             'request_id' => 'required',
-             'bid_price' => 'required',
-             'bid_time' => 'required',
-          ]);
+        $data = [
+            'designer_id' => Auth::id(),
+            'request_id' => $inputs['request_id'],
+            'price' => $inputs['bid_price'],
+            'hours' => $inputs['bid_time'],
+        ];
 
-          if ($validator->fails()){
-              return back()->withErrors($validator)->withInput();
-          }
+        Offer::create($data);
 
-          $data = [
-              'designer_id' => Auth::id(),
-              'request_id' => $inputs['request_id'],
-              'price' => $inputs['bid_price'],
-              'hours' => $inputs['bid_time'],
-              ];
+        return redirect('/designer/home');
+    }
 
-          Offer::create($data);
-
-    //      $publish = Publish::where('id', $inputs['request_id'])->first();
-    ////      $publish->offer_id = $new_offer->id;
-    //      $publish->save();
-
-          return redirect('/designer/home');
+    public function cancelBid(Request $request, $id)
+    {
 
     }
 }

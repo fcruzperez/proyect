@@ -20,11 +20,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">--}}
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-
-
 </head>
 <body>
     <div id="app">
@@ -56,6 +53,37 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('designer.home')}}">My Offers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('designer.posts')}}">Requests</a>
+                            </li>
+                            @php
+                                $userId = \Illuminate\Support\Facades\Auth::id();
+                                $user = \App\Models\User::find($userId);
+                                $messages = $user->messages()->where('status', 'unread')->get();
+                                @endphp
+                            <li class="nav-item dropdown">
+                                <a id="notification-alert" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-bell">Messages</span>
+                                    @if(count($messages) > 0)
+                                    <span class="badge badge-pill badge-danger" id="messageBadge">{{count($messages)}}</span>
+                                    @endif
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(count($messages) > 0)
+                                    <ul id="messageList">
+                                        @foreach($messages as $msg)
+                                            <li>
+
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    @endif
+                                </div>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -82,10 +110,15 @@
         <main class="py-4">
             @yield('content')
         </main>
-
-        @yield('stylesheet')
-
-        @yield('js')
     </div>
+
+    @yield('stylesheet')
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    @yield('js')
+
 </body>
 </html>
