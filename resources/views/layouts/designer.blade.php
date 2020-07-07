@@ -77,7 +77,9 @@
                                     <ul id="messageList">
                                         @foreach($messages as $msg)
                                             <li>
-
+                                                <a href="{{url('/designer/offer-detail/'.$msg->offer_id)}}">
+                                                    {{$msg->subject}} {{$msg->content}}
+                                                </a>
                                             </li>
                                         @endforeach
                                     </ul>
