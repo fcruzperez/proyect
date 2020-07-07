@@ -3,15 +3,7 @@
 @section('content')
 
     <div>
-        <div class="rate-container">
-            <span class="fa fa-star checked_star"></span>
-            <span class="fa fa-star checked_star"></span>
-            <span class="fa fa-star checked_star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <div style="margin-left: 35px; font-weight: bold; color:red;"> 3 </div>
-
-        </div>
+        <div class="rating" data-rate-value="{{$rate}}"></div>
 
         <h3 class="text-center"><b>My Offers</b></h3>
     </div>
@@ -104,11 +96,38 @@
                         </div>
                     </div>
                 </td>
-                <td></td>
-                <td></td>
+                <td>
+{{--                    sent, accepted, mediated, canceled, completed--}}
+                    @if($offer->status === 'sent')
+                        Proposal sent
+                    @elseif($offer->status === 'accepted')
+                        In progress
+                    @elseif($offer->status === 'mediated')
+                        In mediate
+                    @elseif($offer->status === 'canceled')
+                        Canceled
+                    @elseif($offer->status === 'completed')
+                        Completed
+                    @endif
+                </td>
+                <td>
+                    @php
+                    $accepted_at = new \Carbon\Carbon($request->accepted_at);
+                    $deadline = $accepted_at->addHours($offer->hours);
+                    $now = new \Carbon\Carbon();
+                    $timeLeft = $deadline->diffInMinutes($now);
+                    $mins = $timeLeft % 60;
+                    $hr = intdiv($timeLeft, 60);
+                    @endphp
+                    {{$hr}}:{{$mins}} hours
+                </td>
                 <td>{{$offer['price']}}</td>
                 <td></td>
-                <td></td>
+                <td>
+                    @if($offer->status === 'sent')
+                        <a class="btn btn-warning" href="">Cancel</a>
+                    @endif
+                </td>
             </tr>
         @endforeach
         </tbody>
@@ -118,33 +137,31 @@
 
 
 @section('stylesheet')
-
     <style>
-        .checked_star{
+        .rating .rate-hover-layer {
+            color: orange;
+        }
+        .rating .rate-select-layer {
             color: orange;
         }
     </style>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
     <link  href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-
 @endsection
-
 
 @section('js')
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="{{asset('plugins/raterjs/rater.min.js')}}"></script>
 
     <script>
         $(document).ready(function() {
             $('#offers_table').DataTable();
-        } );
+            $('.rating').rate({
+                max_value: 5,
+                step_size: 0.1,
+                readonly: true,
+            })
+        });
     </script>
 @endsection

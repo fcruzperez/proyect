@@ -144,106 +144,11 @@
                                                             <td style="text-align: center">{{$offer->price}}</td>
                                                             <td style="text-align: center">{{$offer->hours}}</td>
                                                             <td>
-                                                                <div>
-                                                                    @php
-                                                                        $rating = 3.5;
-                                                                    @endphp
-                                                                    @if(0 <= $rating and $rating < 0.5)
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(0.5 <= $rating and $rating < 1)
-                                                                        <span class="fa fa-star-half checked_star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(1 <= $rating and $rating < 1.5)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(1.5 <= $rating and $rating < 2)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star-half checked_star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(2 <= $rating and $rating < 2.5)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(2.5 <= $rating and $rating < 3)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star-half checked_star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(3 <= $rating and $rating < 3.5)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(3.5 <= $rating and $rating < 4)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star-half checked_star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(4 <= $rating and $rating < 4.5)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif(4.5 <= $rating and $rating < 5)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star-half checked_star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @elseif($rating == 5)
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <span class="fa fa-star checked_star"></span>
-                                                                        <div style="font-weight: bold; color:red;">{{$rating}}</div>
-
-                                                                    @endif
-
-                                                                </div>
-
+                                                                <div class="rating" data-rate-value={{$offer->designer->rate}}></div>
                                                             </td>
                                                             <td>
                                                                 <input type="hidden" name="request_id" value="{{$publish->id}}" />
-                                                                <input type="hidden" name="offer_id" value="{{$offer->designer_id}}" />
+                                                                <input type="hidden" name="offer_id" value="{{$offer->id}}" />
                                                                 <input type="hidden" name="price" value="{{$offer->price}}" />
                                                                 <input type="hidden" name="time" value="{{$offer->hours}}" />
                                                                 <input type="hidden" name="name" value="{{$offer->name}}" />
@@ -299,14 +204,18 @@
 
 
 @section('stylesheet')
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <style>
         .checked_star{
+            color: orange;
+        }
+        .rating .rate-hover-layer
+        {
+            color: orange;
+        }
+        .rating .rate-select-layer
+        {
             color: orange;
         }
     </style>
@@ -316,15 +225,18 @@
 
 @section('js')
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="{{asset('plugins/raterjs/rater.min.js')}}"></script>
     <script>
         $(document).ready(function() {
             $('#publishes_table').DataTable();
+
+            $('.rating').rate({
+                max_value: 5,
+                step_size: 0.1,
+                readonly: true,
+            });
         } );
 
 

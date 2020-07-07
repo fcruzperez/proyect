@@ -117,7 +117,7 @@
                     <div class="modal fade" id="bidModal" role="dialog" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog" role="document">
 
-                            <form method="POST" action="{{route('designer.home')}}" id="bid_modal_form">
+                            <form method="POST" action="{{route('designer.offer-save')}}" id="bid_modal_form">
                                 @csrf
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
@@ -153,8 +153,8 @@
 
 
 @section('stylesheet')
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--}}
+{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">--}}
 
     <style>
         .main-image-wrapper {
@@ -178,9 +178,9 @@
 @endsection
 
 @section('js')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--}}
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>--}}
+{{--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>--}}
     <script>
         function  show(para) {
             document.getElementById('request_id').value = para;
