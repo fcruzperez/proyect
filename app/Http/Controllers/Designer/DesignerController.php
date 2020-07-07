@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Designer;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
 use App\Models\Technic;
@@ -27,7 +28,9 @@ class DesignerController extends Controller
         $userId = Auth::id();
         $offers = Offer::where('designer_id', $userId)->get();
 
-        $data = ['offers' => $offers];
+        $rate = User::find($userId)->rate;
+
+        $data = ['offers' => $offers, 'rate' => $rate];
         return view('pages.designer.home', $data);
     }
 

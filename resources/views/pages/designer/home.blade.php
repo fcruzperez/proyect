@@ -3,15 +3,7 @@
 @section('content')
 
     <div>
-        <div>
-            <span class="fa fa-star checked_star"></span>
-            <span class="fa fa-star checked_star"></span>
-            <span class="fa fa-star checked_star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <div style="margin-left: 35px; font-weight: bold; color:red;">3</div>
-
-        </div>
+        <div class="rating" data-rate-value="{{$rate}}"></div>
 
         <h3 class="text-center"><b>My Offers</b></h3>
     </div>
@@ -145,6 +137,14 @@
 
 
 @section('stylesheet')
+    <style>
+        .rating .rate-hover-layer {
+            color: orange;
+        }
+        .rating .rate-select-layer {
+            color: orange;
+        }
+    </style>
     <link  href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 
@@ -152,10 +152,16 @@
 
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{asset('plugins/raterjs/rater.min.js')}}"></script>
 
     <script>
         $(document).ready(function() {
             $('#offers_table').DataTable();
-        } );
+            $('.rating').rate({
+                max_value: 5,
+                step_size: 0.1,
+                readonly: true,
+            })
+        });
     </script>
 @endsection

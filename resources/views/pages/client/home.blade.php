@@ -235,14 +235,7 @@
             $('.rating').rate({
                 max_value: 5,
                 step_size: 0.1,
-                // readonly: true,
-                symbols : {
-                    utf8_star: {
-                        base: '\u2606',
-                        hover: '\u2605',
-                        selected: '\u2605',
-                    },
-                }
+                readonly: true,
             });
         } );
 
