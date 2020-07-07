@@ -36,17 +36,16 @@ class DesignerController extends Controller
 
     public function viewPosts(Request $request)
     {
-
         $desinger_id = Auth::id();
 
-        $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
-
-        if (!is_null($request_ids)) {
-            $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();
-        } else {
-            $data = Publish::where('status', 'published')->get();
-        }
-        $offers = Offer::get();
+//        $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
+//
+//        if (!is_null($request_ids)) {
+//            $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();
+//        } else {
+//            $data = Publish::where('status', 'published')->get();
+//        }
+        $data = Publish::where('status', 'published')->get();
 
         return view('pages.designer.posts', ['publishes' => $data]);
     }
@@ -80,5 +79,19 @@ class DesignerController extends Controller
     public function cancelBid(Request $request, $id)
     {
 
+    }
+
+    public function offerDetail(Request $request, $id) {
+        $offer = Offer::find($id);
+        $publish = $offer->request;
+
+        return view('pages.designer.offer_detail', ['publish' => $publish, 'offer' => $offer]);
+    }
+
+    public function downloadImage($file) {
+        if(Storage::exists('public/images/'.$file)) {
+            return Storage::download('public/images/'.$file);
+        }
+        return response('', 404);
     }
 }

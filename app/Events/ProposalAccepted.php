@@ -14,19 +14,19 @@ class ProposalAccepted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
-    public $request;
-    public $offer;
+    public $user_id;
+    public $offer_id;
+    public $message;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($user, $request, $offer)
+    public function __construct($user_id, $offer_id, $message)
     {
-        $this->user = $user;
-        $this->offer = $offer;
-        $this->request = $request;
+        $this->user_id = $user_id;
+        $this->offer_id = $offer_id;
+        $this->message = $message;
     }
 
     /**

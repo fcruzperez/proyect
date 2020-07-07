@@ -16,10 +16,10 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('action')->comment('message channel: proposal-accepted, ');
+            $table->bigInteger('offer_id');
             $table->string('subject');
             $table->string('content');
-            $table->string('status')->default('unread')->comment('read, unread');
+            $table->string('status')->default('unread');
             $table->timestamps();
         });
     }

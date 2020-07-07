@@ -40,44 +40,19 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-
                         </ul>
-                        <div class="collapse navbar-collapse" id="navbarNav" role="tablist">
-                            <ul class="navbar-nav nav nav-tabs">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/client/home">Home<span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/client/new_publish">New Publish</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/client/withdraw">Withdraw</a>
-                                </li>
-                            </ul>
-                        </div>
-    {{--                    <div class="collapse navbar-collapse" id="navbarNav">--}}
-    {{--                        <ul class="nav nav-tabs" id="myTab" role="tablist">--}}
-    {{--                            <li class="nav-item waves-effect waves-light active">--}}
-    {{--                                <a class="nav-link" href="/client/home" id="home-tab" data-toggle="tab" role="tab">Home</a>--}}
-    {{--                            </li>--}}
-    {{--                            <li class="nav-item waves-effect waves-light">--}}
-    {{--                                <a class="nav-link" href="/client/new_publish" id="profile-tab" data-toggle="tab" role="tab">New Publish</a>--}}
-    {{--                            </li>--}}
-    {{--                            <li class="nav-item waves-effect waves-light">--}}
-    {{--                                <a class="nav-link active" href="/client/withdraw" id="contact-tab" data-toggle="tab" role="tab">Withdraw</a>--}}
-    {{--                            </li>--}}
-    {{--                        </ul>--}}
-    {{--                    </div>--}}
-    {{--                    <ul class="navbar-nav ml-md-5 navbar-dark">--}}
-    {{--                        <li><a class="{{ (\Request::route()->getName() == 'home') ? 'active' : '' }}" href="/client/home" style="padding-right: 20px;"><h4>Home</h4></a></li>--}}
-    {{--                        <li><a class="{{ (\Request::route()->getName() == 'new_publish') ? 'active' : '' }}" href="/client/new_publish" style="padding-right: 20px;"><h4>New Publish</h4></a></li>--}}
-    {{--                        <li><a class="{{ (\Request::route()->getName() == 'withdraw') ? 'active' : '' }}" href="/client/withdraw"><h4>Withdraw</h4></a></li>--}}
-
-    {{--                    </ul>--}}
-
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/client/home">Home<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/client/new_publish">New Publish</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/client/withdraw">Withdraw</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

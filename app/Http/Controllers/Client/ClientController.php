@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Events\ProposalAccepted;
 use App\Http\Controllers\Controller;
+use App\Models\Messages;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
@@ -374,7 +375,21 @@ class ClientController extends Controller
         $error = $this->mailService->send('emails.progress_start', $params, $receiver);
 
         // send push notification
-        event(new ProposalAccepted($offer->designer_id, $request, $offer));
+        $content = "Your offer for the parent {$request->name} was accepted.
+        You must attach the embroidery matrix {$format} within {$offer->hours}.
+        See details.";
+        $message = [
+            'subject' => 'You have new order!',
+            'content' => $content,
+        ];
+
+        event(new ProposalAccepted($offer->designer_id, $offer->id, $message));
+
+        Messages::create([
+            'user_id' => $offer->designer_id,
+            'subject' => 'You have new order!',
+            'content' => $content,
+        ]);
 
         return view('pages.client.paypal_success', [
             'request' => $request,

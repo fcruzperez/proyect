@@ -43,7 +43,10 @@
 {{--                @endif--}}
                 <td>-------</td>
                 <td>
-                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#fff{{$publish->id}}">Details</button>
+                    <button type="button" class="btn btn-info text-center"
+                            id="details" data-toggle="modal" data-target = "#fff{{$publish->id}}">
+                        Details
+                    </button>
                     <div class="modal fade" id="fff{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -53,15 +56,9 @@
 
                                 <div class="modal-body text-left">
                                     @php
-                                        $str = '';
-                                        for ($i = 0; $i < 3; $i++){
-                                            if (isset($publish->formats[$i]->name)) {
-                                                $str = $str . $publish->formats[$i]->name . ',';
-                                            }
-                                        }
-                                        $n = strlen($str);
-                                        $str = substr($str, 0, $n - 1);
-                                        //dd($str);
+                                    $tmp = [];
+                                    foreach ($publish->formats as $fmt) { array_push($tmp, $fmt->name);}
+                                    $str = implode(', ', $tmp);
                                     @endphp
                                     <div>
                                         <b class="text-center" style="color:blue; margin-left: 50px;">Format(s):</b> <b>{{ empty($str) ? 'Undefined' : $str }}</b>
@@ -71,27 +68,17 @@
                                         <b style="color:blue; margin-left: 50px;">Size:</b> <b> {{$publish->width}} x {{$publish->height}} cm</b>
                                     </div>
                                     @php
-                                        $str = '';
-                                        for ($i = 0; $i < 3; $i++){
-                                            if (isset($publish->fabrics[$i]->name)) {
-                                                $str = $str . $publish->fabrics[$i]->name . ',';
-                                            }
-                                        }
-                                        $n = strlen($str);
-                                        $str = substr($str, 0, $n - 1);
+                                        $tmp = [];
+                                        foreach ($publish->fabrics as $fab) { array_push($tmp, $fab->name);}
+                                        $str = implode(', ', $tmp);
                                     @endphp
                                     <div>
                                         <b style="color:blue; margin-left: 50px;">Fabric(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
                                     </div>
                                     @php
-                                        $str = '';
-                                        for ($i = 0; $i < 3; $i++){
-                                            if (isset($publish->technics[$i]->name)) {
-                                                $str = $str . $publish->technics[$i]->name . ',';
-                                            }
-                                        }
-                                        $n = strlen($str);
-                                        $str = substr($str, 0, $n - 1);
+                                        $tmp = [];
+                                        foreach ($publish->technics as $tec) { array_push($tmp, $tec->name);}
+                                        $str = implode(', ', $tmp);
                                     @endphp
                                     <div>
                                         <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
@@ -201,21 +188,17 @@
     </table>
 @endsection
 
-
-
 @section('stylesheet')
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <style>
-        .checked_star{
+        .rating span{
+            font-size: 28px;
+        }
+        .rating .rate-hover-layer {
             color: orange;
         }
-        .rating .rate-hover-layer
-        {
-            color: orange;
-        }
-        .rating .rate-select-layer
-        {
+        .rating .rate-select-layer {
             color: orange;
         }
     </style>
@@ -259,11 +242,5 @@
                 }
             })
         }
-
-        // function showDetail() {
-        //     document.getElementById('details').click();
-        //
-        // }
-
     </script>
 @endsection
