@@ -103,13 +103,13 @@
                                        class="col-md-4 col-form-label text-md-right">{{__('Name:')}}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                            value="{{$publish['name']}}" name="name" placeholder="Design Name" autofocus>
-                                    @if ($errors->has('name'))
+                                    @error('name')
                                         <div class="invalid-feedback d-block">
-                                            {{ $errors->first('name') }}
+                                            {{ $message }}
                                         </div>
-                                    @endif
+                                    @enderror
                                 </div>
 
                             </div>
@@ -141,13 +141,13 @@
                                        class="col-md-4 col-form-label text-md-right">Width:</label>
 
                                 <div class="col-md-6">
-                                    <input id="width" type="number" class="form-control {{ $errors->has('width') ? 'is-invalid' : '' }}"
+                                    <input id="width" type="number" class="form-control @error('width') is-invalid @enderror"
                                            value="{{$publish['width']}}" name="width" placeholder="mm">
-                                    @if ($errors->has('width'))
+                                    @error('width')
                                         <div class="invalid-feedback d-block">
-                                            {{ $errors->first('width') }}
+                                            {{ $message }}
                                         </div>
-                                    @endif
+                                    @enderror
                                 </div>
 
                             </div>
@@ -158,13 +158,13 @@
                                        class="col-md-4 col-form-label text-md-right">{{ __('Height:') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="height" type="number" class="form-control {{ $errors->has('height') ? 'is-invalid' : '' }}"
+                                    <input id="height" type="number" class="form-control @error('height') is-invalid @enderror"
                                            value="{{$publish['height']}}" name="height" placeholder="mm">
-                                    @if ($errors->has('height'))
+                                    @error('height')
                                         <div class="invalid-feedback d-block">
-                                            {{ $errors->first('height') }}
+                                            {{ $message }}
                                         </div>
-                                    @endif
+                                    @enderror
                                 </div>
                             </div>
 
@@ -194,13 +194,13 @@
                                        class="col-md-4 col-form-label text-md-right">{{ __('Time:') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="hours" type="number" class="form-control {{ $errors->has('hours') ? 'is-invalid' : '' }}"
+                                    <input id="hours" type="number" class="form-control @error('hours') is-invalid @enderror"
                                            value="{{$publish['hours']}}" name="hours" placeholder="hours">
-                                    @if ($errors->has('hours'))
+                                    @error('hours')
                                         <div class="invalid-feedback d-block">
-                                            {{ $errors->first('hours') }}
+                                            {{ $message }}
                                         </div>
-                                    @endif
+                                    @enderror
                                 </div>
                             </div>
 

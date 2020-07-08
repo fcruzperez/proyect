@@ -348,7 +348,7 @@ class ClientController extends Controller
         $offer->save();
 
         $request = $offer->request;
-        $request->status = 'in progress';
+        $request->status = 'in production';
         $request->deposit = $offer->price;
         $request->accepted_offer_id = $offer->id;
         $request->accepted_at = $now;
@@ -378,18 +378,21 @@ class ClientController extends Controller
         $content = "Your offer for the parent {$request->name} was accepted.
         You must attach the embroidery matrix {$format} within {$offer->hours}.
         See details.";
-        $message = [
+
+        $message = Messages::create([
+            'user_id' => $offer->designer_id,
+            'offer_id' => $offer->id,
+            'subject' => 'You have new order!',
+            'content' => $content,
+        ]);
+
+        $data = [
+            'message_id' => $message->id,
             'subject' => 'You have new order!',
             'content' => $content,
         ];
 
-        event(new ProposalAccepted($offer->designer_id, $offer->id, $message));
-
-        Messages::create([
-            'user_id' => $offer->designer_id,
-            'subject' => 'You have new order!',
-            'content' => $content,
-        ]);
+        event(new ProposalAccepted($offer->designer_id, $offer->id, $data));
 
         return view('pages.client.paypal_success', [
             'request' => $request,

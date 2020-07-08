@@ -126,23 +126,29 @@
 
                                                 @foreach($offers as $offer)
                                                     <tr>
-                                                        <form method="get" action="{{route('client.show_deposit')}}">
-                                                            @csrf
                                                             <td style="text-align: center">{{$offer->price}}</td>
                                                             <td style="text-align: center">{{$offer->hours}}</td>
                                                             <td>
                                                                 <div class="rating" data-rate-value={{$offer->designer->rate}}></div>
                                                             </td>
                                                             <td>
-                                                                <input type="hidden" name="request_id" value="{{$publish->id}}" />
-                                                                <input type="hidden" name="offer_id" value="{{$offer->id}}" />
-                                                                <input type="hidden" name="price" value="{{$offer->price}}" />
-                                                                <input type="hidden" name="time" value="{{$offer->hours}}" />
-                                                                <input type="hidden" name="name" value="{{$offer->name}}" />
+                                                                @if($publish->status === 'published')
+                                                                <form method="get" action="{{route('client.show_deposit')}}">
+                                                                    @csrf
+                                                                    <input type="hidden" name="request_id" value="{{$publish->id}}" />
+                                                                    <input type="hidden" name="offer_id" value="{{$offer->id}}" />
+                                                                    <input type="hidden" name="price" value="{{$offer->price}}" />
+                                                                    <input type="hidden" name="time" value="{{$offer->hours}}" />
+                                                                    <input type="hidden" name="name" value="{{$offer->name}}" />
 
-                                                                <button type="submit" class="btn btn-primary">AWARD</button>
+                                                                    <button type="submit" class="btn btn-primary">AWARD</button>
+                                                                </form>
+                                                                @else
+                                                                    @if($publish->accepted_offer_id === $offer->id)
+                                                                        <strong>Awarded</strong>
+                                                                    @endif
+                                                                @endif
                                                             </td>
-                                                        </form>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -192,7 +198,7 @@
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <style>
-        .rating span{
+        .rating {
             font-size: 28px;
         }
         .rating .rate-hover-layer {

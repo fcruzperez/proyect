@@ -56,8 +56,8 @@ class DesignerController extends Controller
 
         $validator = Validator::make($inputs, [
             'request_id' => 'required',
-            'bid_price' => 'required',
-            'bid_time' => 'required',
+            'bid_price' => 'required|integer|min:1',
+            'bid_time' => 'required|integer|min:1',
         ]);
 
         if ($validator->fails()) {

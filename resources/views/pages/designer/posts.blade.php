@@ -114,11 +114,11 @@
                                 <input type="hidden" name="request_id" id="request_id" >
                                 <div>
                                     <label for="bid_price">Price:</label>
-                                    <input type="number" name="bid_price" id="bid_price" placeholder="$">
+                                    <input type="number" name="bid_price" min="1" id="bid_price" placeholder="$">
                                 </div>
                                 <div>
                                     <label for="bid_time">Time:</label>
-                                    <input type="number" name="bid_time" id="bid_time" placeholder="hours">
+                                    <input type="number" name="bid_time" min="1" id="bid_time" placeholder="hours">
                                 </div>
 
                                 <p>By clicking <strong>bid</strong> you agree to abide by the terms and conditions.</p>
@@ -126,7 +126,7 @@
                             <div class="modal-footer text-center">
                                 <div class="text-center">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
-                                    <button type="submit" class="btn btn-primary">BID</button>
+                                    <button type="submit" class="btn btn-primary ml-3">BID</button>
                                 </div>
                             </div>
                         </div>
