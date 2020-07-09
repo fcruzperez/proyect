@@ -6,6 +6,14 @@
         <div class="alert alert-success">Your design has been successfully delivered! </div>
         @endif
 
+        @isset($errors)
+            <ul>
+                @foreach($errors->all() as $err)
+                    <li>{{$err}}</li>
+                @endforeach
+            </ul>
+        @endisset
+
         <div class="row">
             <div class="col-12" style="margin-top: 20px;">
                 <div class="card" id="offerCard">
@@ -146,7 +154,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <input type="hidden" name="offer_id" value="{{$offer->id}}">
-                                    <input type="file" name="delivery_files" required multiple
+                                    <input type="file" name="delivery_files[]" required multiple
                                            class="@error('delivery_files') is-invalid @enderror">
                                     @error('offer_id')
                                     <div class="invalid-feedback d-block">Offer Id is required</div>
@@ -155,6 +163,7 @@
                                     <div class="invalid-feedback d-block">{{$message}}</div>
                                     @enderror
                                     @error('db error')
+                                    db error
                                     <div class="invalid-feedback d-block">{{$message}}</div>
                                     @enderror
                                 </div>

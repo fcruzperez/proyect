@@ -56,15 +56,23 @@ Route::middleware(['auth', 'role:client'])
     ->name('client.')
     ->namespace('Client')
     ->group(function () {
-        Route::post('home', 'ClientController@savePublish')->name('save_publish');
         Route::get('home', 'ClientController@showPublishes')->name('home');
         Route::get('new_publish', 'ClientController@showNewPublish')->name('new_publish');
+        Route::post('save_publish', 'ClientController@savePublish')->name('save_publish');
         Route::get('edit_publish/{rid}', 'ClientController@showUpdatePublish')->name('edit_publish');
         Route::post('update_publish', 'ClientController@updatePublish')->name('update_publish');
         Route::get('publish-detail/{id}', 'ClientController@publishDetail')->name('publish_detail');
         Route::get('delivery-download/{id}', 'ClientController@downloadDelivery')->name('delivery_download');
-        Route::get('mediate-offer/{id}', 'ClientController@mediateOffer')->name('mediate_offer');
         Route::get('complete-request/{id}', 'ClientController@completeRequest')->name('complete_request');
+
+        // mediate
+        Route::get('mediate-offer/{id}', 'MediateController@new')->name('mediate.new');
+        Route::post('mediate-save', 'MediateController@save')->name('mediate.save');
+        Route::get('mediate-list', 'MediateController@list')->name('mediate.list');
+        Route::get('mediate-detail/{id}', 'MediateController@detail')->name('mediate.detail');
+//        Route::get('mediate-edit/{id}', 'MediateController@edit')->name('mediate.edit');
+//        Route::post('mediate-update/{id}', 'MediateController@update')->name('mediate.update');
+        Route::get('mediate-complete/{id}', 'MediateController@complete')->name('mediate.complete');
 
         Route::post('accept_bid', 'ClientController@acceptBid')->name('accept_bid');
         Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
@@ -74,6 +82,10 @@ Route::middleware(['auth', 'role:client'])
         Route::get('deposit/paypal/{offer_id}', 'ClientController@deposit')->name('deposit');
         Route::get('deposit/cancel', 'ClientController@deposit_cancel')->name('deposit.cancel');
         Route::get('deposit/success', 'ClientController@deposit_success')->name('deposit.success');
+
+        // finance routes
+        Route::get('finance-list', 'ClientController@financeList')->name('finance.list');
+
     });
 
 /**
@@ -90,5 +102,10 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('offer-cancel/{id}', 'DesignerController@cancelBid')->name('offer-cancel');
         Route::get('offer-detail/{id}', 'DesignerController@offerDetail')->name('offer-detail');
         Route::get('download-image/{file}', 'DesignerController@downloadImage')->name('download-image');
-        Route::put('delivery-upload', 'DesignerController@deliveryUpload')->name('delivery-upload');
+        Route::post('delivery-upload', 'DesignerController@deliveryUpload')->name('delivery-upload');
+
+        // mediate
+        Route::get('mediate-list', 'MediateController@list')->name('mediate.list');
+        Route::get('mediate-detail/{id}', 'MediateController@detail')->name('mediate.detail');
+        Route::get('mediate-complete/{id}', 'MediateController@complete')->name('mediate.complete');
     });

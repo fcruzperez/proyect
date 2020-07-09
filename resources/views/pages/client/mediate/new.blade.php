@@ -8,7 +8,7 @@
         @endisset
 
         @error('db error')
-        <div class="alert alert-success">{{$message}}</div>
+        <div class="alert alert-warning">New Mediation couldn't be saved.</div>
         @enderror
 
         <div class="row justify-content-center">
@@ -23,13 +23,13 @@
                             You are posting mediation on <b>{{$offer->designer->name}}</b>'s Offer #{{$offer->id}}
                             for your Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.
                         </div>
-                        <form method="POST" action="{{route('client.save_mediate')}}" id="mediate_form">
+                        <form method="POST" action="{{route('client.mediate.save')}}" id="mediate_form">
                             @csrf
-                            <input type="hidden" name="offer_id" value="{{$offer_id}}">
+                            <input type="hidden" name="offer_id" value="{{$offer->id}}">
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="title" class="@error('title') is-invalid @enderror"
+                                    <input type="text" id="title" class="form-control @error('title') is-invalid @enderror"
                                            name="title" value="{{old('title')}}" autofocus>
                                     @error('title')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>

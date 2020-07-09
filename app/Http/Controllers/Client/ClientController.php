@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\DesignerEvent;
 use App\Events\ProposalAccepted;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
+use App\Models\Mediate;
 use App\Models\Messages;
 use App\Models\Offer;
 use Illuminate\Http\Request;
@@ -23,6 +25,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Services\MailService;
+use App\Events\DesignAccepted;
 
 class ClientController extends Controller
 {
@@ -199,7 +202,7 @@ class ClientController extends Controller
 
         $data = ['technics' => $technics, 'formats' => $formats, 'fabrics' => $fabrics];
 
-        return view('pages.client.new_publish', $data);
+        return view('pages.client.publish.new', $data);
     }
 
     public function showUpdatePublish($rid)
@@ -211,7 +214,7 @@ class ClientController extends Controller
 
         $data = ['publish' => $old, 'technics' => $technics, 'formats' => $formats, 'fabrics' => $fabrics];
 
-        return view('pages.client.update_publish', $data);
+        return view('pages.client.publish.update', $data);
     }
 
     public function showWithdraw(Request $request)
@@ -221,7 +224,7 @@ class ClientController extends Controller
 //        $fabrics = Fabric::get();
 //        $data = ['technics' => $technics, 'formats' => $formats, 'fabrics' => $fabrics];
 //
-//        return view('pages.client.new_publish', $data);
+//        return view('pages.client.publish.new', $data);
 //    }
     }
 
@@ -250,7 +253,7 @@ class ClientController extends Controller
         $request_id = $inputs['request_id'];
         $name = Publish::find($request_id)['name'];
         $inputs['name'] = $name;
-        return view('pages.client.show_deposit', $inputs);
+        return view('pages.client.paypal.show_deposit', $inputs);
     }
 
     public function acceptBid(Request $request)
@@ -328,7 +331,7 @@ class ClientController extends Controller
     public function deposit_cancel()
     {
         Session::forget('payment_offer_id');
-        return view('pages.client.paypal_cancel', ['flag' => 'cancel']);
+        return view('pages.client.paypal.cancel', ['flag' => 'cancel']);
     }
 
     /**
@@ -383,25 +386,26 @@ class ClientController extends Controller
         $message = Messages::create([
             'user_id' => $offer->designer_id,
             'offer_id' => $offer->id,
+            'subject' => 'You have new order!',
             'content' => $content,
         ]);
 
         $data = [
-            'message_id' => $message->id,
-            'subject' => 'You have new order!',
-            'content' => $content,
+            'user_id' => $offer->designer_id,
+            'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
+            'message' => 'You have new order!',
         ];
 
-        event(new ProposalAccepted($offer->designer_id, $offer->id, $data));
+        event(new DesignerEvent($data));
 
-        return view('pages.client.paypal_success', [
+        return view('pages.client.paypal.success', [
             'request' => $request,
             'left_time' => $offer->hours,
         ]);
 //        }
 //
 //        Session::forget('payment_offer_id');
-//        return view('pages.client.paypal_cancel', ['flag' => 'error']);
+//        return view('pages.client.paypal.cancel', ['flag' => 'error']);
     }
 
     public function publishDetail(Request $request, $id) {
@@ -418,20 +422,16 @@ class ClientController extends Controller
             'publish' => $publish,
             'offer' => $offer,
         ];
-        return view('pages.client.publish_detail', $data);
+        return view('pages.client.publish.detail', $data);
     }
 
     public function downloadDelivery(Request $request, $id) {
-        $delivery = Delivery::find('id');
+        $delivery = Delivery::find($id);
 
         if(Storage::exists($delivery->path)) {
             return Storage::download($delivery->path);
         }
         return response('', 404);
-    }
-
-    public function mediateOffer(Request $request, $id) {
-
     }
 
     public function completeRequest(Request $request, $id) {
@@ -449,10 +449,27 @@ class ClientController extends Controller
             $offer->status = 'completed';
             $offer->completed_at = $now;
             $offer->save();
+
+            $message = Messages::create([
+                'user_id' => $offer->designer_id,
+                'offer_id' => $offer->id,
+                'request_id' => $publish->id,
+                'subject' => 'Your offer has been completed!',
+                'content' => "Your offer #{$offer->id} for {$request->name} has been completed."
+            ]);
+
+            $payload = [
+                'user_id' => $offer->designer_id,
+                'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
+                'message' => 'Your offer has been completed!'
+            ];
+            event(new DesignerEvent($payload));
         } catch (\Exception $e) {
             DB::rollBack();
+            logger()->error($e->getMessage());
             return back()->withErrors(['complete error' => $e->getMessage()]);
         }
+        DB::commit();
 
         return back()->with(['complete_success' => 'ok']);
     }

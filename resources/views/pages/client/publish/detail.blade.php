@@ -1,4 +1,4 @@
-@extends('layouts.designer')
+@extends('layouts.client')
 
 @php
     $pstatus = $publish->status;
@@ -123,11 +123,12 @@
                     </div>
                 </div>
 
-                @if($pstatus === 'in production')
+                @if(in_array($pstatus, ['in production', 'delivered', 'in mediate', 'canceled', 'completed']))
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header">
                         <div class="card-title">Accepted Offer</div>
-                        <div class="card-subtitle">accepted at {{date('Y-m-d H:i', $publish->accepted_at}}</div>
+                        <?php //dd($publish->accepted_at); ?>
+                        <div class="card-subtitle">accepted at {{$publish->accepted_at}}</div>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -152,7 +153,7 @@
                         </div>
                         @if($pstatus !== 'published')
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 my-3">
                                 <div class="card-subtitle">Delivery</div>
                             </div>
                             @empty($publish->deliveries)
@@ -173,13 +174,12 @@
                             </div>
                             @endforeach
                         </div>
-                        <div class="row">
-
+                        <div class="row mt-3">
                             <div class="col-12 text-center">
-                                @if($pstaus === 'delivered')
+                                @if($pstatus === 'delivered')
                                 <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
-                                @endif
-                                @if($pstatus != 'in mediation' && !is_null($publish->deliverd_at))
+{{--                                @endif--}}
+{{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
                                 <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
                                 @endif
                             </div>

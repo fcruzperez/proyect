@@ -74,7 +74,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
                                     @foreach($messages as $msg)
-                                        <a href="{{url('/designer/offer-detail/'.$msg->offer_id)}}">
+                                        <a class="dropdown-item" href="{{url("/designer/offer-detail/{$msg->offer_id}?message_id={$msg->id}")}}">
                                             {{$msg->subject}} {{--$msg->content--}}
                                         </a>
                                     @endforeach
@@ -150,14 +150,15 @@
         var channel = pusher.subscribe('designer-channel');
 
         // Bind a function to a Event (the full Laravel class)
-        channel.bind('App\\Events\\ProposalAccepted', function(data) {
-            if(data.user_id === userId) {
-                console.log(data)
+        channel.bind('App\\Events\\DesignerEvent', function(data) {
+            var payload = data.payload;
+            if(payload.user_id === userId) {
+                console.log(payload)
                 messageCount++;
                 messageBadge.attr('data-count', messageCount);
                 messageBadge.text(messageCount);
                 messageBadge.show();
-                var newMessage = `<a href="/designer/offer-detail/${data.offer_id}?message_id=${data.message_id}">You have new order!</a>`
+                var newMessage = `<a class="dropdown-item" href="${payload.action_url}">${payload.message}</a>`
                 messageList.prepend(newMessage);
             }
         });

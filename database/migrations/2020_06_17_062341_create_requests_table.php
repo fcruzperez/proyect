@@ -26,7 +26,7 @@ class CreateRequestsTable extends Migration
             $table->integer('hours');
             $table->integer('deposit')->default(0);
             $table->string('status')->default('published')
-                ->comment('published, awarded, in production, delivered, in mediation, completed, canceled');
+                ->comment('published, awarded, in production, delivered, in mediate, completed, canceled');
             $table->bigInteger('accepted_offer_id')->nullable();
             $table->dateTime('awarded_at')->nullable();
             $table->dateTime('accepted_at')->nullable();

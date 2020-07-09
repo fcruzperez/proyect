@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Designer;
 
+use App\Events\ClientEvent;
 use App\Events\DesignDelivered;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
@@ -110,7 +111,7 @@ class DesignerController extends Controller
 
         $validator = Validator::make($input, [
             'offer_id' => 'required|exists:offers,id',
-            'delivery_files' => 'required|file'
+            'delivery_files' => 'required'
         ]);
 
         if($validator->fails()) {
@@ -118,7 +119,7 @@ class DesignerController extends Controller
         }
 
         $offer = Offer::find($input['offer_id']);
-        $publish = $offer->$request;
+        $publish = $offer->request;
         $designerId = Auth::id();
 
         $files = $request->file('delivery_files');
@@ -126,8 +127,7 @@ class DesignerController extends Controller
         DB::beginTransaction();
         try {
             foreach ($files as $file) {
-                $path = $file->store('public/deliveries');
-
+                $path = $file->store('public/delivery');
                 Delivery::create([
                     'designer_id' => $designerId,
                     'request_id' => $publish->id,
@@ -150,14 +150,20 @@ class DesignerController extends Controller
             $message = Messages::create([
                 'user_id' => $publish->client_id,
                 'request_id' => $publish->id,
+                'subject' => $msg,
                 'content' => $msg
             ]);
 
-            event(new DesignDelivered($publish->client_id, $publish->id, $message->id, $msg));
+            $data = [
+                'user_id' => $publish->client_id,
+                'action_url' => "/client/publish-detail/{$publish->id}?message_id={$message->id}",
+                'message' => $msg
+            ];
+            event(new ClientEvent($data));
 
         } catch (\Exception $e) {
             DB::rollBack();
-
+            logger()->error($e->getMessage());
             return back()->withErrors(['db error' => $e->getMessage()]);
         }
         DB::commit();
