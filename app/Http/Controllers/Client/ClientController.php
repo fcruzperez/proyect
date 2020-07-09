@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Events\ProposalAccepted;
 use App\Http\Controllers\Controller;
+use App\Models\Delivery;
 use App\Models\Messages;
 use App\Models\Offer;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ use App\Models\RequestFormat;
 use App\Models\RequestTechnic;
 use App\Models\RequestImage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -106,7 +108,6 @@ class ClientController extends Controller
         }
 
         return redirect('/client/home');
-
     }
 
     public function updatePublish(Request $request)
@@ -375,14 +376,13 @@ class ClientController extends Controller
         $error = $this->mailService->send('emails.progress_start', $params, $receiver);
 
         // send push notification
-        $content = "Your offer for the parent {$request->name} was accepted.
+        $content = "Your offer for {$request->name} was accepted.
         You must attach the embroidery matrix {$format} within {$offer->hours}.
         See details.";
 
         $message = Messages::create([
             'user_id' => $offer->designer_id,
             'offer_id' => $offer->id,
-            'subject' => 'You have new order!',
             'content' => $content,
         ]);
 
@@ -404,6 +404,58 @@ class ClientController extends Controller
 //        return view('pages.client.paypal_cancel', ['flag' => 'error']);
     }
 
+    public function publishDetail(Request $request, $id) {
+        $publish = Publish::find($id);
+        $offer = Offer::find($publish->accepted_offer_id);
+
+        if($request->has('message_id')) {
+            $message = Messages::find($request->get('message_id'));
+            $message->status = 'read';
+            $message->save();
+        }
+
+        $data = [
+            'publish' => $publish,
+            'offer' => $offer,
+        ];
+        return view('pages.client.publish_detail', $data);
+    }
+
+    public function downloadDelivery(Request $request, $id) {
+        $delivery = Delivery::find('id');
+
+        if(Storage::exists($delivery->path)) {
+            return Storage::download($delivery->path);
+        }
+        return response('', 404);
+    }
+
+    public function mediateOffer(Request $request, $id) {
+
+    }
+
+    public function completeRequest(Request $request, $id) {
+        DB::beginTransaction();
+
+        try{
+            $publish = Publish::find($id);
+
+            $now = now();
+            $publish->status = 'completed';
+            $publish->completed_at = $now;
+            $publish->save();
+
+            $offer = Offer::find($publish->accepted_offer_id);
+            $offer->status = 'completed';
+            $offer->completed_at = $now;
+            $offer->save();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['complete error' => $e->getMessage()]);
+        }
+
+        return back()->with(['complete_success' => 'ok']);
+    }
 }
 
 

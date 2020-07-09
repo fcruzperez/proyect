@@ -3,6 +3,10 @@
 @section('content')
     <div class="container">
         <div class="row">
+            @empty($publishes)
+                <div class="alert-warning alert">There is no new publishes.</div>
+            @endempty
+
             @foreach($publishes as $publish)
                 <div class="col-sm-6 col-lg-4" style="margin-top: 20px;">
                     <div class="card">
@@ -100,7 +104,6 @@
                 </div>
             @endforeach
 
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#bidModal" id="btn_modal" style="display: none;">Bid</button>
             <div class="modal fade" id="bidModal" role="dialog" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog" role="document">
 

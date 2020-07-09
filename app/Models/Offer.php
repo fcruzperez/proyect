@@ -8,7 +8,7 @@ class Offer extends Model
 {
     protected $fillable = [
       'designer_id', 'request_id', 'price', 'hours', 'status',
-      'accepted_at', 'mediated_at', 'canceled_at', 'completed_at'
+      'accepted_at', 'delivered_at', 'mediated_at', 'canceled_at', 'completed_at'
       ];
 
     public function designer() {

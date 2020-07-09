@@ -54,6 +54,23 @@
                                 <a class="nav-link" href="/client/withdraw">Withdraw</a>
                             </li>
                             <li class="nav-item dropdown">
+                                <a id="messageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <span class="fa fa-bell"></span>
+                                    <span class="badge badge-pill badge-danger"
+                                          id="messageBadge" data-count="{{count($messages)}}">
+                                        {{count($messages)}}
+                                    </span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
+                                    @foreach($messages as $msg)
+                                        <a href="{{url('/client/request-detail/'.$msg->request_id)}}">
+                                            {{$msg->content}} {{--$msg->content--}}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -85,6 +102,42 @@
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+        <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+
+        @auth
+            <script>
+                var userId = {!! \Illuminate\Support\Facades\Auth::id() !!}
+                var messageBadge   = $('#messageBadge');
+                var messageList   = $('#messageList');
+                var messageCount   = parseInt(messageBadge.data('count'));
+
+                if (messageCount <= 0) {
+                    messageBadge.hide();
+                }
+
+                var pusher = new Pusher('f8714cee15893f9d7764', {
+                    encrypted: true
+                });
+
+                // Subscribe to the channel we specified in our Laravel Event
+                var channel = pusher.subscribe('client-channel');
+
+                // Bind a function to a Event (the full Laravel class)
+                channel.bind('App\\Events\\DesignDelivered', function(data) {
+                    if(data.client_id === userId) {
+                        console.log(data)
+                        messageCount++;
+                        messageBadge.attr('data-count', messageCount);
+                        messageBadge.text(messageCount);
+                        messageBadge.show();
+                        var newMessage = `<a href="/client/publish-detail/${data.request_id}?message_id=${data.message_id}">${data.msg}</a>`
+                        messageList.prepend(newMessage);
+                    }
+                });
+
+            </script>
+        @endauth
 
         @yield('js')
 
