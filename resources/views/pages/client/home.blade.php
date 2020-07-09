@@ -111,7 +111,7 @@
                     @php
                         $offer_count = count($publish->offers);
                     @endphp
-                    {{$offer_count}} &nbsp;
+                   <b> {{$offer_count}} &nbsp;&nbsp;</b>
                     @if($offer_count > 0)
 
                         <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#sss{{$publish->id}}">Offers</button>
