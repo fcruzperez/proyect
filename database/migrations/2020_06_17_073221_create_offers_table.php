@@ -19,8 +19,10 @@ class CreateOffersTable extends Migration
             $table->bigInteger('request_id');
             $table->integer('price');
             $table->integer('hours');
-            $table->string('status')->default('sent')->comment('sent, accepted, mediated, canceled, completed');
+            $table->string('status')->default('sent')
+                ->comment('sent, accepted, delivered, mediated, canceled, completed, paid');
             $table->dateTime('accepted_at')->nullable();
+            $table->dateTime('delivered_at')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->dateTime('mediated_at')->nullable();
             $table->dateTime('canceled_at')->nullable();

@@ -1,10 +1,18 @@
 @extends('layouts.designer')
 
+@php
+    $pstatus = $publish->status;
+@endphp
+
 @section('content')
     <div class="container">
-        @if(isset($success))
-        <div class="alert alert-success">Your design has been successfully delivered! </div>
+        @isset($complete_success)
+        <div class="alert alert-success">Your task has been successfully completed! </div>
         @endif
+
+        @error('complete error')
+            <div class="alert alert-warning">An error occurred in completing! </div>
+        @enderror
 
         <div class="row">
             <div class="col-12" style="margin-top: 20px;">
@@ -14,37 +22,21 @@
                             <div class="col-12 col-sm-6 col-lg-3 px-0 image-wrapper">
                                 @if(!is_null($publish->image1))
                                     <img src="{{url($publish->image1)}}" class="image-box">
-                                    <a class="btn btn-primary btn-download"
-                                        href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image1))}}">
-                                        <i class="fa fa-download"></i>
-                                    </a>
                                 @endif
                             </div>
                             <div class="col-12 col-sm-6 col-lg-3 px-0 image-wrapper">
                                 @if(!is_null($publish->image2))
                                     <img src="{{url($publish->image2)}}" class="image-box">
-                                    <a class="btn btn-primary btn-download"
-                                       href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image2))}}">
-                                        <i class="fa fa-download"></i>
-                                    </a>
                                 @endif
                             </div>
                             <div class="col-12 col-sm-6 col-lg-3 px-0 image-wrapper">
                                 @if(!is_null($publish->image3))
                                     <img src="{{url($publish->image3)}}" class="image-box">
-                                    <a class="btn btn-primary btn-download"
-                                       href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image3))}}">
-                                        <i class="fa fa-download"></i>
-                                    </a>
                                 @endif
                             </div>
                             <div class="col-12 col-sm-6 col-lg-3 px-0 image-wrapper">
                                 @if(!is_null($publish->image4))
                                     <img src="{{url($publish->image4)}}" class="image-box">
-                                    <a class="btn btn-primary btn-download"
-                                       href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image4))}}">
-                                        <i class="fa fa-download"></i>
-                                    </a>
                                 @endif
                             </div>
                         </div>
@@ -118,52 +110,81 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="row">
                                     <div class="col-3"><label>Status</label></div>
-                                    <div class="col-9">{{$publish->status}}</div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="row">
-                                    <div class="col-3"><label>My offer</label></div>
-                                    <div class="col-9">${{$offer->price}} in {{$offer->hours}} hours</div>
+                                    <div class="col-9">{{$pstatus}}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        @if($publish->status === 'published' && $offer->status === 'sent')
+                        @if($pstatus === 'published' && $offer->status === 'sent')
                             <button type="button" class="btn btn-warning"
                                     data-toggle="modal" data-target="#cancelModal">Cancel</button>
                         @endif
                     </div>
                 </div>
 
-                @if($publish->status === 'in production')
+                @if($pstatus === 'in production')
                 <div class="card mt-5" id="deliveryCard">
-                    <div class="card-header">Delivery</div>
+                    <div class="card-header">
+                        <div class="card-title">Accepted Offer</div>
+                        <div class="card-subtitle">accepted at {{date('Y-m-d H:i', $publish->accepted_at}}</div>
+                    </div>
                     <div class="card-body">
-                        <form action="{{route('designer.delivery-upload')}}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <div class="col-12">
-                                    <input type="hidden" name="offer_id" value="{{$offer->id}}">
-                                    <input type="file" name="delivery_files" required multiple
-                                           class="@error('delivery_files') is-invalid @enderror">
-                                    @error('offer_id')
-                                    <div class="invalid-feedback d-block">Offer Id is required</div>
-                                    @enderror
-                                    @error('delivery_files')
-                                    <div class="invalid-feedback d-block">{{$message}}</div>
-                                    @enderror
-                                    @error('db error')
-                                    <div class="invalid-feedback d-block">{{$message}}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-12 text-center">
-                                    <input type="reset" class="btn btn-warning mr-2" value="Reset"/>
-                                    <button type="submit" class="btn btn-success">Delivery</button>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="row">
+                                    <div class="col-3"><label>Designer</label></div>
+                                    <div class="col-9">{{$offer->designer->name}}</div>
                                 </div>
                             </div>
-                        </form>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="row">
+                                    <div class="col-3"><label>Deadline</label></div>
+                                    <div class="col-9">{{$offer->hours}}</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="row">
+                                    <div class="col-3"><label>Price</label></div>
+                                    <div class="col-9">{{$offer->price}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        @if($pstatus !== 'published')
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-subtitle">Delivery</div>
+                            </div>
+                            @empty($publish->deliveries)
+                                <div class="alert alert-info">There is no delivered design.</div>
+                            @endempty
+
+                            @foreach($publish->deliveries as $key => $delivery)
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="row">
+                                    <div class="col-3"><label>File{!! $key + 1 !!}</label></div>
+                                    <div class="col-9">
+                                        <a class="btn btn-success"
+                                           href="{{url('client/delivery-download/'.$delivery->id)}}">
+                                            Download
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="row">
+
+                            <div class="col-12 text-center">
+                                @if($pstaus === 'delivered')
+                                <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
+                                @endif
+                                @if($pstatus != 'in mediation' && !is_null($publish->deliverd_at))
+                                <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
+                                @endif
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 @endif

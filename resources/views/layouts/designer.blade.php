@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 </head>
 <body>
@@ -66,24 +66,18 @@
                                 @endphp
                             <li class="nav-item dropdown">
                                 <a id="notification-alert" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-bell">Messages</span>
-                                    @if(count($messages) > 0)
-                                    <span class="badge badge-pill badge-danger" id="messageBadge">{{count($messages)}}</span>
-                                    @endif
+                                    <span class="fa fa-bell"></span>
+                                    <span class="badge badge-pill badge-danger"
+                                          id="messageBadge" data-count="{{count($messages)}}">
+                                        {{count($messages)}}
+                                    </span>
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if(count($messages) > 0)
-                                    <ul id="messageList">
-                                        @foreach($messages as $msg)
-                                            <li>
-                                                <a href="{{url('/designer/offer-detail/'.$msg->offer_id)}}">
-                                                    {{$msg->subject}} {{$msg->content}}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    @endif
+                                <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
+                                    @foreach($messages as $msg)
+                                        <a href="{{url('/designer/offer-detail/'.$msg->offer_id)}}">
+                                            {{$msg->subject}} {{--$msg->content--}}
+                                        </a>
+                                    @endforeach
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -112,13 +106,64 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <!-- notification -->
+        <div id="notify-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+{{--                <img src="..." class="rounded mr-2" alt="...">--}}
+                <strong class="mr-auto">Embroidery</strong>
+{{--                <small>11 mins ago</small>--}}
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body" id="notify-toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
     </div>
 
     @yield('stylesheet')
 
+{{--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--}}
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+
+    @auth
+    <script>
+        var userId = {!! \Illuminate\Support\Facades\Auth::id() !!}
+        var messageBadge   = $('#messageBadge');
+        var messageList   = $('#messageList');
+        var messageCount   = parseInt(messageBadge.data('count'));
+
+        if (messageCount <= 0) {
+            messageBadge.hide();
+        }
+
+        var pusher = new Pusher('f8714cee15893f9d7764', {
+            encrypted: true
+        });
+
+        // Subscribe to the channel we specified in our Laravel Event
+        var channel = pusher.subscribe('designer-channel');
+
+        // Bind a function to a Event (the full Laravel class)
+        channel.bind('App\\Events\\ProposalAccepted', function(data) {
+            if(data.user_id === userId) {
+                console.log(data)
+                messageCount++;
+                messageBadge.attr('data-count', messageCount);
+                messageBadge.text(messageCount);
+                messageBadge.show();
+                var newMessage = `<a href="/designer/offer-detail/${data.offer_id}?message_id=${data.message_id}">You have new order!</a>`
+                messageList.prepend(newMessage);
+            }
+        });
+
+    </script>
+    @endauth
 
     @yield('js')
 

@@ -61,6 +61,10 @@ Route::middleware(['auth', 'role:client'])
         Route::get('new_publish', 'ClientController@showNewPublish')->name('new_publish');
         Route::get('edit_publish/{rid}', 'ClientController@showUpdatePublish')->name('edit_publish');
         Route::post('update_publish', 'ClientController@updatePublish')->name('update_publish');
+        Route::get('publish-detail/{id}', 'ClientController@publishDetail')->name('publish_detail');
+        Route::get('delivery-download/{id}', 'ClientController@downloadDelivery')->name('delivery_download');
+        Route::get('mediate-offer/{id}', 'ClientController@mediateOffer')->name('mediate_offer');
+        Route::get('complete-request/{id}', 'ClientController@completeRequest')->name('complete_request');
 
         Route::post('accept_bid', 'ClientController@acceptBid')->name('accept_bid');
         Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
@@ -86,4 +90,5 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('offer-cancel/{id}', 'DesignerController@cancelBid')->name('offer-cancel');
         Route::get('offer-detail/{id}', 'DesignerController@offerDetail')->name('offer-detail');
         Route::get('download-image/{file}', 'DesignerController@downloadImage')->name('download-image');
+        Route::put('delivery-upload', 'DesignerController@deliveryUpload')->name('delivery-upload');
     });

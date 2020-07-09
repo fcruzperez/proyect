@@ -14,14 +14,25 @@ class DesignDelivered implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $client_id;
+    public $request_id;
+    public $msg;
+    public $message_id;
+
     /**
      * Create a new event instance.
-     *
+     * @param integer $client_id
+     * @param integer $request_id
+     * @param integer $message_id
+     * @param string $message
      * @return void
      */
-    public function __construct()
+    public function __construct($client_id, $request_id, $message_id, $message)
     {
-        //
+        $this->client_id = $client_id;
+        $this->request_id = $request_id;
+        $this->msg = $message;
+        $this->message_id = $message_id;
     }
 
     /**
@@ -31,6 +42,7 @@ class DesignDelivered implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+//        return new PrivateChannel('channel-name');
+        return ['client-channel'];
     }
 }

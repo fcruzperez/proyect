@@ -36,7 +36,7 @@ class ProposalAccepted implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-//        return new PrivateChannel('proposal-accepted');
-        return ['proposal-accepted'];
+//        return new PrivateChannel('designer-channel');
+        return ['designer-channel'];
     }
 }

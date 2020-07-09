@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Designer;
 
+use App\Events\DesignDelivered;
 use App\Http\Controllers\Controller;
+use App\Models\Delivery;
+use App\Models\Messages;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
@@ -17,6 +20,7 @@ use App\Models\Offer;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 
 class DesignerController extends Controller
@@ -56,8 +60,8 @@ class DesignerController extends Controller
 
         $validator = Validator::make($inputs, [
             'request_id' => 'required',
-            'bid_price' => 'required',
-            'bid_time' => 'required',
+            'bid_price' => 'required|integer|min:1',
+            'bid_time' => 'required|integer|min:1',
         ]);
 
         if ($validator->fails()) {
@@ -85,6 +89,12 @@ class DesignerController extends Controller
         $offer = Offer::find($id);
         $publish = $offer->request;
 
+        if($request->has('message_id')) {
+            $message = Messages::find($request->get('message_id'));
+            $message->status = 'read';
+            $message->save();
+        }
+
         return view('pages.designer.offer_detail', ['publish' => $publish, 'offer' => $offer]);
     }
 
@@ -93,5 +103,65 @@ class DesignerController extends Controller
             return Storage::download('public/images/'.$file);
         }
         return response('', 404);
+    }
+
+    public function deliveryUpload(Request $request) {
+        $input = $request->all();
+
+        $validator = Validator::make($input, [
+            'offer_id' => 'required|exists:offers,id',
+            'delivery_files' => 'required|file'
+        ]);
+
+        if($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $offer = Offer::find($input['offer_id']);
+        $publish = $offer->$request;
+        $designerId = Auth::id();
+
+        $files = $request->file('delivery_files');
+
+        DB::beginTransaction();
+        try {
+            foreach ($files as $file) {
+                $path = $file->store('public/deliveries');
+
+                Delivery::create([
+                    'designer_id' => $designerId,
+                    'request_id' => $publish->id,
+                    'offer_id' => $offer->id,
+                    'path' => $path,
+                ]);
+            }
+
+            $now = now();
+            $publish->status = 'delivered';
+            $publish->delivered_at = $now;
+            $publish->save();
+
+            $offer->status = 'delivered';
+            $offer->delivered_at = $now;
+            $offer->save();
+
+            // send notification to client
+            $msg = "You have got a design of {$publish->name}!";
+            $message = Messages::create([
+                'user_id' => $publish->client_id,
+                'request_id' => $publish->id,
+                'content' => $msg
+            ]);
+
+            event(new DesignDelivered($publish->client_id, $publish->id, $message->id, $msg));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return back()->withErrors(['db error' => $e->getMessage()]);
+        }
+        DB::commit();
+
+        return back()->with(['success' => 'OK']);
     }
 }
