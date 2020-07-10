@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Client;
 
 use App\Events\DesignerEvent;
-use App\Events\ProposalAccepted;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Mediate;
@@ -25,7 +24,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Services\MailService;
-use App\Events\DesignAccepted;
 
 class MediateController extends Controller
 {
@@ -42,7 +40,7 @@ class MediateController extends Controller
     }
 
     public function list() {
-        $mediates = Mediate::get();
+        $mediates = Mediate::where('client_id', Auth::id())->get();
 
         return view('pages.client.mediate.list', ['mediates' => $mediates]);
     }
@@ -92,8 +90,11 @@ class MediateController extends Controller
 
         $offer_id = $request->get('offer_id');
         try {
+            $offer = Offer::find($offer_id);
+
             $mediate = Mediate::create([
                 'client_id' => Auth::id(),
+                'designer_id' => $offer->designer_id,
                 'offer_id' => $offer_id,
                 'title' => $request->get('title'),
                 'content' => $request->get('content'),
@@ -101,7 +102,6 @@ class MediateController extends Controller
 
             $now = now();
 
-            $offer = Offer::find($offer_id);
             $offer->status = 'mediated';
             $offer->mediated_at = $now;
             $offer->save();

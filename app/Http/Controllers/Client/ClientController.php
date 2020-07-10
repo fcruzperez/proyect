@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Client;
 
 use App\Events\DesignerEvent;
-use App\Events\ProposalAccepted;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Mediate;
@@ -25,7 +24,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Services\MailService;
-use App\Events\DesignAccepted;
 
 class ClientController extends Controller
 {

@@ -1,4 +1,4 @@
-@extends('layouts.client')
+@extends('layouts.designer')
 
 @section('content')
 
@@ -12,8 +12,8 @@
 
                     <div class="card-body">
                         <div class="alert alert-warning" >
-                            This is a mediation on <b>{{$offer->designer->name}}</b>'s Offer #{{$offer->id}}
-                            for your Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.
+                            This is a mediation on <b>your Offer #{{$offer->id}}</b>
+                            for <b>{{$offer->request->client->name}}</b>'s Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
@@ -31,7 +31,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-12 text-center">
-                                <a class="btn btn-primary" href="{{route('client.mediate.list')}}">
+                                <a class="btn btn-primary" href="{{route('designer.mediate.list')}}">
                                     {{ __('Back') }}
                                 </a>
                             </div>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Designer;
 
 use App\Events\ClientEvent;
-use App\Events\DesignDelivered;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Messages;

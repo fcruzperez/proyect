@@ -31,7 +31,7 @@ Route::middleware(['auth', 'role:admin'])
     ->name('admin.')
     ->namespace('Admin')
     ->group(function () {
-        Route::get('dashboard', 'AdminController@dashboard');
+        Route::get('dashboard', 'AdminController@dashboard')->name('home');
         Route::get('settings', 'AdminController@settings')->name('settings');
 //  Route::post('save_settings', 'AdminController@saveSettings')->name('save_settings');
 

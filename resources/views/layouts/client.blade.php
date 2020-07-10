@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,8 +23,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
+        <link rel="stylesheet" href="{{asset('css/sticky-footer-navbar.css')}}">
+
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
         <div id="app">
 {{--            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">--}}
             <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
@@ -100,9 +102,17 @@
 
                 </div>
             </nav>
+
             <main class="py-4">
                 @yield('content')
             </main>
+
+            <footer class="footer mt-auto py-3 w-100">
+                <div class="container">
+                    <span class="text-muted">Place sticky footer content here.</span>
+                </div>
+            </footer>
+
         </div>
 
         <style>

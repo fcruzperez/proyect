@@ -16,6 +16,7 @@ class CreateMediatesTable extends Migration
         Schema::create('mediates', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('client_id');
+            $table->bigInteger('designer_id');
             $table->bigInteger('offer_id');
             $table->string('title');
             $table->string('content');

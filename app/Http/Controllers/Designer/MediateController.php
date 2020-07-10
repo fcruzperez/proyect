@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Client;
+namespace App\Http\Controllers\Designer;
 
 use App\Events\DesignerEvent;
-use App\Events\ProposalAccepted;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Mediate;
@@ -25,33 +24,31 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Services\MailService;
-use App\Events\DesignAccepted;
+use App\Models\User;
 
 class MediateController extends Controller
 {
     /**
      * @var ExpressCheckout
      */
-    protected $paypal;
     protected $mailService;
 
     public function __construct(MailService $mailService)
     {
         $this->mailService = $mailService;
-        $this->paypal = new ExpressCheckout();
     }
 
     public function list() {
-        $mediates = Mediate::get();
+        $mediates = Mediate::where('designer_id', Auth::id())->get();
 
-        return view('pages.client.mediate.list', ['mediates' => $mediates]);
+        return view('pages.designer.mediate.list', ['mediates' => $mediates]);
     }
 
     public function detail($id) {
         $mediate = Mediate::find($id);
         $offer = $mediate->offer;
 
-        return view('pages.client.mediate.detail', ['mediate' => $mediate, 'offer' => $offer]);
+        return view('pages.designer.mediate.detail', ['mediate' => $mediate, 'offer' => $offer]);
     }
 
     public function complete($id) {
