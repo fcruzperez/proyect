@@ -6,7 +6,7 @@ use App\Events\DesignerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Mediate;
-use App\Models\Messages;
+use App\Models\Message;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
@@ -381,10 +381,11 @@ class ClientController extends Controller
         You must attach the embroidery matrix {$format} within {$offer->hours}.
         See details.";
 
-        $message = Messages::create([
+        $message = Message::create([
             'user_id' => $offer->designer_id,
             'offer_id' => $offer->id,
             'subject' => 'You have new order!',
+            'action_url' => "/designer/offer-detail/{$offer->id}",
             'content' => $content,
         ]);
 
@@ -411,7 +412,7 @@ class ClientController extends Controller
         $offer = Offer::find($publish->accepted_offer_id);
 
         if($request->has('message_id')) {
-            $message = Messages::find($request->get('message_id'));
+            $message = Message::find($request->get('message_id'));
             $message->status = 'read';
             $message->save();
         }
@@ -448,12 +449,13 @@ class ClientController extends Controller
             $offer->completed_at = $now;
             $offer->save();
 
-            $message = Messages::create([
+            $message = Message::create([
                 'user_id' => $offer->designer_id,
                 'offer_id' => $offer->id,
                 'request_id' => $publish->id,
                 'subject' => 'Your offer has been completed!',
-                'content' => "Your offer #{$offer->id} for {$request->name} has been completed."
+                'content' => "Your offer #{$offer->id} for {$request->name} has been completed.",
+                'action_url' => "/designer/offer-detail/{$offer->id}",
             ]);
 
             $payload = [

@@ -6,7 +6,7 @@ use App\Events\DesignerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Mediate;
-use App\Models\Messages;
+use App\Models\Message;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;

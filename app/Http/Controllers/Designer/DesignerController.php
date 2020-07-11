@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Designer;
 use App\Events\ClientEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
-use App\Models\Messages;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
@@ -97,7 +97,7 @@ class DesignerController extends Controller
         $publish = $offer->request;
 
         if($request->has('message_id')) {
-            $message = Messages::find($request->get('message_id'));
+            $message = Message::find($request->get('message_id'));
             $message->status = 'read';
             $message->save();
         }
@@ -153,11 +153,12 @@ class DesignerController extends Controller
 
             // send notification to client
             $msg = "You have got a design of {$publish->name}!";
-            $message = Messages::create([
+            $message = Message::create([
                 'user_id' => $publish->client_id,
                 'request_id' => $publish->id,
                 'subject' => $msg,
-                'content' => $msg
+                'content' => $msg,
+                'action_url' => "/client/publish-detail/{$publish->id}",
             ]);
 
             $data = [

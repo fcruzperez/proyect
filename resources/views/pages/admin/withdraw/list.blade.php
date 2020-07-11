@@ -3,14 +3,6 @@
 @section('content')
 
     <div class="container">
-        @isset($new_success)
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Your withdraw request successfully saved!</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        @endisset
 
         @if($errors->any())
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -30,14 +22,12 @@
             <div class="col-12 text-center">
                 <h3>Withdraw List</h3>
             </div>
-            <div class="col-12 text-right">
-                <a class="btn btn-success" href="{{route('designer.withdraw.new')}}">New</a>
-            </div>
             <div class="col-12 mt-2">
                 <table id="withdraw_table" class="table table-striped table-bordered text-center">
                     <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Designer</th>
                         <th>Total</th>
                         <th>Fee</th>
                         <th>Paid</th>
@@ -52,6 +42,7 @@
                     @foreach($withdraws as $wd)
                         <tr>
                             <td>{{$wd->id}}</td>
+                            <td>{{$wd->designer->name}}</td>
                             <td>{{$wd->total}}</td>
                             <td>{{$wd->fee}}</td>
                             <td>{{$wd->paid}}</td>
@@ -69,9 +60,14 @@
                                 @endif
                             </td>
                             <td >
-                                <a class="btn btn-info" href="{{url("designer/withdraw-detail/{$wd->id}")}}">
+                                <a class="btn btn-info" href="{{url("admin/withdraw-detail/{$wd->id}")}}">
                                     Detail
                                 </a>
+                                @if($wd->status === 'pending')
+                                <a class="btn btn-success" href="{{url("admin/withdraw-complete/{$wd->id}")}}">
+                                    Complete
+                                </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

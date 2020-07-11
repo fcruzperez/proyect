@@ -8,6 +8,11 @@
                 <div class="card">
                     <div class="card-header" style="text-align:center;">
                         <span class="card-title">Withdraw Detail</span>
+                        @if($withdraw->status === 'paid')
+                        <span class="badge-success badge-pill">Paid</span>
+                        @else
+                        <span class="badge-warning badge-pill">Pending</span>
+                        @endif
                     </div>
 
                     <div class="card-body pt-3">
@@ -44,7 +49,7 @@
                         </table>
                     </div>
                     <div class="card-footer text-center">
-                        <a class="btn btn-primary" href="{{route('designer.withdraw.list')}}">Back</a>
+                        <a class="btn btn-primary" href="{{route('admin.withdraw.list')}}">Back</a>
                     </div>
                 </div>
             </div>
