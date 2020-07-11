@@ -66,13 +66,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('designer.mediate.list')}}">Mediate</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('designer.withdraw.list')}}">Finances</a>
+                            </li>
                             @php
                                 $userId = \Illuminate\Support\Facades\Auth::id();
                                 $user = \App\Models\User::find($userId);
                                 $messages = $user->messages()->where('status', 'unread')->get();
                                 @endphp
                             <li class="nav-item dropdown">
-                                <a id="notification-alert" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                                <a id="messageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
                                     <span class="fa fa-bell"></span>
                                     <span class="badge badge-pill badge-danger"
                                           id="messageBadge" data-count="{{count($messages)}}">

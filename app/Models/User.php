@@ -72,4 +72,8 @@ class User extends Authenticatable
         if($count === 0) return 0;
         return round($sum/$count, 2);
     }
+
+    public function withdraws() {
+        return $this->hasMany('App\Models\Withdraw', 'designer_id', 'id');
+    }
 }

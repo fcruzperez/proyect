@@ -35,7 +35,6 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('settings', 'AdminController@settings')->name('settings');
 //  Route::post('save_settings', 'AdminController@saveSettings')->name('save_settings');
 
-
         Route::post('format_new', 'AdminController@formatNew')->name('format.new');
         Route::post('format_update', 'AdminController@formatUpdate')->name('format.update');
         Route::get('format_delete/{id}', 'AdminController@formatDelete')->name('format.delete');
@@ -46,6 +45,9 @@ Route::middleware(['auth', 'role:admin'])
         Route::post('technic_update', 'AdminController@technicUpdate')->name('technic.update');
         Route::get('technic_delete/{id}', 'AdminController@technicDelete')->name('technic.delete');
 
+        // withdraw routes
+        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw-list');
+        Route::get('withdraw-detail', 'WithdrawController@detail')->name('withdraw-detail');
     });
 
 /**
@@ -104,8 +106,14 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('download-image/{file}', 'DesignerController@downloadImage')->name('download-image');
         Route::post('delivery-upload', 'DesignerController@deliveryUpload')->name('delivery-upload');
 
-        // mediate
+        // mediate routes
         Route::get('mediate-list', 'MediateController@list')->name('mediate.list');
         Route::get('mediate-detail/{id}', 'MediateController@detail')->name('mediate.detail');
         Route::get('mediate-complete/{id}', 'MediateController@complete')->name('mediate.complete');
+
+        // withdraw routes
+        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw.list');
+        Route::get('withdraw-new', 'WithdrawController@new')->name('withdraw.new');
+        Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
+        Route::post('withdraw-save', 'WithdrawController@save')->name('withdraw.save');
     });
