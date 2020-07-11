@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,15 +23,18 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
+        <link rel="stylesheet" href="{{asset('css/sticky-footer-navbar.css')}}">
+
     </head>
-    <body>
+    <body class="d-flex flex-column h-100">
         <div id="app">
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+{{--            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">--}}
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/client/home') }}">
+                        <img src="{{asset('images/emb-icon2.png')}}" width="50" height="50" class="mr-3">
                         {{ config('app.name', 'Laravel') }}
                     </a>
-
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -45,15 +48,22 @@
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="/client/home">Home<span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{route('client.home')}}">Home<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/client/new_publish">New Publish</a>
+                                <a class="nav-link" href="{{route('client.mediate.list')}}">Mediation</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/client/withdraw">Withdraw</a>
+                                <a class="nav-link" href="{{route('client.new_publish')}}">New Publish</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('client.finance.list')}}">Finances</a>
                             </li>
                             <li class="nav-item dropdown">
+                                <?php
+                                $uid = \Illuminate\Support\Facades\Auth::id();
+                                $messages = \App\Models\Messages::where('user_id', $uid)->where('status', 'unread')->get();
+                                ?>
                                 <a id="messageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="fa fa-bell"></span>
                                     <span class="badge badge-pill badge-danger"
@@ -64,7 +74,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
                                     @foreach($messages as $msg)
-                                        <a href="{{url('/client/request-detail/'.$msg->request_id)}}">
+                                        <a class="dropdown-item" href="{{url("/client/publish-detail/{$msg->request_id}?message_id={$msg->id}")}}">
                                             {{$msg->content}} {{--$msg->content--}}
                                         </a>
                                     @endforeach
@@ -92,11 +102,24 @@
 
                 </div>
             </nav>
+
             <main class="py-4">
                 @yield('content')
             </main>
+
+            <footer class="footer mt-auto py-3 w-100">
+                <div class="container">
+                    <span class="text-muted">Place sticky footer content here.</span>
+                </div>
+            </footer>
+
         </div>
 
+        <style>
+            #messageDropdown:after {
+                display: none;
+            }
+        </style>
         @yield('stylesheet')
 
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -124,14 +147,15 @@
                 var channel = pusher.subscribe('client-channel');
 
                 // Bind a function to a Event (the full Laravel class)
-                channel.bind('App\\Events\\DesignDelivered', function(data) {
-                    if(data.client_id === userId) {
-                        console.log(data)
+                channel.bind('App\\Events\\ClientEvent', function(data) {
+                    var payload = data.payload;
+                    if(payload.user_id === userId) {
+                        console.log(payload)
                         messageCount++;
                         messageBadge.attr('data-count', messageCount);
                         messageBadge.text(messageCount);
                         messageBadge.show();
-                        var newMessage = `<a href="/client/publish-detail/${data.request_id}?message_id=${data.message_id}">${data.msg}</a>`
+                        var newMessage = `<a class="dropdown-item" href="${payload.action_url}">${payload.message}</a>`
                         messageList.prepend(newMessage);
                     }
                 });

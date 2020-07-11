@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,12 +22,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+    <link rel="stylesheet" href="{{asset('css/sticky-footer-navbar.css')}}">
+
 </head>
-<body>
+<body class="d-flex flex-column h-100">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/designer/home') }}">
+                    <img src="{{asset('images/emb-icon2.png')}}" width="50" height="50" class="mr-3">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -57,7 +61,13 @@
                                 <a class="nav-link" href="{{route('designer.home')}}">My Offers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('designer.posts')}}">Requests</a>
+                                <a class="nav-link" href="{{route('designer.posts')}}">Posts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('designer.mediate.list')}}">Mediate</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('designer.withdraw.list')}}">Finances</a>
                             </li>
                             @php
                                 $userId = \Illuminate\Support\Facades\Auth::id();
@@ -65,7 +75,7 @@
                                 $messages = $user->messages()->where('status', 'unread')->get();
                                 @endphp
                             <li class="nav-item dropdown">
-                                <a id="notification-alert" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                                <a id="messageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
                                     <span class="fa fa-bell"></span>
                                     <span class="badge badge-pill badge-danger"
                                           id="messageBadge" data-count="{{count($messages)}}">
@@ -74,7 +84,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
                                     @foreach($messages as $msg)
-                                        <a href="{{url('/designer/offer-detail/'.$msg->offer_id)}}">
+                                        <a class="dropdown-item" href="{{url("/designer/offer-detail/{$msg->offer_id}?message_id={$msg->id}")}}">
                                             {{$msg->subject}} {{--$msg->content--}}
                                         </a>
                                     @endforeach
@@ -121,8 +131,20 @@
                 Hello, world! This is a toast message.
             </div>
         </div>
+
+        <footer class="footer mt-auto py-3 w-100">
+            <div class="container">
+                <span class="text-muted">Place sticky footer content here.</span>
+            </div>
+        </footer>
+
     </div>
 
+    <style>
+        #messageDropdown:after {
+            display: none;
+        }
+    </style>
     @yield('stylesheet')
 
 {{--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--}}
@@ -150,14 +172,15 @@
         var channel = pusher.subscribe('designer-channel');
 
         // Bind a function to a Event (the full Laravel class)
-        channel.bind('App\\Events\\ProposalAccepted', function(data) {
-            if(data.user_id === userId) {
-                console.log(data)
+        channel.bind('App\\Events\\DesignerEvent', function(data) {
+            var payload = data.payload;
+            if(payload.user_id === userId) {
+                console.log(payload)
                 messageCount++;
                 messageBadge.attr('data-count', messageCount);
                 messageBadge.text(messageCount);
                 messageBadge.show();
-                var newMessage = `<a href="/designer/offer-detail/${data.offer_id}?message_id=${data.message_id}">You have new order!</a>`
+                var newMessage = `<a class="dropdown-item" href="${payload.action_url}">${payload.message}</a>`
                 messageList.prepend(newMessage);
             }
         });

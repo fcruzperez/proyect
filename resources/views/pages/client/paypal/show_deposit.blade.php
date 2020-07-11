@@ -14,10 +14,10 @@
                             in a maximum time of {{$time}} hours from the payment.</h5>
                     </div>
                     <div class="card-footer">
-                        <a href="{{url('/client/home')}}">
+                        <a href="{{route('client.home')}}">
                             <button type="button" class="btn btn-danger float-left">CANCEL</button>
                         </a>
-                        <a href="{{url('/client/deposit/paypal/'.$offer_id)}}" >
+                        <a href="{{url("/client/deposit/paypal/{$offer_id}")}}" >
                             <button type="button" class="btn btn-primary float-right" style="text-align: right">&nbsp;&nbsp;&nbsp;PAY&nbsp;&nbsp;&nbsp;</button>
                         </a>
                     </div>

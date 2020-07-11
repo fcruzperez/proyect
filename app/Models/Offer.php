@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     protected $fillable = [
-      'designer_id', 'request_id', 'price', 'hours', 'status',
-      'accepted_at', 'delivered_at', 'mediated_at', 'canceled_at', 'completed_at'
+      'designer_id', 'request_id', 'withdraw_id', 'price', 'fee', 'paid', 'hours', 'status',
+      'accepted_at', 'delivered_at', 'mediated_at', 'canceled_at', 'completed_at', 'paid_at'
       ];
 
     public function designer() {
@@ -17,5 +17,9 @@ class Offer extends Model
 
     public function request() {
       return $this->belongsTo('App\Models\Request');
+    }
+
+    public function withdraw() {
+      return $this->belongsTo('App\Models\Withdraw');
     }
 }

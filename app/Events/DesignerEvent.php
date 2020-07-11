@@ -10,18 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ProposalCanceled implements ShouldBroadcast
+class DesignerEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $payload;
     /**
      * Create a new event instance.
-     *
+     * @param array $payload
      * @return void
      */
-    public function __construct()
+    public function __construct($payload)
     {
-        //
+        $this->payload = $payload;
     }
 
     /**
@@ -31,6 +32,7 @@ class ProposalCanceled implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+//        return new PrivateChannel('channel-name');
+        return ['designer-channel'];
     }
 }

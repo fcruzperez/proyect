@@ -51,7 +51,7 @@
                                                 <button class="btn btn-info" style="margin-bottom: 3px;" onclick="editFormat('{{$format->id}}','{{$format->name}}')">
                                                     <i class="fa fa-pencil"></i>
                                                 </button>
-                                                <a class="btn btn-danger"  onclick="return confirm('Will you delete this, really?')" href="{{url('admin/format_delete/'.$format->id)}}">
+                                                <a class="btn btn-danger" href="{{url("admin/format_delete/{$format->id}")}}">
                                                     <i class="fa fa-remove"></i>
                                                 </a>
                                             </td>
@@ -272,9 +272,6 @@
 
 @section('js')
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
     <script>
         function editFormat(id, name) {
             $('#format_id').val(id);
@@ -293,8 +290,6 @@
             $('#technic_name').val(name);
             $('#editTechnicModal').modal('show');
         }
-
-
     </script>
 
 @endsection

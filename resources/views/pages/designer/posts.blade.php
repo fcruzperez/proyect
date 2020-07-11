@@ -3,9 +3,9 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @empty($publishes)
-                <div class="alert-warning alert">There is no new publishes.</div>
-            @endempty
+            @if($publishes->isEmpty())
+                <div class="col-12 alert-warning alert d-block">There is no new publishes.</div>
+            @endif
 
             @foreach($publishes as $publish)
                 <div class="col-sm-6 col-lg-4" style="margin-top: 20px;">
