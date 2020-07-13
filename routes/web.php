@@ -83,8 +83,7 @@ Route::middleware(['auth', 'role:client'])
 
         // payment routes
         Route::get('deposit/paypal/{offer_id}', 'ClientController@deposit')->name('deposit');
-        Route::get('deposit/cancel', 'ClientController@deposit_cancel')->name('deposit.cancel');
-        Route::get('deposit/success', 'ClientController@deposit_success')->name('deposit.success');
+        Route::get('deposit-status', 'ClientController@depositStatus')->name('deposit.status');
 
         // finance routes
         Route::get('finance-list', 'ClientController@financeList')->name('finance.list');

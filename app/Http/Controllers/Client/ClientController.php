@@ -19,29 +19,43 @@ use App\Models\RequestTechnic;
 use App\Models\RequestImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Services\MailService;
+use Illuminate\Support\Facades\Config;
+use PayPal\Api\Amount;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext;
 
 class ClientController extends Controller
 {
-    /**
-     * @var ExpressCheckout
-     */
-    protected $paypal;
     protected $mailService;
+    private $apiContext;
 
     public function __construct(MailService $mailService)
     {
         $this->mailService = $mailService;
-        $this->paypal = new ExpressCheckout();
+
+        /** PayPal api context **/
+        $paypalConfig = Config::get('paypal');
+        $this->apiContext = new ApiContext(new OAuthTokenCredential(
+                $paypalConfig['client_id'],
+                $paypalConfig['secret'])
+        );
+        $this->apiContext->setConfig($paypalConfig['settings']);
     }
 
     public function savePublish(Request $request)
     {
-
         $inputs = $request->all();
 
         $validator = Validator::make($inputs, [
@@ -291,116 +305,157 @@ class ClientController extends Controller
         if (!$offer) {
             return back()->withErrors(['errors' => 'wrong offer id']);
         }
-        $request = $offer->request;
+        $publish = $offer->request;
 
         Session::put('payment_offer_id', $offer_id);
-        return redirect(route('client.deposit.success'));
-        /*
-        $data = [];
-        $deposit_money = round($offer->price * 1.1);
+//        return redirect(route('client.deposit.success'));
 
-        $data['items'] = [
-            [
-                'name' => env('APP_NAME'),
-                'price' => $deposit_money,
-                'desc'  => 'Payment '. $deposit_money . 'for task "'. $request->name.'"',
-                'qty' => 1
-            ]
-        ];
+        /* payment */
+        $client_fee_rate = intval(env('CLIENT_FEE_RATE', 0.1));
+        $depositMoney = $offer->price * (1 + $client_fee_rate);
 
-        $data['invoice_id'] = $request->id;
-        $data['invoice_description'] = "Order #{$request->id} Invoice";
-        $data['return_url'] = route('client.deposit.success');
-        $data['cancel_url'] = route('client.deposit.cancel');
-        $data['total'] = $deposit_money;
+        try {
+            $payer = new Payer();
+            $payer->setPaymentMethod('paypal');
 
-        $response = $this->paypal->setExpressCheckout($data);
+            $items = [];
+            $item = new Item();
+            $item->setName($publish->name)
+                ->setCurrency('USD')
+                ->setQuantity(1)
+                ->setPrice($depositMoney);
 
-//        $response = $provider->setExpressCheckout($data, true);  // for recurring payment(subscription)
-        Session::put('payment_offer_id', $offer->id);
+            array_push($items, $item);
 
-        return redirect($response['paypal_link']);
-        */
-    }
+            $itemList = new ItemList();
+            $itemList->setItems($items);
 
-    /**
-     * Responds with a welcome message with instructions
-     */
-    public function deposit_cancel()
-    {
-        Session::forget('payment_offer_id');
-        return view('pages.client.paypal.cancel', ['flag' => 'cancel']);
-    }
+            $amount = new Amount();
+            $amount->setCurrency('USD')->setTotal($depositMoney);
 
-    /**
-     * Responds with a welcome message with instructions
-     */
-    public function deposit_success(Request $request)
-    {
-//        $response = $this->paypal->getExpressCheckoutDetails($request->token);
-//
-//        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
-        $offer_id = Session::get('payment_offer_id');
-        Session::forget('payment_offer_id');
+            $transaction = new Transaction();
+            $transaction->setAmount($amount)
+                ->setItemList($itemList)
+                ->setDescription("Deposit for Design publish #{$publish->id} {$publish->name}");
 
-        $now = now();
-        $offer = Offer::find($offer_id);
-        $offer->accepted_at = $now;
-        $offer->status = 'accepted';
-        $offer->save();
+            $redirectUrls = new RedirectUrls();
+            $redirectUrls->setReturnUrl(url('client/deposit-status?success=true'))
+                ->setCancelUrl(url('client/deposit-status?success=false'));
 
-        $request = $offer->request;
-        $request->status = 'in production';
-        $request->deposit = $offer->price;
-        $request->accepted_offer_id = $offer->id;
-        $request->accepted_at = $now;
-        $request->save();
+            $payment = new Payment();
+            $payment->setIntent('Sale')
+                ->setPayer($payer)
+                ->setRedirectUrls($redirectUrls)
+                ->setTransactions(array($transaction));
 
-        // email notification
-        $tmp = [];
-        foreach ($request->formats as $fmt) {
-            $tmp[] = "in {$fmt->name} format";
+            $payment->create($this->apiContext);
+
+            foreach ($payment->getLinks() as $link) {
+                if($link->getRel() == 'approval_url') {
+                    $redirectUrl = $link->getHref();
+                    break;
+                }
+            }
+
+            if(isset($redirectUrl)) {
+                return Redirect::away($redirectUrl);
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
-        $format = implode(' and ', $tmp);
+    }
 
-        $params = [
-            'task_name' => $request->name,
-            'format' => $format,
-            'left_time' => $offer->hours
-        ];
-        $receiver = [
-            'from' => config('mail.from.address'),
-            'to' => $offer->designer->email,
-            'subject' => 'You have new order!'
-        ];
+    public function depositStatus(Request $request)
+    {
+        try {
+            $dataArray = $request->all();
 
-        $error = $this->mailService->send('emails.progress_start', $params, $receiver);
+            if($dataArray['success'] == 'true') {
+                if(empty($dataArray['PayerID']) || empty($dataArray['token'])) {
+                    Session::put('alert-danger', 'There was a problem processing your payment');
+                    return Redirect::route('client.home');
+                }
+                $payment = Payment::get($dataArray['paymentId'], $this->apiContext);
+                $execution = new PaymentExecution();
+                $execution->setPayerId($dataArray['PayerID']);
 
-        // send push notification
-        $content = "Your offer for {$request->name} was accepted.
+                /** Execute the payment **/
+                $result = $payment->execute($execution, $this->apiContext);
+
+                /** Put success message in session and redirect home **/
+                if($result->getState() == 'approved') {
+
+                    $offer_id = Session::get('payment_offer_id');
+                    Session::forget('payment_offer_id');
+
+                    $now = now();
+                    $offer = Offer::find($offer_id);
+                    $offer->accepted_at = $now;
+                    $offer->status = 'accepted';
+                    $offer->save();
+
+                    $request = $offer->request;
+                    $request->status = 'in production';
+                    $request->deposit = $offer->price;
+                    $request->accepted_offer_id = $offer->id;
+                    $request->accepted_at = $now;
+                    $request->save();
+
+                    // email notification
+                    $tmp = [];
+                    foreach ($request->formats as $fmt) {
+                        $tmp[] = "in {$fmt->name} format";
+                    }
+                    $format = implode(' and ', $tmp);
+
+                    $params = [
+                        'task_name' => $request->name,
+                        'format' => $format,
+                        'left_time' => $offer->hours
+                    ];
+                    $receiver = [
+                        'from' => config('mail.from.address'),
+                        'to' => $offer->designer->email,
+                        'subject' => 'You have new order!'
+                    ];
+
+                    $error = $this->mailService->queue('emails.progress_start', $params, $receiver);
+
+                    // send push notification
+                    $content = "Your offer for {$request->name} was accepted.
         You must attach the embroidery matrix {$format} within {$offer->hours}.
         See details.";
 
-        $message = Message::create([
-            'user_id' => $offer->designer_id,
-            'offer_id' => $offer->id,
-            'subject' => 'You have new order!',
-            'action_url' => "/designer/offer-detail/{$offer->id}",
-            'content' => $content,
-        ]);
+                    $message = Message::create([
+                        'user_id' => $offer->designer_id,
+                        'offer_id' => $offer->id,
+                        'subject' => 'You have new order!',
+                        'action_url' => "/designer/offer-detail/{$offer->id}",
+                        'content' => $content,
+                    ]);
 
-        $data = [
-            'user_id' => $offer->designer_id,
-            'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
-            'message' => 'You have new order!',
-        ];
+                    $data = [
+                        'user_id' => $offer->designer_id,
+                        'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
+                        'message' => 'You have new order!',
+                    ];
 
-        event(new DesignerEvent($data));
+                    event(new DesignerEvent($data));
 
-        return view('pages.client.paypal.success', [
-            'request' => $request,
-            'left_time' => $offer->hours,
-        ]);
+                    return view('pages.client.paypal.success', [
+                        'request' => $request,
+                        'left_time' => $offer->hours,
+                    ]);
+                }
+
+                /** Put error message in session and redirect home **/
+                Session::put('alert-danger', 'Payment failed');
+                return Redirect::route('client.home');
+            }
+        } catch(\Exception $e) {
+            logger()->error($e->getMessage());
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
 //        }
 //
 //        Session::forget('payment_offer_id');

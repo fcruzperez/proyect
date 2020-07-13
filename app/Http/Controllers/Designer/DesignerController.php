@@ -42,14 +42,14 @@ class DesignerController extends Controller
     {
         $desinger_id = Auth::id();
 
-//        $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
-//
-//        if (!is_null($request_ids)) {
-//            $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();
-//        } else {
-//            $data = Publish::where('status', 'published')->get();
-//        }
-        $data = Publish::where('status', 'published')->get();
+        $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
+
+        if (!is_null($request_ids)) {
+            $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();
+        } else {
+            $data = Publish::where('status', 'published')->get();
+        }
+//        $data = Publish::where('status', 'published')->get();
 
         return view('pages.designer.posts', ['publishes' => $data]);
     }

@@ -22,14 +22,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Services\MailService;
 use App\Models\User;
 
 class MediateController extends Controller
 {
     /**
-     * @var ExpressCheckout
      */
     protected $mailService;
 

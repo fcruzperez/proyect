@@ -11,15 +11,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Srmklive\PayPal\Services\ExpressCheckout;
 
 class WithdrawController extends Controller
 {
-    public $paypal;
-
     public function __construct()
     {
-        $this->paypal = new ExpressCheckout();
     }
 
     public function list() {

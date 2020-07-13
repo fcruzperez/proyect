@@ -22,21 +22,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Services\MailService;
 
 class MediateController extends Controller
 {
-    /**
-     * @var ExpressCheckout
-     */
     protected $paypal;
     protected $mailService;
 
     public function __construct(MailService $mailService)
     {
         $this->mailService = $mailService;
-        $this->paypal = new ExpressCheckout();
     }
 
     public function list() {
