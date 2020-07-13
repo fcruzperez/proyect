@@ -25,10 +25,12 @@ class CreateRequestsTable extends Migration
             $table->float('height');
             $table->integer('hours');
             $table->integer('deposit')->default(0);
-            $table->string('status')->default('published')->comment('published, awarded, in production, in mediation, completed, canceled');
+            $table->string('status')->default('published')
+                ->comment('published, awarded, in production, delivered, in mediate, completed, canceled');
             $table->bigInteger('accepted_offer_id')->nullable();
             $table->dateTime('awarded_at')->nullable();
             $table->dateTime('accepted_at')->nullable();
+            $table->dateTime('delivered_at')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->dateTime('mediated_at')->nullable();
             $table->dateTime('canceled_at')->nullable();

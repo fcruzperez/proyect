@@ -19,6 +19,8 @@ class User extends Authenticatable
         'name', 'email', 'password', 'mobile', 'role'
     ];
 
+    protected $appends = ['rate'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -49,18 +51,29 @@ class User extends Authenticatable
       return $this->hasMany('App\Models\Offer', 'designer_id', 'id');
     }
 
-    public function rate() {
-      if($this->role !== 'designer') return 0;
+    public function rates() {
+      if($this->role !== 'designer') return [];
 
-      $rates = $this->hasMany('App\Models\DesignerRate', 'designer_id', 'id');
-
-      $count = $rates->count();
-      if($count === 0) return 0;
-      $sum = 0;
-      foreach ($rates as $rate) {
-        $sum += $rate->rate;
-      }
-      return $sum / $count;
+      return $this->hasMany('App\Models\DesignerRate', 'designer_id', 'id');
     }
 
+    public function messages() {
+        return $this->hasMany('App\Models\Messages');
+    }
+
+    public function getRateAttribute()
+    {
+        if($this->role !== 'designer') return 0;
+
+        $rates = $this->hasMany('App\Models\DesignerRate', 'designer_id', 'id');
+        $count = $rates->count();
+        $sum = $rates->sum('rate');
+
+        if($count === 0) return 0;
+        return round($sum/$count, 2);
+    }
+
+    public function withdraws() {
+        return $this->hasMany('App\Models\Withdraw', 'designer_id', 'id');
+    }
 }
