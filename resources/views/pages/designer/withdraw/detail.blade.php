@@ -9,7 +9,11 @@
                     <div class="card-header" style="text-align:center;">
                         <span class="card-title">Withdraw Detail</span>
                     </div>
-
+                    @if($withdraw->status === 'paid')
+                        <span class="badge-success badge-pill">Paid</span>
+                    @else
+                        <span class="badge-warning badge-pill">Pending</span>
+                    @endif
                     <div class="card-body pt-3">
                         <table id="detail_table" class="table table-bordered table-striped">
                             <thead>

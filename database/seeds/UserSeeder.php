@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
           'id' => 2,
           'name' => 'client',
           'email' => 'client@test.com',
+          'paypal_email' => 'client@test.com',
           'password' => bcrypt('11111111'),
           'role' => 'client',
           'mobile' => '123456789'
@@ -43,6 +44,7 @@ class UserSeeder extends Seeder
           'id' => 3,
           'name' => 'designer',
           'email' => 'designer@test.com',
+          'paypal_email' => 'designer@test.com',
           'password' => bcrypt('11111111'),
           'role' => 'designer',
           'mobile' => '123456789'

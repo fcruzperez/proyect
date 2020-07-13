@@ -46,8 +46,9 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('technic_delete/{id}', 'AdminController@technicDelete')->name('technic.delete');
 
         // withdraw routes
-        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw-list');
-        Route::get('withdraw-detail', 'WithdrawController@detail')->name('withdraw-detail');
+        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw.list');
+        Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
+        Route::get('withdraw-complete/{id}', 'WithdrawController@complete')->name('withdraw.complete');
     });
 
 /**
@@ -82,8 +83,7 @@ Route::middleware(['auth', 'role:client'])
 
         // payment routes
         Route::get('deposit/paypal/{offer_id}', 'ClientController@deposit')->name('deposit');
-        Route::get('deposit/cancel', 'ClientController@deposit_cancel')->name('deposit.cancel');
-        Route::get('deposit/success', 'ClientController@deposit_success')->name('deposit.success');
+        Route::get('deposit-status', 'ClientController@depositStatus')->name('deposit.status');
 
         // finance routes
         Route::get('finance-list', 'ClientController@financeList')->name('finance.list');

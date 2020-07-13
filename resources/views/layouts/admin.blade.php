@@ -63,7 +63,7 @@
                             </li>
                             <!-- finance menu -->
                             <li class="nav-item dropdown">
-                                <a id="messageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
                                     Finance
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
@@ -90,7 +90,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
                                     @foreach($messages as $msg)
-                                        <a class="dropdown-item" href="{{url("/admin/withdraw-detail/{$msg->offer_id}?message_id={$msg->id}")}}">
+                                        <a class="dropdown-item" href="{{$msg->action_url}}">
                                             {{$msg->subject}} {{--$msg->content--}}
                                         </a>
                                     @endforeach
@@ -169,8 +169,9 @@
                 messageBadge.attr('data-count', messageCount);
                 messageBadge.text(messageCount);
                 messageBadge.show();
-                var newMessage = `<a class="dropdown-item" href="${payload.action_url}">${payload.message}</a>`
-                messageList.prepend(newMessage);
+                var newMessage = `<a class="dropdown-item" href="${payload.action_url}">${payload.message}</a>`;
+                var old = messageList.html();
+                messageList.html(newMessage + old);
             }
         });
     </script>

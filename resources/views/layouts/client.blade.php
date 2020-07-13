@@ -62,7 +62,7 @@
                             <li class="nav-item dropdown">
                                 <?php
                                 $uid = \Illuminate\Support\Facades\Auth::id();
-                                $messages = \App\Models\Messages::where('user_id', $uid)->where('status', 'unread')->get();
+                                $messages = \App\Models\Message::where('user_id', $uid)->where('status', 'unread')->get();
                                 ?>
                                 <a id="messageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <span class="fa fa-bell"></span>
@@ -74,7 +74,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
                                     @foreach($messages as $msg)
-                                        <a class="dropdown-item" href="{{url("/client/publish-detail/{$msg->request_id}?message_id={$msg->id}")}}">
+                                        <a class="dropdown-item" href="{{$msg->action_url}}">
                                             {{$msg->content}} {{--$msg->content--}}
                                         </a>
                                     @endforeach

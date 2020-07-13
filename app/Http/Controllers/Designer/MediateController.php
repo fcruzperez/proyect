@@ -6,7 +6,7 @@ use App\Events\DesignerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Mediate;
-use App\Models\Messages;
+use App\Models\Message;
 use App\Models\Offer;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
@@ -22,14 +22,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Srmklive\PayPal\Services\ExpressCheckout;
 use App\Services\MailService;
 use App\Models\User;
 
 class MediateController extends Controller
 {
     /**
-     * @var ExpressCheckout
      */
     protected $mailService;
 
