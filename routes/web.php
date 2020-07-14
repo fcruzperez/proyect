@@ -48,6 +48,12 @@ Route::middleware(['auth', 'role:admin'])
         // withdraw routes
         Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw-list');
         Route::get('withdraw-detail', 'WithdrawController@detail')->name('withdraw-detail');
+
+        //Score
+        Route::get('score', 'AdminController@score')->name('score');
+        Route::post('update_score', 'AdminController@updateScore')->name('update_score');
+
+
     });
 
 /**
@@ -116,4 +122,5 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('withdraw-new', 'WithdrawController@new')->name('withdraw.new');
         Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
         Route::post('withdraw-save', 'WithdrawController@save')->name('withdraw.save');
+
     });

@@ -61,6 +61,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.settings') }}">{{ __('Setting') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.score') }}">{{ __('Score') }}</a>
+                            </li>
                             <!-- finance menu -->
                             <li class="nav-item dropdown">
                                 <a id="messageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
