@@ -98,14 +98,14 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" onclick="show(this.name)" class="btn btn-info btn-lg" name={{$publish->id}}>Bid</button>
+                            <button type="button" onclick="show({{$publish->id}})" class="btn btn-info btn-lg">Bid</button>
                         </div>
                     </div>
                 </div>
             @endforeach
 
             <div class="modal fade" id="bidModal" role="dialog" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-dialog-centered" role="document">
 
                     <form method="POST" action="{{route('designer.offer-save')}}" id="bid_modal_form">
                         @csrf
@@ -115,13 +115,13 @@
                             </div>
                             <div class="modal-body">
                                 <input type="hidden" name="request_id" id="request_id" >
-                                <div>
-                                    <label for="bid_price">Price:</label>
-                                    <input type="number" name="bid_price" min="1" id="bid_price" placeholder="$">
+                                <div class="form-group">
+                                    <label for="bid_price">Price</label>
+                                    <input type="number" class="form-control" name="bid_price" min="1" id="bid_price" placeholder="$">
                                 </div>
-                                <div>
-                                    <label for="bid_time">Time:</label>
-                                    <input type="number" name="bid_time" min="1" id="bid_time" placeholder="hours">
+                                <div class="form-group">
+                                    <label for="bid_time">Time</label>
+                                    <input type="number" class="form-control" name="bid_time" min="1" id="bid_time" placeholder="hours">
                                 </div>
 
                                 <p>By clicking <strong>bid</strong> you agree to abide by the terms and conditions.</p>
@@ -175,8 +175,8 @@
 @section('js')
     <script>
         function  show(para) {
-            document.getElementById('request_id').value = para;
-            document.getElementById('btn_modal').click();
+            $('#request_id').val(para);
+            $('#bidModal').modal();
         }
     </script>
 

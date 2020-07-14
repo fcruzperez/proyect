@@ -48,12 +48,13 @@ Route::middleware(['auth', 'role:admin'])
         // withdraw routes
         Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw-list');
         Route::get('withdraw-detail', 'WithdrawController@detail')->name('withdraw-detail');
+        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw.list');
+        Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
+        Route::get('withdraw-complete/{id}', 'WithdrawController@complete')->name('withdraw.complete');
 
         //Score
         Route::get('score', 'AdminController@score')->name('score');
         Route::post('update_score', 'AdminController@updateScore')->name('update_score');
-
-
     });
 
 /**
@@ -88,8 +89,7 @@ Route::middleware(['auth', 'role:client'])
 
         // payment routes
         Route::get('deposit/paypal/{offer_id}', 'ClientController@deposit')->name('deposit');
-        Route::get('deposit/cancel', 'ClientController@deposit_cancel')->name('deposit.cancel');
-        Route::get('deposit/success', 'ClientController@deposit_success')->name('deposit.success');
+        Route::get('deposit-status', 'ClientController@depositStatus')->name('deposit.status');
 
         // finance routes
         Route::get('finance-list', 'ClientController@financeList')->name('finance.list');

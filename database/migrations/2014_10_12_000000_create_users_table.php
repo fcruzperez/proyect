@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('mobile');
+            $table->string('paypal_email');
             $table->string('role')->default('designer')->comment('admin, client, designer');
             $table->rememberToken();
             $table->timestamps();

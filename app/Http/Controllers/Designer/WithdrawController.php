@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Designer;
 
 use App\Events\AdminEvent;
-use App\Models\Messages;
+use App\Models\Message;
 use App\Models\Offer;
 use App\Models\User;
 use App\Models\Withdraw;
@@ -11,15 +11,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Srmklive\PayPal\Services\ExpressCheckout;
 
 class WithdrawController extends Controller
 {
-    public $paypal;
-
     public function __construct()
     {
-        $this->paypal = new ExpressCheckout();
     }
 
     public function list() {
@@ -43,7 +39,7 @@ class WithdrawController extends Controller
         $offers = $withdraw->offers;
 
         if($request->has('message_id')) {
-            Messages::find($request->get('message_id'))->update(['status' => 'read']);
+            Message::find($request->get('message_id'))->update(['status' => 'read']);
         }
 
         return view('pages.designer.withdraw.detail', ['withdraw' => $withdraw, 'offers' => $offers]);
@@ -81,10 +77,11 @@ class WithdrawController extends Controller
         $admins = User::where('role', 'admin')->get();
 
         foreach ($admins as $admin) {
-            $message = Messages::create([
+            $message = Message::create([
                 'user_id' => $admin->id,
                 'subject' => $msg,
                 'content' => $msg,
+                'action_url' => url("admin/withdraw-detail/{$withdraw->id}"),
             ]);
 
             $payload = [

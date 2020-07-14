@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->bigInteger('offer_id')->nullable();
             $table->string('subject')->nullable();
             $table->string('content')->nullable();
+            $table->string('action_url')->nullable();
             $table->string('status')->default('unread');
             $table->timestamps();
         });

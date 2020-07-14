@@ -84,7 +84,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" id="messageList" aria-labelledby="navbarDropdown">
                                     @foreach($messages as $msg)
-                                        <a class="dropdown-item" href="{{url("/designer/offer-detail/{$msg->offer_id}?message_id={$msg->id}")}}">
+                                        <a class="dropdown-item" href="{{$msg->action_url}}">
                                             {{$msg->subject}} {{--$msg->content--}}
                                         </a>
                                     @endforeach
