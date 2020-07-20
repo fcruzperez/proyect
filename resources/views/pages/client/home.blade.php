@@ -2,147 +2,7 @@
 
 @section('content')
 
-{{--    <table id="publishes_table" class="table table-striped table-bordered col-md-8 text-center">--}}
-
-{{--        <thead>--}}
-{{--            <tr>--}}
-{{--                <th>Time</th>--}}
-{{--                <th>Name</th>--}}
-{{--                <th>Hours</th>--}}
-{{--                <th>Time Left</th>--}}
-{{--                <th>Details</th>--}}
-{{--                <th>Status</th>--}}
-{{--                <th>Payment</th>--}}
-{{--                <th>Offers</th>--}}
-{{--                <th>Edit</th>--}}
-{{--                <th>Cancel</th>--}}
-{{--            </tr>--}}
-{{--        </thead>--}}
-
-{{--        <tbody>--}}
-{{--            @foreach($publishes as $publish)--}}
-{{--            <tr>--}}
-{{--                @php--}}
-{{--                    /*-----}}
-{{--                    $nowTime = strtotime(date("Y-m-d h:i:sa"));--}}
-{{--                    $publishTime = strtotime((string)$publish['created_at']);--}}
-{{--                    $interval = abs($nowTime - $publishTime);--}}
-{{--                    $minutes = round($interval / 60);--}}
-
-{{--                    $hours = floor($minutes / 60);--}}
-{{--                    $minutes = $minutes - 60 * $hours;--}}
-{{--                    */--}}
-{{--                @endphp--}}
-{{--                <td>{{$publish['created_at']}}</td>--}}
-{{--                <td>{{$publish['name']}}</td>--}}
-{{--                <td>{{$publish['hours']}}</td>--}}
-{{--                @if($hours == 0)--}}
-{{--                    <td>{{$minutes . 'minutes ago'}}</td>--}}
-{{--                @else--}}
-{{--                    <td>{{$hour . 'hour' . $minutes . 'minutes ago'}}</td>--}}
-{{--                @endif--}}
-{{--                <td>-------</td>--}}
-{{--                <td>--}}
-{{--                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#fff{{$publish->id}}">Details</button>--}}
-{{--                    <div class="modal fade" id="fff{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">--}}
-{{--                        <div class="modal-dialog" role="document">--}}
-{{--                            <div class="modal-content">--}}
-{{--                                <div class="modal-header text-center">--}}
-{{--                                    <h4 class="modal-title text-center">Details</h4>--}}
-{{--                                </div>--}}
-
-{{--                                <div class="modal-body text-left">--}}
-{{--                                    @php--}}
-{{--                                        $str = '';--}}
-{{--                                        for ($i = 0; $i < 3; $i++){--}}
-{{--                                            if (isset($publish->formats[$i]->name)) {--}}
-{{--                                                $str = $str . $publish->formats[$i]->name . ',';--}}
-{{--                                            }--}}
-{{--                                        }--}}
-{{--                                        $n = strlen($str);--}}
-{{--                                        $str = substr($str, 0, $n - 1);--}}
-{{--                                        //dd($str);--}}
-{{--                                    @endphp--}}
-{{--                                    <div>--}}
-{{--                                        <b class="text-center" style="color:blue; margin-left: 50px;">Format(s):</b> <b>{{ empty($str) ? 'Undefined' : $str }}</b>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div>--}}
-{{--                                        <b style="color:blue; margin-left: 50px;">Size:</b> <b> {{$publish->width}} x {{$publish->height}} cm</b>--}}
-{{--                                    </div>--}}
-{{--                                    @php--}}
-{{--                                        $str = '';--}}
-{{--                                        for ($i = 0; $i < 3; $i++){--}}
-{{--                                            if (isset($publish->fabrics[$i]->name)) {--}}
-{{--                                                $str = $str . $publish->fabrics[$i]->name . ',';--}}
-{{--                                            }--}}
-{{--                                        }--}}
-{{--                                        $n = strlen($str);--}}
-{{--                                        $str = substr($str, 0, $n - 1);--}}
-{{--                                    @endphp--}}
-{{--                                    <div>--}}
-{{--                                        <b style="color:blue; margin-left: 50px;">Fabric(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>--}}
-{{--                                    </div>--}}
-{{--                                    @php--}}
-{{--                                        $str = '';--}}
-{{--                                        for ($i = 0; $i < 3; $i++){--}}
-{{--                                            if (isset($publish->technics[$i]->name)) {--}}
-{{--                                                $str = $str . $publish->technics[$i]->name . ',';--}}
-{{--                                            }--}}
-{{--                                        }--}}
-{{--                                        $n = strlen($str);--}}
-{{--                                        $str = substr($str, 0, $n - 1);--}}
-{{--                                    @endphp--}}
-{{--                                    <div>--}}
-{{--                                        <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>--}}
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
-{{--                                <div class="modal-footer">--}}
-{{--                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </td>--}}
-{{--                <td>{{$publish['status']}}</td>--}}
-{{--                <td>{{$publish['deposit']}}</td>--}}
-{{--                <td>--}}
-{{--                    @php--}}
-{{--                        $offer_count = count($publish->offers);--}}
-{{--                    @endphp--}}
-{{--                   <b> {{$offer_count}} &nbsp;&nbsp;</b>--}}
-{{--                    @if($offer_count > 0)--}}
-
-{{--                        <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#sss{{$publish->id}}">Offers</button>--}}
-{{--                        <div class="modal fade" id="sss{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">--}}
-{{--                            <div class="modal-dialog" role="document">--}}
-{{--                                <div class="modal-content">--}}
-{{--                                    <div class="modal-header text-center">--}}
-{{--                                        <h4 class="modal-title text-center">Offers</h4>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="modal-body">--}}
-{{--                                        <table>--}}
-{{--                                            <thead>--}}
-{{--                                                <tr style="font-weight: bold;">--}}
-{{--                                                    <td>Price($)</td>--}}
-{{--                                                    <td>Time(hours)</td>--}}
-{{--                                                    <td>Desinger Rating</td>--}}
-{{--                                                    <td></td>--}}
-{{--                                                </tr>--}}
-{{--                                            </thead>--}}
-{{--                                            <tbody>--}}
-{{--                                            @php--}}
-{{--                                                $offers = $publish->offers;--}}
-{{--                                            @endphp--}}
-
-{{--                                                @foreach($offers as $offer)--}}
-{{--                                                    <tr>--}}
-{{--                                                        <form method="get" action="{{route('client.show_deposit')}}">--}}
-{{--                                                            @csrf--}}
-
-<div class="container">
+<div class="container" style="font-family: Arial, Helvetica, sans-serif">
     <div class="row">
         <div class="col-12">
             <table id="publishes_table" class="table table-striped table-bordered text-center">
@@ -184,7 +44,32 @@
                         {{--                @else--}}
                         {{--                    <td>{{$hour . 'hour' . $minutes . 'minutes ago'}}</td>--}}
                         {{--                @endif--}}
-                        <td>-------</td>
+                        <td>
+                            @php
+                              $nowTime = strtotime(date("Y-m-d h:i:sa"));
+                              $acceptedTime = strtotime((string)$publish['accepted_at']);
+                              $interval = abs($nowTime - $acceptedTime);
+                              $minutes = round($interval / 60);
+
+                              $hours = floor($minutes / 60);
+                              $minutes = $minutes - 60 * $hours;
+                              $accepted_offer_id = $publish['accepted_offer_id'];
+                              $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
+                              $hours = $deadline - $hours - 1;
+                              $minutes = 60 - $minutes;
+                            @endphp
+                            @if ($publish['status'] == 'in production')
+{{--                                @if ($hours == 0)--}}
+{{--                                    {{$minutes}}--}}
+{{--                                @else--}}
+{{--                                    {{$hours. 'hour ' . $minutes . 'minutes'}}--}}
+{{--                                @endif--}}
+                                {{$hours}}:{{$minutes}} hours
+
+                            @else
+                                --------
+                            @endif
+                        </td>
                         <td>
                             <a class="btn btn-info text-center" href="{{url("client/publish-detail/{$publish->id}")}}">
                                 Details
@@ -226,12 +111,7 @@
                                                             <td style="text-align: center">{{$offer->price}}</td>
                                                             <td style="text-align: center">{{$offer->hours}}</td>
                                                             <td>
-{{--                                                                @php--}}
-{{--                                                                    //$designer_rate = \App\Models\DesignerRate::where('designer_id', $offer['designer_id'])->get()[0]['rate'];--}}
-{{--                                                                    echo $offer->designer->rate;--}}
-{{--                                                                --}}
-{{--                                                                @endphp--}}
-                                                                <div class="rating" data-rate-value = {{$offer->designer->rate}}>{{$offer->designer->rate}}</div>
+                                                                <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
                                                             </td>
                                                             <td>
                                                                 @if($publish->status === 'published')

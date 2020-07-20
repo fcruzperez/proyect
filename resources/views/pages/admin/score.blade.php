@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="row">
             <div class="col-12">
                 <table id="score_table" class="table table-striped table-bordered text-center">
@@ -29,8 +29,12 @@
                                 <td>
                                     @php
                                         $designer_rate = \App\Models\DesignerRate::where('designer_id', $designer_id)->get()[0]['rate'];
+                                        if ($designer_rate == null) $designer_rate = 0;
                                     @endphp
-                                    {{ $designer_rate }}
+                                    {{$designer_rate}}
+{{--                                    @if ($designer_name->rates != null)--}}
+{{--                                        {{  $designer_name->rates }}--}}
+{{--                                    @endif--}}
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-info" onclick="edit('{{$designer_id}}', '{{$designer_rate}}')">

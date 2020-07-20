@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         @isset($success)
         <div class="alert alert-success">Your mediation has been successfully posted.</div>
         @endisset

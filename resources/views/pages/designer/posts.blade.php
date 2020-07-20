@@ -1,7 +1,7 @@
 @extends('layouts.designer')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="row">
             @if($publishes->isEmpty())
                 <div class="col-12 alert-warning alert d-block">There is no new publishes.</div>

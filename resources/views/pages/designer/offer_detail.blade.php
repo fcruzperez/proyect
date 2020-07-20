@@ -1,7 +1,7 @@
 @extends('layouts.designer')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         @if(isset($success))
         <div class="alert alert-success">Your design has been successfully delivered! </div>
         @endif

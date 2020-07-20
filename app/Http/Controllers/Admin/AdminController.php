@@ -205,6 +205,7 @@ class AdminController extends Controller
         foreach ($designers as $designer) {
             array_push($designer_ids, $designer['id']);
         }
+//        dd($designer_ids);
 
         $data = ['designer_ids' => $designer_ids];
 

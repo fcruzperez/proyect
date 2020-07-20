@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="rating" data-rate-value="{{$rate}}"></div>
 
         <h3 class="text-center"><b>My Offers</b></h3>
@@ -21,7 +21,8 @@
                         <th>Price</th>
                         <th>Attached</th>
                         <th>Cancel</th>
-                    </tr>
+
+                    </tr>id
                     </thead>
 
                     <tbody>
@@ -31,6 +32,7 @@
                             $request = \App\Models\Request::find($request_id);
                             //dd($request);
                         @endphp
+                        @if($request['status'] == 'published')
                         <tr>
                             <td>{{$request['created_at']}}</td>
                             <td>{{$request['name']}}</td>
@@ -121,7 +123,11 @@
                                     $mins = $timeLeft % 60;
                                     $hr = intdiv($timeLeft, 60);
                                 @endphp
-                                {{$hr}}:{{$mins}} hours
+                                @if ($offer->status === 'accepted')
+                                    {{$hr}}:{{$mins}} hours
+                                @else
+                                    -------
+                                @endif
                             </td>
                             <td>{{$offer['price']}}</td>
                             <td></td>
@@ -131,6 +137,7 @@
                                 @endif
                             </td>
                         </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>

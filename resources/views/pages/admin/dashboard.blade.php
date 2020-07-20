@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="row">
             <div class="col-12">
                 <table id="publishes_table" class="table table-striped table-bordered text-center">
@@ -110,6 +110,7 @@
 
 @section('stylesheet')
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 @endsection
 
 

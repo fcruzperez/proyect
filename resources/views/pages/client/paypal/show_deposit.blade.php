@@ -1,7 +1,7 @@
 @extends('layouts.client')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -10,8 +10,8 @@
                         <div class="name" style="font-size: 27px; font-weight:bold; margin-bottom: 20px;" >
                             <u>{{$name}}</u>
                         </div>
-                        <h5>We will proceed to make the payment for {{$price}}$ and you will receive your order
-                            in a maximum time of {{$time}} hours from the payment.</h5>
+                        <h5>We will proceed to make the payment for <b>{{$price}}$</b> and you will receive your order
+                            in a maximum time of <b>{{$time}}</b> hours from the payment.</h5>
                     </div>
                     <div class="card-footer">
                         <a href="{{route('client.home')}}">

@@ -5,14 +5,15 @@
 @endphp
 
 @section('content')
-    <div class="container">
-        @isset($complete_success)
-        <div class="alert alert-success">Your task has been successfully completed! </div>
-        @endif
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
 
-        @error('complete error')
-            <div class="alert alert-warning">An error occurred in completing! </div>
-        @enderror
+{{--        @isset($complete_success)--}}
+{{--            <div class="alert alert-success">Your task has been successfully completed! </div>--}}
+{{--        @endif--}}
+
+{{--        @error('complete error')--}}
+{{--            <div class="alert alert-warning">An error occurred in completing! </div>--}}
+{{--        @enderror--}}
 
         <div class="row">
             <div class="col-12" style="margin-top: 20px;">
@@ -116,7 +117,8 @@
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        @if($pstatus === 'published' && $offer->status === 'sent')
+
+                        @if($pstatus === 'published' && $offer != null && $offer->status === 'sent')
                             <button type="button" class="btn btn-warning"
                                     data-toggle="modal" data-target="#cancelModal">Cancel</button>
                         @endif
@@ -207,7 +209,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a class="btn btn-primary" href="{{url('/designer/offer-cancel/'.$offer->id)}}">Confirm</a>
+                    <a class="btn btn-primary" href="{{url('/designer/offer-cancel/'.$offer['id'])}}">Confirm</a>
                 </div>
             </div>
         </div>

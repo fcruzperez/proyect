@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="row">
             <div class="col-12">
                 <table id="mediates_table" class="table table-striped table-bordered text-center">
