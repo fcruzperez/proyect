@@ -23,9 +23,9 @@
                     <tbody>
                     @foreach($mediates as $mediate)
                         <?php
-                        $offer = $mediate->offer;
-                        $publish = $offer->request;
-                        $mstatus = $mediate->status;
+                            $offer = $mediate->offer;
+                            $publish = $offer->request;
+                            $mstatus = $mediate->status;
                         ?>
                         <tr>
                             <td>{{$mediate->created_at}}</td>

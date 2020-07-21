@@ -33,8 +33,6 @@ Route::middleware(['auth', 'role:admin'])
     ->group(function () {
         Route::get('dashboard', 'AdminController@dashboard')->name('home');
         Route::get('settings', 'AdminController@settings')->name('settings');
-//  Route::post('save_settings', 'AdminController@saveSettings')->name('save_settings');
-
         Route::post('format_new', 'AdminController@formatNew')->name('format.new');
         Route::post('format_update', 'AdminController@formatUpdate')->name('format.update');
         Route::get('format_delete/{id}', 'AdminController@formatDelete')->name('format.delete');

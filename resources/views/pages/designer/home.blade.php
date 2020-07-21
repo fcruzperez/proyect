@@ -22,7 +22,7 @@
                         <th>Attached</th>
                         <th>Cancel</th>
 
-                    </tr>id
+                    </tr>
                     </thead>
 
                     <tbody>

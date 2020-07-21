@@ -43,14 +43,6 @@ class AdminController extends Controller
         return view('pages.admin.settings', $data);
     }
 
-//    public function saveSettings(Request $request){
-//
-//        $inputs = $request->all();
-////        dd($inputs);
-//
-//        return redirect('/admin/dashboard');
-//    }
-
 
     public function formatNew(Request $request) {
         $input = $request->all();
