@@ -68,17 +68,20 @@ class DesignerController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $fee_rate = floatval(config('setting.designer_fee_rate'));
+//        $fee_rate = floatval(config('setting.designer_fee_rate'));
+
         $price = intval($inputs['bid_price']);
-        $fee = $price * $fee_rate;
-        $paid = $price - $fee;
+        $price = intval($price * 1.1);
+//        $fee = $price * 1.1;
+//        $paid = $price - $fee;
 
         $data = [
             'designer_id' => Auth::id(),
             'request_id' => $inputs['request_id'],
             'price' => $price,
-            'fee' => $fee,
-            'paid' => $paid,
+//            'fee' => $fee,
+//            'paid' => $paid
+
             'hours' => $inputs['bid_time'],
         ];
 

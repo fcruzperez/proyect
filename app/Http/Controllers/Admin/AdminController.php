@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DesignerRate;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
 use App\Models\Technic;
@@ -41,14 +43,6 @@ class AdminController extends Controller
         return view('pages.admin.settings', $data);
     }
 
-//    public function saveSettings(Request $request){
-//
-//        $inputs = $request->all();
-////        dd($inputs);
-//
-//        return redirect('/admin/dashboard');
-//    }
-
 
     public function formatNew(Request $request) {
         $input = $request->all();
@@ -70,6 +64,7 @@ class AdminController extends Controller
     }
 
     public function formatUpdate(Request $request) {
+
         $input = $request->all();
         $validator = Validator::make($input, [
             'format_id' => 'required',
@@ -193,5 +188,46 @@ class AdminController extends Controller
 
         Technic::find($id)->delete();
         return redirect()->to('admin/settings');
+    }
+
+    public function score(Request $request) {
+
+        $designers = User::where('role', 'designer')->get();
+        $designer_ids = array();
+        foreach ($designers as $designer) {
+            array_push($designer_ids, $designer['id']);
+        }
+//        dd($designer_ids);
+
+        $data = ['designer_ids' => $designer_ids];
+
+        return view('pages.admin.score', $data);
+
+
+    }
+
+    public function updateScore(Request $request) {
+
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'designer_id' => 'required',
+            'designer_rate' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        try{
+            $id = DesignerRate::where('designer_id', $input['designer_id'])->get()[0]['id'];
+            $item = DesignerRate::find($id);
+//            dd($item);
+            $item->rate = $input['designer_rate'];
+            $item->save();
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+        return redirect()->to('admin/score');
     }
 }

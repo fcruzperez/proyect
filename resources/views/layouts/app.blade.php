@@ -23,7 +23,7 @@
 
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="font-family: Arial, Helvetica, sans-serif">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">

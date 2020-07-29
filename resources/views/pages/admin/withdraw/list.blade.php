@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
 
         @if($errors->any())
         <div class="alert alert-warning alert-dismissible fade show" role="alert">

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         @isset($new_success)
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Your withdraw request successfully saved!</strong>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="row">
             <div class="col-12">
                 <table id="mediates_table" class="table table-striped table-bordered text-center">
@@ -23,9 +23,9 @@
                     <tbody>
                     @foreach($mediates as $mediate)
                         <?php
-                        $offer = $mediate->offer;
-                        $publish = $offer->request;
-                        $mstatus = $mediate->status;
+                            $offer = $mediate->offer;
+                            $publish = $offer->request;
+                            $mstatus = $mediate->status;
                         ?>
                         <tr>
                             <td>{{$mediate->created_at}}</td>

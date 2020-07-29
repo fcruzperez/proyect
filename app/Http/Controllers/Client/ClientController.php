@@ -308,7 +308,7 @@ class ClientController extends Controller
         $publish = $offer->request;
 
         Session::put('payment_offer_id', $offer_id);
-//        return redirect(route('client.deposit.success'));
+        return redirect('/client/deposit-status?success=true');
 
         /* payment */
         $client_fee_rate = intval(env('CLIENT_FEE_RATE', 0.1));
@@ -463,8 +463,11 @@ class ClientController extends Controller
     }
 
     public function publishDetail(Request $request, $id) {
+
         $publish = Publish::find($id);
+
         $offer = Offer::find($publish->accepted_offer_id);
+//        dd($offer);
 
         if($request->has('message_id')) {
             $message = Message::find($request->get('message_id'));

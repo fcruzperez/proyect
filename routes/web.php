@@ -33,8 +33,6 @@ Route::middleware(['auth', 'role:admin'])
     ->group(function () {
         Route::get('dashboard', 'AdminController@dashboard')->name('home');
         Route::get('settings', 'AdminController@settings')->name('settings');
-//  Route::post('save_settings', 'AdminController@saveSettings')->name('save_settings');
-
         Route::post('format_new', 'AdminController@formatNew')->name('format.new');
         Route::post('format_update', 'AdminController@formatUpdate')->name('format.update');
         Route::get('format_delete/{id}', 'AdminController@formatDelete')->name('format.delete');
@@ -46,9 +44,15 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('technic_delete/{id}', 'AdminController@technicDelete')->name('technic.delete');
 
         // withdraw routes
+        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw-list');
+        Route::get('withdraw-detail', 'WithdrawController@detail')->name('withdraw-detail');
         Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw.list');
         Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
         Route::get('withdraw-complete/{id}', 'WithdrawController@complete')->name('withdraw.complete');
+
+        //Score
+        Route::get('score', 'AdminController@score')->name('score');
+        Route::post('update_score', 'AdminController@updateScore')->name('update_score');
     });
 
 /**
@@ -116,4 +120,5 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('withdraw-new', 'WithdrawController@new')->name('withdraw.new');
         Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
         Route::post('withdraw-save', 'WithdrawController@save')->name('withdraw.save');
+
     });

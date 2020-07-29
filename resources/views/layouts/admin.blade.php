@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="{{asset('css/sticky-footer-navbar.css')}}">
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100" style="font-family: Arial, Helvetica, sans-serif">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
@@ -60,6 +60,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.settings') }}">{{ __('Setting') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.score') }}">{{ __('Score') }}</a>
                             </li>
                             <!-- finance menu -->
                             <li class="nav-item dropdown">

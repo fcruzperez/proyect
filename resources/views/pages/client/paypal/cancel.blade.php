@@ -1,7 +1,7 @@
 @extends('layouts.client')
 
 @section('content')
-<div class="col-12 col-md-4 offset-md-4">
+<div class="col-12 col-md-4 offset-md-4" style="font-family: Arial, Helvetica, sans-serif">
     <div class="card">
         <div class="card-body">
             <h3 class="text-center">Thank you for your order!</h3>
