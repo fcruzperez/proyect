@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header" style="text-align:center;"><h2>Publish</h2></div>
+                    <div class="card-header" style="text-align:center;"><h2>Update Publish</h2></div>
 
                     <div class="card-body">
                         <form method="POST" action="{{route('client.update_publish')}}" id="publish_form" enctype="multipart/form-data">
@@ -99,13 +99,47 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="name"
-                                       class="col-md-4 col-form-label text-md-right">{{__('Name:')}}</label>
+                                <label class="col-md-4 col-form-label text-md-right">{{ __('Image5:') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                           value="{{$publish['name']}}" name="name" placeholder="Design Name" autofocus>
-                                    @error('name')
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="image-wrap">
+                                                @if($publish->image5)
+                                                    <img src="{{url($publish->image5)}}" class="image">
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="file" accept="image/*" class="form-control-file"
+                                                   name="image5" value="{{$publish->image5}}" autofocus>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="nick_name"
+                                     class="col-md-4 col-form-label text-md-right">Nick name:</label>
+                                <div class="col-md-6">
+                                    <input id="nick_name" type="text" class="form-control @error('nick_name') is-invalid @enderror"
+                                           value="{{$publish['nick_name']}}" name="nick_name" placeholder="Nickname" autofocus>
+                                    @error('nick_name')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="design_name"
+                                       class="col-md-4 col-form-label text-md-right">{{__('Design Name:')}}</label>
+
+                                <div class="col-md-6">
+                                    <input id="design_name" type="text" class="form-control @error('design_name') is-invalid @enderror"
+                                           value="{{$publish['design_name']}}" name="design_name" placeholder="Design Name" autofocus>
+                                    @error('design_name')
                                         <div class="invalid-feedback d-block">
                                             {{ $message }}
                                         </div>
@@ -129,11 +163,14 @@
                                                     $str = $str . $publish->formats[$i]->name . ',';
                                                 }
                                             @endphp
-                                            <option @if((strpos($str, $format->name)) > 0) selected @endif value="{{$format->id}}">{{$format->name}}</option>
+                                            <option @if(strpos($str, $format->name) !== false) selected @endif value="{{$format->id}}">{{$format->name}}</option>
                                         @endforeach
+
                                     </select>
                                 </div>
+
                                 <input type="hidden" name="formats" id="formats">
+
                             </div>
 
                             <div class="form-group row">
@@ -226,13 +263,19 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-md-6 offset-md-9">
-                                    <button class="btn btn-primary" onclick="post()">
+                                <div class="col-md-4 offset-md-8">
+                                    <button type="submit" class="btn btn-primary" onclick="post()">
                                         {{ __('UPDATE') }}
                                     </button>
+                                    <a href="{{url("/client/home")}}">
+                                        <button type="button"  class="btn btn-danger">
+                                            {{ __('CANCEL') }}
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -253,8 +296,8 @@
 @endsection
 
 @section('js')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--}}
+{{--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
     <script>

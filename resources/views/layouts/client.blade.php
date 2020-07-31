@@ -51,13 +51,17 @@
                                 <a class="nav-link" href="{{route('client.home')}}">Home<span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('client.mediate.list')}}">Mediation</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('client.new_publish')}}">New Publish</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{route('client.mediate.list')}}">Mediation</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('client.finance.list')}}">Finances</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Add Info</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <?php

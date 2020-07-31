@@ -37,7 +37,7 @@
                             */
                         @endphp
                         <td>{{$publish['created_at']}}</td>
-                        <td>{{$publish['name']}}</td>
+                        <td>{{$publish['design_name']}}</td>
                         <td>{{$publish['hours']}}</td>
                         {{--                @if($hours == 0)--}}
                         {{--                    <td>{{$minutes . 'minutes ago'}}</td>--}}
@@ -123,7 +123,7 @@
                                                                         <input type="hidden" name="time" value="{{$offer->hours}}" />
                                                                         <input type="hidden" name="name" value="{{$offer->name}}" />
 
-                                                                        <button type="submit" class="btn btn-primary">AWARD</button>
+                                                                        <button type="submit" class="btn btn-primary">Accept Offer</button>
                                                                     </form>
                                                                 @else
                                                                     @if($publish->accepted_offer_id === $offer->id)

@@ -1,7 +1,7 @@
 @extends('layouts.client')
 
 <?php
-//    var_dump($errors->has('images'));
+//    var_dump($errors);
 ?>
 
 @section('content')
@@ -62,13 +62,37 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="name"
-                                       class="col-md-4 col-form-label text-md-right">{{__('Name:')}}</label>
+                                <label for="image5"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Image5:') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                           value="{{old('name')}}" name="name" placeholder="Design Name" autofocus>
-                                    @error('name')
+                                    <input type="file" accept="image/*" id="image5" class="form-control-file"
+                                           name="image5" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="nick_name"
+                                        class="col-md-4 col-form-label text-md-right">Nickname:</label>
+                                <div class="col-md-6">
+                                    <input id="nick_name" type="text" class="form-control @error('nick_name') is-invalid @enderror"
+                                           value="{{old('nick_name')}}" name="nick_name" placeholder="Nickname" autofocus>
+                                    @error('nick_name')
+                                    <div class="invalid-feedback d-block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="design_name"
+                                       class="col-md-4 col-form-label text-md-right">{{__('Design Name:')}}</label>
+
+                                <div class="col-md-6">
+                                    <input id="design_name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                           value="{{old('design_name')}}" name="design_name" placeholder="Design Name" autofocus>
+                                    @error('design_name')
                                         <div class="invalid-feedback d-block">
                                             {{ $message }}
                                         </div>
@@ -89,7 +113,9 @@
                                         @endforeach
                                     </select>
                                 </div>
+
                                 <input type="hidden" name="formats" id="formats">
+
                             </div>
 
                             <div class="form-group row">
@@ -99,6 +125,7 @@
                                 <div class="col-md-6">
                                     <input id="width" type="number" class="form-control @error('width') is-invalid @enderror"
                                            value="{{old('width')}}" name="width" placeholder="mm">
+
                                     @error('width')
                                         <div class="invalid-feedback d-block">
                                             {{ $message }}

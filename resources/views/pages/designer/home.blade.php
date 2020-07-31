@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-12">
-                <table id="offers_table" class="table table-striped table-bordered">
+                <table id="offers_table" class="table table-striped table-bordered text-center">
 
                     <thead>
                     <tr>
@@ -35,7 +35,7 @@
                         @if($request['status'] == 'published')
                         <tr>
                             <td>{{$request['created_at']}}</td>
-                            <td>{{$request['name']}}</td>
+                            <td>{{$request['design_name']}}</td>
                             <td>
                                 <a class="btn btn-info" href="{{url('/designer/offer-detail/'.$offer->id)}}">Details</a>
                                 {{--                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#www{{$request->id}}">Details</button>--}}
@@ -133,7 +133,7 @@
                             <td></td>
                             <td>
                                 @if($offer->status === 'sent')
-                                    <a class="btn btn-warning" href="">Cancel</a>
+                                    <a class="btn btn-danger" href="">Cancel</a>
                                 @endif
                             </td>
                         </tr>

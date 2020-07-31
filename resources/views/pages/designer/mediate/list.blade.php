@@ -29,7 +29,7 @@
                         ?>
                         <tr>
                             <td>{{$mediate->created_at}}</td>
-                            <td>{{$publish->name}}</td>
+                            <td>{{$publish->design_name}}</td>
                             <td>{{$publish->hours}}</td>
                             <td>{{$publish->client->name}}</td>
                             <td>{{$offer->hours}}</td>

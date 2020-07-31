@@ -20,7 +20,9 @@ class CreateRequestsTable extends Migration
             $table->string('image2')->nullable();
             $table->string('image3')->nullable();
             $table->string('image4')->nullable();
-            $table->string('name');
+            $table->string('image5')->nullable();
+            $table->string('nick_name');
+            $table->string('design_name');
             $table->float('width');
             $table->float('height');
             $table->integer('hours');

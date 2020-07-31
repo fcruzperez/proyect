@@ -61,6 +61,7 @@ class AdminController extends Controller
         }
 
         return redirect()->to('admin/settings');
+
     }
 
     public function formatUpdate(Request $request) {

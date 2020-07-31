@@ -20,24 +20,29 @@
                 <div class="card" id="offerCard">
                     <div class="card-body">
                         <div class="row mb-3">
-                            <div class="col-12 col-sm-6 col-lg-3 px-0 image-wrapper">
+                            <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
                                 @if(!is_null($publish->image1))
                                     <img src="{{url($publish->image1)}}" class="image-box">
                                 @endif
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-3 px-0 image-wrapper">
+                            <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
                                 @if(!is_null($publish->image2))
                                     <img src="{{url($publish->image2)}}" class="image-box">
                                 @endif
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-3 px-0 image-wrapper">
+                            <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
                                 @if(!is_null($publish->image3))
                                     <img src="{{url($publish->image3)}}" class="image-box">
                                 @endif
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-3 px-0 image-wrapper">
+                            <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
                                 @if(!is_null($publish->image4))
                                     <img src="{{url($publish->image4)}}" class="image-box">
+                                @endif
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
+                                @if(!is_null($publish->image5))
+                                    <img src="{{url($publish->image5)}}" class="image-box">
                                 @endif
                             </div>
                         </div>
@@ -45,13 +50,25 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="row">
                                     <div class="col-3"><label>Name</label></div>
-                                    <div class="col-9"><strong>{{$publish->name}}</strong></div>
+                                    <div class="col-9"><strong>{{$publish->design_name}}</strong></div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="row">
+                                    @php
+                                        $width = $publish->width;
+                                        $height = $publish->height;
+                                    @endphp
                                     <div class="col-3"><label>Size</label></div>
-                                    <div class="col-9">{{$publish->width}} x {{$publish->height}} cm</div>
+                                    <div class="col-5" id="size">{{$width}} x {{$height}} mm </div>
+                                    <input type="hidden" name="width" id="width" value={{$width}}>
+                                    <input type="hidden" id="height" value={{$height}}>
+                                    <div class="col-4">
+                                        <select name="unit" id="unit" onchange="unitChange()">
+                                            <option value="mm">mm</option>
+                                            <option value="inch">inch</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4">
@@ -258,6 +275,20 @@
         function show(para) {
             document.getElementById('request_id').value = para;
             document.getElementById('btn_modal').click();
+        }
+        function unitChange(){
+            var HH=document.getElementById('height').value;
+            var WW=document.getElementById('width').value;
+            var inch_HH=Number((HH/25.4).toFixed(1));
+            var inch_WW=Number((WW/25.4).toFixed(1));
+            var val=document.getElementById("unit").value;
+            if(val==="mm"){
+                document.getElementById("size").innerHTML = WW + " x " + HH + " mm";
+            }
+            else{
+                document.getElementById("size").innerHTML = inch_WW + " x " + inch_HH + " inch";
+            }
+
         }
     </script>
 

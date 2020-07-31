@@ -59,8 +59,14 @@ class ClientController extends Controller
         $inputs = $request->all();
 
         $validator = Validator::make($inputs, [
-            'image1' => 'required',
-            'name' => 'required',
+            'image1' => 'required|file|size:10',
+            'image2' => 'file|size:10',
+            'image3' => 'file|size:10',
+            'image4' => 'file|size:10',
+            'image5' => 'file|size:10',
+            'nick_name' => 'required',
+            'design_name' => 'required',
+            'format' => 'required',
             'width' => 'required|integer',
             'height' => 'required|integer',
             'hours' => 'required|integer',
@@ -74,7 +80,7 @@ class ClientController extends Controller
 
         $publish_data['client_id'] = Auth::id();
 
-        $imageNames = ['image1', 'image2', 'image3', 'image4'];
+        $imageNames = ['image1', 'image2', 'image3', 'image4', 'image5'];
 
         foreach ($imageNames as $imgname) {
             if ($request->hasFile($imgname)) {
@@ -130,7 +136,9 @@ class ClientController extends Controller
         $inputs = $request->all();
         $validator = Validator::make($inputs, [
 //            'image1' => 'required',
-            'name' => 'required',
+            'nick_name' => 'required',
+            'design_name' => 'required',
+            'format' => 'required',
             'width' => 'required|integer',
             'height' => 'required|integer',
             'hours' => 'required|integer',
@@ -141,8 +149,9 @@ class ClientController extends Controller
         }
 
         $rid = $inputs['request_id'];
+//        dd($rid);
         $old_publish = Publish::find($rid);
-        $imageNames = ['image1', 'image2', 'image3', 'image4'];
+        $imageNames = ['image1', 'image2', 'image3', 'image4', 'image5'];
 
         foreach ($imageNames as $imgname) {
             if ($request->hasFile($imgname)) {
@@ -151,7 +160,8 @@ class ClientController extends Controller
             }
         }
 
-        $old_publish->name = $inputs['name'];
+        $old_publish->nick_name = $inputs['nick_name'];
+        $old_publish->design_name = $inputs['design_name'];
         $old_publish->width = $inputs['width'];
         $old_publish->height = $inputs['height'];
         $old_publish->hours = $inputs['hours'];
@@ -223,7 +233,6 @@ class ClientController extends Controller
         $formats = Format::get();
         $fabrics = Fabric::get();
         $technics = Technic::get();
-
         $data = ['publish' => $old, 'technics' => $technics, 'formats' => $formats, 'fabrics' => $fabrics];
 
         return view('pages.client.publish.update', $data);

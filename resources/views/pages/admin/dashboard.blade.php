@@ -30,7 +30,7 @@
                             @endphp
                             <td>{{$publish['created_at']}}</td>
                             <td>{{$user['name']}}</td>
-                            <td>{{$publish['name']}}</td>
+                            <td>{{$publish['design_name']}}</td>
                             <td>{{$publish['hours']}}</td>
                             <td> ------ </td>
                             <td>
@@ -44,15 +44,15 @@
 
                                             <div class="modal-body text-left">
                                                 @php
-                                                    $str = '';
-                                                    for ($i = 0; $i < 3; $i++){
-                                                        if (isset($publish->formats[$i]->name)) {
-                                                            $str = $str . $publish->formats[$i]->name . ',';
-                                                        }
-                                                    }
-                                                    $n = strlen($str);
-                                                    $str = substr($str, 0, $n - 1);
-                                                    //dd($str);
+                                                     $str = '';
+                                                     for ($i = 0; $i < 10; $i++){
+                                                         if (isset($publish->formats[$i]->name)) {
+                                                             $str = $str . $publish->formats[$i]->name . ',';
+                                                         }
+                                                     }
+                                                     $n = strlen($str);
+                                                     $str = substr($str, 0, $n - 1);
+                                                 //dd($str);
                                                 @endphp
                                                 <div>
                                                     <b class="text-center" style="color:blue; margin-left: 50px;">Format(s):</b> <b>{{ empty($str) ? 'Undefined' : $str }}</b>
@@ -63,7 +63,7 @@
                                                 </div>
                                                 @php
                                                     $str = '';
-                                                    for ($i = 0; $i < 3; $i++){
+                                                    for ($i = 0; $i < 10; $i++){
                                                         if (isset($publish->fabrics[$i]->name)) {
                                                             $str = $str . $publish->fabrics[$i]->name . ',';
                                                         }
@@ -76,7 +76,7 @@
                                                 </div>
                                                 @php
                                                     $str = '';
-                                                    for ($i = 0; $i < 3; $i++){
+                                                    for ($i = 0; $i < 10; $i++){
                                                         if (isset($publish->technics[$i]->name)) {
                                                             $str = $str . $publish->technics[$i]->name . ',';
                                                         }

@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
           'id' => 1,
           'name' => 'admin',
           'email' => 'admin@test.com',
+          'paypal_email' => 'admin@test.com',
           'password' => bcrypt('11111111'),
           'role' => 'admin',
           'mobile' => '123456789'

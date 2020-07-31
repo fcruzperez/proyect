@@ -11,12 +11,54 @@
                 <div class="col-sm-6 col-lg-4" style="margin-top: 20px;">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-9 px-0 main image-wrapper">
+{{--                            <div class="row">--}}
+{{--                                <div class="col-9 px-0 main image-wrapper">--}}
+{{--                                    @if(!is_null($publish->image1))--}}
+{{--                                        <img src="{{url($publish->image1)}}" class="image-box">--}}
+{{--                                    @endif--}}
+{{--                                </div>--}}
+{{--                                <div class="col-3 px-0">--}}
+{{--                                    <div class="row mx-0">--}}
+{{--                                        <div class="col-12 sub image-wrapper">--}}
+{{--                                            @if(!is_null($publish->image2))--}}
+{{--                                                <img src="{{url($publish->image2)}}" class="image-box">--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+{{--                                    <div class="row mx-0">--}}
+{{--                                        <div class="col-12 sub image-wrapper">--}}
+{{--                                            @if(!is_null($publish->image3))--}}
+{{--                                                <img src="{{url($publish->image3)}}" class="image-box">--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+{{--                                    <div class="row mx-0">--}}
+{{--                                        <div class="col-12 sub image-wrapper">--}}
+{{--                                            @if(!is_null($publish->image4))--}}
+{{--                                                <img src="{{url($publish->image4)}}" class="image-box">--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="row mx-0">--}}
+{{--                                        <div class="col-12 sub image-wrapper">--}}
+{{--                                            @if(!is_null($publish->image5))--}}
+{{--                                                <img src="{{url($publish->image5)}}" class="image-box">--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <div class="row">
+                                <div class="main image-wrapper">
                                     @if(!is_null($publish->image1))
                                         <img src="{{url($publish->image1)}}" class="image-box">
                                     @endif
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-3 px-0">
                                     <div class="row mx-0">
                                         <div class="col-12 sub image-wrapper">
@@ -25,7 +67,8 @@
                                             @endif
                                         </div>
                                     </div>
-
+                                </div>
+                                <div class="col-3 px-0">
                                     <div class="row mx-0">
                                         <div class="col-12 sub image-wrapper">
                                             @if(!is_null($publish->image3))
@@ -33,20 +76,33 @@
                                             @endif
                                         </div>
                                     </div>
-
-                                    <div class="row mx-0">
+                                </div>
+                                <div class="col-3 px-0">
+                                     <div class="row mx-0">
                                         <div class="col-12 sub image-wrapper">
                                             @if(!is_null($publish->image4))
                                                 <img src="{{url($publish->image4)}}" class="image-box">
                                             @endif
                                         </div>
                                     </div>
-
+                                </div>
+                                <div class="col-3 px-0">
+                                    <div class="row mx-0">
+                                        <div class="col-12 sub image-wrapper">
+                                            @if(!is_null($publish->image5))
+                                                <img src="{{url($publish->image5)}}" class="image-box">
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="row bl1" style="padding-top: 5px;">
+                                <div class="col-3">Client Name</div>
+                                <div class="col-9" style="padding-top: 10px;"><strong>{{$publish->nick_name}}</strong></div>
+                            </div>
                             <div class="row">
-                                <div class="col-3">Name</div>
-                                <div class="col-9"><strong>{{$publish->name}}</strong></div>
+                                <div class="col-3">Design Name</div>
+                                <div class="col-9" style="padding-top: 10px;"><strong>{{$publish->design_name}}</strong></div>
                             </div>
                             <div class="row bl1 tl1">
                                 <div class="col-3">Size</div>

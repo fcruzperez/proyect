@@ -48,6 +48,7 @@ class MediateController extends Controller
     }
 
     public function complete($id) {
+
         $mediate = Mediate::find($id);
         $mediate->status = 'completed';
         $mediate->save();
