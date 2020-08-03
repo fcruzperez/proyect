@@ -7,10 +7,19 @@
 @section('content')
 
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
+        <b>
+            <div style="color: blue; font-size: 21px;"><b>Note:</b></div>
+            <div style="font-size: 20px; padding-bottom: 20px;">
+                <div>• You can upload up to 5 images of the design you need.</div>
+                <div>• The images must correspond to the same design.</div>
+                <div>• Make sure that the images are of good quality so that you have better offers.</div>
+                <div>• Do not add personal details (your name, email, phone number, etc.) to avoid blocking your account.</div>
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header" style="text-align:center;"><h2>Publish</h2></div>
+                    <div class="card-header" style="text-align:center;"><h2><b>Publish</b></h2></div>
 
                     <div class="card-body">
                         <form method="POST" action="{{route('client.save_publish')}}" id="publish_form" enctype="multipart/form-data">
@@ -98,7 +107,6 @@
                                         </div>
                                     @enderror
                                 </div>
-
                             </div>
 
                             <div class="form-group row">
@@ -115,16 +123,31 @@
                                 </div>
 
                                 <input type="hidden" name="formats" id="formats">
+                            </div>
+
+                            <div class="form-group row" >
+                                <label for="unit"
+                                       class="col-md-4 col-form-label text-md-right" style="margin-top: -8px;">Unit:</label>
+                                <div class="col-md-6">
+                                    <div>
+                                        <input id="unit_mm" type="radio" name="unit" checked value="mm" required>
+                                        <label for="unit_mm" style="padding-right: 20px;" class="form-check-label">{{ __('mm') }}</label>
+                                        <input id="unit_in" type="radio" name="unit" value="in" required>
+                                        <label for="unit_in" class="form-check-label">{{ __('in') }}</label>
+                                    </div>
+                                </div>
 
                             </div>
 
-                            <div class="form-group row">
+                            </div>
+
+                            <div class="form-group row" style="margin-top: -20px;">
                                 <label for="width"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Width:') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="width" type="number" class="form-control @error('width') is-invalid @enderror"
-                                           value="{{old('width')}}" name="width" placeholder="mm">
+                                           value="{{old('width')}}" name="width">
 
                                     @error('width')
                                         <div class="invalid-feedback d-block">
@@ -142,7 +165,7 @@
 
                                 <div class="col-md-6">
                                     <input id="height" type="number" class="form-control @error('height') is-invalid @enderror"
-                                           value="{{old('height')}}" name="height" placeholder="mm">
+                                           value="{{old('height')}}" name="height">
                                     @error('height')
                                         <div class="invalid-feedback d-block">
                                             {{ $message }}
@@ -193,6 +216,16 @@
                                 </div>
                                 <input type="hidden" name="technics" id="technics">
                             </div>
+                            <div class="form-group row">
+                                <label for="technic"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Addictional Details:') }}</label>
+
+                                <div class="col-md-6">
+                                    <textarea id="add_info" name="add_info">
+
+                                    </textarea>
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-9">
@@ -211,10 +244,19 @@
 
 
 @section('stylesheet')
+    <style>
+        textarea {
+            width: 510px;
+            height: 150px;
+        }
+    </style>
+
 
 @endsection
 
 @section('js')
+{{--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--}}
+{{--        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
     <script>
@@ -227,7 +269,7 @@
             var technic_select = $('#technic_select').selectpicker('val');
             var fabric_select = $('#fabric_select').selectpicker('val');
 
-            if(format_select !== null) $('#formats').val(format_select.join())
+            if(format_select !== null) $('#formats').val(format_select.join());
             if(technic_select !== null) $('#technics').val(technic_select.join());
             if(fabric_select !== null) $('#fabrics').val(fabric_select.join());
 

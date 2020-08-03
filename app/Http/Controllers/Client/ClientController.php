@@ -59,13 +59,14 @@ class ClientController extends Controller
         $inputs = $request->all();
 
         $validator = Validator::make($inputs, [
-            'image1' => 'required|file|size:10',
-            'image2' => 'file|size:10',
-            'image3' => 'file|size:10',
-            'image4' => 'file|size:10',
-            'image5' => 'file|size:10',
+            'image1' => 'required',
+//            'image2' => 'file|size:10',
+//            'image3' => 'file|size:10',
+//            'image4' => 'file|size:10',
+//            'image5' => 'file|size:10',
             'nick_name' => 'required',
             'design_name' => 'required',
+            'unit' => 'required',
             'format' => 'required',
             'width' => 'required|integer',
             'height' => 'required|integer',
@@ -76,7 +77,7 @@ class ClientController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $publish_data = $request->except(['format', 'formats', 'technic', 'technics', 'image1', 'image2', 'image3', 'image4', 'fabric', 'fabrics']);
+        $publish_data = $request->except(['format', 'formats', 'technic', 'technics', 'image1', 'image2', 'image3', 'image4', 'image5', 'fabric', 'fabrics']);
 
         $publish_data['client_id'] = Auth::id();
 
@@ -93,7 +94,6 @@ class ClientController extends Controller
         $new_publish = Publish::create($publish_data);
 
         $request_id = $new_publish->id;
-
 
         if (!is_null($inputs['formats'])) {
             $format_ids = explode(',', $inputs['formats']);
@@ -162,6 +162,7 @@ class ClientController extends Controller
 
         $old_publish->nick_name = $inputs['nick_name'];
         $old_publish->design_name = $inputs['design_name'];
+        $old_publish->unit = $inputs['unit'];
         $old_publish->width = $inputs['width'];
         $old_publish->height = $inputs['height'];
         $old_publish->hours = $inputs['hours'];
@@ -212,7 +213,7 @@ class ClientController extends Controller
             }
         }
 
-        return redirect('/client/home');
+        return redirect('/client/myposts');
 
     }
 
@@ -225,6 +226,14 @@ class ClientController extends Controller
         $data = ['technics' => $technics, 'formats' => $formats, 'fabrics' => $fabrics];
 
         return view('pages.client.publish.new', $data);
+    }
+    public function showPublishes(Request $request)
+    {
+        $publishes = Publish::where('status', 'published')->get();
+
+        $data = ['publishes' => $publishes];
+
+        return view('pages.client.home', $data);
     }
 
     public function showUpdatePublish($rid)
@@ -249,16 +258,34 @@ class ClientController extends Controller
 //    }
     }
 
-    public function showPublishes(Request $request)
+    public function listMyPosts(Request $request)
     {
 
         $userId = Auth::id();
         $publishes = Publish::where('client_id', $userId)->get();
 
         $data = ['publishes' => $publishes];
-        return view('pages.client.home', $data);
+        return view('pages.client.myposts', $data);
 
     }
+//
+//    public function showDeposit(Request $request)
+//    {
+//
+//        $inputs = $request->all();
+//        $validator = Validator::make($inputs, [
+//            'request_id' => 'required',
+//            'offer_id' => 'required',
+//        ]);
+//        if ($validator->fails()) {
+//            return back()->withErrors($validator);
+//        }
+//        $request_id = $inputs['request_id'];
+//        $design_name = Publish::find($request_id)['design_name'];
+//        $inputs['design_name'] = $design_name;
+//        return view('pages.client.paypal.show_deposit', $inputs);
+//    }
+
 
     public function showDeposit(Request $request)
     {
@@ -271,11 +298,21 @@ class ClientController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
+
         $request_id = $inputs['request_id'];
-        $name = Publish::find($request_id)['name'];
-        $inputs['name'] = $name;
-        return view('pages.client.paypal.show_deposit', $inputs);
+        $publish = Publish::find($request_id);
+        $publish['status'] = 'accepted';
+        $publish['accepted_offer_id'] = $inputs['offer_id'];
+        $publish['accepted_at'] = date('Y-m-d H:i:s');
+        $publish->save();
+
+        $offer = Offer::find($inputs['offer_id']);
+        $offer['status'] = 'accepted';
+        $offer->save();
+
+        return back();
     }
+
 
     public function acceptBid(Request $request)
     {
@@ -404,7 +441,7 @@ class ClientController extends Controller
                     $offer->save();
 
                     $request = $offer->request;
-                    $request->status = 'in production';
+                    $request->status = 'accepted';
                     $request->deposit = $offer->price;
                     $request->accepted_offer_id = $offer->id;
                     $request->accepted_at = $now;

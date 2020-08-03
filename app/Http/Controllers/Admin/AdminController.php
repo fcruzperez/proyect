@@ -15,6 +15,7 @@ use App\Models\RequestFormat;
 use App\Models\RequestTechnic;
 use App\Models\RequestImage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -196,11 +197,26 @@ class AdminController extends Controller
         $designers = User::where('role', 'designer')->get();
         $designer_ids = array();
         foreach ($designers as $designer) {
+
             array_push($designer_ids, $designer['id']);
         }
+
+//        foreach ($designer_ids as $designer_id) {
+//            try {
+//                DesignerRate::create([
+//                    'designer_id' => $designer_id,
+//                    'rate' => 0,
+//                ]);
+//            }
+//            catch(\Exception $e) {
+//                return back()->withErrors(['error' => $e->getMessage()]);
+//            }
+//
+//        }
 //        dd($designer_ids);
 
         $data = ['designer_ids' => $designer_ids];
+
 
         return view('pages.admin.score', $data);
 
@@ -230,5 +246,33 @@ class AdminController extends Controller
         }
 
         return redirect()->to('admin/score');
+
+    }
+
+    public function registerUser(Request $request) {
+
+        $data = $request->all();
+//        dd($data);
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'paypal_email' => $data['paypal_email'],
+            'mobile' => $data['mobile'],
+            'role' => $data['role'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        if($user->role === 'designer') {
+            DesignerRate::create([
+                'designer_id' => $user->id,
+                'rate' => 0
+            ]);
+        }
+        return redirect()->to('admin/dashboard');
+    }
+
+    public function showRegisterUser(Request $request){
+
+        return view('pages.admin.register');
     }
 }

@@ -52,6 +52,13 @@ class UserSeeder extends Seeder
         ],
       ]);
 
+      DB::table('designer_rates')->insert([
+         [
+             'designer_id' => 3,
+             'rate' => 0
+         ]
+      ]);
+
       DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

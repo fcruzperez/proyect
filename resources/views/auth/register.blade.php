@@ -7,8 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
+                <div class="card-header text-center" style="font-size: 20px;"><b>{{ __('Register') }}</b></div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -71,12 +70,12 @@
 
                         <div class="form-group row">
                             <label for="role_client" class="col-md-4 col-form-label text-md-right">{{ __('Role:') }}</label>
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-3 text-center" style="padding-top: 10px;">
                                 <input id="role_client" type="radio" class="form-check-inline @error('role') is-invalid @enderror" name="role" checked value="client" required>
                                 <label for="role_client" class="form-check-label">{{ __('Client') }}</label>
                             </div>
 
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-3 text-center" style="padding-top: 10px;">
                                 <input id="role_designer" type="radio" class="form-check-inline @error('role') is-invalid @enderror" name="role" value="designer" required>
                                 <label for="role_designer" class="form-check-label">{{ __('Designer') }}</label>
                             </div>

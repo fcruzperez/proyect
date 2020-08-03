@@ -15,13 +15,11 @@
                     <tr>
                         <th>Time</th>
                         <th>Name</th>
-                        <th>Details</th>
+                        <th>Price</th>
                         <th>Offer Status</th>
                         <th>Time Left</th>
-                        <th>Price</th>
+                        <th>Details</th>
                         <th>Attached</th>
-                        <th>Cancel</th>
-
                     </tr>
                     </thead>
 
@@ -32,10 +30,57 @@
                             $request = \App\Models\Request::find($request_id);
                             //dd($request);
                         @endphp
-                        @if($request['status'] == 'published')
                         <tr>
                             <td>{{$request['created_at']}}</td>
                             <td>{{$request['design_name']}}</td>
+                            <td>{{$offer['price']}}</td>
+                            <td>
+                                {{--  sent, accepted, mediated, canceled, completed--}}
+                                @if($offer->status === 'sent')
+                                    Proposal sent
+                                @elseif($offer->status === 'accepted')
+                                    Accepted
+                                @elseif($offer->status === 'mediated')
+                                    In mediate
+                                @elseif($offer->status === 'canceled')
+                                    Canceled
+                                @elseif($offer->status === 'completed')
+                                    Completed
+                                @endif
+                            </td>
+                            <td>
+{{--                                @php--}}
+{{--                                    $accepted_at = new \Carbon\Carbon($request->accepted_at);--}}
+{{--                                    $deadline = $accepted_at->addHours($offer->hours);--}}
+{{--                                    $now = new \Carbon\Carbon();--}}
+{{--                                    $timeLeft = $deadline->diffInMinutes($now);--}}
+{{--                                    $mins = $timeLeft % 60;--}}
+{{--                                    $hr = intdiv($timeLeft, 60);--}}
+{{--                                @endphp--}}
+                                @php
+                                    if ($offer->status === 'accepted') {
+                                        $nowTime = strtotime(date("Y-m-d h:i:sa"));
+                                        $acceptedTime = strtotime((string)$request['accepted_at']);
+                                        $interval = abs($nowTime - $acceptedTime);
+                                        $minutes = round($interval / 60);
+
+                                        $hours = floor($minutes / 60);
+                                        $minutes = $minutes - 60 * $hours;
+                                        $accepted_offer_id = $request['accepted_offer_id'];
+                                        $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
+                                        $hours = $deadline - $hours - 1;
+                                        $minutes = 60 - $minutes;
+                                    }
+
+                                @endphp
+                                @if ($offer->status === 'accepted' && $hours > 0)
+                                    {{$hours}}:{{$minutes}} hours
+                                @elseif ($offer->status === 'accepted' && $hours === 0)
+                                    {{$minutes}} minutes
+                                @else
+                                    -------
+                                @endif
+                            </td>
                             <td>
                                 <a class="btn btn-info" href="{{url('/designer/offer-detail/'.$offer->id)}}">Details</a>
                                 {{--                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#www{{$request->id}}">Details</button>--}}
@@ -100,44 +145,10 @@
                                 {{--                        </div>--}}
                                 {{--                    </div>--}}
                             </td>
-                            <td>
-                                {{--                    sent, accepted, mediated, canceled, completed--}}
-                                @if($offer->status === 'sent')
-                                    Proposal sent
-                                @elseif($offer->status === 'accepted')
-                                    In progress
-                                @elseif($offer->status === 'mediated')
-                                    In mediate
-                                @elseif($offer->status === 'canceled')
-                                    Canceled
-                                @elseif($offer->status === 'completed')
-                                    Completed
-                                @endif
-                            </td>
-                            <td>
-                                @php
-                                    $accepted_at = new \Carbon\Carbon($request->accepted_at);
-                                    $deadline = $accepted_at->addHours($offer->hours);
-                                    $now = new \Carbon\Carbon();
-                                    $timeLeft = $deadline->diffInMinutes($now);
-                                    $mins = $timeLeft % 60;
-                                    $hr = intdiv($timeLeft, 60);
-                                @endphp
-                                @if ($offer->status === 'accepted')
-                                    {{$hr}}:{{$mins}} hours
-                                @else
-                                    -------
-                                @endif
-                            </td>
-                            <td>{{$offer['price']}}</td>
+
+
                             <td></td>
-                            <td>
-                                @if($offer->status === 'sent')
-                                    <a class="btn btn-danger" href="">Cancel</a>
-                                @endif
-                            </td>
                         </tr>
-                        @endif
                     @endforeach
                     </tbody>
                 </table>

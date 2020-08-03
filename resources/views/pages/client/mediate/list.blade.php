@@ -75,5 +75,11 @@
         $(document).ready(function() {
             $('#mediates_table').DataTable();
         } );
+
+        $('#mediates_table').dataTable( {
+            "language": {
+                "emptyTable": "There are no mediations"
+            }
+        } );
     </script>
 @endsection

@@ -106,17 +106,24 @@
                             </div>
                             <div class="row bl1 tl1">
                                 <div class="col-3">Size</div>
-                                <div class="col-9">{{$publish->width}} x {{$publish->height}} cm</div>
+                                <div class="col-9">{{$publish->width}} x {{$publish->height}} {{$publish['unit']}}</div>
                             </div>
                             <div class="row bl1">
                                 @php
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
-                                    $str = $diff->format('%h hours %i minutes');
+                                    $str = $diff->format('%h hour %i minutes ago');
+                                    $h = explode(' ', $str);
                                 @endphp
                                 <div class="col-3">Published at</div>
-                                <div class="col-9">{{$str}} ago</div>
+                                <div class="col-9">
+                                    @if ((int)$h[0] === 0)
+                                        {{$h[2]}} minutes ago
+                                    @else
+                                        {{$str}}
+                                    @endif
+                                </div>
                             </div>
                             <div class="row bl1">
                                 @php

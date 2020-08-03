@@ -32,6 +32,8 @@ Route::middleware(['auth', 'role:admin'])
     ->namespace('Admin')
     ->group(function () {
         Route::get('dashboard', 'AdminController@dashboard')->name('home');
+        Route::get('register', 'AdminController@showRegisterUser')->name('register');
+        Route::post('register', 'AdminController@registerUser')->name('register');
         Route::get('settings', 'AdminController@settings')->name('settings');
         Route::post('format_new', 'AdminController@formatNew')->name('format.new');
         Route::post('format_update', 'AdminController@formatUpdate')->name('format.update');
@@ -63,7 +65,9 @@ Route::middleware(['auth', 'role:client'])
     ->name('client.')
     ->namespace('Client')
     ->group(function () {
+
         Route::get('home', 'ClientController@showPublishes')->name('home');
+        Route::get('myposts', 'ClientController@listMyPosts')->name('myposts');
         Route::get('new_publish', 'ClientController@showNewPublish')->name('new_publish');
         Route::post('save_publish', 'ClientController@savePublish')->name('save_publish');
         Route::get('edit_publish/{rid}', 'ClientController@showUpdatePublish')->name('edit_publish');
@@ -105,7 +109,8 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('home', 'DesignerController@home')->name('home');
         Route::get('posts', 'DesignerController@viewPosts')->name('posts');
         Route::post('offer-save', 'DesignerController@saveBid')->name('offer-save');
-        Route::get('offer-cancel/{id}', 'DesignerController@cancelBid')->name('offer-cancel');
+        Route::post('offer-update', 'DesignerController@updateBid')->name('offer-update');
+//        Route::get('offer-cancel/{id}', 'DesignerController@cancelBid')->name('offer-cancel');
         Route::get('offer-detail/{id}', 'DesignerController@offerDetail')->name('offer-detail');
         Route::get('download-image/{file}', 'DesignerController@downloadImage')->name('download-image');
         Route::post('delivery-upload', 'DesignerController@deliveryUpload')->name('delivery-upload');

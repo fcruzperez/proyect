@@ -11,8 +11,7 @@
                     <tr>
                         <th>Time</th>
                         <th>Client</th>
-                        <th>Name</th>
-                        <th>Time Required</th>
+                        <th>Design Name</th>
                         <th>Time Left</th>
                         <th>Details</th>
                         <th>Status</th>
@@ -31,8 +30,31 @@
                             <td>{{$publish['created_at']}}</td>
                             <td>{{$user['name']}}</td>
                             <td>{{$publish['design_name']}}</td>
-                            <td>{{$publish['hours']}}</td>
-                            <td> ------ </td>
+                            <td>
+                                @php
+                                    if ($publish->status === 'accepted') {
+                                        $nowTime = strtotime(date("Y-m-d h:i:sa"));
+                                        $acceptedTime = strtotime((string)$publish['accepted_at']);
+                                        $interval = abs($nowTime - $acceptedTime);
+                                        $minutes = round($interval / 60);
+
+                                        $hours = floor($minutes / 60);
+                                        $minutes = $minutes - 60 * $hours;
+                                        $accepted_offer_id = $publish['accepted_offer_id'];
+                                        $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
+                                        $hours = $deadline - $hours - 1;
+                                        $minutes = 60 - $minutes;
+                                    }
+
+                                @endphp
+                                @if ($publish->status === 'accepted' && $hours > 0)
+                                    {{$hours}}:{{$minutes}} hours
+                                @elseif ($publish->status === 'accepted' && $hours === 0)
+                                    {{$minutes}} minutes
+                                @else
+                                    -------
+                                @endif
+                            </td>
                             <td>
                                 <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#zzz{{$publish->id}}">Details</button>
                                 <div class="modal fade" id="zzz{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
@@ -43,6 +65,9 @@
                                             </div>
 
                                             <div class="modal-body text-left">
+                                                <div>
+                                                    <b style="color:blue; margin-left: 50px;">Size:</b> <b> {{$publish->width}} x {{$publish->height}} {{$publish->unit}}</b>
+                                                </div>
                                                 @php
                                                      $str = '';
                                                      for ($i = 0; $i < 10; $i++){
@@ -58,9 +83,7 @@
                                                     <b class="text-center" style="color:blue; margin-left: 50px;">Format(s):</b> <b>{{ empty($str) ? 'Undefined' : $str }}</b>
                                                 </div>
 
-                                                <div>
-                                                    <b style="color:blue; margin-left: 50px;">Size:</b> <b> {{$publish->width}} x {{$publish->height}} cm</b>
-                                                </div>
+
                                                 @php
                                                     $str = '';
                                                     for ($i = 0; $i < 10; $i++){
@@ -86,6 +109,15 @@
                                                 @endphp
                                                 <div>
                                                     <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
+                                                </div>
+                                                <div>
+                                                    <b style="color:blue; margin-left: 50px;">Accepted Designer:</b>
+                                                    @php
+                                                        $accepted_offer_id = $publish->accepted_offer_id;
+                                                        $designer_id = \App\Models\Offer::find($accepted_offer_id)['designer_id'];
+                                                        $designer_name = \App\Models\User::find($designer_id)['name'];
+                                                    @endphp
+                                                    <b>{{$designer_name}}</b>
                                                 </div>
 
                                             </div>

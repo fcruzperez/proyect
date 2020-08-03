@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DesignerRate;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -91,7 +92,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'paypal_email' => $data['paypal_email'],
@@ -99,5 +101,14 @@ class RegisterController extends Controller
             'role' => $data['role'],
             'password' => Hash::make($data['password']),
         ]);
-    }
+
+        if($user->role === 'designer') {
+            DesignerRate::create([
+                'designer_id' => $user->id,
+                'rate' => 0
+            ]);
+        }
+
+        return $user;
+     }
 }

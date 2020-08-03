@@ -173,13 +173,30 @@
 
                             </div>
 
+                            <div class="form-group row" >
+                                <label for="unit"
+                                       class="col-md-4 col-form-label text-md-right" style="margin-top: -8px;">Unit:</label>
+                                <div class="col-md-6">
+                                    <div>
+
+                                        <input type="hidden" id="unit" value="{{$publish['unit']}}">
+
+                                        <input id="unit_mm" type="radio" name="unit" value="mm" required>
+                                        <label for="unit_mm" style="padding-right: 20px;" class="form-check-label">{{ __('mm') }}</label>
+                                        <input id="unit_in" type="radio" name="unit" value="in" required>
+                                        <label for="unit_in" class="form-check-label">{{ __('in') }}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
                             <div class="form-group row">
                                 <label for="width"
                                        class="col-md-4 col-form-label text-md-right">Width:</label>
 
                                 <div class="col-md-6">
                                     <input id="width" type="number" class="form-control @error('width') is-invalid @enderror"
-                                           value="{{$publish['width']}}" name="width" placeholder="mm">
+                                           value="{{$publish['width']}}" name="width">
                                     @error('width')
                                         <div class="invalid-feedback d-block">
                                             {{ $message }}
@@ -196,7 +213,7 @@
 
                                 <div class="col-md-6">
                                     <input id="height" type="number" class="form-control @error('height') is-invalid @enderror"
-                                           value="{{$publish['height']}}" name="height" placeholder="mm">
+                                           value="{{$publish['height']}}" name="height">
                                     @error('height')
                                         <div class="invalid-feedback d-block">
                                             {{ $message }}
@@ -263,11 +280,22 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="technic"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Addictional Details:') }}</label>
+
+                                <div class="col-md-6">
+                                    <textarea id="add_info" name="add_info">
+
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <div class="col-md-4 offset-md-8">
                                     <button type="submit" class="btn btn-primary" onclick="post()">
                                         {{ __('UPDATE') }}
                                     </button>
-                                    <a href="{{url("/client/home")}}">
+                                    <a href="{{url("/client/myposts")}}">
                                         <button type="button"  class="btn btn-danger">
                                             {{ __('CANCEL') }}
                                         </button>
@@ -291,6 +319,12 @@
         object-position: center;
         width: 100%;
         }
+
+        textarea {
+            width: 330px;
+            height: 100px;
+        }
+
     </style>
 
 @endsection
@@ -315,5 +349,18 @@
             if(fabric_select !== null) $('#fabrics').val(fabric_select.join());
             $('#form').submit();
         }
+
+        $(document).ready(function () {
+
+           var unit = $('#unit').value;
+
+           if (unit == 'mm') {
+               $('#unit_mm').prop('checked', true);
+           }
+           else {
+               $('#unit_in').prop('checked', true);
+           }
+        });
+
     </script>
 @endsection

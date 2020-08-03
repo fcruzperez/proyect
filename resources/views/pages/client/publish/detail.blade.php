@@ -60,15 +60,15 @@
                                         $height = $publish->height;
                                     @endphp
                                     <div class="col-3"><label>Size</label></div>
-                                    <div class="col-5" id="size">{{$width}} x {{$height}} mm </div>
+                                    <div class="col-5" id="size">{{$width}} x {{$height}} {{$publish['unit']}} </div>
                                     <input type="hidden" name="width" id="width" value={{$width}}>
                                     <input type="hidden" id="height" value={{$height}}>
-                                    <div class="col-4">
-                                        <select name="unit" id="unit" onchange="unitChange()">
-                                            <option value="mm">mm</option>
-                                            <option value="inch">inch</option>
-                                        </select>
-                                    </div>
+{{--                                    <div class="col-4">--}}
+{{--                                        <select name="unit" id="unit" onchange="unitChange()">--}}
+{{--                                            <option value="mm">mm</option>--}}
+{{--                                            <option value="inch">inch</option>--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4">
@@ -76,7 +76,17 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
-                                    $str = $diff->format('%h hours %i minutes');
+                                    $str = $diff->format('%h hour %i minutes');
+                                    $kkk = explode(' ', $str);
+                                    $h = (int)$kkk[0];
+                                    if($h === 0){
+                                        $str = $diff->format('%i minutes');
+                                    }
+                                    else {
+                                        $str = $diff->format('%h hour %i minutes');
+
+                                    }
+
                                 @endphp
                                 <div class="row">
                                     <div class="col-4"><label>Published at</label></div>
@@ -142,7 +152,7 @@
                     </div>
                 </div>
 
-                @if(in_array($pstatus, ['in production', 'delivered', 'in mediate', 'canceled', 'completed']))
+                @if(in_array($pstatus, ['accepted', 'delivered', 'in mediate', 'canceled', 'completed']))
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header">
                         <div class="card-title">Accepted Offer</div>
@@ -276,20 +286,21 @@
             document.getElementById('request_id').value = para;
             document.getElementById('btn_modal').click();
         }
-        function unitChange(){
-            var HH=document.getElementById('height').value;
-            var WW=document.getElementById('width').value;
-            var inch_HH=Number((HH/25.4).toFixed(1));
-            var inch_WW=Number((WW/25.4).toFixed(1));
-            var val=document.getElementById("unit").value;
-            if(val==="mm"){
-                document.getElementById("size").innerHTML = WW + " x " + HH + " mm";
-            }
-            else{
-                document.getElementById("size").innerHTML = inch_WW + " x " + inch_HH + " inch";
-            }
 
-        }
+        // function unitChange(){
+        //     var HH=document.getElementById('height').value;
+        //     var WW=document.getElementById('width').value;
+        //     var inch_HH=Number((HH/25.4).toFixed(1));
+        //     var inch_WW=Number((WW/25.4).toFixed(1));
+        //     var val=document.getElementById("unit").value;
+        //     if(val==="mm"){
+        //         document.getElementById("size").innerHTML = WW + " x " + HH + " mm";
+        //     }
+        //     else{
+        //         document.getElementById("size").innerHTML = inch_WW + " x " + inch_HH + " inch";
+        //     }
+        // }
+
     </script>
 
 @endsection

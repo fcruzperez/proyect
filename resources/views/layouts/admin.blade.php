@@ -64,6 +64,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.score') }}">{{ __('Score') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.register') }}">{{ __('Add User') }}</a>
+                            </li>
                             <!-- finance menu -->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
@@ -78,6 +81,7 @@
                                     </a>
                                 </div>
                             </li>
+
                             @php
                                 $userId = \Illuminate\Support\Facades\Auth::id();
                                 $user = \App\Models\User::find($userId);
@@ -177,6 +181,14 @@
                 messageList.html(newMessage + old);
             }
         });
+
+        // $('a').click(function(e) {
+        //     // uncomment the following line to prove it
+        //     // e.preventDefault();
+        //     $(this).closest('ul').find('li').removeClass('active');
+        //     $(this).closest('li').addClass('active');
+        // })
+
     </script>
 
 

@@ -42,14 +42,15 @@ class DesignerController extends Controller
     {
         $desinger_id = Auth::id();
 
-        $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
+//        $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
 
-        if (!is_null($request_ids)) {
-            $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();
-        } else {
-            $data = Publish::where('status', 'published')->get();
-        }
-//        $data = Publish::where('status', 'published')->get();
+//        if (!is_null($request_ids)) {
+//            $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();
+//        } else {
+//            $data = Publish::where('status', 'published')->get();
+//        }
+        $data = Publish::where('status', 'published')->get();
+
 
         return view('pages.designer.posts', ['publishes' => $data]);
     }
@@ -71,7 +72,7 @@ class DesignerController extends Controller
 //        $fee_rate = floatval(config('setting.designer_fee_rate'));
 
         $price = intval($inputs['bid_price']);
-        $price = intval($price * 1.1);
+//        $price = intval($price * 1.1);
 //        $fee = $price * 1.1;
 //        $paid = $price - $fee;
 
@@ -90,8 +91,41 @@ class DesignerController extends Controller
         return redirect('/designer/home');
     }
 
-    public function cancelBid(Request $request, $id)
+
+    public function updateBid(Request $request)
     {
+        $inputs = $request->all();
+
+        $validator = Validator::make($inputs, [
+            'request_id' => 'required',
+            'bid_price' => 'required|integer|min:1',
+            'bid_time' => 'required|integer|min:1',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+//        $fee_rate = floatval(config('setting.designer_fee_rate'));
+        $request_id = $inputs['request_id'];
+        $price = intval($inputs['bid_price']);
+        $time = intval($inputs['bid_time']);
+//        $price = intval($price * 1.1);
+
+        $data = [
+            'designer_id' => Auth::id(),
+            'request_id' => $request_id,
+            'price' => $price,
+//            'fee' => $fee,
+//            'paid' => $paid
+
+            'hours' => $time,
+        ];
+
+        Offer::where('designer_id', Auth::id())->where('request_id', $request_id)->delete();
+        Offer::create($data);
+
+        return redirect('/designer/home');
 
     }
 

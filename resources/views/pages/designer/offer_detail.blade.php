@@ -79,15 +79,15 @@
                                         $height = $publish->height;
                                     @endphp
                                     <div class="col-3"><label>Size</label></div>
-                                    <div class="col-5" id="size">{{$width}} x {{$height}} mm</div>
+                                    <div class="col-5" id="size">{{$width}} x {{$height}} {{$publish['unit']}}</div>
                                     <input type="hidden" name="width" id="width" value={{$width}}>
                                     <input type="hidden" id="height" value={{$height}}>
-                                    <div class="col-4">
-                                        <select name="unit" id="unit" onchange="unitChange()">
-                                            <option value="mm">mm</option>
-                                            <option value="inch">inch</option>
-                                        </select>
-                                    </div>
+{{--                                    <div class="col-4">--}}
+{{--                                        <select name="unit" id="unit" onchange="unitChange()">--}}
+{{--                                            <option value="mm">mm</option>--}}
+{{--                                            <option value="inch">inch</option>--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4">
@@ -95,7 +95,17 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
-                                    $str = $diff->format('%h hours %i minutes');
+                                    $str = $diff->format('%h hour %i minutes');
+                                    $kkk = explode(' ', $str);
+                                    $h = (int)$kkk[0];
+                                    if($h === 0){
+                                        $str = $diff->format('%i minutes');
+                                    }
+                                    else {
+                                        $str = $diff->format('%h hour %i minutes');
+
+                                    }
+
                                 @endphp
                                 <div class="row">
                                     <div class="col-4"><label>Published at</label></div>
@@ -153,20 +163,77 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="row">
                                     <div class="col-3"><label>My offer</label></div>
-                                    <div class="col-9">${{$offer->price}} in {{$offer->hours}} hours</div>
+                                    <div class="col-9">{{$offer->price}}$ in {{$offer->hours}} hours</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        @if($publish->status === 'published' && $offer->status === 'sent')
-                            <button type="button" class="btn btn-danger"
-                                    data-toggle="modal" data-target="#cancelModal">Cancel</button>
-                        @endif
+{{--                        @if($publish->status === 'published' && $offer->status === 'sent')--}}
+{{--                            <button type="button" class="btn btn-danger"--}}
+{{--                                    data-toggle="modal" data-target="#cancelModal">Cancel</button>--}}
+{{--                        @endif--}}
+                        <a href="{{url('/designer/home/')}}">
+                            <button type="button" class="btn btn-danger">&nbsp;&nbsp;Back&nbsp;&nbsp;</button>
+                        </a>
+                        <button type="button" class="btn btn-primary" onclick="show({{$publish->id}})">Update</button>
+
                     </div>
                 </div>
 
-                @if($publish->status === 'in production')
+{{--                Update Modal--}}
+                <div class="modal fade" id="updateBidModal" role="dialog" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+
+                        <form method="POST" action="{{route('designer.offer-update')}}" id="updateBid_modal_form">
+                            @csrf
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title text-center">Bid</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <input type="hidden" name="request_id" id="request_id" >
+
+                                    <div class="form-group row">
+                                        <label for="bid_price" style="padding-left: 5px;">Price</label>
+                                        <input type="number"  id="bid_price" class="form-control @error('bid_price') is-invalid @enderror" name="bid_price" min="1"
+                                               value="{{old('bid_price')}}"  placeholder="$">
+{{--                                        @error('bid_price')--}}
+{{--                                        <div class="invalid-feedback d-block">--}}
+{{--                                            {{ $message }}--}}
+{{--                                        </div>--}}
+{{--                                        @enderror--}}
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="bid_time" style="padding-left: 5px;">Time</label>
+                                        <input type="number" id="bid_time" class="form-control @error('bid_time') is-invalid @enderror"
+                                               value="{{old('bid_time')}}" name="bid_time" min="1" placeholder="hours">
+{{--                                        @error('bid_time')--}}
+{{--                                        <div class="invalid-feedback d-block">--}}
+{{--                                            {{ $message }}--}}
+{{--                                        </div>--}}
+{{--                                        @enderror--}}
+
+                                    </div>
+
+                                    <p>By clicking <strong>OK</strong> you agree to abide by the terms and conditions.</p>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <div class="text-center">
+                                        <a href="{{url('/designer/home/')}}">
+                                            <button type="button" class="btn btn-danger">Cancel</button>
+                                        </a>
+                                        <button type="submit" class="btn btn-primary ml-3">&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                @if($publish->status === 'accepted')
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header">Delivery</div>
                     <div class="card-body">
@@ -202,25 +269,25 @@
     </div>
 
 {{--    cancel modal--}}
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cancel offer</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Do you really want to cancel this offer?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a class="btn btn-primary" href="{{url('/designer/offer-cancel/'.$offer->id)}}">Confirm</a>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">--}}
+{{--        <div class="modal-dialog" role="document">--}}
+{{--            <div class="modal-content">--}}
+{{--                <div class="modal-header">--}}
+{{--                    <h5 class="modal-title" id="exampleModalLabel">Cancel offer</h5>--}}
+{{--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+{{--                        <span aria-hidden="true">&times;</span>--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--                <div class="modal-body">--}}
+{{--                    <p>Do you really want to cancel this offer?</p>--}}
+{{--                </div>--}}
+{{--                <div class="modal-footer">--}}
+{{--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--}}
+{{--                    <a class="btn btn-primary" href="{{url('/designer/offer-cancel/'.$offer->id)}}">Confirm</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
 @endsection
 
@@ -266,18 +333,25 @@
             document.getElementById('request_id').value = para;
             document.getElementById('btn_modal').click();
         }
-        function unitChange(){
-            var HH=document.getElementById('height').value;
-            var WW=document.getElementById('width').value;
-            var inch_HH=Number((HH/25.4).toFixed(1));
-            var inch_WW=Number((WW/25.4).toFixed(1));
-            var val=document.getElementById("unit").value;
-            if(val==="mm"){
-                document.getElementById("size").innerHTML = WW + " x " + HH + " mm";
-            }
-            else{
-                document.getElementById("size").innerHTML = inch_WW + " x " + inch_HH + " inch";
-            }
+
+        // --- Change unit dropdown ---- ///
+        // function unitChange(){
+        //     var HH=document.getElementById('height').value;
+        //     var WW=document.getElementById('width').value;
+        //     var inch_HH=Number((HH/25.4).toFixed(1));
+        //     var inch_WW=Number((WW/25.4).toFixed(1));
+        //     var val=document.getElementById("unit").value;
+        //     if(val==="mm"){
+        //         document.getElementById("size").innerHTML = WW + " x " + HH + " mm";
+        //     }
+        //     else{
+        //         document.getElementById("size").innerHTML = inch_WW + " x " + inch_HH + " inch";
+        //     }
+        // }
+
+        function show(para) {
+            $('#request_id').val(para);
+            $('#updateBidModal').modal();
 
         }
     </script>

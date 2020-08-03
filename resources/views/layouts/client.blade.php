@@ -48,7 +48,10 @@
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{route('client.home')}}">Home<span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{route('client.home')}}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('client.myposts')}}">My Publishes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('client.new_publish')}}">New Publish</a>
@@ -59,9 +62,6 @@
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('client.finance.list')}}">Finances</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Add Info</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <?php
