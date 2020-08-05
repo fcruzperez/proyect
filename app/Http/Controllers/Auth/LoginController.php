@@ -43,7 +43,7 @@ class LoginController extends Controller
         return '/client/home';
         break;
       case 'designer':
-        return '/designer/home';
+        return '/designer/posts';
         break;
       default:
         return '/login';

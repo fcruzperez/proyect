@@ -30,7 +30,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/designer/home') }}">
+                <a class="navbar-brand" href="{{ url('/designer/posts') }}">
                     <img src="{{asset('images/emb-icon2.png')}}" width="50" height="50" class="mr-3">
                     {{ config('app.name', 'Laravel') }}
                 </a>

@@ -141,6 +141,25 @@
                                     <div class="col-9">{{$pstatus}}</div>
                                 </div>
                             </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-info" id="description" onclick="seeDescription()">Description</button>
+                                        <div class="modal fade" id="descriptionModal" role="dialog" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h4 class="modal-title text-center"><b>Description</b></h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {{$publish['description']}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer text-center">
@@ -161,12 +180,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="row">
-                                    <div class="col-3"><label>Designer</label></div>
-                                    <div class="col-9">{{$offer->designer->name}}</div>
-                                </div>
-                            </div>
+
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="row">
                                     <div class="col-3"><label>Deadline</label></div>
@@ -281,12 +295,19 @@
 @endsection
 
 @section('js')
+
+
     <script>
+
         function show(para) {
             document.getElementById('request_id').value = para;
             document.getElementById('btn_modal').click();
         }
 
+        function seeDescription() {
+            $('#descriptionModal').modal();
+
+        }
         // function unitChange(){
         //     var HH=document.getElementById('height').value;
         //     var WW=document.getElementById('width').value;

@@ -64,13 +64,11 @@ class ClientController extends Controller
 //            'image3' => 'file|size:10',
 //            'image4' => 'file|size:10',
 //            'image5' => 'file|size:10',
-            'nick_name' => 'required',
             'design_name' => 'required',
             'unit' => 'required',
             'format' => 'required',
             'width' => 'required|integer',
             'height' => 'required|integer',
-            'hours' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -136,12 +134,10 @@ class ClientController extends Controller
         $inputs = $request->all();
         $validator = Validator::make($inputs, [
 //            'image1' => 'required',
-            'nick_name' => 'required',
             'design_name' => 'required',
             'format' => 'required',
             'width' => 'required|integer',
             'height' => 'required|integer',
-            'hours' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -160,12 +156,10 @@ class ClientController extends Controller
             }
         }
 
-        $old_publish->nick_name = $inputs['nick_name'];
         $old_publish->design_name = $inputs['design_name'];
         $old_publish->unit = $inputs['unit'];
         $old_publish->width = $inputs['width'];
         $old_publish->height = $inputs['height'];
-        $old_publish->hours = $inputs['hours'];
 
         $old_publish->save();
 

@@ -118,19 +118,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="nick_name"
-                                     class="col-md-4 col-form-label text-md-right">Nick name:</label>
-                                <div class="col-md-6">
-                                    <input id="nick_name" type="text" class="form-control @error('nick_name') is-invalid @enderror"
-                                           value="{{$publish['nick_name']}}" name="nick_name" placeholder="Nickname" autofocus>
-                                    @error('nick_name')
-                                    <div class="invalid-feedback d-block">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="form-group row">
                                 <label for="design_name"
@@ -232,6 +219,7 @@
                                             @php
                                                 $str = '12345';
                                                 $count = count($publish->fabrics);
+
                                                 for ($i = 0; $i < $count; $i++){
                                                     $str = $str . $publish->fabrics[$i]->name . ',';
                                                 }
@@ -243,20 +231,6 @@
                                 <input type="hidden" name="fabrics" id="fabrics">
                             </div>
 
-                            <div class="form-group row">
-                                <label for="hours"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Time:') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="hours" type="number" class="form-control @error('hours') is-invalid @enderror"
-                                           value="{{$publish['hours']}}" name="hours" placeholder="hours">
-                                    @error('hours')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="form-group row">
                                 <label for="technic"
@@ -280,26 +254,25 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="technic"
+                                <label for="add_info"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Addictional Details:') }}</label>
 
                                 <div class="col-md-6">
-                                    <textarea id="add_info" name="add_info">
-
-                                    </textarea>
+                                    <textarea id="add_info" name="add_info" rows="5" cols="50"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-4 offset-md-8">
-                                    <button type="submit" class="btn btn-primary" onclick="post()">
-                                        {{ __('UPDATE') }}
-                                    </button>
                                     <a href="{{url("/client/myposts")}}">
                                         <button type="button"  class="btn btn-danger">
                                             {{ __('CANCEL') }}
                                         </button>
                                     </a>
+                                    <button type="submit" class="btn btn-primary" onclick="post()">
+                                        {{ __('UPDATE') }}
+                                    </button>
+
                                 </div>
                             </div>
                         </form>
@@ -319,12 +292,9 @@
         object-position: center;
         width: 100%;
         }
-
-        textarea {
-            width: 330px;
-            height: 100px;
-        }
-
+         .bootstrap-select{
+             width: 100% !important;
+         }
     </style>
 
 @endsection
@@ -354,8 +324,9 @@
 
            var unit = $('#unit').value;
 
-           if (unit == 'mm') {
+           if (unit === 'mm') {
                $('#unit_mm').prop('checked', true);
+
            }
            else {
                $('#unit_in').prop('checked', true);

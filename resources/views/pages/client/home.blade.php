@@ -56,10 +56,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row bl1" style="padding-top: 5px;">
-                                <div class="col-3">Client Name</div>
-                                <div class="col-9" style="padding-top: 10px;"><strong>{{$publish->nick_name}}</strong></div>
-                            </div>
+
                             <div class="row">
                                 <div class="col-3">Design Name</div>
                                 <div class="col-9" style="padding-top: 10px;"><strong>{{$publish->design_name}}</strong></div>

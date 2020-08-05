@@ -21,12 +21,10 @@ class CreateRequestsTable extends Migration
             $table->string('image3')->nullable();
             $table->string('image4')->nullable();
             $table->string('image5')->nullable();
-            $table->string('nick_name');
             $table->string('design_name');
             $table->string('unit')->default('mm')->comment('mm, in');
             $table->float('width');
             $table->float('height');
-            $table->integer('hours');
             $table->integer('deposit')->default(0);
             $table->string('status')->default('published')
                 ->comment('published, accepted, delivered, in mediate, completed, canceled');

@@ -11,7 +11,6 @@
                     <tr>
                         <th>Time</th>
                         <th>Name</th>
-                        <th>Hours</th>
                         <th>Time Left</th>
                         <th>Details</th>
                         <th>Status</th>
@@ -38,12 +37,6 @@
                             @endphp
                             <td>{{$publish['created_at']}}</td>
                             <td>{{$publish['design_name']}}</td>
-                            <td>{{$publish['hours']}}</td>
-                            {{--                @if($hours == 0)--}}
-                            {{--                    <td>{{$minutes . 'minutes ago'}}</td>--}}
-                            {{--                @else--}}
-                            {{--                    <td>{{$hour . 'hour' . $minutes . 'minutes ago'}}</td>--}}
-                            {{--                @endif--}}
                             <td>
                                 @php
                                     $nowTime = strtotime(date("Y-m-d h:i:sa"));
@@ -169,7 +162,6 @@
 
                                 @endif
                             </td>
-
                         </tr>
                     @endforeach
                     </tbody>

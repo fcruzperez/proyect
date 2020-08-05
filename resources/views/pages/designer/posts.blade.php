@@ -96,10 +96,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row bl1" style="padding-top: 5px;">
-                                <div class="col-3">Client Name</div>
-                                <div class="col-9" style="padding-top: 10px;"><strong>{{$publish->nick_name}}</strong></div>
-                            </div>
+
                             <div class="row">
                                 <div class="col-3">Design Name</div>
                                 <div class="col-9" style="padding-top: 10px;"><strong>{{$publish->design_name}}</strong></div>
@@ -161,7 +158,15 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" onclick="show({{$publish->id}})" class="btn btn-info btn-lg">Bid</button>
+                            @php
+                                $designer_id = \Illuminate\Support\Facades\Auth::user()['id'];
+                                $current_offer = \App\Models\Offer::where('designer_id', $designer_id)->where('request_id', $publish->id)->get();
+                            @endphp
+                            @if (count($current_offer))
+                                <button type="button" id="bid_button" onclick="show({{$publish->id}})" class="btn btn-info btn-lg" disabled>Bid</button>
+                            @else
+                                <button type="button" id="bid_button" onclick="show({{$publish->id}})" class="btn btn-info btn-lg">Bid</button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -241,6 +246,8 @@
             $('#request_id').val(para);
             $('#bidModal').modal();
         }
+
+
     </script>
 
 @endsection

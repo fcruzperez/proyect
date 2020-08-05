@@ -110,7 +110,7 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('posts', 'DesignerController@viewPosts')->name('posts');
         Route::post('offer-save', 'DesignerController@saveBid')->name('offer-save');
         Route::post('offer-update', 'DesignerController@updateBid')->name('offer-update');
-//        Route::get('offer-cancel/{id}', 'DesignerController@cancelBid')->name('offer-cancel');
+        Route::post('offer-cancel/{id}', 'DesignerController@cancelBid')->name('offer-cancel');
         Route::get('offer-detail/{id}', 'DesignerController@offerDetail')->name('offer-detail');
         Route::get('download-image/{file}', 'DesignerController@downloadImage')->name('download-image');
         Route::post('delivery-upload', 'DesignerController@deliveryUpload')->name('delivery-upload');

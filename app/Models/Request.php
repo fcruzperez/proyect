@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Request extends Model
 {
     protected $fillable = [
-        'client_id', 'image1', 'image2', 'image3', 'image4', 'image5', 'nick_name', 'design_name', 'unit', 'width', 'height', 'hours', 'deposit', 'status', 'accepted_offer_id',
+        'client_id', 'image1', 'image2', 'image3', 'image4', 'image5', 'design_name', 'unit', 'width', 'height', 'deposit', 'status', 'accepted_offer_id',
         'accepted_at', 'delivered_at', 'completed_at', 'mediated_at', 'canceled_at', 'description'
     ];
 

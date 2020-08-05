@@ -129,6 +129,14 @@ class DesignerController extends Controller
 
     }
 
+    public function cancelBid($rid) {
+
+        $designer_id = Auth::user()->id;
+        Offer::where('request_id', $rid)->where('designer_id', $designer_id)->delete();
+        return redirect('/designer/home');
+
+    }
+
     public function offerDetail(Request $request, $id) {
         $offer = Offer::find($id);
         $publish = $offer->request;
@@ -189,7 +197,7 @@ class DesignerController extends Controller
             $offer->save();
 
             // send notification to client
-            $msg = "You have got a design of {$publish->name}!";
+            $msg = "Your {$publish->name} design is finished.";
             $message = Message::create([
                 'user_id' => $publish->client_id,
                 'request_id' => $publish->id,

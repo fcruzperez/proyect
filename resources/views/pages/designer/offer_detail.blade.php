@@ -166,6 +166,23 @@
                                     <div class="col-9">{{$offer->price}}$ in {{$offer->hours}} hours</div>
                                 </div>
                             </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary" style="margin-left: 10px;" onclick="seeDescription()">Description</button>
+                                    <div class="modal fade" id="descriptionModal" role="dialog" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title text-center"><b>Description</b></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {{$publish['description']}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer text-center">
@@ -174,9 +191,15 @@
 {{--                                    data-toggle="modal" data-target="#cancelModal">Cancel</button>--}}
 {{--                        @endif--}}
                         <a href="{{url('/designer/home/')}}">
-                            <button type="button" class="btn btn-danger">&nbsp;&nbsp;Back&nbsp;&nbsp;</button>
+                            <button type="button" class="btn btn-info">&nbsp;&nbsp;Back&nbsp;&nbsp;</button>
                         </a>
-                        <button type="button" class="btn btn-primary" onclick="show({{$publish->id}})">Update</button>
+                        @if ($offer['status'] === 'sent')
+                            <button type="button" class="btn btn-primary" onclick="show({{$publish->id}})">Update</button>
+                            <form action="{{ route('designer.offer-cancel', $publish->id) }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Will you cancel this post? Really?')">Cancel</button>
+                            </form>
+                        @endif
 
                     </div>
                 </div>
@@ -329,25 +352,15 @@
 
 @section('js')
     <script>
-        function show(para) {
-            document.getElementById('request_id').value = para;
-            document.getElementById('btn_modal').click();
-        }
-
-        // --- Change unit dropdown ---- ///
-        // function unitChange(){
-        //     var HH=document.getElementById('height').value;
-        //     var WW=document.getElementById('width').value;
-        //     var inch_HH=Number((HH/25.4).toFixed(1));
-        //     var inch_WW=Number((WW/25.4).toFixed(1));
-        //     var val=document.getElementById("unit").value;
-        //     if(val==="mm"){
-        //         document.getElementById("size").innerHTML = WW + " x " + HH + " mm";
-        //     }
-        //     else{
-        //         document.getElementById("size").innerHTML = inch_WW + " x " + inch_HH + " inch";
-        //     }
+        // function show(para) {
+        //     document.getElementById('request_id').value = para;
+        //     document.getElementById('btn_modal').click();
         // }
+
+        function seeDescription() {
+            $('#descriptionModal').modal();
+
+        }
 
         function show(para) {
             $('#request_id').val(para);

@@ -10,8 +10,6 @@
                     <tr>
                         <th>Time</th>
                         <th>Publish Name</th>
-                        <th>Hours</th>
-                        <th>Designer</th>
                         <th>Offer Hours</th>
                         <th>Offer Price</th>
                         <th>Status</th>
@@ -37,8 +35,6 @@
                                 </a>
                             </td>
                             <td>{{$publish->hours}}</td>
-                            <td>{{$offer->designer->name}}</td>
-                            <td>{{$offer->hours}}</td>
                             <td>{{$offer->price}}</td>
                             <td>{{$mediate->status_label}}</td>
                             <td>{{$mediate->title}}</td>

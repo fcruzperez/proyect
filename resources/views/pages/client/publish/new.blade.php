@@ -80,19 +80,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="nick_name"
-                                        class="col-md-4 col-form-label text-md-right">Nickname:</label>
-                                <div class="col-md-6">
-                                    <input id="nick_name" type="text" class="form-control @error('nick_name') is-invalid @enderror"
-                                           value="{{old('nick_name')}}" name="nick_name" placeholder="Nickname" autofocus>
-                                    @error('nick_name')
-                                    <div class="invalid-feedback d-block">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="form-group row">
                                 <label for="design_name"
@@ -115,7 +102,7 @@
 
                                 <div class="col-md-6">
 
-                                    <select id="format_select" name="format" class="selectpicker" multiple>
+                                    <select id="format_select" name="format" class="selectpicker" style="width: 100%" multiple>
                                         @foreach($formats as $format)
                                             <option value="{{$format->id}}">{{$format->name}}</option>
                                         @endforeach
@@ -188,20 +175,6 @@
                                 <input type="hidden" name="fabrics" id="fabrics">
                             </div>
 
-                            <div class="form-group row">
-                                <label for="hours"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Time:') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="hours" type="number" class="form-control @error('hours') is-invalid @enderror"
-                                           value="{{old('hours')}}" name="hours" placeholder="hours">
-                                    @error('hours')
-                                        <div class="invalid-feedback d-block">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="form-group row">
                                 <label for="technic"
@@ -217,13 +190,11 @@
                                 <input type="hidden" name="technics" id="technics">
                             </div>
                             <div class="form-group row">
-                                <label for="technic"
+                                <label for="add_info"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Addictional Details:') }}</label>
 
                                 <div class="col-md-6">
-                                    <textarea id="add_info" name="add_info">
-
-                                    </textarea>
+                                    <textarea id="description" name="description" rows="5" cols="50" autofocus placeholder="Description"></textarea>
                                 </div>
                             </div>
 
@@ -245,11 +216,12 @@
 
 @section('stylesheet')
     <style>
-        textarea {
-            width: 510px;
-            height: 150px;
+        .bootstrap-select{
+            width: 100% !important;
         }
     </style>
+
+
 
 
 @endsection
@@ -262,6 +234,7 @@
     <script>
         $(document).ready(function(){
             $('#format_select').selectpicker();
+
         });
 
         function post() {
