@@ -112,7 +112,7 @@ class MediateController extends Controller
 
         $payload = [
             'user_id' => $offer->designer_id,
-            'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
+            'action_url' => "/public/designer/offer-detail/{$offer->id}?message_id={$message->id}",
             'message' => 'Your offer has been completed!'
         ];
         event(new DesignerEvent($payload));

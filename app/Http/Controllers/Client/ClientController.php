@@ -553,12 +553,12 @@ class ClientController extends Controller
                 'request_id' => $publish->id,
                 'subject' => 'Your offer has been completed!',
                 'content' => "Your offer #{$offer->id} for {$request->name} has been completed.",
-                'action_url' => "/designer/offer-detail/{$offer->id}",
+                'action_url' => "/public/designer/offer-detail/{$offer->id}",
             ]);
 
             $payload = [
                 'user_id' => $offer->designer_id,
-                'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
+                'action_url' => "/public/designer/offer-detail/{$offer->id}?message_id={$message->id}",
                 'message' => 'Your offer has been completed!'
             ];
             event(new DesignerEvent($payload));
