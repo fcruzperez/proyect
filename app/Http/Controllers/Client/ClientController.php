@@ -83,8 +83,18 @@ class ClientController extends Controller
 
         foreach ($imageNames as $imgname) {
             if ($request->hasFile($imgname)) {
-                $storageName = $request->file($imgname)->store('public/images');
-                $publish_data[$imgname] = str_replace('public/', 'storage/', $storageName);
+                //$storageName = $request->file($imgname)->store('public/images');
+                //$publish_data[$imgname] = str_replace('public/', 'storage/', $storageName);
+
+                    $fileName = time().'_'.$request->file($imgname)->getClientOriginalName();
+
+                    $destination = base_path() . '/public/uploads';
+                    if(!file_exists($destination)) {
+                        mkdir($destination, 0777);
+                    }
+                    $request->file($imgname)->move($destination, $fileName);
+                    $filePath = '/uploads/'.$fileName;
+                    $publish_data[$imgname] = $filePath;
             }
         }
 
