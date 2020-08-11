@@ -93,7 +93,12 @@ class ClientController extends Controller
                         mkdir($destination, 0777);
                     }
                     $request->file($imgname)->move($destination, $fileName);
-                    $filePath = '/uploads/'.$fileName;
+                    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                        $filePath = '/uploads/'.$fileName;
+                    } else {
+                        $filePath = '/laravel/public/uploads/'.$fileName;
+                    }
+
                     $publish_data[$imgname] = $filePath;
             }
         }
