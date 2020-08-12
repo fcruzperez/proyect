@@ -58,17 +58,18 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('designer.home')}}">My Offers</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('designer.posts')}}">Posts</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{route('designer.home')}}">My Offers</a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('designer.mediate.list')}}">Mediate</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('designer.withdraw.list')}}">Finances</a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link" href="{{route('designer.withdraw.list')}}">Finances</a>--}}
+{{--                            </li>--}}
                             @php
                                 $userId = \Illuminate\Support\Facades\Auth::id();
                                 $user = \App\Models\User::find($userId);

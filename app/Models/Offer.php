@@ -19,7 +19,7 @@ class Offer extends Model
       return $this->belongsTo('App\Models\Request');
     }
 
-    public function withdraw() {
-      return $this->belongsTo('App\Models\Withdraw');
-    }
+//    public function withdraw() {
+//      return $this->belongsTo('App\Models\Withdraw');
+//    }
 }
