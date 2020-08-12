@@ -10,6 +10,7 @@
         <b>
             <div style="color: blue; font-size: 21px; padding-left: 30px;"><b>Note:</b></div>
             <div style="font-size: 20px; padding-bottom: 20px; padding-left: 30px;">
+                sdafasdfadfasdfadfasdf
                 <div>• You can upload up to 5 images of the design you need.</div>
                 <div>• The images must correspond to the same design.</div>
                 <div>• Make sure that the images are of good quality so that you have better offers.</div>
