@@ -25,10 +25,12 @@
                             <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
                                 @if(!is_null($publish->image1))
                                     <img src="{{url($publish->image1)}}" class="image-box">
+
                                     <a class="btn btn-primary btn-download"
                                         @if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN')
-                                            href="{{url('designer/download-image/'.str_replace('laravel/storage/app/public/images/', '', $publish->image1))}}"
+                                            href="{{url('designer/download-image'.str_replace('laravel/storage/app/public/images/', '', $publish->image1))}}"
                                         @else
+
                                             href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image1))}}"
                                         @endif
                                     >
@@ -41,12 +43,13 @@
                                     <img src="{{url($publish->image2)}}" class="image-box">
                                     <a class="btn btn-primary btn-download"
                                        @if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN')
-                                           href="{{url('designer/download-image/'.str_replace('laravel/storage/app/public/images/', '', $publish->image2))}}">
-                                       @endif
-                                       href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image2))}}">
+                                            href="{{url('designer/download-image'.str_replace('laravel/storage/app/public/images/', '', $publish->image2))}}"
+                                       @else
 
+                                            href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image2))}}"
+                                        @endif
+                                    >
 
-                                    href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image2))}}">
                                         <i class="fa fa-download"></i>
                                     </a>
                                 @endif
@@ -55,7 +58,13 @@
                                 @if(!is_null($publish->image3))
                                     <img src="{{url($publish->image3)}}" class="image-box">
                                     <a class="btn btn-primary btn-download"
-                                       href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image3))}}">
+                                       @if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN')
+                                             href="{{url('designer/download-image'.str_replace('laravel/storage/app/public/images/', '', $publish->image3))}}"
+                                       @else
+                                             href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image3))}}"
+                                       @endif
+                                    >
+
                                         <i class="fa fa-download"></i>
                                     </a>
                                 @endif
@@ -64,7 +73,13 @@
                                 @if(!is_null($publish->image4))
                                     <img src="{{url($publish->image4)}}" class="image-box">
                                     <a class="btn btn-primary btn-download"
-                                       href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image4))}}">
+                                       @if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN')
+                                             href="{{url('designer/download-image'.str_replace('laravel/storage/app/public/images/', '', $publish->image4))}}"
+                                       @else
+
+                                             href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image4))}}"
+                                       @endif
+                                    >
                                         <i class="fa fa-download"></i>
                                     </a>
                                 @endif
@@ -73,7 +88,13 @@
                                 @if(!is_null($publish->image5))
                                     <img src="{{url($publish->image5)}}" class="image-box">
                                     <a class="btn btn-primary btn-download"
-                                       href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image5))}}">
+                                       @if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN')
+                                            href="{{url('designer/download-image'.str_replace('laravel/storage/app/public/images/', '', $publish->image5))}}"
+                                       @else
+
+                                            href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image5))}}"
+                                       @endif
+                                    >
                                         <i class="fa fa-download"></i>
                                     </a>
                                 @endif
