@@ -100,7 +100,7 @@ class ClientController extends Controller
 //                    $filePath = '/uploads/' . $fileName;
 //                } else {
                     $fileName = str_replace('storage/', '', $storageName);
-                    $filePath = '/laravel/storage/app/public/' . $fileName;
+                    $filePath = '/laravel/storage/app/' . $fileName;
                     $publish_data[$imgname] = $filePath;
                 }
 
@@ -190,7 +190,7 @@ class ClientController extends Controller
 //                    $filePath = '/uploads/' . $fileName;
 //                } else {
                     $fileName = str_replace('storage/', '', $storageName);
-                    $filePath = '/laravel/storage/app/public/' . $fileName;
+                    $filePath = '/laravel/storage/app/' . $fileName;
                     $publish_data[$imgname] = $filePath;
 
                 }
