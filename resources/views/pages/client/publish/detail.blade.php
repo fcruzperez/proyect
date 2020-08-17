@@ -89,7 +89,7 @@
 
                                 @endphp
                                 <div class="row">
-                                    <div class="col-4"><label>Published at</label></div>
+                                    <div class="col-4"><label>Published</label></div>
                                     <div class="col-8">{{$str}} ago</div>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="row">
                                     <div class="col-3"><label>Price</label></div>
-                                    <div class="col-9">{{$offer->price}}</div>
+                                    <div class="col-9">{{intval($offer->price * (1 + env('CLIENT_FEE_RATE')))}} USD</div>
                                 </div>
                             </div>
                         </div>

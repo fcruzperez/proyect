@@ -25,16 +25,18 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Services\MailService;
 use Illuminate\Support\Facades\Config;
-use PayPal\Api\Amount;
-use PayPal\Api\Item;
-use PayPal\Api\ItemList;
-use PayPal\Api\Payer;
+//use PayPal\Api\Amount;
+//use PayPal\Api\Item;
+//use PayPal\Api\ItemList;
+//use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
-use PayPal\Api\RedirectUrls;
-use PayPal\Api\Transaction;
-use PayPal\Auth\OAuthTokenCredential;
-use PayPal\Rest\ApiContext;
+//use PayPal\Api\RedirectUrls;
+//use PayPal\Api\Transaction;
+//use PayPal\Auth\OAuthTokenCredential;
+//use PayPal\Rest\ApiContext;
+
+use Srmklive\PayPal\Services\ExpressCheckout;
 
 class ClientController extends Controller
 {
@@ -83,23 +85,24 @@ class ClientController extends Controller
 
         foreach ($imageNames as $imgname) {
             if ($request->hasFile($imgname)) {
-                //$storageName = $request->file($imgname)->store('public/images');
-                //$publish_data[$imgname] = str_replace('public/', 'storage/', $storageName);
+                $storageName = $request->file($imgname)->store('public/images');
+                $publish_data[$imgname] = str_replace('public/', 'storage/', $storageName);
+//                dd($publish_data[$imgname]);
 
-                    $fileName = time().'_'.$request->file($imgname)->getClientOriginalName();
-
-                    $destination = base_path() . '/public/uploads';
-                    if(!file_exists($destination)) {
-                        mkdir($destination, 0777);
-                    }
-                    $request->file($imgname)->move($destination, $fileName);
-                    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                        $filePath = '/uploads/'.$fileName;
-                    } else {
-                        $filePath = '/laravel/public/uploads/'.$fileName;
-                    }
-
-                    $publish_data[$imgname] = $filePath;
+//                $fileName = time() . '_' . $request->file($imgname)->getClientOriginalName();
+//
+//                $destination = base_path() . '/public/uploads';
+//                if (!file_exists($destination)) {
+//                    mkdir($destination, 0777);
+//                }
+//                $request->file($imgname)->move($destination, $fileName);
+//                if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+//                    $filePath = '/uploads/' . $fileName;
+//                } else {
+//                    $filePath = '/laravel/public/uploads/' . $fileName;
+//                }
+//
+//                $publish_data[$imgname] = $filePath;
             }
         }
 
@@ -166,22 +169,22 @@ class ClientController extends Controller
 
         foreach ($imageNames as $imgname) {
             if ($request->hasFile($imgname)) {
-//                $storageName = $request->file($imgname)->store('public/images');
-//                $old_publish[$imgname] = str_replace('public/', 'storage/', $storageName);
-                $fileName = time().'_'.$request->file($imgname)->getClientOriginalName();
-
-                $destination = base_path() . '/public/uploads';
-                if(!file_exists($destination)) {
-                    mkdir($destination, 0777);
-                }
-                $request->file($imgname)->move($destination, $fileName);
-                if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                    $filePath = '/uploads/'.$fileName;
-                } else {
-                    $filePath = '/laravel/public/uploads/'.$fileName;
-                }
-
-                $old_publish[$imgname] = $filePath;
+                $storageName = $request->file($imgname)->store('public/images');
+                $old_publish[$imgname] = str_replace('public/', 'storage/', $storageName);
+//                $fileName = time() . '_' . $request->file($imgname)->getClientOriginalName();
+//
+//                $destination = base_path() . '/public/uploads';
+//                if (!file_exists($destination)) {
+//                    mkdir($destination, 0777);
+//                }
+//                $request->file($imgname)->move($destination, $fileName);
+//                if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+//                    $filePath = '/uploads/' . $fileName;
+//                } else {
+//                    $filePath = '/laravel/public/uploads/' . $fileName;
+//                }
+//
+//                $old_publish[$imgname] = $filePath;
             }
         }
 
@@ -189,6 +192,7 @@ class ClientController extends Controller
         $old_publish->unit = $inputs['unit'];
         $old_publish->width = $inputs['width'];
         $old_publish->height = $inputs['height'];
+        $old_publish->description = $inputs['add_info'];
 
         $old_publish->save();
 
@@ -250,6 +254,7 @@ class ClientController extends Controller
 
         return view('pages.client.publish.new', $data);
     }
+
     public function showPublishes(Request $request)
     {
         $publishes = Publish::where('status', 'published')->get();
@@ -270,16 +275,16 @@ class ClientController extends Controller
         return view('pages.client.publish.update', $data);
     }
 
-    public function showWithdraw(Request $request)
-    {
-//        $technics = Technic::get();
-//        $formats = Format::get();
-//        $fabrics = Fabric::get();
-//        $data = ['technics' => $technics, 'formats' => $formats, 'fabrics' => $fabrics];
-//
-//        return view('pages.client.publish.new', $data);
+//    public function showWithdraw(Request $request)
+//    {
+////        $technics = Technic::get();
+////        $formats = Format::get();
+////        $fabrics = Fabric::get();
+////        $data = ['technics' => $technics, 'formats' => $formats, 'fabrics' => $fabrics];
+////
+////        return view('pages.client.publish.new', $data);
+////    }
 //    }
-    }
 
     public function listMyPosts(Request $request)
     {
@@ -292,24 +297,6 @@ class ClientController extends Controller
 
     }
 
-    public function showDeposit(Request $request)
-    {
-
-        $inputs = $request->all();
-        $validator = Validator::make($inputs, [
-            'request_id' => 'required',
-            'offer_id' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-        $request_id = $inputs['request_id'];
-        $design_name = Publish::find($request_id)['design_name'];
-        $inputs['design_name'] = $design_name;
-        return view('pages.client.paypal.show_deposit', $inputs);
-    }
-
-##### Exercise without payment #####
 //    public function showDeposit(Request $request)
 //    {
 //
@@ -321,20 +308,39 @@ class ClientController extends Controller
 //        if ($validator->fails()) {
 //            return back()->withErrors($validator);
 //        }
-//
 //        $request_id = $inputs['request_id'];
-//        $publish = Publish::find($request_id);
-//        $publish['status'] = 'accepted';
-//        $publish['accepted_offer_id'] = $inputs['offer_id'];
-//        $publish['accepted_at'] = date('Y-m-d H:i:s');
-//        $publish->save();
-//
-//        $offer = Offer::find($inputs['offer_id']);
-//        $offer['status'] = 'accepted';
-//        $offer->save();
-//
-//        return back();
+//        $design_name = Publish::find($request_id)['design_name'];
+//        $inputs['design_name'] = $design_name;
+//        return view('pages.client.paypal.show_deposit', $inputs);
 //    }
+
+##### Exercise without payment #####
+    public function showDeposit(Request $request)
+    {
+
+        $inputs = $request->all();
+        $validator = Validator::make($inputs, [
+            'request_id' => 'required',
+            'offer_id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $request_id = $inputs['request_id'];
+        $publish = Publish::find($request_id);
+        $publish['status'] = 'accepted';
+        $publish['accepted_offer_id'] = $inputs['offer_id'];
+        $publish['accepted_at'] = date('Y-m-d H:i:s');
+        $publish->save();
+
+        $offer = Offer::find($inputs['offer_id']);
+        $offer['status'] = 'accepted';
+        $offer->save();
+
+        return back();
+    }
+
 
 
     public function acceptBid(Request $request)
@@ -357,6 +363,33 @@ class ClientController extends Controller
         return response()->json(['message' => 'success']);
     }
 
+
+    public function deposit(Request $request, $offer_id)
+    {
+        $offer = Offer::find($offer_id);
+        if (!$offer) {
+            return back()->withErrors(['errors' => 'wrong offer id']);
+        }
+
+        $publish = $offer->request;
+        $client_fee_rate = intval(env('CLIENT_FEE_RATE'));
+        $depositMoney = intval($offer->price * (1 + $client_fee_rate));
+
+        $data = [];
+        $data['invoice_id'] = 1;
+        $data['invoice_description'] = "Order #{$data['invoice_id']} Invoice";
+        $data['return_url'] = route('payment.success');
+        $data['cancel_url'] = route('payment.cancel');
+        $data['total'] = $depositMoney;
+
+        $provider = new ExpressCheckout;
+        $response = $provider->setExpressCheckout($data);
+        $response = $provider->setExpressCheckout($data, true);
+
+        return redirect($response['paypal_link']);
+
+    }
+
     public function cancel($id)
     {
         $publish = Publish::find($id);
@@ -368,85 +401,90 @@ class ClientController extends Controller
 
     }
 
-    public function deposit(Request $request, $offer_id)
-    {
-        $offer = Offer::find($offer_id);
-        if (!$offer) {
-            return back()->withErrors(['errors' => 'wrong offer id']);
-        }
-
-        $publish = $offer->request;
-
-        Session::put('payment_offer_id', $offer_id);
-        return redirect('/client/deposit-status?success=true');
-
-        /* payment */
-//        $client_fee_rate = intval(env('CLIENT_FEE_RATE'));
-//        $depositMoney = $offer->price * (1 + $client_fee_rate);
-        $depositMoney = intval($offer->price * 1.1);
 
 
+    public function cancelPayment(Request $request) {
 
-        try {
-            $payer = new Payer();
-            $payer->setPaymentMethod('paypal');
-
-            $items = [];
-            $item = new Item();
-            $item->setName($publish->name)
-                ->setCurrency('USD')
-                ->setQuantity(1)
-                ->setPrice($depositMoney);
-
-            array_push($items, $item);
-
-            $itemList = new ItemList();
-            $itemList->setItems($items);
-
-            $amount = new Amount();
-            $amount->setCurrency('USD')->setTotal($depositMoney);
-
-            $transaction = new Transaction();
-            $transaction->setAmount($amount)
-                ->setItemList($itemList)
-                ->setDescription("Deposit for Design publish #{$publish->id} {$publish->name}");
-
-            $redirectUrls = new RedirectUrls();
-            $redirectUrls->setReturnUrl(url('client/deposit-status?success=true'))
-                ->setCancelUrl(url('client/deposit-status?success=false'));
-
-            $payment = new Payment();
-            $payment->setIntent('Sale')
-                ->setPayer($payer)
-                ->setRedirectUrls($redirectUrls)
-                ->setTransactions(array($transaction));
-
-
-            $payment->create($this->apiContext);
-
-
-            foreach ($payment->getLinks() as $link) {
-                if($link->getRel() == 'approval_url') {
-                    $redirectUrl = $link->getHref();
-                    break;
-                }
-            }
-
-            if(isset($redirectUrl)) {
-                return Redirect::away($redirectUrl);
-            }
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => $e->getMessage()]);
-        }
+        echo 'Sorry your payment is cancelled';
+        return back();
     }
+
+    public function successPayment(Request $request) {
+
+        $provider = new ExpressCheckout;
+        $response = $provider->getExpressCheckoutDetails($request->token);
+
+        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
+            echo 'Your payment was successful. You can create success page here.';
+            return redirect('/client/posts');
+        }
+
+        dd('Something is wrong');
+
+    }
+
+
+//        try {
+//            $payer = new Payer();
+//            $payer->setPaymentMethod('paypal');
+//
+//            $items = [];
+//            $item = new Item();
+//            $item->setName($publish->name)
+//                ->setCurrency('USD')
+//                ->setQuantity(1)
+//                ->setPrice($depositMoney);
+//
+//            array_push($items, $item);
+//
+//            $itemList = new ItemList();
+//            $itemList->setItems($items);
+//
+//            $amount = new Amount();
+//            $amount->setCurrency('USD')->setTotal($depositMoney);
+//
+//            $transaction = new Transaction();
+//            $transaction->setAmount($amount)
+//                ->setItemList($itemList)
+//                ->setDescription("Deposit for Design publish #{$publish->id} {$publish->name}");
+//
+//            $redirectUrls = new RedirectUrls();
+//            $redirectUrls->setReturnUrl(url('client/deposit-status?success=true'))
+//                ->setCancelUrl(url('client/deposit-status?success=false'));
+//
+//            $payment = new Payment();
+//            $payment->setIntent('Sale')
+//                ->setPayer($payer)
+//                ->setRedirectUrls($redirectUrls)
+//                ->setTransactions(array($transaction));
+//
+//
+//            if (!empty($this->apiContext)) {
+//                $payment->create($this->apiContext);
+//            }
+//
+//
+//            foreach ($payment->getLinks() as $link) {
+//                if($link->getRel() == 'approval_url') {
+//                    $redirectUrl = $link->getHref();
+//                    break;
+//                }
+//            }
+//
+//            if(isset($redirectUrl)) {
+//                return Redirect::away($redirectUrl);
+//            }
+//        } catch (\Exception $e) {
+//            return back()->withErrors(['error' => $e->getMessage()]);
+//        }
 
     public function depositStatus(Request $request)
     {
         try {
             $dataArray = $request->all();
 
-            if($dataArray['success'] == 'true') {
-                if(empty($dataArray['PayerID']) || empty($dataArray['token'])) {
+            if ($dataArray['success'] == 'true') {
+                if (empty($dataArray['PayerID']) || empty($dataArray['token'])) {
                     Session::put('alert-danger', 'There was a problem processing your payment');
                     return Redirect::route('client.home');
                 }
@@ -458,7 +496,7 @@ class ClientController extends Controller
                 $result = $payment->execute($execution, $this->apiContext);
 
                 /** Put success message in session and redirect home **/
-                if($result->getState() == 'approved') {
+                if ($result->getState() == 'approved') {
 
                     $offer_id = Session::get('payment_offer_id');
                     Session::forget('payment_offer_id');
@@ -527,7 +565,7 @@ class ClientController extends Controller
                 Session::put('alert-danger', 'Payment failed');
                 return Redirect::route('client.home');
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             logger()->error($e->getMessage());
             return back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -537,14 +575,15 @@ class ClientController extends Controller
 //        return view('pages.client.paypal.cancel', ['flag' => 'error']);
     }
 
-    public function publishDetail(Request $request, $id) {
+    public function publishDetail(Request $request, $id)
+    {
 
         $publish = Publish::find($id);
 
         $offer = Offer::find($publish->accepted_offer_id);
 //        dd($offer);
 
-        if($request->has('message_id')) {
+        if ($request->has('message_id')) {
             $message = Message::find($request->get('message_id'));
             $message->status = 'read';
             $message->save();
@@ -557,19 +596,21 @@ class ClientController extends Controller
         return view('pages.client.publish.detail', $data);
     }
 
-    public function downloadDelivery(Request $request, $id) {
+    public function downloadDelivery(Request $request, $id)
+    {
         $delivery = Delivery::find($id);
 
-        if(Storage::exists($delivery->path)) {
+        if (Storage::exists($delivery->path)) {
             return Storage::download($delivery->path);
         }
         return response('', 404);
     }
 
-    public function completeRequest(Request $request, $id) {
+    public function completeRequest(Request $request, $id)
+    {
         DB::beginTransaction();
 
-        try{
+        try {
             $publish = Publish::find($id);
 
             $now = now();
@@ -607,7 +648,8 @@ class ClientController extends Controller
         return back()->with(['complete_success' => 'ok']);
     }
 
-    public function financeList(Request $request) {
+    public function financeList(Request $request)
+    {
 
         return back();
     }

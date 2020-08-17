@@ -17,6 +17,9 @@
         <div class="row">
             <div class="col-12" style="margin-top: 20px;">
                 <div class="card" id="offerCard">
+                    <div class="card-header text-center" style="font-size: 25px;">
+                        Design Details
+                    </div>
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
@@ -108,7 +111,7 @@
 
                                 @endphp
                                 <div class="row">
-                                    <div class="col-4"><label>Published at</label></div>
+                                    <div class="col-4"><label>Published</label></div>
                                     <div class="col-8">{{$str}} ago</div>
                                 </div>
                             </div>
@@ -186,21 +189,17 @@
                         </div>
                     </div>
                     <div class="card-footer text-center">
-{{--                        @if($publish->status === 'published' && $offer->status === 'sent')--}}
-{{--                            <button type="button" class="btn btn-danger"--}}
-{{--                                    data-toggle="modal" data-target="#cancelModal">Cancel</button>--}}
-{{--                        @endif--}}
+
                         <a href="{{url('/designer/home/')}}">
                             <button type="button" class="btn btn-info">&nbsp;&nbsp;Back&nbsp;&nbsp;</button>
                         </a>
-                        @if ($offer['status'] === 'sent')
+                        @if ($offer['status'] === 'sent' && $publish['status'] <> 'accepted')
                             <button type="button" class="btn btn-primary" onclick="show({{$publish->id}})">Update</button>
                             <form action="{{ route('designer.offer-cancel', $publish->id) }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Will you cancel this post? Really?')">Cancel</button>
                             </form>
                         @endif
-
                     </div>
                 </div>
 
@@ -256,9 +255,9 @@
                     </div>
                 </div>
 
-                @if($publish->status === 'accepted')
+                @if($offer['status'] === 'accepted')
                 <div class="card mt-5" id="deliveryCard">
-                    <div class="card-header">Delivery</div>
+                    <div class="card-header text-center" style="font-size: 25px">Delivery</div>
                     <div class="card-body">
                         <form action="{{route('designer.delivery-upload')}}" method="post" enctype="multipart/form-data">
                             @csrf

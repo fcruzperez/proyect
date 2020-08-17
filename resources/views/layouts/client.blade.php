@@ -47,14 +47,14 @@
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('client.home')}}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('client.myposts')}}">My Publishes</a>
+                                <a class="nav-link" href="{{route('client.myposts')}}">My Posts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('client.new_publish')}}">New Publish</a>
+                                <a class="nav-link" href="{{route('client.new_publish')}}">New Post</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('client.mediate.list')}}">Mediation</a>

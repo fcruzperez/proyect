@@ -75,7 +75,7 @@
                                 @php
                                     $offer_count = count($publish->offers);
                                 @endphp
-                                {{$offer_count}}
+                                {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
                                     <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#sss{{$publish->id}}">Offers</button>
                                     <div class="modal fade" id="sss{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
@@ -89,7 +89,7 @@
                                                     <table class="text-center">
                                                         <thead>
                                                         <tr style="font-weight: bold;">
-                                                            <td>Price($)</td>
+                                                            <td>Price(USD)</td>
                                                             <td>Time(hours)</td>
                                                             <td>Desinger Rating</td>
                                                             <td></td>
@@ -101,8 +101,7 @@
                                                         @endphp
                                                         @foreach($offers as $offer)
                                                             <tr>
-
-                                                                <td style="text-align: center">{{intval($offer->price * 1.1)}}</td>
+                                                                <td style="text-align: center">{{intval($offer->price * (1 + env('CLIENT_FEE_RATE')))}}</td>
                                                                 <td style="text-align: center">{{$offer->hours}}</td>
                                                                 <td>
                                                                     <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
@@ -117,7 +116,7 @@
                                                                             <input type="hidden" name="time" value="{{$offer->hours}}" />
                                                                             <input type="hidden" name="name" value="{{$offer->name}}" />
 
-                                                                            <button type="submit" class="btn btn-primary">Accept Offer</button>
+                                                                            <button type="submit" class="btn btn-primary">Accept</button>
                                                                         </form>
                                                                     @else
                                                                         @if($publish->accepted_offer_id === $offer->id)
@@ -139,7 +138,7 @@
                                 @endif
                             </td>
                             <td>
-                                @if($publish['status'] == 'published')
+                                @if($publish['status'] == 'published' && count($publish->offers) === 0)
                                     @php
                                         $request_id = $publish->id;
                                     @endphp

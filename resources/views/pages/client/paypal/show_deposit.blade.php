@@ -10,14 +10,14 @@
                         <div class="name" style="font-size: 27px; font-weight:bold; margin-bottom: 20px;" >
                             <u>{{$name}}</u>
                         </div>
-                        <h5>We will proceed to make the payment for <b>{{intval(1.1* $price)}}$</b> and you will receive your order
+                        <h5>We will proceed to make the payment for <b>{{intval((1 + env('CLIENT_FEE_RATE')) * $price)}}$</b> and you will receive your order
                             in a maximum time of <b>{{$time}}</b> hours from the payment.</h5>
                     </div>
                     <div class="card-footer">
                         <a href="{{route('client.home')}}">
                             <button type="button" class="btn btn-danger float-left">CANCEL</button>
                         </a>
-                        <a href="{{url("/client/deposit/paypal/{$offer_id}")}}" >
+                        <a href="{{url("/client/payment/{$offer_id}")}}" >
                             <button type="button" class="btn btn-primary float-right" style="text-align: right">&nbsp;&nbsp;&nbsp;PAY&nbsp;&nbsp;&nbsp;</button>
                         </a>
                     </div>

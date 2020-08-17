@@ -88,7 +88,7 @@ class DesignerController extends Controller
 
         Offer::create($data);
 
-        return redirect('/designer/home');
+        return redirect('/designer/posts');
     }
 
 

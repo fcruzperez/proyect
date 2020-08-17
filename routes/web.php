@@ -96,6 +96,11 @@ Route::middleware(['auth', 'role:client'])
         // finance routes
         Route::get('finance-list', 'ClientController@financeList')->name('finance.list');
 
+
+//        Route::get('payment', 'ClientController@deposit')->name('payment');
+//        Route::get('payment-cancel', 'ClientController@cancelPayment')->name('payment.cancel');
+//        Route::get('payment-success', 'ClientController@successPayment')->name('payment.success');
+
     });
 
 /**

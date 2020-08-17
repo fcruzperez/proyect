@@ -18,7 +18,7 @@
         "laravel/ui": "^2.0",
         "paypal/rest-api-sdk-php": "^1.14",
         "pusher/pusher-php-server": "^4.1",
-        "srmklive/paypal": "~1.0"
+        "srmklive/paypal": "^1.7"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

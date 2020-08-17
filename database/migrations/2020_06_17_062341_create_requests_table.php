@@ -25,7 +25,6 @@ class CreateRequestsTable extends Migration
             $table->string('unit')->default('mm')->comment('mm, in');
             $table->float('width');
             $table->float('height');
-            $table->integer('deposit')->default(0);
             $table->string('status')->default('published')
                 ->comment('published, accepted, delivered, in mediate, completed, canceled');
             $table->bigInteger('accepted_offer_id')->nullable();

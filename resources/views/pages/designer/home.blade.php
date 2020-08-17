@@ -19,7 +19,6 @@
                         <th>Offer Status</th>
                         <th>Time Left</th>
                         <th>Details</th>
-                        <th>Attached</th>
                     </tr>
                     </thead>
 
@@ -37,9 +36,15 @@
                             <td>
                                 {{--  sent, accepted, mediated, canceled, completed--}}
                                 @if($offer->status === 'sent')
-                                    Proposal sent
+                                    @if ($request->status === 'accepted')
+                                        Not accepted
+                                    @else
+                                        Proposal Sent
+                                    @endif
                                 @elseif($offer->status === 'accepted')
                                     Accepted
+                                @elseif($offer->status === 'sent' && $request['status'] === 'accepted')
+                                    Not Accepted
                                 @elseif($offer->status === 'mediated')
                                     In mediate
                                 @elseif($offer->status === 'canceled')
@@ -145,9 +150,6 @@
                                 {{--                        </div>--}}
                                 {{--                    </div>--}}
                             </td>
-
-
-                            <td></td>
                         </tr>
                     @endforeach
                     </tbody>

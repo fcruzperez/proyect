@@ -98,12 +98,12 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-3">Design Name</div>
-                                <div class="col-9" style="padding-top: 10px;"><strong>{{$publish->design_name}}</strong></div>
+                                <div class="col-4">Design Name</div>
+                                <div class="col-8" style="padding-top: 10px;"><strong>{{$publish->design_name}}</strong></div>
                             </div>
                             <div class="row bl1 tl1">
-                                <div class="col-3">Size</div>
-                                <div class="col-9">{{$publish->width}} x {{$publish->height}} {{$publish['unit']}}</div>
+                                <div class="col-4">Size</div>
+                                <div class="col-8">{{$publish->width}} x {{$publish->height}} {{$publish['unit']}}</div>
                             </div>
                             <div class="row bl1">
                                 @php
@@ -113,8 +113,8 @@
                                     $str = $diff->format('%h hour %i minutes ago');
                                     $h = explode(' ', $str);
                                 @endphp
-                                <div class="col-3">Published at</div>
-                                <div class="col-9">
+                                <div class="col-4">Published</div>
+                                <div class="col-8">
                                     @if ((int)$h[0] === 0)
                                         {{$h[2]}} minutes ago
                                     @else
@@ -128,8 +128,8 @@
                                     foreach ($publish->formats as $fmt){ $tmp[] = $fmt->name;}
                                     $str = implode(', ', $tmp);
                                 @endphp
-                                <div class="col-3">Format</div>
-                                <div class="col-9">{{ empty($str) ? 'Undefined' : $str }}</div>
+                                <div class="col-4">Format</div>
+                                <div class="col-8">{{ empty($str) ? 'Undefined' : $str }}</div>
                             </div>
                             <div class="row bl1">
                                 @php
@@ -137,8 +137,8 @@
                                     foreach ($publish->fabrics as $fmt){ $tmp[] = $fmt->name;}
                                     $str = implode(', ', $tmp);
                                 @endphp
-                                <div class="col-3">Fabrics</div>
-                                <div class="col-9">{{ empty($str) ? 'Undefined' : $str }}</div>
+                                <div class="col-4">Fabrics</div>
+                                <div class="col-8">{{ empty($str) ? 'Undefined' : $str }}</div>
                             </div>
                             <div class="row bl1">
                                 @php
@@ -146,15 +146,15 @@
                                     foreach ($publish->technics as $fmt){ $tmp[] = $fmt->name;}
                                     $str = implode(', ', $tmp);
                                 @endphp
-                                <div class="col-3">Technic</div>
-                                <div class="col-9">{{empty($str) ? 'Undefined' : $str }}</div>
+                                <div class="col-4">Technic</div>
+                                <div class="col-8">{{empty($str) ? 'Undefined' : $str }}</div>
                             </div>
                             <div class="row bl1">
                                 @php
                                     $counts = \App\Models\Offer::where('request_id', $publish->id)->count();
                                 @endphp
-                                <div class="col-3">Offers</div>
-                                <div class="col-9">{{$counts}}</div>
+                                <div class="col-4">Offers</div>
+                                <div class="col-8">{{$counts}}</div>
                             </div>
                         </div>
                         <div class="card-footer text-center">
@@ -172,7 +172,7 @@
                 </div>
             @endforeach
 
-            <div class="modal fade" id="bidModal" role="dialog" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="bidModal" role="dialog" tabindex="-1" aria-hidden="true" style="font-family: Arial, Helvetica, sans-serif">
                 <div class="modal-dialog modal-dialog-centered" role="document">
 
                     <form method="POST" action="{{route('designer.offer-save')}}" id="bid_modal_form">
@@ -197,7 +197,7 @@
                             <div class="modal-footer text-center">
                                 <div class="text-center">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
-                                    <button type="submit" class="btn btn-primary ml-3">BID</button>
+                                    <button type="submit" class="btn btn-primary ml-3">&nbsp;&nbsp;BID &nbsp;&nbsp;</button>
                                 </div>
                             </div>
                         </div>

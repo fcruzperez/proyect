@@ -253,12 +253,14 @@
                                 <input type="hidden" name="technics" id="technics">
                             </div>
 
+                            <input type="hidden" id="description" value="{{$publish['description']}}">
+
                             <div class="form-group row">
                                 <label for="add_info"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('Addictional Details:') }}</label>
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Additional Details:') }}</label>
 
                                 <div class="col-md-6">
-                                    <textarea id="add_info" name="add_info" rows="5" cols="50"></textarea>
+                                    <textarea id="add_info" name="add_info" rows="5" cols="40" ></textarea>
                                 </div>
                             </div>
 
@@ -331,7 +333,10 @@
            else {
                $('#unit_in').prop('checked', true);
            }
+
+           document.getElementById('add_info').value = document.getElementById('description').value;
         });
+
 
     </script>
 @endsection

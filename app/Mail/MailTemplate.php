@@ -53,6 +53,7 @@ class MailTemplate extends Mailable
         if (isset($this->receiver[''])) {
             $this->cc($this->receiver['subject']);
         }
+
         if (isset($this->receiver[''])) {
             $this->bcc($this->receiver['subject']);
         }
