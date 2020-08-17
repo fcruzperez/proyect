@@ -45,6 +45,8 @@
                                     Accepted
                                 @elseif($offer->status === 'sent' && $request['status'] === 'accepted')
                                     Not Accepted
+                                @elseif($offer->status === 'delivered')
+                                    Delivered
                                 @elseif($offer->status === 'mediated')
                                     In mediate
                                 @elseif($offer->status === 'canceled')
