@@ -35,7 +35,13 @@
                                 @if(!is_null($publish->image2))
                                     <img src="{{url($publish->image2)}}" class="image-box">
                                     <a class="btn btn-primary btn-download"
+                                       @if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN')
+                                           href="{{url('designer/download-image/'.str_replace('laravel/storage/app/public/images/', '', $publish->image2))}}">
+                                       @endif
                                        href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image2))}}">
+
+
+                                    href="{{url('designer/download-image/'.str_replace('storage/images/', '', $publish->image2))}}">
                                         <i class="fa fa-download"></i>
                                     </a>
                                 @endif
