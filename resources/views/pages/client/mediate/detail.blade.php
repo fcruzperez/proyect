@@ -7,13 +7,14 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" style="text-align:center;">
-                        <span class="card-title">Mediate</span>
+                        <span class="card-title" style="font-size: 25px;">Mediate</span>
                     </div>
 
                     <div class="card-body">
                         <div class="alert alert-warning" >
-                            This is a mediation on <b>{{$offer->designer->name}}</b>'s Offer #{{$offer->id}}
-                            for your Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.
+{{--                            This is a mediation on <b>{{$offer->designer->name}}</b>'s Offer #{{$offer->id}}--}}
+{{--                            for your Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.--}}
+                            You are requesting mediation for the design "{{$offer->request->design_name}}".
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
