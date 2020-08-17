@@ -153,7 +153,7 @@ class DesignerController extends Controller
     public function downloadImage($file) {
         if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
             if (Storage::exists('laravel/storage/app/public/images/' . $file))
-                return Storage::exists('laravel/storage/app/public/images/' . $file);
+                return Storage::download('laravel/storage/app/public/images/' . $file);
         }
         else {
             if(Storage::exists('public/images/'.$file))
