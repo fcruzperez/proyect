@@ -166,7 +166,7 @@ class DesignerController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'offer_id' => 'required|exists:offers,id',
+            'offer_id' => 'required|exists:offers, id',
             'delivery_files' => 'required'
         ]);
 
@@ -202,7 +202,7 @@ class DesignerController extends Controller
             $offer->save();
 
             // send notification to client
-            $msg = "Your {$publish->name} design is finished.";
+            $msg = "Your <b>{$publish->design_name}</b> design is finished.";
             $message = Message::create([
                 'user_id' => $publish->client_id,
                 'request_id' => $publish->id,
