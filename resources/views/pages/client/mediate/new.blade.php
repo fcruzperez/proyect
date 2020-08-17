@@ -20,7 +20,7 @@
 
                     <div class="card-body">
                         <div class="alert alert-warning">
-                            You are requesting mediation for the design "{{$offer->request->design_name}}".
+                            You are requesting mediation for the design <b>"{{$offer->request->design_name}}".</b>
 
 {{--                            You are posting mediation on <b>{{$offer->designer->name}}</b>'s Offer #{{$offer->id}}--}}
 {{--                            for your Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.--}}

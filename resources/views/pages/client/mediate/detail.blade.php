@@ -14,7 +14,7 @@
                         <div class="alert alert-warning" >
 {{--                            This is a mediation on <b>{{$offer->designer->name}}</b>'s Offer #{{$offer->id}}--}}
 {{--                            for your Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.--}}
-                            You are requesting mediation for the design "{{$offer->request->design_name}}".
+                            You are requesting mediation for the design <b>"{{$offer->request->design_name}}".</b>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-12 text-center offset-9">
                                 <a class="btn btn-primary" href="{{route('client.mediate.list')}}">
                                     {{ __('Back') }}
                                 </a>
