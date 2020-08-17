@@ -15,12 +15,12 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" style="text-align:center;">
-                        <span class="card-title">Mediate</span>
+                        <span class="card-title" style="font-size: 25px;">Mediate</span>
                     </div>
 
                     <div class="card-body">
                         <div class="alert alert-warning">
-                            you are requesting mediation for the design {{$offer->request->design_name}}
+                            You are requesting mediation for the design "{{$offer->request->design_name}}".
 
 {{--                            You are posting mediation on <b>{{$offer->designer->name}}</b>'s Offer #{{$offer->id}}--}}
 {{--                            for your Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.--}}
@@ -58,6 +58,13 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div class="card-footer">
+                        Specify the problems that you think should be corrected. Keep in mind that some problems are caused by the embroidery machine and mediation may not work in your favor. The designer will appreciate that you attach photos of the embroidery sample.
+                        Do not use this medium to communicate with the designer because you risk blocking your account.
+                        The designer will send the correction as soon as possible, but if you still consider that the problem was not solved, your case will be analyzed by a panel of Expert Designers who will determine if the work delivered meets your requirements.
+                        Finally, the Mediator will determine the percentage of return corresponding to each part.
+                        Add button to attach photos as evidence of possible error.
                     </div>
                 </div>
             </div>
