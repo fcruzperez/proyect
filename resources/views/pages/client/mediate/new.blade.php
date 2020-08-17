@@ -53,7 +53,7 @@
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-9">
                                     <button class="btn btn-primary" >
-                                        {{ __('POST') }}
+                                        {{ __('SEND') }}
                                     </button>
                                 </div>
                             </div>
