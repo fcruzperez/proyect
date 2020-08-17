@@ -96,13 +96,15 @@ class ClientController extends Controller
 //                    mkdir($destination, 0777);
 //                }
 //                $request->file($imgname)->move($destination, $fileName);
-//                if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                $fileName = $request->file($imgname)->getClientOriginalName();
+                if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
 //                    $filePath = '/uploads/' . $fileName;
 //                } else {
-//                    $filePath = '/laravel/public/uploads/' . $fileName;
-//                }
-//
-//                $publish_data[$imgname] = $filePath;
+                    $fileName = str_replace('storage/', '', $fileName);
+                    $filePath = '/laravel/storage/app/public/' . $fileName;
+                }
+
+                $publish_data[$imgname] = $filePath;
             }
         }
 
@@ -185,6 +187,15 @@ class ClientController extends Controller
 //                }
 //
 //                $old_publish[$imgname] = $filePath;
+                $fileName = $request->file($imgname)->getClientOriginalName();
+                if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
+//                    $filePath = '/uploads/' . $fileName;
+//                } else {
+                    $fileName = str_replace('storage/', '', $fileName);
+                    $filePath = '/laravel/storage/app/public/' . $fileName;
+                }
+
+                $publish_data[$imgname] = $filePath;
             }
         }
 
