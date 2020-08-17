@@ -31,10 +31,10 @@
                             <td>{{$mediate->created_at}}</td>
                             <td>
                                 <a href="{{url("client/publish-detail/{$publish->id}")}}">
-                                    {{$publish->name}}
+                                    {{$publish->design_name}}
                                 </a>
                             </td>
-                            <td>{{$publish->hours}}</td>
+                            <td>{{$offer->hours}}</td>
                             <td>{{$offer->price}}</td>
                             <td>{{$mediate->status_label}}</td>
                             <td>{{$mediate->title}}</td>
