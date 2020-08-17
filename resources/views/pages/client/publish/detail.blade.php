@@ -208,7 +208,7 @@
                                 <div class="row">
                                     <div class="col-3"><label>File{!! $key + 1 !!}</label></div>
                                     <div class="col-9">
-                                        <a class="btn btn-success"
+                                        <a class="btn btn-primary"
                                            href="{{url('client/delivery-download/'.$delivery->id)}}">
                                             Download
                                         </a>
