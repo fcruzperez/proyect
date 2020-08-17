@@ -80,8 +80,8 @@ Route::middleware(['auth', 'role:client'])
         Route::get('mediate-offer/{id}', 'MediateController@new')->name('mediate.new');
         Route::post('mediate-save', 'MediateController@save')->name('mediate.save');
         Route::get('mediate-list', 'MediateController@list')->name('mediate.list');
-//        Route::get('mediate-detail/{id}', 'MediateController@detail')->name('mediate.detail');
-//        Route::get('mediate-edit/{id}', 'MediateController@edit')->name('mediate.edit');
+        Route::get('mediate-detail/{id}', 'MediateController@detail')->name('mediate.detail');
+        Route::get('mediate-edit/{id}', 'MediateController@edit')->name('mediate.edit');
         Route::post('mediate-update/{id}', 'MediateController@update')->name('mediate.update');
         Route::get('mediate-complete/{id}', 'MediateController@complete')->name('mediate.complete');
 
