@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-12 text-center offset-9">
+                            <div class="col-md-12 text-center offset-3">
                                 <a class="btn btn-primary" href="{{route('client.mediate.list')}}">
                                     {{ __('Back') }}
                                 </a>
