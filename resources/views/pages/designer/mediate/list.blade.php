@@ -10,7 +10,6 @@
                     <tr>
                         <th>Time</th>
                         <th>Publish Name</th>
-                        <th>Hours</th>
                         <th>Offer Hours</th>
                         <th>Offer Price</th>
                         <th>Status</th>
@@ -29,7 +28,6 @@
                         <tr>
                             <td>{{$mediate->created_at}}</td>
                             <td>{{$publish->design_name}}</td>
-                            <td>{{$publish->hours}}</td>
                             <td>{{$offer->hours}}</td>
                             <td>{{$offer->price}}</td>
                             <td >

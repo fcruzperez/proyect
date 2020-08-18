@@ -7,13 +7,14 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" style="text-align:center;">
-                        <span class="card-title">Mediate</span>
+                        <span class="card-title text-center" style="font-size: 25px;">Mediate</span>
                     </div>
 
                     <div class="card-body">
                         <div class="alert alert-warning" >
-                            This is a mediation on <b>your Offer #{{$offer->id}}</b>
-                            for <b>{{$offer->request->client->name}}</b>'s Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.
+{{--                            This is a mediation on <b>your Offer #{{$offer->id}}</b>--}}
+{{--                            for <b>{{$offer->request->client->name}}</b>'s Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.--}}
+                            This is a mediation for the design <b>{{$offer->request->design_name}}</b>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
@@ -30,11 +31,18 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-12 text-center offset-3">
                                 <a class="btn btn-primary" href="{{route('designer.mediate.list')}}">
                                     {{ __('Back') }}
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-center" style="color: blue; font-size: 25px;">Note:</div>
+                        <div>
+                            Correct the design based on customer feedback and test photos.
+                            Send it before "x time" to send the corrected files or you will be penalized.
                         </div>
                     </div>
                 </div>
