@@ -251,7 +251,40 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12" style="margin-top: 50px;">
+                <form method="POST" action="{{'admin.other-settings'}}">
+                    <div class="card">
+                        <div class="card-header text-center" style="font-size: 25px;">Other Settings</div>
+                        <div class="card-body">
+                            <table class="text-center">
+                                <tr>
+                                    <th>Client Fee (%)</th>
+                                    <th>Designer Fee (%)</th>
+                                    <th>Minimum Work Time</th>
+                                    <th>Minimum Work Price (USD)</th>
+                                    <th>Delta Time</th>
+                                    <th>Claim Time</th>
+                                    <th>Correction Time</th>
+                                    <th>Payment Time to Designer</th>
+                                    <th>Minimum Withdrawal Amount (USD)</th>
+                                </tr>
+                                <tr>
+                                    <td>d</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
 
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
