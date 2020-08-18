@@ -98,10 +98,16 @@
                                                         <tbody>
                                                         @php
                                                             $offers = $publish->offers;
+                                                            $top_id = \App\Models\Settings::count();
+                                                            if ($top_id <> 0) {
+                                                                $settings = \App\Models\Settings::limit($top_id)->get();
+                                                                $setting = $settings[count($settings) - 1];
+                                                                $client_fee = $setting['client_fee'];
+                                                            }
                                                         @endphp
                                                         @foreach($offers as $offer)
                                                             <tr>
-                                                                <td style="text-align: center">{{intval($offer->price * (1 + env('CLIENT_FEE_RATE')))}}</td>
+                                                                <td style="text-align: center">{{intval($offer->price * (1 + $client_fee / 100))}}</td>
                                                                 <td style="text-align: center">{{$offer->hours}}</td>
                                                                 <td>
                                                                     <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>

@@ -189,8 +189,16 @@
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="row">
+                                    @php
+                                        $top_id = \App\Models\Settings::count();
+                                        if ($top_id <> 0) {
+                                            $settings = \App\Models\Settings::limit($top_id)->get();
+                                            $setting = $settings[count($settings) - 1];
+                                            $client_fee = $setting['client_fee'];
+                                        }
+                                    @endphp
                                     <div class="col-3"><label>Price</label></div>
-                                    <div class="col-9">{{intval($offer->price * (1 + env('CLIENT_FEE_RATE')))}} USD</div>
+                                    <div class="col-9">{{intval($offer->price * (1 + $client_fee / 100))}} USD</div>
                                 </div>
                             </div>
                         </div>

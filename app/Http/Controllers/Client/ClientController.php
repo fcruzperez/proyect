@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Settings;
 use App\Services\MailService;
 use Illuminate\Support\Facades\Config;
 //use PayPal\Api\Amount;
@@ -382,7 +383,14 @@ class ClientController extends Controller
         }
 
         $publish = $offer->request;
-        $client_fee_rate = intval(env('CLIENT_FEE_RATE'));
+
+        $top_id = Settings::count();
+        if ($top_id <> 0) {
+            $settings = Settings::limit($top_id)->get();
+            $setting = $settings[count($settings) - 1];
+            $client_fee = $setting['client_fee'];
+        }
+        $client_fee_rate = $client_fee / 100;
         $depositMoney = intval($offer->price * (1 + $client_fee_rate));
 
         $data = [];
