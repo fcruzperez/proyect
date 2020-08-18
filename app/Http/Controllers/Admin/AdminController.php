@@ -40,7 +40,7 @@ class AdminController extends Controller
         $id = Settings::count();
         $settings = Settings::limit($id)->get();
         $setting = $settings[count($settings) - 1];
-        dd($setting['client_fee']);
+//        dd($setting['client_fee']);
 
         $client_fee = $setting['client_fee'];
         $designer_fee = $setting['designer_fee'];
