@@ -38,19 +38,21 @@ class AdminController extends Controller
         $technics = Technic::all();
 
         $id = Settings::count();
-        $settings = Settings::limit($id)->get();
-        $setting = $settings[count($settings) - 1];
-//        dd($setting['client_fee']);
+        if ($id <> 0) {
+            $settings = Settings::limit($id)->get();
+            $setting = $settings[count($settings) - 1];
+            //        dd($setting['client_fee']);
 
-        $client_fee = $setting['client_fee'];
-        $designer_fee = $setting['designer_fee'];
-        $minimum_work_time = $setting['minimum_work_time'];
-        $minimum_work_price = $setting['minimum_work_price'];
-        $delta_time = $setting['delta_time'];
-        $claim_time = $setting['claim_time'];
-        $correction_time = $setting['correction_time'];
-        $payment_time_to_designer = $setting['payment_time_to_designer'];
-        $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+            $client_fee = $setting['client_fee'];
+            $designer_fee = $setting['designer_fee'];
+            $minimum_work_time = $setting['minimum_work_time'];
+            $minimum_work_price = $setting['minimum_work_price'];
+            $delta_time = $setting['delta_time'];
+            $claim_time = $setting['claim_time'];
+            $correction_time = $setting['correction_time'];
+            $payment_time_to_designer = $setting['payment_time_to_designer'];
+            $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+        }
 
 
         $data = [
@@ -58,15 +60,15 @@ class AdminController extends Controller
             'fabrics' => $fabrics,
             'technics' => $technics,
 
-            'client_fee' => $client_fee,
-            'designer_fee' => $designer_fee,
-            'minimum_work_time' => $minimum_work_time,
-            'minimum_work_price' => $minimum_work_price,
-            'delta_time' => $delta_time,
-            'claim_time' => $claim_time,
-            'correction_time' => $correction_time,
-            'payment_time_to_designer' => $payment_time_to_designer,
-            'minimum_withdrawal_amount' => $minimum_withdrawal_amount
+            'client_fee' => isset($client_fee) ? $client_fee : 0 ,
+            'designer_fee' => isset($designer_fee) ? $designer_fee : 0,
+            'minimum_work_time' => isset($minimum_work_time) ? $minimum_work_time : 0,
+            'minimum_work_price' => isset($minimum_work_price) ? $minimum_work_price : 0,
+            'delta_time' => isset($delta_time) ? $delta_time : 0,
+            'claim_time' => isset($claim_time) ? $claim_time : 0,
+            'correction_time' => isset($correction_time) ? $correction_time : 0,
+            'payment_time_to_designer' => isset($payment_time_to_designer) ? $payment_time_to_designer : 0,
+            'minimum_withdrawal_amount' => isset($minimum_withdrawal_amount) ? $minimum_withdrawal_amount : 0
         ];
         return view('pages.admin.settings', $data);
     }
