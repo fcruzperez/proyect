@@ -316,6 +316,15 @@
                             </div>
                         </form>
                     </div>
+                    <div class="card-footer">
+                        <div class="text-center" style="font-size: 25px; color: blue;">Note</div>
+                        <div>
+                            You must attach the original file in EMB format, the files in the requested formats and the worksheet in PDF format.
+                            We will check your work before delivering it to the client. Please do not add personal details (your name, email, phone number, etc.) to avoid blocking your account.
+                            The client may request mediation if he/she considers that your work does not conform to the requested one.
+                            In mediation you will have the possibility to correct the errors and send the files again. If the correction is rejected, we will determine the percentage of return corresponding to each part.
+                        </div>
+                    </div>
                 </div>
                 @endif
             </div>
