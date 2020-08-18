@@ -35,6 +35,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('register', 'AdminController@showRegisterUser')->name('register');
         Route::post('register', 'AdminController@registerUser')->name('register');
         Route::get('settings', 'AdminController@settings')->name('settings');
+        Route::post('settings','AdminController@otherSettings')->name('other_settings');
         Route::post('format_new', 'AdminController@formatNew')->name('format.new');
         Route::post('format_update', 'AdminController@formatUpdate')->name('format.update');
         Route::get('format_delete/{id}', 'AdminController@formatDelete')->name('format.delete');

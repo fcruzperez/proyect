@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DesignerRate;
+use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
@@ -36,12 +37,86 @@ class AdminController extends Controller
         $fabrics = Fabric::all();
         $technics = Technic::all();
 
+        $id = Settings::count();
+        $settings = Settings::limit($id)->get();
+        $setting = $settings[count($settings) - 1];
+        dd($setting['client_fee']);
+
+        $client_fee = $setting['client_fee'];
+        $designer_fee = $setting['designer_fee'];
+        $minimum_work_time = $setting['minimum_work_time'];
+        $minimum_work_price = $setting['minimum_work_price'];
+        $delta_time = $setting['delta_time'];
+        $claim_time = $setting['claim_time'];
+        $correction_time = $setting['correction_time'];
+        $payment_time_to_designer = $setting['payment_time_to_designer'];
+        $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+
+
         $data = [
             'formats' => $formats,
             'fabrics' => $fabrics,
             'technics' => $technics,
+
+            'client_fee' => $client_fee,
+            'designer_fee' => $designer_fee,
+            'minimum_work_time' => $minimum_work_time,
+            'minimum_work_price' => $minimum_work_price,
+            'delta_time' => $delta_time,
+            'claim_time' => $claim_time,
+            'correction_time' => $correction_time,
+            'payment_time_to_designer' => $payment_time_to_designer,
+            'minimum_withdrawal_amount' => $minimum_withdrawal_amount
         ];
         return view('pages.admin.settings', $data);
+    }
+
+    public function otherSettings(Request $request) {
+
+        $inputs = $request->all();
+
+        $validator = Validator::make($inputs, [
+            'client_fee' => 'required',
+            'designer_fee' => 'required',
+            'minimum_work_time' => 'required',
+            'minimum_work_price' => 'required',
+            'delta_time' => 'required',
+            'claim_time' => 'required',
+            'correction_time' => 'required',
+            'payment_time_to_designer' => 'required',
+            'minimum_withdrawal_amount' => 'required',
+
+        ]);
+
+        if($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+
+        $client_fee = $inputs['client_fee'];
+        $designer_fee = $inputs['designer_fee'];
+        $minimum_work_time = $inputs['minimum_work_time'];
+        $minimum_work_price = $inputs['minimum_work_price'];
+        $delta_time = $inputs['delta_time'];
+        $claim_time = $inputs['claim_time'];
+        $correction_time = $inputs['correction_time'];
+        $payment_time_to_designer = $inputs['payment_time_to_designer'];
+        $minimum_withdrawal_amount = $inputs['minimum_withdrawal_amount'];
+
+        Settings::create([
+
+            'client_fee' => $client_fee,
+            'designer_fee' => $designer_fee,
+            'minimum_work_time' => $minimum_work_time,
+            'minimum_work_price' => $minimum_work_price,
+            'delta_time' => $delta_time,
+            'claim_time' => $claim_time,
+            'correction_time' => $correction_time,
+            'payment_time_to_designer' => $payment_time_to_designer,
+            'minimum_withdrawal_amount' => $minimum_withdrawal_amount
+
+        ]);
+        return back();
     }
 
 

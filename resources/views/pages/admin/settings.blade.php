@@ -252,7 +252,8 @@
                 </div>
             </div>
             <div class="col-12" style="margin-top: 50px;">
-                <form method="POST" action="{{'admin.other-settings'}}">
+                <form method="POST" action="{{route('admin.other_settings')}}">
+                    @csrf
                     <div class="card">
                         <div class="card-header text-center" style="font-size: 25px;">Other Settings</div>
                         <div class="card-body">
@@ -269,18 +270,30 @@
                                     <th>Minimum Withdrawal Amount (USD)</th>
                                 </tr>
                                 <tr>
-                                    <td>d</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <input type="hidden" id="client_fee" name="client_fee"/>
+                                    <input type="hidden" id="designer_fee" name="designer_fee"/>
+                                    <input type="hidden" id="minimum_work_time" name="minimum_work_time"/>
+                                    <input type="hidden" id="minimum_work_price" name="minimum_work_price"/>
+                                    <input type="hidden" id="delta_time" name="delta_time"/>
+                                    <input type="hidden" id="claim_time" name="claim_time"/>
+                                    <input type="hidden" id="correction_time" name="correction_time"/>
+                                    <input type="hidden" id="payment_time_to_designer" name="payment_time_to_designer"/>
+                                    <input type="hidden" id="minimum_withdrawal_amount" name="minimum_withdrawal_amount"/>
 
+                                    <td contenteditable="true" id="td_client_fee">{{$client_fee}}</td>
+                                    <td contenteditable="true" id="td_designer_fee">{{$designer_fee}}</td>
+                                    <td contenteditable="true" id="td_minimum_work_time">{{$minimum_work_time}}</td>
+                                    <td contenteditable="true" id="td_minimum_work_price">{{$minimum_work_price}}</td>
+                                    <td contenteditable="true" id="td_delta_time">{{$delta_time}}</td>
+                                    <td contenteditable="true" id="td_claim_time">{{$claim_time}}</td>
+                                    <td contenteditable="true" id="td_correction_time">{{$correction_time}}</td>
+                                    <td contenteditable="true" id="td_payment_time_to_designer">{{$payment_time_to_designer}}</td>
+                                    <td contenteditable="true" id="td_minimum_withdrawal_amount">{{$minimum_withdrawal_amount}}</td>
                                 </tr>
                             </table>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right" id="save_settings" name="save_settings">Save</button>
                         </div>
                     </div>
                 </form>
@@ -323,6 +336,50 @@
             $('#technic_name').val(name);
             $('#editTechnicModal').modal('show');
         }
+
+        $('#td_client_fee').blur(function () {
+            var value = parseInt($(this).text());
+            $('#client_fee').val(value);
+        });
+
+        $('#td_designer_fee').blur(function () {
+            var value = parseInt($(this).text());
+            $('#designer_fee').val(value);
+        });
+        $('#td_minimum_work_time').blur(function () {
+            var value = parseInt($(this).text());
+            $('#minimum_work_time').val(value);
+        });
+        $('#td_minimum_work_price').blur(function () {
+            var value = parseInt($(this).text());
+            $('#minimum_work_price').val(value);
+        });
+        $('#td_delta_time').blur(function () {
+            var value = parseInt($(this).text());
+            $('#delta_time').val(value);
+        });
+        $('#td_claim_time').blur(function () {
+            var value = parseInt($(this).text());
+            $('#claim_time').val(value);
+        });
+        $('#td_correction_time').blur(function () {
+            var value = parseInt($(this).text());
+            $('#correction_time').val(value);
+        });
+        $('#td_payment_time_to_designer').blur(function () {
+            var value = parseInt($(this).text());
+            $('#payment_time_to_designer').val(value);
+        });
+        $('#td_minimum_withdrawal_amount').blur(function () {
+            var value = parseInt($(this).text());
+            $('#minimum_withdrawal_amount').val(value);
+        });
+
+
+
+
+        // }
+
     </script>
 
 @endsection
