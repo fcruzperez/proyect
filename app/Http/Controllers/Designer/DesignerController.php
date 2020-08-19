@@ -185,7 +185,7 @@ class DesignerController extends Controller
 //                dd($file->getClientOriginalExtension()); return;
                 $extension = $file->getClientOriginalExtension();
                 $name = $file->getClientOriginalName();
-                $path = $file->storeAs('public/delivery', $name . '.' . $extension);
+                $path = $file->storeAs('public/delivery', $name);
                 Delivery::create([
                     'designer_id' => $designerId,
                     'request_id' => $publish->id,
