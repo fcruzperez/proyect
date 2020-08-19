@@ -30,10 +30,39 @@
                             <td>{{$publish->design_name}}</td>
                             <td>{{$offer->hours}}</td>
                             <td>{{$offer->price}}</td>
-                            <td >
-                                <span class="p-1 text-light @if($mstatus==='issued') bg-danger @else bg-success @endif">
-                                    {{$mediate->status_label}}
-                                </span>
+                            <td>
+                                <div>
+                                    <span class="p-1 text-light @if($mstatus==='issued') bg-danger @else bg-success @endif">
+                                        {{$mediate->status_label}}
+                                    </span>
+                                </div>
+                                <div>
+                                    <form action="{{route('designer.redelivery-upload')}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                                                <input type="file" name="delivery_files[]" required multiple
+                                                       class="@error('delivery_files') is-invalid @enderror">
+                                                @error('offer_id')
+                                                <div class="invalid-feedback d-block">Offer Id is required</div>
+                                                @enderror
+                                                @error('delivery_files')
+                                                <div class="invalid-feedback d-block">{{$message}}</div>
+                                                @enderror
+                                                @error('db error')
+                                                db error
+                                                <div class="invalid-feedback d-block">{{$message}}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="col-12 text-center">
+                                                <input type="reset" class="btn btn-warning mr-2" value="Reset"/>
+                                                <button type="submit" class="btn btn-success">Delivery</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
                             </td>
                             <td>{{$mediate->title}}</td>
                             <td>
