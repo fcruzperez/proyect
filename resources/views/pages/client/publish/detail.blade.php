@@ -213,7 +213,7 @@
 
                             @foreach($publish->deliveries as $key => $delivery)
                             <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="row">
+                                <div class="row" style="margin-bottom: 5px;">
                                     <div class="col-3"><label>File{!! $key + 1 !!}</label></div>
                                     <div class="col-9">
                                         <a class="btn btn-primary"
