@@ -50,6 +50,7 @@ class MediateController extends Controller
     public function complete($id) {
 
         $mediate = Mediate::find($id);
+//        dd($mediate);
         $mediate->status = 'completed';
         $mediate->save();
 
