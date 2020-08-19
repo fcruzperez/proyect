@@ -206,7 +206,12 @@ class DesignerController extends Controller
             }
 
             // send notification to client
-            $msg = "Your {$publish->design_name} design is finished.";
+            if ($publish->status <> 'in mediation') {
+                $msg = "Your {$publish->design_name} design is finished.";
+            }
+            else {
+                $msg = "Your {$publish->design_name} design is redelivered.";
+            }
             $message = Message::create([
                 'user_id' => $publish->client_id,
                 'request_id' => $publish->id,
