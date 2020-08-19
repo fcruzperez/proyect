@@ -182,9 +182,9 @@ class DesignerController extends Controller
         DB::beginTransaction();
         try {
             foreach ($files as $file) {
-                dd($file->getClientOriginalExtension()); return;
-
-                $path = $file->store('public/delivery');
+//                dd($file->getClientOriginalExtension()); return;
+                $extension = $file->getClientOriginalExtension();
+                $path = $file->store('public/delivery', $file->title . '.' . $extension);
                 Delivery::create([
                     'designer_id' => $designerId,
                     'request_id' => $publish->id,
