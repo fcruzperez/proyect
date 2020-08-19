@@ -171,7 +171,7 @@
                     </div>
                 </div>
 
-                @if(in_array($pstatus, ['accepted', 'delivered', 'in mediate', 'canceled', 'completed']))
+                @if(in_array($pstatus, ['accepted', 'delivered', 'mediated', 'canceled', 'completed']))
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header">
                         <div class="card-title">Accepted Offer</div>
@@ -205,7 +205,7 @@
                         @if($pstatus !== 'published')
                         <div class="row">
                             <div class="col-12 my-3">
-                                <div class="card-subtitle">Delivery</div>
+                                <div class="card-subtitle">Delivered Files</div>
                             </div>
                             @empty($publish->deliveries)
                                 <div class="alert alert-info">There is no delivered design.</div>

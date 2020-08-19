@@ -171,7 +171,7 @@
                     </div>
                 </div>
 
-                @if(in_array($pstatus, ['accepted', 'delivered', 'in mediate', 'canceled', 'completed']))
+                @if(in_array($pstatus, ['accepted', 'delivered', 'mediated', 'canceled', 'completed']))
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header">
                         <div class="card-title">Accepted Offer</div>
@@ -205,7 +205,7 @@
                         @if($pstatus !== 'published')
                         <div class="row">
                             <div class="col-12 my-3">
-                                <div class="card-subtitle">Delivery</div>
+                                <div class="card-subtitle">Delivered Correction</div>
                             </div>
                             @empty($publish->deliveries)
                                 <div class="alert alert-info">There is no delivered design.</div>
@@ -227,11 +227,8 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                @if($pstatus === 'delivered')
-                                <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
-{{--                                @endif--}}
-{{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
-                                <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
+                                @if($pstatus === 'mediated')
+                                    <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
                                 @endif
                             </div>
                         </div>
@@ -243,26 +240,7 @@
         </div>
     </div>
 
-{{--    cancel modal--}}
-    <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Cancel offer</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Do you really want to cancel this offer?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a class="btn btn-primary" href="{{url('/designer/offer-cancel/'.$offer['id'])}}">Confirm</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 @endsection
 
@@ -316,19 +294,7 @@
             $('#descriptionModal').modal();
 
         }
-        // function unitChange(){
-        //     var HH=document.getElementById('height').value;
-        //     var WW=document.getElementById('width').value;
-        //     var inch_HH=Number((HH/25.4).toFixed(1));
-        //     var inch_WW=Number((WW/25.4).toFixed(1));
-        //     var val=document.getElementById("unit").value;
-        //     if(val==="mm"){
-        //         document.getElementById("size").innerHTML = WW + " x " + HH + " mm";
-        //     }
-        //     else{
-        //         document.getElementById("size").innerHTML = inch_WW + " x " + inch_HH + " inch";
-        //     }
-        // }
+
 
     </script>
 
