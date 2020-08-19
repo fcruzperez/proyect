@@ -236,7 +236,7 @@
                                 @if($pstatus === 'in mediation')
                                     <a class="btn btn-danger mr-3">Cancel</a>
 
-                                    <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
+                                    <a class="btn btn-success" href="{{url('client/mediate-complete/'.$publish->id)}}">Complete</a>
                                 @endif
                             </div>
                         </div>
