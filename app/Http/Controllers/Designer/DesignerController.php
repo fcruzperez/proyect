@@ -280,7 +280,7 @@ class DesignerController extends Controller
 
             $data = [
                 'user_id' => $publish->client_id,
-                'action_url' => "/client/correction/{$publish->id}?message_id={$message->id}",
+                'action_url' => "/client/correction/{$publish->id}",
                 'message' => $msg
             ];
             event(new ClientEvent($data));
