@@ -166,7 +166,7 @@ class DesignerController extends Controller
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'offer_id' => 'required|exists:offers, id',
+            'offer_id' => 'required|exists:offers,id',
             'delivery_files' => 'required'
         ]);
 
