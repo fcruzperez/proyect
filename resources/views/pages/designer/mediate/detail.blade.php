@@ -54,12 +54,9 @@
                         </div>
                     </div>
                 </div>
-                @php
-                    dd($offer['status']); return;
-                @endphp
                 @if($offer['status'] === 'mediated')
                     <div class="card mt-5" id="deliveryCard">
-                        <div class="card-header text-center" style="font-size: 25px">Delivery Correction</div>
+                        <div class="card-header text-center" style="font-size: 25px">Delivery  Correction</div>
                         <div class="card-body">
                             <form action="{{route('designer.redelivery-upload')}}" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -86,6 +83,7 @@
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 @endif
             </div>
