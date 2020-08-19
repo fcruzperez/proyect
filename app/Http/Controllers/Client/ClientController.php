@@ -632,7 +632,7 @@ class ClientController extends Controller
             'publish' => $publish,
             'offer' => $offer,
         ];
-        return view('pages.client.correction', $data);
+        return view('pages.client.publish.correction', $data);
     }
 
 
