@@ -235,7 +235,8 @@
                                 @endif
                                 @if($pstatus === 'in mediation')
                                     @php
-                                        $mediate = \App\Models\Mediate::where('offer_id', $offer->id)->get();
+                                        $id = $publish->accepted_offer_id;
+                                        $mediate = \App\Models\Mediate::where('offer_id', $id)->get();
                                         dd($mediate->id);
                                     @endphp
                                     <a class="btn btn-danger mr-3">Cancel</a>
