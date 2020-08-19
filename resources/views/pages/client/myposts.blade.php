@@ -50,7 +50,16 @@
                                     $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
                                     $hours = $deadline - $hours - 1;
                                     $minutes = 60 - $minutes;
+
+                                    $top_id = \App\Models\Settings::count();
+                                        if ($top_id <> 0) {
+                                            $settings = \App\Models\Settings::limit($top_id)->get();
+                                            $setting = $settings[count($settings) - 1];
+                                            $delta_time = $setting['delta_time'];
+                                        }
+                                    $hours = $hours + $delta_time;
                                 @endphp
+
                                 @if ($publish['status'] === 'accepted' && $hours > 0)
                                     {{--                                @if ($hours == 0)--}}
                                     {{--                                    {{$minutes}}--}}
