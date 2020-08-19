@@ -179,10 +179,11 @@ class DesignerController extends Controller
         $designerId = Auth::id();
 
         $files = $request->file('delivery_files');
-        dd($files->getClientOriginalExtension()); return;
         DB::beginTransaction();
         try {
             foreach ($files as $file) {
+                dd($file->getClientOriginalExtension()); return;
+
                 $path = $file->store('public/delivery');
                 Delivery::create([
                     'designer_id' => $designerId,
