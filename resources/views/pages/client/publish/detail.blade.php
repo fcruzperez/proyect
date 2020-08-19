@@ -236,6 +236,7 @@
                                 @if($pstatus === 'in mediation')
                                     @php
                                         $id = $publish->accepted_offer_id;
+                                        dd($id);return;
 
                                         $mediate = \App\Models\Mediate::where('offer_id', $id)->get();
                                         dd($mediate->id);return;
