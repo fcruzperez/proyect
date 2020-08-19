@@ -184,7 +184,8 @@ class DesignerController extends Controller
             foreach ($files as $file) {
 //                dd($file->getClientOriginalExtension()); return;
                 $extension = $file->getClientOriginalExtension();
-                $path = $file->store('public/delivery', $file->title . '.' . $extension);
+                $name = $file->getClientOriginalName();
+                $path = $file->store('public/delivery', $name . '.' . $extension);
                 Delivery::create([
                     'designer_id' => $designerId,
                     'request_id' => $publish->id,
