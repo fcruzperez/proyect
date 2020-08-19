@@ -614,6 +614,30 @@ class ClientController extends Controller
         return view('pages.client.publish.detail', $data);
     }
 
+    public function seeCorrection(Request $request, $id)
+    {
+
+        $publish = Publish::find($id);
+
+        $offer = Offer::find($publish->accepted_offer_id);
+//        dd($offer);
+
+        if ($request->has('message_id')) {
+            $message = Message::find($request->get('message_id'));
+            $message->status = 'read';
+            $message->save();
+        }
+
+        $data = [
+            'publish' => $publish,
+            'offer' => $offer,
+        ];
+        return view('pages.client.correction', $data);
+    }
+
+
+
+
     public function downloadDelivery(Request $request, $id)
     {
         $delivery = Delivery::find($id);

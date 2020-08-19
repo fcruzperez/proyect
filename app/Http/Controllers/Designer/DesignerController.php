@@ -227,6 +227,8 @@ class DesignerController extends Controller
 
         return back()->with(['success' => 'OK']);
     }
+
+
     public function redeliveryUpload(Request $request) {
         $input = $request->all();
 
@@ -273,12 +275,12 @@ class DesignerController extends Controller
                 'request_id' => $publish->id,
                 'subject' => $msg,
                 'content' => $msg,
-                'action_url' => "/client/publish-detail/{$publish->id}",
+                'action_url' => "/client/correction/{$publish->id}",
             ]);
 
             $data = [
                 'user_id' => $publish->client_id,
-                'action_url' => "/client/publish-detail/{$publish->id}?message_id={$message->id}",
+                'action_url' => "/client/correction/{$publish->id}?message_id={$message->id}",
                 'message' => $msg
             ];
             event(new ClientEvent($data));
