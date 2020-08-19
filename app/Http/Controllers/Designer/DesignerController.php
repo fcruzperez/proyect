@@ -259,14 +259,14 @@ class DesignerController extends Controller
                 ]);
             }
 
-            $now = now();
-            $publish->status = 'delivered';
-            $publish->delivered_at = $now;
-            $publish->save();
+//            $now = now();
+//            $publish->status = 'delivered';
+//            $publish->delivered_at = $now;
+//            $publish->save();
 
-            $offer->status = 'delivered';
-            $offer->delivered_at = $now;
-            $offer->save();
+//            $offer->status = 'delivered';
+//            $offer->delivered_at = $now;
+//            $offer->save();
 
             // send notification to client
             $msg = "Your {$publish->design_name} design is redelivered.";
