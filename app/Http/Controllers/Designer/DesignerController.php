@@ -40,9 +40,9 @@ class DesignerController extends Controller
 
     public function viewPosts(Request $request)
     {
-        $desinger_id = Auth::id();
+        $designer_id = Auth::id();
 
-//        $request_ids = Offer::where('designer_id', $desinger_id)->pluck('request_id')->toArray();
+//        $request_ids = Offer::where('designer_id', $designer_id)->pluck('request_id')->toArray();
 
 //        if (!is_null($request_ids)) {
 //            $data = Publish::where('status', 'published')->whereNotIn('id', $request_ids)->get();

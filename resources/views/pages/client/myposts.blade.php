@@ -54,7 +54,7 @@
                                 @if ($publish['status'] === 'accepted' && $hours > 0)
                                     {{--                                @if ($hours == 0)--}}
                                     {{--                                    {{$minutes}}--}}
-                                    {{--                                @else--}}
+                                    {{--                                @elsdee--}}
                                     {{--                                    {{$hours. 'hour ' . $minutes . 'minutes'}}--}}
                                     {{--                                @endif--}}
                                     {{$hours}}:{{$minutes}} hours
@@ -91,7 +91,7 @@
                                                         <tr style="font-weight: bold;">
                                                             <td>Price(USD)</td>
                                                             <td>Time(hours)</td>
-                                                            <td>Desinger Rating</td>
+                                                            <td>Designer Rating</td>
                                                             <td></td>
                                                         </tr>
                                                         </thead>
