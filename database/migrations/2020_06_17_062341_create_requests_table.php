@@ -26,7 +26,7 @@ class CreateRequestsTable extends Migration
             $table->float('width');
             $table->float('height');
             $table->string('status')->default('published')
-                ->comment('published, accepted, delivered, mediated, completed, canceled');
+                ->comment('published, accepted, delivered, in mediation, completed, canceled');
             $table->bigInteger('accepted_offer_id')->nullable();
             $table->dateTime('accepted_at')->nullable();
             $table->dateTime('delivered_at')->nullable();

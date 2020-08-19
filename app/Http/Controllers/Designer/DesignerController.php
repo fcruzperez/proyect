@@ -193,13 +193,17 @@ class DesignerController extends Controller
             }
 
             $now = now();
-            $publish->status = 'delivered';
-            $publish->delivered_at = $now;
-            $publish->save();
+            if ($publish->status <> 'in mediation') {
+                $publish->status = 'delivered';
+                $publish->delivered_at = $now;
+                $publish->save();
+            }
 
-            $offer->status = 'delivered';
-            $offer->delivered_at = $now;
-            $offer->save();
+            if ($publish->status <> 'in mediation') {
+                $offer->status = 'delivered';
+                $offer->delivered_at = $now;
+                $offer->save();
+            }
 
             // send notification to client
             $msg = "Your {$publish->design_name} design is finished.";
@@ -229,69 +233,69 @@ class DesignerController extends Controller
     }
 
 
-    public function redeliveryUpload(Request $request) {
-        $input = $request->all();
-
-        $validator = Validator::make($input, [
-            'offer_id' => 'required|exists:offers,id',
-            'delivery_files' => 'required'
-        ]);
-
-        if($validator->fails()) {
-            return back()->withErrors($validator);
-        }
-
-        $offer = Offer::find($input['offer_id']);
-        $publish = $offer->request;
-        $designerId = Auth::id();
-
-        $files = $request->file('delivery_files');
-        DB::beginTransaction();
-        try {
-            foreach ($files as $file) {
-                $name = $file->getClientOriginalName();
-                $path = $file->storeAs('public/redelivery', $name);
-                Delivery::create([
-                    'designer_id' => $designerId,
-                    'request_id' => $publish->id,
-                    'offer_id' => $offer->id,
-                    'path' => $path,
-                ]);
-            }
-
-//            $now = now();
-//            $publish->status = 'delivered';
-//            $publish->delivered_at = $now;
-//            $publish->save();
-
-//            $offer->status = 'delivered';
-//            $offer->delivered_at = $now;
-//            $offer->save();
-
-            // send notification to client
-            $msg = "Your {$publish->design_name} design is redelivered.";
-            $message = Message::create([
-                'user_id' => $publish->client_id,
-                'request_id' => $publish->id,
-                'subject' => $msg,
-                'content' => $msg,
-                'action_url' => "/client/correction/{$publish->id}",
-            ]);
-
-            $data = [
-                'user_id' => $publish->client_id,
-                'action_url' => "/client/correction/{$publish->id}",
-                'message' => $msg
-            ];
-            event(new ClientEvent($data));
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            logger()->error($e->getMessage());
-            return back()->withErrors(['db error' => $e->getMessage()]);
-        }
-        DB::commit();
-
-        return back()->with(['success' => 'OK']);
-    }
+//    public function redeliveryUpload(Request $request) {
+//        $input = $request->all();
+//
+//        $validator = Validator::make($input, [
+//            'offer_id' => 'required|exists:offers,id',
+//            'delivery_files' => 'required'
+//        ]);
+//
+//        if($validator->fails()) {
+//            return back()->withErrors($validator);
+//        }
+//
+//        $offer = Offer::find($input['offer_id']);
+//        $publish = $offer->request;
+//        $designerId = Auth::id();
+//
+//        $files = $request->file('delivery_files');
+//        DB::beginTransaction();
+//        try {
+//            foreach ($files as $file) {
+//                $name = $file->getClientOriginalName();
+//                $path = $file->storeAs('public/redelivery', $name);
+//                Delivery::create([
+//                    'designer_id' => $designerId,
+//                    'request_id' => $publish->id,
+//                    'offer_id' => $offer->id,
+//                    'path' => $path,
+//                ]);
+//            }
+//
+////            $now = now();
+////            $publish->status = 'delivered';
+////            $publish->delivered_at = $now;
+////            $publish->save();
+//
+////            $offer->status = 'delivered';
+////            $offer->delivered_at = $now;
+////            $offer->save();
+//
+//            // send notification to client
+//            $msg = "Your {$publish->design_name} design is redelivered.";
+//            $message = Message::create([
+//                'user_id' => $publish->client_id,
+//                'request_id' => $publish->id,
+//                'subject' => $msg,
+//                'content' => $msg,
+//                'action_url' => "/client/correction/{$publish->id}",
+//            ]);
+//
+//            $data = [
+//                'user_id' => $publish->client_id,
+//                'action_url' => "/client/correction/{$publish->id}",
+//                'message' => $msg
+//            ];
+//            event(new ClientEvent($data));
+//
+//        } catch (\Exception $e) {
+//            DB::rollBack();
+//            logger()->error($e->getMessage());
+//            return back()->withErrors(['db error' => $e->getMessage()]);
+//        }
+//        DB::commit();
+//
+//        return back()->with(['success' => 'OK']);
+//    }
 }
