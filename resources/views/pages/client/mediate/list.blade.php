@@ -25,6 +25,7 @@
                     @foreach($mediates as $mediate)
                         <?php
                         $offer = $mediate->offer;
+                        $mstatus = $mediate->status;
                         $publish = $offer->request;
                         ?>
                         <tr>
@@ -36,7 +37,11 @@
                             </td>
                             <td>{{$offer->hours}}</td>
                             <td>{{$offer->price}}</td>
-                            <td>{{$mediate->status_label}}</td>
+                            <td>
+                                 <span class="p-1 text-light @if($mstatus==='issued') bg-danger @else bg-success @endif">
+                                    {{$mediate->status_label}}
+                                </span>
+                            </td>
                             <td>{{$mediate->title}}</td>
                             <td>
                                 <a class="btn btn-info" href="{{url("client/mediate-detail/{$mediate->id}")}}">Detail</a>
