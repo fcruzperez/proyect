@@ -235,18 +235,17 @@
                                 @endif
                                 @if($pstatus === 'in mediation')
                                     @php
-                                        $id = $publish->accepted_offer_id;
-                                        dd($id);return;
+                                        //$id = $publish->accepted_offer_id;
+                                        //dd($id);return;
 
-                                        $mediate = \App\Models\Mediate::where('offer_id', $id)->get();
-                                        dd($mediate->id);return;
+                                        //$mediate = \App\Models\Mediate::where('offer_id', $id)->get();
+                                        //dd($mediate->id);return;
                                     @endphp
                                     <a class="btn btn-danger mr-3">Cancel</a>
 
 {{--                                    <a class="btn btn-success" href="{{url('client/mediate-complete/'.$publish->id)}}">Complete</a>--}}
-                                    <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
-
-                                    @endif
+{{--                                    <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
+                                @endif
                             </div>
                         </div>
                         @endif
