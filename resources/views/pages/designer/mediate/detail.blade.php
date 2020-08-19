@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                @if($offer['status'] === 'mediated')
+                @if($offer['status'] === 'in mediate')
                     <div class="card mt-5" id="deliveryCard">
                         <div class="card-header text-center" style="font-size: 25px">Delivery Correction</div>
                         <div class="card-body">

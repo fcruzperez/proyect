@@ -412,7 +412,7 @@ class ClientController extends Controller
     {
         $publish = Publish::find($id);
 
-        $publish['status'] = 'cancelled';
+        $publish['status'] = 'canceled';
 
         $publish->save();
         return back();
@@ -423,7 +423,7 @@ class ClientController extends Controller
 
     public function cancelPayment(Request $request) {
 
-        echo 'Sorry your payment is cancelled';
+        echo 'Sorry your payment is canceled';
         return back();
     }
 

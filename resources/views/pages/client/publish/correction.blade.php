@@ -162,13 +162,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer text-center">
 
-                        @if($pstatus === 'published' && $offer != null && $offer->status === 'sent')
-                            <button type="button" class="btn btn-warning"
-                                    data-toggle="modal" data-target="#cancelModal">Cancel</button>
-                        @endif
-                    </div>
                 </div>
 
                 @if(in_array($pstatus, ['accepted', 'delivered', 'mediated', 'canceled', 'completed']))
