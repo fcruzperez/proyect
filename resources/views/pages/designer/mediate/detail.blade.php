@@ -41,8 +41,16 @@
                     <div class="card-footer">
                         <div class="text-center" style="color: blue; font-size: 25px;">Note:</div>
                         <div>
+                            @php
+                            $top_id = \App\Models\Settings::count();
+                            if ($top_id <> 0) {
+                                $settings = \App\Models\Settings::limit($top_id)->get();
+                                $setting = $settings[count($settings) - 1];
+                                $correction_time = $setting['correction_time'];
+                            }
+                            @endphp
                             Correct the design based on customer feedback and test photos.
-                            Send it before "x time" to send the corrected files or you will be penalized.
+                            Send it before "<b>{{$correction_time}}</b> hours" to send the corrected files or you will be penalized.
                         </div>
                     </div>
                 </div>

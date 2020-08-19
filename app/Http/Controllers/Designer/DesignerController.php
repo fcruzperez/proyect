@@ -182,8 +182,6 @@ class DesignerController extends Controller
         DB::beginTransaction();
         try {
             foreach ($files as $file) {
-//                dd($file->getClientOriginalExtension()); return;
-                $extension = $file->getClientOriginalExtension();
                 $name = $file->getClientOriginalName();
                 $path = $file->storeAs('public/delivery', $name);
                 Delivery::create([
