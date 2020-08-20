@@ -46,6 +46,7 @@ class MediateController extends Controller
 
         $mediate = Mediate::find($id);
 
+
         $offer_id = $mediate['offer_id'];
         $offer = Offer::find($offer_id);
         dd($offer_id);

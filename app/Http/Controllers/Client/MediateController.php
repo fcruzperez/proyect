@@ -101,6 +101,7 @@ class MediateController extends Controller
             ]);
 
             $mediate_id = $mediate['id'];
+            dd($mediate_id);
 
             $now = now();
 
