@@ -60,7 +60,7 @@ Route::middleware(['auth', 'role:admin'])
         //Mediation
 //        Route::post('mediation', 'AdminController@mediation')->name('mediation');
         Route::get('mediation', 'AdminController@mediation')->name('mediation');
-        Route::get('delivery-download', 'AdminController@downloadDelivery')->name('delivery-download');
+        Route::get('delivery-download/{id}', 'AdminController@downloadDelivery')->name('delivery-download');
 
 
     });
@@ -82,7 +82,7 @@ Route::middleware(['auth', 'role:client'])
         Route::post('update_publish', 'ClientController@updatePublish')->name('update_publish');
         Route::get('publish-detail/{id}', 'ClientController@publishDetail')->name('publish_detail');
         Route::get('correction/{id}', 'ClientController@seeCorrection')->name('correction');
-        Route::get('delivery-download/{id}', 'ClientController@downloadDelivery')->name('delivery_download');
+        Route::get('delivery-download/{id}', 'ClientController@downloa  dDelivery')->name('delivery_download');
         Route::get('complete-request/{id}', 'ClientController@completeRequest')->name('complete_request');
 
         // mediate
