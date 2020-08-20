@@ -44,7 +44,9 @@ class MediateController extends Controller
 
     public function detail($id) {
         $mediate = Mediate::find($id);
-        $offer = $mediate->offer;
+
+        $offer_id = $mediate['offer_id'];
+        $offer = Offer::find($offer_id);
 
         return view('pages.designer.mediate.detail', ['mediate' => $mediate, 'offer' => $offer]);
     }
