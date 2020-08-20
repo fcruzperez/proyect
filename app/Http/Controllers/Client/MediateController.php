@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\AdminEvent;
+use App\Events\ClientEvent;
 use App\Events\DesignerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Mediate;
 use App\Models\Message;
 use App\Models\Offer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
 use App\Models\Technic;
@@ -120,6 +123,55 @@ class MediateController extends Controller
         event(new DesignerEvent($payload));
 
         return redirect(route('client.mediate.list'));
+    }
+
+
+    public function rejection(Request $request) {
+
+        $inputs = $request->all();
+
+        $validator = Validator::make($inputs, [
+            'publish_id' => 'required',
+            'offer_id' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $publish_id = $inputs['publish_id'];
+        $publish_name = $inputs['publish_name'];
+        $offer_id = $inputs['offer_id'];
+        $client_id = Publish::find($publish_id)['client_id'];
+        $client_name = User::find($client_id)['name'];
+        $designer_id = Offer::find($offer_id)['designer_id'];
+        $designer_name = User::find($designer_id)['name'];
+        DB::beginTransaction();
+        try {
+            $msg = "<b>{$client_name}</b> is requesting mediation about the design <b>{$publish_name}</b> what is made by designer <b>{$designer_name}</b>";
+
+            $message = Message::create([
+                'user_id' => 1,
+                'request_id' => $publish_id,
+                'subject' => $msg,
+                'content' => $msg,
+                'action_url' => "/admin/mediation",
+            ]);
+
+            $data = [
+                'user_id' => 1,
+                'action_url' => "/admin/mediation/",
+                'message' => $msg
+            ];
+            event(new AdminEvent($data));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            logger()->error($e->getMessage());
+            return back()->withErrors(['db error' => $e->getMessage()]);
+        }
+
+        DB::commit();
+        return back()->with(['success' => 'OK']);
+
     }
 }
 

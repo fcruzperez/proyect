@@ -212,6 +212,7 @@ class DesignerController extends Controller
             else {
                 $msg = "Your {$publish->design_name} design is redelivered.";
             }
+
             $message = Message::create([
                 'user_id' => $publish->client_id,
                 'request_id' => $publish->id,

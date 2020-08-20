@@ -241,8 +241,13 @@
                                         //$mediate = \App\Models\Mediate::where('offer_id', $id)->get();
                                         //dd($mediate->id);return;
                                     @endphp
-                                    <a class="btn btn-danger mr-3" onclick="return(confirm('Will you reject this offer, really?'))" >Rejection</a>
+                                    <form action="{{route('client.mediate.rejection')}}" method="post">
+                                        <input type="hidden" name="publish_id" value="{{$publish->id}}">
+                                        <input type="hidden" name="publish_name" value="{{$publish->design_name}}">
+                                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
 
+                                        <button type="submit" class="btn btn-danger" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
+                                    </form>
 {{--                                    <a class="btn btn-success" href="{{url('client/mediate-complete/'.$publish->id)}}">Complete</a>--}}
 {{--                                    <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
                                 @endif

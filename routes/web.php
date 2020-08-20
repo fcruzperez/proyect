@@ -82,8 +82,10 @@ Route::middleware(['auth', 'role:client'])
         Route::post('update_publish', 'ClientController@updatePublish')->name('update_publish');
         Route::get('publish-detail/{id}', 'ClientController@publishDetail')->name('publish_detail');
         Route::get('correction/{id}', 'ClientController@seeCorrection')->name('correction');
-        Route::get('delivery-download/{id}', 'ClientController@downloa  dDelivery')->name('delivery_download');
+        Route::get('delivery-download/{id}', 'ClientController@downloadDelivery')->name('delivery_download');
         Route::get('complete-request/{id}', 'ClientController@completeRequest')->name('complete_request');
+        Route::post('cancel/{rid}', 'ClientController@cancel')->name('cancel');
+
 
         // mediate
         Route::get('mediate-offer/{id}', 'MediateController@new')->name('mediate.new');
@@ -93,10 +95,12 @@ Route::middleware(['auth', 'role:client'])
         Route::get('mediate-edit/{id}', 'MediateController@edit')->name('mediate.edit');
         Route::post('mediate-update/{id}', 'MediateController@update')->name('mediate.update');
         Route::get('mediate-complete/{id}', 'MediateController@complete')->name('mediate.complete');
+        Route::post('mediate-rejection', 'MediateController@rejection')->name('mediate.rejection');
+
+
 
         Route::post('accept_bid', 'ClientController@acceptBid')->name('accept_bid');
         Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
-        Route::post('cancel/{rid}', 'ClientController@cancel')->name('cancel');
 
         // payment routes
         Route::get('deposit/paypal/{offer_id}', 'ClientController@deposit')->name('deposit');
