@@ -100,6 +100,8 @@ class MediateController extends Controller
                 'content' => $request->get('content'),
             ]);
 
+            $mediate_id = $mediate['id'];
+
             $now = now();
 
             $offer->status = 'mediated';
@@ -117,7 +119,7 @@ class MediateController extends Controller
 
         $payload = [
             'user_id' => $offer->designer_id,
-            'action_url' => "/designer/mediate-detail/{$offer->id}",
+            'action_url' => "/designer/mediate-detail/{$mediate->id}",
             'message' => 'Your offer has been mediated!'
         ];
         event(new DesignerEvent($payload));
