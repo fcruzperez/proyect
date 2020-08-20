@@ -241,7 +241,7 @@
                                         //$mediate = \App\Models\Mediate::where('offer_id', $id)->get();
                                         //dd($mediate->id);return;
                                     @endphp
-                                    <form action="{{route('client.mediate_rejection')}}" method="post">
+                                    <form action="{{route('client.mediate.rejection')}}" method="post">
                                         <input type="hidden" name="publish_id" value="{{$publish->id}}">
                                         <input type="hidden" name="publish_name" value="{{$publish->design_name}}">
                                         <input type="hidden" name="offer_id" value="{{$offer->id}}">
