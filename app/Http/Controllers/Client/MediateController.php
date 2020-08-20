@@ -146,7 +146,7 @@ class MediateController extends Controller
         $designer_id = Offer::find($offer_id)['designer_id'];
         $designer_name = User::find($designer_id)['name'];
 
-
+        dd($designer_name);
         DB::beginTransaction();
         try {
             $msg = "<b>{$client_name}</b> is requesting mediation about the design <b>{$publish_name}</b> what is made by designer <b>{$designer_name}</b>";
