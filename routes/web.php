@@ -95,8 +95,7 @@ Route::middleware(['auth', 'role:client'])
         Route::get('mediate-edit/{id}', 'MediateController@edit')->name('mediate.edit');
         Route::post('mediate-update/{id}', 'MediateController@update')->name('mediate.update');
         Route::get('mediate-complete/{id}', 'MediateController@complete')->name('mediate.complete');
-
-        Route::post('mediate-rejection', 'ClientController@rejection')->name('mediate.rejection');
+        Route::post('mediate-rejection', 'MediateController@rejection')->name('mediate.rejection');
 
 
 

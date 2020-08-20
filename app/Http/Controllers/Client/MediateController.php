@@ -126,6 +126,65 @@ class MediateController extends Controller
     }
 
 
+    public function rejection(Request $request) {
+
+        $inputs = $request->all();
+
+        $validator = Validator::make($inputs, [
+            'publish_id' => 'required',
+            'offer_id' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $publish_id = $inputs['publish_id'];
+        $publish_name = $inputs['publish_name'];
+        $offer_id = $inputs['offer_id'];
+        $client_id = Publish::find($publish_id)['client_id'];
+        $client_name = User::find($client_id)['name'];
+        $designer_id = Offer::find($offer_id)['designer_id'];
+        $designer_name = User::find($designer_id)['name'];
+
+        dd($designer_name); return;
+
+        DB::beginTransaction();
+        try {
+            $msg = "<b>{$client_name}</b> is requesting mediation about the design <b>{$publish_name}</b> what is made by designer <b>{$designer_name}</b>";
+
+            $message = Message::create([
+                'user_id' => 1,
+                'request_id' => $publish_id,
+                'offer_id' => $offer_id,
+                'subject' => $msg,
+                'content' => $msg,
+                'action_url' => "/admin/mediation/",
+            ]);
+
+            dd($message);
+
+
+            $data = [
+                'user_id' => 1,
+                'action_url' => "/admin/mediation/",
+                'message' => $msg
+            ];
+
+            event(new AdminEvent($data));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            logger()->error($e->getMessage());
+            return back()->withErrors(['db error' => $e->getMessage()]);
+        }
+
+        DB::commit();
+
+        return back()->with(['success' => 'OK']);
+
+    }
+
+
 
 }
 
