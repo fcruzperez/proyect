@@ -106,7 +106,7 @@
                                     @foreach($publish->deliveries as $key => $delivery)
                                         <div class="row">
 {{--                                            <div><label>File{!! $key + 1 !!}</label></div>--}}
-                                            <div>
+                                            <div style="margin: 5px;">
                                                 <a class="btn btn-primary"
                                                    href="{{url('admin/delivery-download/'.$delivery->id)}}">
                                                     Download{{$key}}
