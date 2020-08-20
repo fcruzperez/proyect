@@ -65,7 +65,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('designer.mediate.list')}}">Mediate</a>
+                                <a class="nav-link" href="{{route('designer.mediate.list')}}">Mediation</a>
                             </li>
 {{--                            <li class="nav-item">--}}
 {{--                                <a class="nav-link" href="{{route('designer.withdraw.list')}}">Finances</a>--}}

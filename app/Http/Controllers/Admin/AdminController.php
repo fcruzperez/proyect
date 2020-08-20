@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -325,6 +326,16 @@ class AdminController extends Controller
         return redirect()->to('admin/score');
 
     }
+
+    public function mediation(Request $request) {
+
+        $publishes = Publish::where('status', 'in mediation')->all();
+        $data = ['published' => $publishes];
+
+        return view('pages.admin.mediation', $data);
+
+    }
+
 
     public function registerUser(Request $request) {
 

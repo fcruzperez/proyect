@@ -59,6 +59,9 @@
                                 <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Home') }}</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.mediation') }}">{{ __('Mediation') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.settings') }}">{{ __('Setting') }}</a>
                             </li>
                             <li class="nav-item">

@@ -56,6 +56,11 @@ Route::middleware(['auth', 'role:admin'])
         //Score
         Route::get('score', 'AdminController@score')->name('score');
         Route::post('update_score', 'AdminController@updateScore')->name('update_score');
+
+        //Mediation
+//        Route::post('mediation', 'AdminController@mediation')->name('mediation');
+        Route::get('mediation', 'AdminController@mediation')->name('mediation');
+
     });
 
 /**
