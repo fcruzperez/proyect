@@ -11,6 +11,7 @@
                     <tr>
                         <th>Time</th>
                         <th>Client</th>
+                        <th>Designer</th>
                         <th>Design Name</th>
                         <th>Details</th>
                         <th>Mediate</th>
@@ -22,10 +23,16 @@
                         <tr>
                             @php
                                 $client_id = $publish['client_id'];
-                                $user = \App\Models\User::find($client_id);
+                                $client = \App\Models\User::find($client_id);
+
+                                $offer_id = $publish['accepted_offer_id'];
+                                $designer_id = \App\Models\Offer::find($offer_id)['designer_id'];
+                                $designer = \App\Models\User::find($designer_id);
+
                             @endphp
                             <td>{{$publish['created_at']}}</td>
-                            <td>{{$user['name']}}</td>
+                            <td>{{$client['name']}}</td>
+                            <td>{{$designer['name']}}</td>
                             <td>{{$publish['design_name']}}</td>
                             <td>
                                 <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#zzz{{$publish->id}}">Details</button>
@@ -82,16 +89,6 @@
                                                 <div>
                                                     <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
                                                 </div>
-                                                <div>
-                                                    <b style="color:blue; margin-left: 50px;">Accepted Designer:</b>
-                                                    @php
-                                                        $accepted_offer_id = $publish->accepted_offer_id;
-                                                        $designer_id = \App\Models\Offer::find($accepted_offer_id)['designer_id'];
-                                                        $designer_name = \App\Models\User::find($designer_id)['name'];
-                                                    @endphp
-                                                    <b>{{$designer_name}}</b>
-                                                </div>
-
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
