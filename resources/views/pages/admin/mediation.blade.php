@@ -5,7 +5,7 @@
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="row">
             <div class="col-12">
-                <div class="text-center" style="font-size: 30px;"> Mediations</div>
+                <div class="text-center" style="font-size: 30px; margin-bottom: 15px;"> Mediations </div>
                 <table id="publishes_table" class="table table-striped table-bordered text-center">
                     <thead>
                     <tr>
@@ -97,7 +97,27 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>Download</td>
+                            <td>
+                                <div class="row">
+                                    @empty($publish->deliveries)
+                                        <div class="alert alert-info">There is no delivered design.</div>
+                                    @endempty
+
+                                    @foreach($publish->deliveries as $key => $delivery)
+                                        <div class="col-12 col-sm-6 col-lg-4">
+                                            <div class="row" style="margin-bottom: 5px;">
+                                                <div class="col-3"><label>File{!! $key + 1 !!}</label></div>
+                                                <div class="col-9">
+                                                    <a class="btn btn-primary"
+                                                       href="{{url('admin/delivery-download/'.$delivery->id)}}">
+                                                        Download
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

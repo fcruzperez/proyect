@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Delivery;
 use App\Models\DesignerRate;
 use App\Models\Settings;
 use App\Models\User;
@@ -334,6 +335,16 @@ class AdminController extends Controller
 
         return view('pages.admin.mediation', $data);
 
+    }
+
+    public function downloadDelivery(Request $request, $id)
+    {
+        $delivery = Delivery::find($id);
+
+        if (Storage::exists($delivery->path)) {
+            return Storage::download($delivery->path);
+        }
+        return response('', 404);
     }
 
 
