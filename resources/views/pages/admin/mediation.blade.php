@@ -5,8 +5,8 @@
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <div class="row">
             <div class="col-12">
+                <div class="text-center" style="font-size: 30px;"> Mediations</div>
                 <table id="publishes_table" class="table table-striped table-bordered text-center">
-
                     <thead>
                     <tr>
                         <th>Time</th>
