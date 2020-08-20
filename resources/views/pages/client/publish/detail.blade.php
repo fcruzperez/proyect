@@ -246,7 +246,7 @@
                                         <input type="hidden" name="publish_name" value="{{$publish->design_name}}">
                                         <input type="hidden" name="offer_id" value="{{$offer->id}}">
 
-                                        <button type="submit" class="btn btn-danger">Rejection</button>
+                                        <button type="submit" class="btn btn-danger" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
                                     </form>
 {{--                                    <a class="btn btn-success" href="{{url('client/mediate-complete/'.$publish->id)}}">Complete</a>--}}
 {{--                                    <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
