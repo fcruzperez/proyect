@@ -105,7 +105,7 @@
 
                                     @foreach($publish->deliveries as $key => $delivery)
 
-                                        <div class="col-12 col-sm-6 col-lg-4">
+                                        <div class="col-12 col-sm-6 col-lg-4" style="margin-left: 20px;">
                                             <div class="row">
                                                 <div><label>File{!! $key + 1 !!}</label></div>
                                                 <div>
