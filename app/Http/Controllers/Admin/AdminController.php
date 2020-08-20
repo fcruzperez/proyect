@@ -340,6 +340,7 @@ class AdminController extends Controller
     public function downloadDelivery(Request $request, $id)
     {
         $delivery = Delivery::find($id);
+        dd($delivery);return;
 
         if (Storage::exists($delivery->path)) {
             return Storage::download($delivery->path);
