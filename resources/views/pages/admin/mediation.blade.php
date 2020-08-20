@@ -107,8 +107,8 @@
 
                                         <div class="col-12 col-sm-6 col-lg-4">
                                             <div class="row" style="margin-bottom: 5px;">
-                                                <div class="col-4"><label>File{!! $key + 1 !!}</label></div>
-                                                <div class="col-8">
+                                                <div class="col-6"><label>File{!! $key + 1 !!}</label></div>
+                                                <div class="col-6">
                                                     <a class="btn btn-primary"
                                                        href="{{url('admin/delivery-download/'.$delivery->id)}}">
                                                         Download
