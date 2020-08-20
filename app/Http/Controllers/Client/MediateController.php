@@ -145,6 +145,9 @@ class MediateController extends Controller
         $client_name = User::find($client_id)['name'];
         $designer_id = Offer::find($offer_id)['designer_id'];
         $designer_name = User::find($designer_id)['name'];
+
+        dd($designer_name);
+
         DB::beginTransaction();
         try {
             $msg = "<b>{$client_name}</b> is requesting mediation about the design <b>{$publish_name}</b> what is made by designer <b>{$designer_name}</b>";
@@ -152,9 +155,10 @@ class MediateController extends Controller
             $message = Message::create([
                 'user_id' => 1,
                 'request_id' => $publish_id,
+                'offer_id' => $offer_id,
                 'subject' => $msg,
                 'content' => $msg,
-                'action_url' => "/admin/mediation",
+                'action_url' => "/admin/mediation/",
             ]);
 
             $data = [
@@ -162,7 +166,9 @@ class MediateController extends Controller
                 'action_url' => "/admin/mediation/",
                 'message' => $msg
             ];
+
             event(new AdminEvent($data));
+
         } catch (\Exception $e) {
             DB::rollBack();
             logger()->error($e->getMessage());
