@@ -148,7 +148,7 @@ class MediateController extends Controller
 
         DB::beginTransaction();
         try {
-            $msg = "<b>{$client_name}</b> is requesting mediation about the design <b>{$publish_name}</b> what is made by designer <b>{$designer_name}</b>";
+            $msg = "Client {$client_name} is requesting mediation about the design {$publish_name} what is made by Designer {$designer_name}";
 
             $message = Message::create([
                 'user_id' => 1,
