@@ -130,6 +130,14 @@ class MediateController extends Controller
 
         $inputs = $request->all();
 
+        $validator = Validator::make($inputs, [
+            'publish_id' => 'required',
+            'offer_id' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
         $publish_id = $inputs['publish_id'];
         $publish_name = $inputs['publish_name'];
         $offer_id = $inputs['offer_id'];
