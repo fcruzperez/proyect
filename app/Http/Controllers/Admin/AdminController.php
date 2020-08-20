@@ -329,7 +329,7 @@ class AdminController extends Controller
 
     public function mediation(Request $request) {
 
-        $publishes = Publish::where('status', 'in mediation')->all();
+        $publishes = Publish::where('status', 'in mediation')->get();
         $data = ['published' => $publishes];
 
         return view('pages.admin.mediation', $data);
