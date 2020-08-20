@@ -104,13 +104,16 @@
                                     @endempty
 
                                     @foreach($publish->deliveries as $key => $delivery)
-                                        <div class="row">
-{{--                                            <div><label>File{!! $key + 1 !!}</label></div>--}}
-                                            <div style="margin: 5px;">
-                                                <a class="btn btn-primary"
-                                                   href="{{url('admin/delivery-download/'.$delivery->id)}}">
-                                                    Download{{$key}}
-                                                </a>
+
+                                        <div class="col-12 col-sm-6 col-lg-4">
+                                            <div class="row">
+                                                <div><label>File{!! $key + 1 !!}</label></div>
+                                                <div>
+                                                    <a class="btn btn-primary"
+                                                       href="{{url('admin/delivery-download/'.$delivery->id)}}">
+                                                        Download
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
