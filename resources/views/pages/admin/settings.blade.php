@@ -287,7 +287,7 @@
                                         <input type="number" id="designer_fee" name="designer_fee" value="{{$designer_fee}}"/>
                                     </td>
                                     <td>
-                                        <input type="number" id="minimum_work_time" name="minimum_work_time" value="{{@minimum_work_time}}"/>
+                                        <input type="number" id="minimum_work_time" name="minimum_work_time" value="{{$minimum_work_time}}"/>
                                     </td>
                                     <td>
                                         <input type="number" id="minimum_work_price" name="minimum_work_price" value="{{$minimum_work_price}}"/>
