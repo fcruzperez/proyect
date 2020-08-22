@@ -257,7 +257,7 @@
                     <div class="card">
                         <div class="card-header text-center" style="font-size: 25px;">Other Settings</div>
                         <div class="card-body">
-                            <table class="text-center">
+                            <table class="table table-responsive text-center">
                                 <tr>
                                     <th>Client Fee (%)</th>
                                     <th>Designer Fee (%)</th>
