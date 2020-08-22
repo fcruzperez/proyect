@@ -270,25 +270,54 @@
                                     <th>Minimum Withdrawal Amount (USD)</th>
                                 </tr>
                                 <tr>
-                                    <input type="number" id="client_fee" name="client_fee"/>
-                                    <input type="number" id="designer_fee" name="designer_fee"/>
-                                    <input type="number" id="minimum_work_time" name="minimum_work_time"/>
-                                    <input type="number" id="minimum_work_price" name="minimum_work_price"/>
-                                    <input type="number" id="delta_time" name="delta_time"/>
-                                    <input type="number" id="claim_time" name="claim_time"/>
-                                    <input type="number" id="correction_time" name="correction_time"/>
-                                    <input type="number" id="payment_time_to_designer" name="payment_time_to_designer"/>
-                                    <input type="number" id="minimum_withdrawal_amount" name="minimum_withdrawal_amount"/>
+{{--                                    <input type="number" id="client_fee" name="client_fee"/>--}}
+{{--                                    <input type="number" id="designer_fee" name="designer_fee"/>--}}
+{{--                                    <input type="number" id="minimum_work_time" name="minimum_work_time"/>--}}
+{{--                                    <input type="number" id="minimum_work_price" name="minimum_work_price"/>--}}
+{{--                                    <input type="number" id="delta_time" name="delta_time"/>--}}
+{{--                                    <input type="number" id="claim_time" name="claim_time"/>--}}
+{{--                                    <input type="number" id="correction_time" name="correction_time"/>--}}
+{{--                                    <input type="number" id="payment_time_to_designer" name="payment_time_to_designer"/>--}}
+{{--                                    <input type="number" id="minimum_withdrawal_amount" name="minimum_withdrawal_amount"/>--}}
 
-                                    <td contenteditable="true" id="td_client_fee">{{$client_fee}}</td>
-                                    <td contenteditable="true" id="td_designer_fee">{{$designer_fee}}</td>
-                                    <td contenteditable="true" id="td_minimum_work_time">{{$minimum_work_time}}</td>
-                                    <td contenteditable="true" id="td_minimum_work_price">{{$minimum_work_price}}</td>
-                                    <td contenteditable="true" id="td_delta_time">{{$delta_time}}</td>
-                                    <td contenteditable="true" id="td_claim_time">{{$claim_time}}</td>
-                                    <td contenteditable="true" id="td_correction_time">{{$correction_time}}</td>
-                                    <td contenteditable="true" id="td_payment_time_to_designer">{{$payment_time_to_designer}}</td>
-                                    <td contenteditable="true" id="td_minimum_withdrawal_amount">{{$minimum_withdrawal_amount}}</td>
+                                    <td>
+                                        <input type="number" id="client_fee" name="client_fee" value="{{$client_fee}}"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="designer_fee" name="designer_fee" value="{{$designer_fee}}"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="minimum_work_time" name="minimum_work_time" value="{{@minimum_work_time}}"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="minimum_work_price" name="minimum_work_price" value="{{$minimum_work_price}}"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="delta_time" name="delta_time" value="{{$delta_time}}"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="claim_time" name="claim_time" value="{{$claim_time}}"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="correction_time" name="correction_time" value="{{$correction_time}}"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="payment_time_to_designer" name="payment_time_to_designer" value="{{$payment_time_to_designer}}"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="minimum_withdrawal_amount" name="minimum_withdrawal_amount" value="{{$minimum_withdrawal_amount}}"/>
+                                    </td>
+
+
+{{--                                    <td contenteditable="true" id="td_client_fee">{{$client_fee}}</td>--}}
+{{--                                    <td contenteditable="true" id="td_designer_fee">{{$designer_fee}}</td>--}}
+{{--                                    <td contenteditable="true" id="td_minimum_work_time">{{$minimum_work_time}}</td>--}}
+{{--                                    <td contenteditable="true" id="td_minimum_work_price">{{$minimum_work_price}}</td>--}}
+{{--                                    <td contenteditable="true" id="td_delta_time">{{$delta_time}}</td>--}}
+{{--                                    <td contenteditable="true" id="td_claim_time">{{$claim_time}}</td>--}}
+{{--                                    <td contenteditable="true" id="td_correction_time">{{$correction_time}}</td>--}}
+{{--                                    <td contenteditable="true" id="td_payment_time_to_designer">{{$payment_time_to_designer}}</td>--}}
+{{--                                    <td contenteditable="true" id="td_minimum_withdrawal_amount">{{$minimum_withdrawal_amount}}</td>--}}
                                 </tr>
                             </table>
                         </div>
