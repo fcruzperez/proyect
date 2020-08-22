@@ -259,15 +259,15 @@
                         <div class="card-body">
                             <table class="table table-responsive text-center">
                                 <tr>
-                                    <th>Client Fee (%)</th>
-                                    <th>Designer Fee (%)</th>
-                                    <th>Minimum Work Time</th>
-                                    <th>Minimum Work Price (USD)</th>
-                                    <th>Delta Time</th>
-                                    <th>Claim Time</th>
-                                    <th>Correction Time</th>
-                                    <th>Payment Time to Designer</th>
-                                    <th>Minimum Withdrawal Amount (USD)</th>
+                                    <th class="col-1">Client Fee (%)</th>
+                                    <th class="col-1">Designer Fee (%)</th>
+                                    <th class="col-1">Minimum Work Time</th>
+                                    <th class="col-1">Minimum Work Price (USD)</th>
+                                    <th class="col-1">Delta Time</th>
+                                    <th class="col-1">Claim Time</th>
+                                    <th class="col-2">Correction Time</th>
+                                    <th class="col-2">Payment Time to Designer</th>
+                                    <th class="col-2">Minimum Withdrawal Amount (USD)</th>
                                 </tr>
                                 <tr>
 {{--                                    <input type="number" id="client_fee" name="client_fee"/>--}}
