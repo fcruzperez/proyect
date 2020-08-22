@@ -257,17 +257,17 @@
                     <div class="card">
                         <div class="card-header text-center" style="font-size: 25px;">Other Settings</div>
                         <div class="card-body">
-                            <table class="table table-primary table-responsive text-center">
+                            <table class="table table-responsive text-center">
                                 <tr>
-                                    <th class="fit">Client Fee (%)</th>
-                                    <th class="fit">Designer Fee (%)</th>
-                                    <th class="fit">Minimum Work Time</th>
-                                    <th class="fit">Minimum Work Price (USD)</th>
-                                    <th class="fit">Delta Time</th>
-                                    <th class="fit">Claim Time</th>
-                                    <th class="fit">Correction Time</th>
-                                    <th class="fit">Payment Time to Designer</th>
-                                    <th class="fit">Minimum Withdrawal Amount (USD)</th>
+                                    <th>Client Fee (%)</th>
+                                    <th>Designer Fee (%)</th>
+                                    <th>Minimum Work Time</th>
+                                    <th>Minimum Work Price (USD)</th>
+                                    <th>Delta Time</th>
+                                    <th>Claim Time</th>
+                                    <th>Correction Time</th>
+                                    <th>Payment Time to Designer</th>
+                                    <th>Minimum Withdrawal Amount (USD)</th>
                                 </tr>
                                 <tr>
 {{--                                    <input type="number" id="client_fee" name="client_fee"/>--}}
@@ -280,31 +280,31 @@
 {{--                                    <input type="number" id="payment_time_to_designer" name="payment_time_to_designer"/>--}}
 {{--                                    <input type="number" id="minimum_withdrawal_amount" name="minimum_withdrawal_amount"/>--}}
 
-                                    <td class="fit">
+                                    <td class="col-1">
                                         <input type="number" id="client_fee" name="client_fee" value="{{$client_fee}}"/>
                                     </td>
-                                    <td class="fit">
+                                    <td class="col-1">
                                         <input type="number" id="designer_fee" name="designer_fee" value="{{$designer_fee}}"/>
                                     </td>
-                                    <td class="fit">
+                                    <td class="col-1">
                                         <input type="number" id="minimum_work_time" name="minimum_work_time" value="{{$minimum_work_time}}"/>
                                     </td>
-                                    <td class="fit">
+                                    <td class="col-1">
                                         <input type="number" id="minimum_work_price" name="minimum_work_price" value="{{$minimum_work_price}}"/>
                                     </td>
-                                    <td class="fit">
+                                    <td class="col-1">
                                         <input type="number" id="delta_time" name="delta_time" value="{{$delta_time}}"/>
                                     </td>
-                                    <td class="fit">
+                                    <td class="col-1">
                                         <input type="number" id="claim_time" name="claim_time" value="{{$claim_time}}"/>
                                     </td>
-                                    <td class="fit">
+                                    <td class="col-2">
                                         <input type="number" id="correction_time" name="correction_time" value="{{$correction_time}}"/>
                                     </td>
-                                    <td class="fit">
+                                    <td class="col-2">
                                         <input type="number" id="payment_time_to_designer" name="payment_time_to_designer" value="{{$payment_time_to_designer}}"/>
                                     </td>
-                                    <td class="fit">
+                                    <td class="col-2">
                                         <input type="number" id="minimum_withdrawal_amount" name="minimum_withdrawal_amount" value="{{$minimum_withdrawal_amount}}"/>
                                     </td>
 
