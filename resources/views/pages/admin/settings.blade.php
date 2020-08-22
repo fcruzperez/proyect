@@ -270,15 +270,15 @@
                                     <th>Minimum Withdrawal Amount (USD)</th>
                                 </tr>
                                 <tr>
-                                    <input type="hidden" id="client_fee" name="client_fee"/>
-                                    <input type="hidden" id="designer_fee" name="designer_fee"/>
-                                    <input type="hidden" id="minimum_work_time" name="minimum_work_time"/>
-                                    <input type="hidden" id="minimum_work_price" name="minimum_work_price"/>
-                                    <input type="hidden" id="delta_time" name="delta_time"/>
-                                    <input type="hidden" id="claim_time" name="claim_time"/>
-                                    <input type="hidden" id="correction_time" name="correction_time"/>
-                                    <input type="hidden" id="payment_time_to_designer" name="payment_time_to_designer"/>
-                                    <input type="hidden" id="minimum_withdrawal_amount" name="minimum_withdrawal_amount"/>
+                                    <input type="number" id="client_fee" name="client_fee"/>
+                                    <input type="number" id="designer_fee" name="designer_fee"/>
+                                    <input type="number" id="minimum_work_time" name="minimum_work_time"/>
+                                    <input type="number" id="minimum_work_price" name="minimum_work_price"/>
+                                    <input type="number" id="delta_time" name="delta_time"/>
+                                    <input type="number" id="claim_time" name="claim_time"/>
+                                    <input type="number" id="correction_time" name="correction_time"/>
+                                    <input type="number" id="payment_time_to_designer" name="payment_time_to_designer"/>
+                                    <input type="number" id="minimum_withdrawal_amount" name="minimum_withdrawal_amount"/>
 
                                     <td contenteditable="true" id="td_client_fee">{{$client_fee}}</td>
                                     <td contenteditable="true" id="td_designer_fee">{{$designer_fee}}</td>
