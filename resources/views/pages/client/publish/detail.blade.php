@@ -220,6 +220,10 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 text-center">
+                                @php
+                                    $now = now();
+                                    dd($now);
+                                @endphp
                                 @if($pstatus === 'delivered')
                                 <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
 {{--                                @endif--}}
