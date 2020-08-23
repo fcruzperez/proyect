@@ -78,8 +78,7 @@ class DesignerController extends Controller
         $min_time = $setting['minimum_work_time'];
         $min_price = $setting['minimum_work_price'];
         if ($inputs['bid_price'] < $min_price || $inputs['bid_time'] < $min_time) {
-            echo '<script>alert("To ensure the best conditions for both you and the client, you cannot bid less than {$min_time} hours 
-                  and USD {$min_price}")</script>';
+            echo '<script>alert("To ensure the best conditions for both you and the client, you cannot bid less than {$min_time} hours and USD {$min_price}")</script>';
             return back();
         }
 
