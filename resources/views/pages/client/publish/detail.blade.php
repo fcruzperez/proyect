@@ -221,8 +221,12 @@
                         <div class="row mt-3">
                             <div class="col-12 text-center">
                                 @php
-                                    $now = now();
-                                    dd($now);
+                                    $now = new DateTime();
+                                    $pp = new DateTime($offer->delivered_at);
+                                    $diff = $now->diff($pp);
+                                    $str = $diff->format('%h hour %i minutes ago');
+                                    dd($str);
+                                    $h = explode(' ', $str);
                                 @endphp
                                 @if($pstatus === 'delivered')
                                 <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
