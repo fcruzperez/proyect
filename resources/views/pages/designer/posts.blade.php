@@ -201,8 +201,8 @@
                                     }
                                 @endphp
 
-                                <p>By clicking <strong>bid</strong> you agree to abide by the terms and conditions.
-                                   If the client accepts your proposal, a countdown will begin immediately.
+                                <p>By clicking <strong>bid</strong> you agree to abide by the terms and conditions.<br>
+                                   If the client accepts your proposal, a countdown will begin immediately.<br>
                                    Minimum work time: {{$min_work_time}} hours, Minimum work price: USD {{$min_work_price}}</p>
                             </div>
                             <div class="modal-footer text-center">
