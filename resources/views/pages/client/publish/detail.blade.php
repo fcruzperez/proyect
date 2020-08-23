@@ -222,7 +222,7 @@
                             <div class="col-12 text-center">
                                 @php
                                     $now = new DateTime();
-                                    $pp = new DateTime($offer->delivered_at);
+                                    $pp = new DateTime($publish->delivered_at);
                                     $diff = $now->diff($pp);
                                     $str = $diff->format('%h hour %i minutes ago');
                                     //dd($str);
@@ -235,11 +235,20 @@
                                         $claim_time = $setting['claim_time'];
                                     }
                                 @endphp
-                                @if($pstatus === 'delivered' && $h[0] < $claim_time)
-                                <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
-{{--                                @endif--}}
-{{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
-                                <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
+                                @if($pstatus === 'delivered')
+                                    @if($h[0] === $claim_time)
+                                        <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
+        {{--                                @endif--}}
+        {{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
+                                        <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
+                                    @else
+                                        @php
+                                            $publish->status = 'completed';
+                                            $publish->save();
+                                            $offer->status = 'completed';
+                                            $offer->save();
+                                        @endphp
+                                    @endif
                                 @endif
                                 @if($pstatus === 'in mediation')
                                     @php
