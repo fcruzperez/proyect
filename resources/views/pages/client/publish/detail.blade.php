@@ -235,7 +235,7 @@
                                         $claim_time = $setting['claim_time'];
                                     }
                                 @endphp
-                                @if($pstatus === 'delivered' || $h[0] === $claim_time)
+                                @if($pstatus === 'delivered' && $h[0] === $claim_time)
                                 <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
 {{--                                @endif--}}
 {{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
