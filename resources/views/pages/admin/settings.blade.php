@@ -396,18 +396,13 @@
             $('#correction_time').val(value);
         });
         $('#td_payment_time_to_designer').blur(function () {
-            var value = parseInt($(this).text());
+            var value = parseIunt($(this).text());
             $('#payment_time_to_designer').val(value);
         });
         $('#td_minimum_withdrawal_amount').blur(function () {
             var value = parseInt($(this).text());
             $('#minimum_withdrawal_amount').val(value);
         });
-
-
-
-
-        // }
 
     </script>
 

@@ -180,13 +180,6 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="row">
-                                    <div class="col-3"><label>Deadline</label></div>
-                                    <div class="col-9">{{$offer->hours}}</div>
-                                </div>
-                            </div>
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="row">
                                     @php
@@ -198,7 +191,7 @@
                                         }
                                     @endphp
                                     <div class="col-3"><label>Price</label></div>
-                                    <div class="col-9">{{intval($offer->price * (1 + $client_fee / 100))}} USD</div>
+                                    <div class="col-9">USD {{intval($offer->price * (1 + $client_fee / 100))}}</div>
                                 </div>
                             </div>
                         </div>

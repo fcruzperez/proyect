@@ -191,8 +191,19 @@
                                     <label for="bid_time">Time</label>
                                     <input type="number" class="form-control" name="bid_time" min="1" id="bid_time" placeholder="hours">
                                 </div>
+                                @php
+                                    $top_id = \App\Models\Settings::count();
+                                    if ($top_id <> 0) {
+                                        $settings = \App\Models\Settings::limit($top_id)->get();
+                                        $setting = $settings[count($settings) - 1];
+                                        $min_work_time = $setting['minimum_work_time'];
+                                        $min_work_price = $setting['minimum_work_price'];
+                                    }
+                                @endphp
 
-                                <p>By clicking <strong>bid</strong> you agree to abide by the terms and conditions.</p>
+                                <p>By clicking <strong>bid</strong> you agree to abide by the terms and conditions.
+                                   If the client accepts your proposal, a countdown will begin immediately.
+                                   Minimum work time: {{$min_work_time}} hours, Minimum work price: USD {{$min_work_price}}</p>
                             </div>
                             <div class="modal-footer text-center">
                                 <div class="text-center">

@@ -6,6 +6,7 @@ use App\Events\ClientEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\Message;
+use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
@@ -67,6 +68,19 @@ class DesignerController extends Controller
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
+        }
+
+        $top_id = Settings::count();
+        if ($top_id <> 0) {
+            $settings = Settings::limit($top_id)->get();
+            $setting = $settings[count($settings) - 1];
+        }
+        $min_time = $setting['minimum_work_time'];
+        $min_price = $setting['minimum_work_price'];
+        if ($inputs['bid_price'] < $min_price || $inputs['bid_time'] < $min_time) {
+            echo "To ensure the best conditions for both you and the client, you cannot bid less than {$min_time} hours 
+                  and USD {$min_price}";
+            return back();
         }
 
 //        $fee_rate = floatval(config('setting.designer_fee_rate'));
