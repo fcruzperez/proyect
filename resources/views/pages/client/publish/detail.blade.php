@@ -225,10 +225,17 @@
                                     $pp = new DateTime($offer->delivered_at);
                                     $diff = $now->diff($pp);
                                     $str = $diff->format('%h hour %i minutes ago');
-                                    dd($str);
+                                    //dd($str);
                                     $h = explode(' ', $str);
+
+                                    $top_id = \App\Models\Settings::count();
+                                    if ($top_id <> 0) {
+                                        $settings = \App\Models\Settings::limit($top_id)->get();
+                                        $setting = $settings[count($settings) - 1];
+                                        $claim_time = $setting['claim_time'];
+                                    }
                                 @endphp
-                                @if($pstatus === 'delivered')
+                                @if($pstatus === 'delivered' || $h[0] === $claim_time)
                                 <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
 {{--                                @endif--}}
 {{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
