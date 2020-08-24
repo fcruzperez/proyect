@@ -46,11 +46,11 @@
                                     'user_id' => $publish->client_id,
                                     'subject' => $msg,
                                     'content' => $msg,
-                                    'action_url' => "/client/home",
+                                    'action_url' => "/client/delete_publish/{$publish->id}",
                                 ]);
                                 $data = [
                                     'user_id' => $publish->client_id,
-                                    'action_url' => "/client/home",
+                                    'action_url' => "/client/delete_publish/{$publish->id}",
                                     'message' => $msg
                                 ];
                                 event(new \App\Events\ClientEvent($data));

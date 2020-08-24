@@ -58,6 +58,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::post('update_score', 'AdminController@updateScore')->name('update_score');
         Route::post('update_publish', 'AdminController@updatePublish')->name('update_publish');
 
+
         //Mediation
 //        Route::post('mediation', 'AdminController@mediation')->name('mediation');
         Route::get('mediation', 'AdminController@mediation')->name('mediation');
@@ -81,6 +82,8 @@ Route::middleware(['auth', 'role:client'])
         Route::post('save_publish', 'ClientController@savePublish')->name('save_publish');
         Route::get('edit_publish/{rid}', 'ClientController@showUpdatePublish')->name('edit_publish');
         Route::post('update_publish', 'ClientController@updatePublish')->name('update_publish');
+        Route::get('delete_publish/{id}', 'ClientController@deletePublish')->name('delete_publish');
+
         Route::get('publish-detail/{id}', 'ClientController@publishDetail')->name('publish_detail');
         Route::get('correction/{id}', 'ClientController@seeCorrection')->name('correction');
         Route::get('delivery-download/{id}', 'ClientController@downloadDelivery')->name('delivery_download');
