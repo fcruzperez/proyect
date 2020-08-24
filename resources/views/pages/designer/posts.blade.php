@@ -8,49 +8,25 @@
             @endif
 
             @foreach($publishes as $publish)
+                @php
+                    $now = new DateTime();
+                    $pp = new DateTime($publish->created_at);
+                    $diff = $now->diff($pp);
+                    $str = $diff->format('%h hour %i minutes ago');
+                    $h = explode(' ', $str);
+
+                    $top_id = \App\Models\Settings::count();
+                    if ($top_id <> 0) {
+                        $settings = \App\Models\Settings::limit($top_id)->get();
+                        $setting = $settings[count($settings) - 1];
+                        $expiration_time = $setting['expiration_time'];
+                    }
+                @endphp
+
+                @if ($publish->status <> 'published' || $h[0] < $expiration_time)
                 <div class="col-sm-6 col-lg-4" style="margin-top: 20px;">
                     <div class="card">
                         <div class="card-body">
-{{--                            <div class="row">--}}
-{{--                                <div class="col-9 px-0 main image-wrapper">--}}
-{{--                                    @if(!is_null($publish->image1))--}}
-{{--                                        <img src="{{url($publish->image1)}}" class="image-box">--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
-{{--                                <div class="col-3 px-0">--}}
-{{--                                    <div class="row mx-0">--}}
-{{--                                        <div class="col-12 sub image-wrapper">--}}
-{{--                                            @if(!is_null($publish->image2))--}}
-{{--                                                <img src="{{url($publish->image2)}}" class="image-box">--}}
-{{--                                            @endif--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="row mx-0">--}}
-{{--                                        <div class="col-12 sub image-wrapper">--}}
-{{--                                            @if(!is_null($publish->image3))--}}
-{{--                                                <img src="{{url($publish->image3)}}" class="image-box">--}}
-{{--                                            @endif--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="row mx-0">--}}
-{{--                                        <div class="col-12 sub image-wrapper">--}}
-{{--                                            @if(!is_null($publish->image4))--}}
-{{--                                                <img src="{{url($publish->image4)}}" class="image-box">--}}
-{{--                                            @endif--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row mx-0">--}}
-{{--                                        <div class="col-12 sub image-wrapper">--}}
-{{--                                            @if(!is_null($publish->image5))--}}
-{{--                                                <img src="{{url($publish->image5)}}" class="image-box">--}}
-{{--                                            @endif--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
-{{--                            </div>--}}
                             <div class="row">
                                 <div class="main image-wrapper">
                                     @if(!is_null($publish->image1))
@@ -170,6 +146,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             @endforeach
 
             <div class="modal fade" id="bidModal" role="dialog" tabindex="-1" aria-hidden="true" style="font-family: Arial, Helvetica, sans-serif">
