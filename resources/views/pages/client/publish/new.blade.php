@@ -8,14 +8,21 @@
 
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <b>
+            <?php
+                $top_id = \App\Models\Settings::count();
+                if ($top_id <> 0) {
+                    $settings = \App\Models\Settings::limit($top_id)->get();
+                    $setting = $settings[count($settings) - 1];
+                    $expiration_time = $setting['expiration_time'];
+                }
+            ?>
             <div style="color: blue; font-size: 21px; padding-left: 30px;"><b>Note:</b></div>
             <div style="font-size: 20px; padding-bottom: 20px; padding-left: 30px;">
                 <div>• You can upload up to 5 images of the design you need.</div>
                 <div>• The images must correspond to the same design.</div>
                 <div>• Make sure that the images are of good quality so that you have better offers.</div>
-                <div>• Do not add personal details (your name, email, phone number, etc.) to avoid blocking your
-                    account.
-                </div>
+                <div>• Do not add personal details (your name, email, phone number, etc.) to avoid blocking your account.</div>
+                <div>• The validity of the publication will be {{$expiration_time}} hours.</div>
             </div>
     </div>
     <div class="row justify-content-center">

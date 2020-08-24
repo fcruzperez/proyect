@@ -24,6 +24,7 @@ class CreateSettingsTable extends Migration
             $table->integer('correction_time');
             $table->integer('payment_time_to_designer');
             $table->integer('minimum_withdrawal_amount');
+            $table->integer('expiration_time');
             $table->timestamps();
         });
     }

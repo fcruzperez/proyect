@@ -89,6 +89,7 @@ class AdminController extends Controller
             'correction_time' => 'required',
             'payment_time_to_designer' => 'required',
             'minimum_withdrawal_amount' => 'required',
+            'expiration_time' => 'required',
 
         ]);
 
@@ -106,6 +107,7 @@ class AdminController extends Controller
         $correction_time = $inputs['correction_time'];
         $payment_time_to_designer = $inputs['payment_time_to_designer'];
         $minimum_withdrawal_amount = $inputs['minimum_withdrawal_amount'];
+        $expiration_time = $inputs['expiration_time'];
 
         Settings::create([
 
@@ -117,8 +119,8 @@ class AdminController extends Controller
             'claim_time' => $claim_time,
             'correction_time' => $correction_time,
             'payment_time_to_designer' => $payment_time_to_designer,
-            'minimum_withdrawal_amount' => $minimum_withdrawal_amount
-
+            'minimum_withdrawal_amount' => $minimum_withdrawal_amount,
+            'expiration_time' => $expiration_time
         ]);
         return back();
     }
