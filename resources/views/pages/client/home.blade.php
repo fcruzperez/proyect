@@ -7,6 +7,22 @@
                 <div class="col-12 alert-warning alert d-block">There is no new publishes.</div>
             @endif
             @foreach($publishes as $publish)
+                @php
+                    $now = new DateTime();
+                    $pp = new DateTime($publish->created_at);
+                    $diff = $now->diff($pp);
+                    $str = $diff->format('%h hour %i minutes ago');
+                    $h = explode(' ', $str);
+
+                    $top_id = \App\Models\Settings::count();
+                    if ($top_id <> 0) {
+                        $settings = \App\Models\Settings::limit($top_id)->get();
+                        $setting = $settings[count($settings) - 1];
+                        $expiration_time = $setting['expiration_time'];
+                    }
+                @endphp
+
+                @if ($h[0] < $expiration_time)
                 <div class="col-sm-6 col-lg-4" style="margin-top: 20px;">
                     <div class="card">
                         <div class="card-body">
@@ -119,6 +135,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             @endforeach
         </div>
     </div>

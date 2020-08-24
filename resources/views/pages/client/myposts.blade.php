@@ -23,18 +23,22 @@
 
                     <tbody>
                     @foreach($publishes as $publish)
-                        <tr>
-                            @php
-                                /*---
-                                $nowTime = strtotime(date("Y-m-d h:i:sa"));
-                                $publishTime = strtotime((string)$publish['created_at']);
-                                $interval = abs($nowTime - $publishTime);
-                                $minutes = round($interval / 60);
+                        @php
+                            $now = new DateTime();
+                            $pp = new DateTime($publish->created_at);
+                            $diff = $now->diff($pp);
+                            $str = $diff->format('%h hour %i minutes ago');
+                            $h = explode(' ', $str);
 
-                                $hours = floor($minutes / 60);
-                                $minutes = $minutes - 60 * $hours;
-                                */
-                            @endphp
+                            $top_id = \App\Models\Settings::count();
+                            if ($top_id <> 0) {
+                                $settings = \App\Models\Settings::limit($top_id)->get();
+                                $setting = $settings[count($settings) - 1];
+                                $expiration_time = $setting['expiration_time'];
+                            }
+                        @endphp
+                        @if ($h[0] < $expiration_time)
+                        <tr>
                             <td>{{$publish['created_at']}}</td>
                             <td>{{$publish['design_name']}}</td>
                             <td>
@@ -118,7 +122,7 @@
                                                                 $settings = \App\Models\Settings::limit($top_id)->get();
                                                                 $setting = $settings[count($settings) - 1];
                                                                 $delta_time = $setting['delta_time'];
-                            }
+                                                             }
                                                         @endphp
                                                         @foreach($offers as $offer)
                                                             <tr>
@@ -183,6 +187,7 @@
                                 @endif
                             </td>
                         </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
