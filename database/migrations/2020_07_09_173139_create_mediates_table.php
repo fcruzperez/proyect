@@ -20,6 +20,7 @@ class CreateMediatesTable extends Migration
             $table->bigInteger('offer_id');
             $table->string('title');
             $table->string('content');
+            $table->string('error_images')->nullable();
             $table->string('status')->default('issued')->comment('issued, completed');
             $table->timestamps();
         });

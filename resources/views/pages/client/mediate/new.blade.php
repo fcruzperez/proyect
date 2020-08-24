@@ -25,11 +25,11 @@
 {{--                            You are posting mediation on <b>{{$offer->designer->name}}</b>'s Offer #{{$offer->id}}--}}
 {{--                            for your Publish <b>#{{$offer->request->id}} {{$offer->request->name}}</b>.--}}
                         </div>
-                        <form method="POST" action="{{route('client.mediate.save')}}" id="mediate_form">
+                        <form method="POST" action="{{route('client.mediate.save')}}" id="mediate_form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="offer_id" value="{{$offer->id}}">
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+                                <label class="col-md-4 col-form-label text-md-right">{{ __('Title:') }}</label>
                                 <div class="col-md-6">
                                     <input type="text" id="title" class="form-control @error('title') is-invalid @enderror"
                                            name="title" value="{{old('title')}}" autofocus>
@@ -40,13 +40,22 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">{{ __('Content') }}</label>
+                                <label class="col-md-4 col-form-label text-md-right">{{ __('Content:') }}</label>
                                 <div class="col-md-6">
                                     <textarea id="content" class="form-control @error('content') is-invalid @enderror"
                                               name="content">{{old('content')}}</textarea>
                                     @error('content')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="image1"
+                                       class="col-md-4 col-form-label text-md-right">{{ __('Error Images:') }}</label>
+
+                                <div class="col-md-6">
+                                    <input type="file" id="error_images" name="error_images" class="form-control-file">
                                 </div>
                             </div>
 

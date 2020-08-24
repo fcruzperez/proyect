@@ -78,10 +78,12 @@ class MediateController extends Controller
     }
 
     public function save(Request $request) {
+
         $validator = Validator::make($request->all(), [
             'offer_id' => 'required|exists:offers,id',
             'title' => 'required',
             'content' => 'required',
+
         ]);
 
         if($validator->fails()) {
@@ -92,12 +94,23 @@ class MediateController extends Controller
         try {
             $offer = Offer::find($offer_id);
 
+            if ($request->hasFile('error_images')) {
+                $storageName = $request->file('error_images')->store('public/error_images');
+                $error_images = str_replace('public/', 'storage/', $storageName);
+                if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
+                    $fileName = str_replace('storage/', '', $storageName);
+                    $filePath = '/laravel/storage/app' . $fileName;
+                    $error_images = $filePath;
+                }
+            }
+
             $mediate = Mediate::create([
                 'client_id' => Auth::id(),
                 'designer_id' => $offer->designer_id,
                 'offer_id' => $offer_id,
                 'title' => $request->get('title'),
                 'content' => $request->get('content'),
+                'error_images' => isset($error_images) ? $error_images : ''
             ]);
 
             $mediate_id = $mediate['id'];

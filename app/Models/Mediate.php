@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mediate extends Model
 {
-    protected $fillable = ['client_id', 'designer_id', 'offer_id', 'title', 'content', 'status'];
+    protected $fillable = ['client_id', 'designer_id', 'offer_id', 'title', 'content', 'error_images', 'status'];
     protected $appends = ['status_label'];
 
     public function client() {
