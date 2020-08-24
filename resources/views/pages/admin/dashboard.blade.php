@@ -110,15 +110,27 @@
                                                 <div>
                                                     <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
                                                 </div>
-                                                <div>
-                                                    <b style="color:blue; margin-left: 50px;">Accepted Designer:</b>
+                                                @if ($publish->status <> 'published')
                                                     @php
                                                         $accepted_offer_id = $publish->accepted_offer_id;
                                                         $designer_id = \App\Models\Offer::find($accepted_offer_id)['designer_id'];
                                                         $designer_name = \App\Models\User::find($designer_id)['name'];
+                                                        $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
+                                                        $price = \App\Models\Offer::find($accepted_offer_id)['price'];
                                                     @endphp
-                                                    <b>{{$designer_name}}</b>
-                                                </div>
+                                                    <div>
+                                                        <b style="color:blue; margin-left: 50px;">Deadline:</b>
+                                                        {{$deadline}}
+                                                    </div>
+                                                    <div>
+                                                        <b style="color:blue; margin-left: 50px;">Price:</b>
+                                                        {{$price}}
+                                                    </div>
+                                                    <div>
+                                                        <b style="color:blue; margin-left: 50px;">Accepted Designer:</b>
+                                                        <b>{{$designer_name}}</b>
+                                                    </div>
+                                                @endif
 
                                             </div>
                                             <div class="modal-footer">
