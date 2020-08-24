@@ -66,6 +66,7 @@ class AdminController extends Controller
             $correction_time = $setting['correction_time'];
             $payment_time_to_designer = $setting['payment_time_to_designer'];
             $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+            $expiration_time = $setting['expiration_time'];
         }
 
 
@@ -82,7 +83,8 @@ class AdminController extends Controller
             'claim_time' => isset($claim_time) ? $claim_time : 0,
             'correction_time' => isset($correction_time) ? $correction_time : 0,
             'payment_time_to_designer' => isset($payment_time_to_designer) ? $payment_time_to_designer : 0,
-            'minimum_withdrawal_amount' => isset($minimum_withdrawal_amount) ? $minimum_withdrawal_amount : 0
+            'minimum_withdrawal_amount' => isset($minimum_withdrawal_amount) ? $minimum_withdrawal_amount : 0,
+            'expiration_time' => isset($expiration_time) ? $expiration_time : 0
         ];
         return view('pages.admin.settings', $data);
     }

@@ -17,8 +17,9 @@
                                 $setting = $settings[count($settings) - 1];
                                 $client_fee = $setting['client_fee'];
                             }
+                            $client_fee = isset($client_fee) ? $client_fee : 0;
                         @endphp
-                        <h5>We will proceed to make the payment for <b>{{intval((1 + $client_fee / 100) * $price)}}$</b> and you will receive your order
+                        <h5>We will proceed to make the payment for <b>{{intval($client_fee + $price)}}$</b> and you will receive your order
                             in a maximum time of <b>{{$time}}</b> hours from the payment.</h5>
                     </div>
                     <div class="card-footer">

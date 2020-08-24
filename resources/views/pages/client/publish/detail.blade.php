@@ -191,7 +191,7 @@
                                         }
                                     @endphp
                                     <div class="col-3"><label>Price</label></div>
-                                    <div class="col-9">USD {{intval($offer->price * (1 + $client_fee / 100))}}</div>
+                                    <div class="col-9">USD {{intval($offer->price + $client_fee)}}</div>
                                 </div>
                             </div>
                         </div>

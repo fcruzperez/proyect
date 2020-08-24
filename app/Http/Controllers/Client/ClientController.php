@@ -392,8 +392,8 @@ class ClientController extends Controller
             $setting = $settings[count($settings) - 1];
             $client_fee = $setting['client_fee'];
         }
-        $client_fee_rate = $client_fee / 100;
-        $depositMoney = intval($offer->price * (1 + $client_fee_rate));
+        $client_fee = isset($client_fee) ? $client_fee : 0;
+        $depositMoney = intval($offer->price + $client_fee);
 
         $data = [];
         $data['invoice_id'] = 1;
