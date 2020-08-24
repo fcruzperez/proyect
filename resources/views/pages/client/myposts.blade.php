@@ -37,7 +37,7 @@
                                 $expiration_time = $setting['expiration_time'];
                             }
                         @endphp
-                        @if ($h[0] < $expiration_time)
+                        @if ($publish->status <> 'published' || $h[0] < $expiration_time)
                         <tr>
                             <td>{{$publish['created_at']}}</td>
                             <td>{{$publish['design_name']}}</td>
