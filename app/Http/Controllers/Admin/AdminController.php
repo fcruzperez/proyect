@@ -33,6 +33,12 @@ class AdminController extends Controller
         return view('pages.admin.dashboard', $data);
     }
 
+    public function updatePublish(Request $request) {
+
+
+        return redirect('/admin/dashboard');
+    }
+
     public function settings(Request $request){
 
         $formats = Format::all();

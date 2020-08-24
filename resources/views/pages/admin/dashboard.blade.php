@@ -74,6 +74,7 @@
                                 <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#zzz{{$publish->id}}">Details</button>
                                 <div class="modal fade" id="zzz{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
+                                        <form method="post" action="{{route('admin.update_publish')}}">
                                         <div class="modal-content">
                                             <div class="modal-header text-center">
                                                 <h4 class="modal-title text-center">Details</h4>
@@ -146,12 +147,18 @@
                                                         <b>{{$designer_name}}</b>
                                                     </div>
                                                 @endif
+                                                <div>
+                                                    <b style="color:blue; margin-left: 50px;">Description:</b>
+                                                    <textarea id="description" name="description">{{$publish->description}}</textarea>
+                                                </div>
 
                                             </div>
                                             <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save</button>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
+                                        </form>
                                     </div>
                                 </div>
                             </td>
