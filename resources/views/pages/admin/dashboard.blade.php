@@ -120,11 +120,11 @@
                                                     @endphp
                                                     <div>
                                                         <b style="color:blue; margin-left: 50px;">Deadline:</b>
-                                                        {{$deadline}}
+                                                        <b>{{$deadline}} hours</b>
                                                     </div>
                                                     <div>
                                                         <b style="color:blue; margin-left: 50px;">Price:</b>
-                                                        {{$price}}
+                                                        <b>USD {{$price}}</b>
                                                     </div>
                                                     <div>
                                                         <b style="color:blue; margin-left: 50px;">Accepted Designer:</b>
