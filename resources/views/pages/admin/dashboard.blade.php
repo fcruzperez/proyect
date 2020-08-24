@@ -75,6 +75,7 @@
                                 <div class="modal fade" id="zzz{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <form method="post" action="{{route('admin.update_publish')}}">
+
                                         <div class="modal-content">
                                             <div class="modal-header text-center">
                                                 <h4 class="modal-title text-center">Details</h4>
@@ -148,10 +149,10 @@
                                                     </div>
                                                 @endif
                                                 <div>
-                                                    <b style="color:blue; margin-left: 50px;">Description:</b>
-                                                    <textarea id="description" name="description">{{$publish->description}}</textarea>
+                                                    <b style="color:blue; margin-left: 50px; vertical-align: top;">Description:</b>
+                                                    <textarea id="description" name="description" style="margin-top: 7px;">{{$publish->description}}</textarea>
                                                 </div>
-
+                                                <input type="hidden" name="pub_id" value="{{$publish->id}}">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">Save</button>

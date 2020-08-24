@@ -35,6 +35,11 @@ class AdminController extends Controller
 
     public function updatePublish(Request $request) {
 
+        $inputs = $request->all();
+        $publish_id = $inputs['pub_id'];
+        $publish = Publish::find($publish_id);
+        $publish['description'] = $inputs['description'];
+        $publish->save();
 
         return redirect('/admin/dashboard');
     }
