@@ -41,7 +41,8 @@ class AdminController extends Controller
         $publish['description'] = $inputs['description'];
         $publish->save();
 
-        return redirect('/admin/dashboard');
+        return redirect()->to('admin/dashboard');
+
     }
 
     public function settings(Request $request){
