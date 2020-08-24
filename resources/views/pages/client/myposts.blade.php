@@ -36,7 +36,27 @@
                                 $setting = $settings[count($settings) - 1];
                                 $expiration_time = $setting['expiration_time'];
                             }
+
+
                         @endphp
+                        @if ($publish->status === 'published' && $h[0] >= $expiration_time)
+                            @php
+                                $msg = "Your post {$publish->design_name} has expired.";
+                                $message = \App\Models\Message::create([
+                                    'user_id' => $publish->client_id,
+                                    'subject' => $msg,
+                                    'content' => $msg,
+                                    'action_url' => "/client/home",
+                                ]);
+                                $data = [
+                                    'user_id' => $publish->client_id,
+                                    'action_url' => "/client/home",
+                                    'message' => $msg
+                                ];
+                                event(new \App\Events\ClientEvent($data));
+
+                            @endphp
+                        @endif
                         @if ($publish->status <> 'published' || $h[0] < $expiration_time)
                         <tr>
                             <td>{{$publish['created_at']}}</td>

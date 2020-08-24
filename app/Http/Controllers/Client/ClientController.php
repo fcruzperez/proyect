@@ -272,21 +272,6 @@ class ClientController extends Controller
     public function showPublishes(Request $request)
     {
 
-        $msg = "ROWEEEEEEEEEEEEEEEEEEEEEEEEEE";
-        $messgae = Message::create([
-            'user_id' => 3,
-            'subject' => $msg,
-            'content' => $msg
-        ]);
-
-        $data = [
-            'user_id' => 3,
-            'message' => $msg
-
-        ];
-
-        event(new DesignerEvent($data));
-
         $publishes = Publish::where('status', 'published')->get();
 
         $data = ['publishes' => $publishes];
