@@ -53,7 +53,7 @@
                             {{--                    <a class="btn btn-warning" href="{{url("client/mediate-cancel/{$mediate->id}")}}">Cancel</a>--}}
                             {{--                </td>--}}
                             <td>
-                                <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
+                                <a class="btn btn-success" onclick="confirm('Will you complete this mediation, really?')" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
                             </td>
                         </tr>
                     @endforeach
