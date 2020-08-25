@@ -34,7 +34,7 @@
                             <div class="col-md-6">
                                 <a class="btn btn-primary" href="{{url('/designer/download_errors/'.$mediate->id)}}">Download Error Images</a>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 offset-3">
                                 <a class="btn btn-primary" href="{{route('designer.mediate.list')}}">
                                     {{ __('Back') }}
                                 </a>
