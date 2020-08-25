@@ -31,10 +31,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-12 text-center offset-6">
+                            <div>
                                 <a class="btn btn-primary" href="{{url('/designer/download_errors/'.$mediate->id)}}">Download Error Images</a>
                             </div>
-                            <div class="col-md-12 text-center offset-3">
+                            <div>
                                 <a class="btn btn-primary" href="{{route('designer.mediate.list')}}">
                                     {{ __('Back') }}
                                 </a>
