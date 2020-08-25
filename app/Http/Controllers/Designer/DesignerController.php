@@ -180,7 +180,6 @@ class DesignerController extends Controller
 
         $mediate = Mediate::find($id);
         $file = $mediate['error_images'];
-        dd($file);
         if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
             if (file_exists('laravel/storage/app/public/error_images/' . $file))
                 return response()->download('laravel/storage/app/public/error_images/' . $file);
