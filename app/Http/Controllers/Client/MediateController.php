@@ -99,7 +99,7 @@ class MediateController extends Controller
                 $error_images = str_replace('public/', 'storage/', $storageName);
                 if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
                     $fileName = str_replace('storage/', '', $storageName);
-                    $filePath = '/laravel/storage/app/' . $fileName;
+                    $filePath = 'laravel/storage/app/' . $fileName;
                     $error_images = $filePath;
                 }
             }

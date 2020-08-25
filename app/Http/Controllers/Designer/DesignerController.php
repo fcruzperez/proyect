@@ -180,16 +180,16 @@ class DesignerController extends Controller
 
         $mediate = Mediate::find($id);
         $file = $mediate['error_images'];
-//        if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
-//            if (file_exists($file))
-//                return response()->download($file);
-//        }
-//        else {
-        dd(file_exists($file));
+
+        if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
+            if (file_exists($file))
+                return response()->download($file);
+        }
+        else {
             if(Storage::exists($file)) {
                 return Storage::download($file);
             }
-//        }
+        }
         return response('', 404);
 
     }
