@@ -97,8 +97,8 @@
                                                     <input type="text" name="title" value="{{$mediate['title']}}">
                                                 </div>
                                                 <div>
-                                                    <b style="color:blue; margin-left: 50px;">Title:</b>
-                                                    <textarea name="content">{{$mediate['content']}}</textarea>
+                                                    <b style="color:blue; margin-left: 50px; vertical-align: top;">Content:</b>
+                                                    <textarea cols="50" name="content">{{$mediate['content']}}</textarea>
                                                 </div>
 
 
