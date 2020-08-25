@@ -98,7 +98,7 @@
                                                 </div>
                                                 <div>
                                                     <b style="color:blue; margin-left: 50px; vertical-align: top;">Content:</b>
-                                                    <textarea style="margin-left: 50px;" cols="40" name="content">{{$mediate['content']}}</textarea>
+                                                    <textarea style="margin-left: 50px;" cols="50" name="content">{{$mediate['content']}}</textarea>
                                                 </div>
 
 
