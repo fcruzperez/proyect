@@ -39,6 +39,7 @@
                                 <div class="modal fade" id="zzz{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <form method="post" action="{{route('admin.update_mediate')}}">
+                                        @csrf
                                         <div class="modal-content">
                                             <div class="modal-header text-center">
                                                 <h4 class="modal-title text-center">Details</h4>
