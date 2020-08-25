@@ -137,6 +137,7 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('download-image/{file}', 'DesignerController@downloadImage')->name('download-image');
         Route::post('delivery-upload', 'DesignerController@deliveryUpload')->name('delivery-upload');
 //        Route::post('redelivery-upload', 'DesignerController@redeliveryUpload')->name('redelivery-upload');
+        Route::get('download_errors/{id}', 'DesignerController@downloadErrors')->name('download_errors');
 
 
         // mediate routes

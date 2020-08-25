@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Designer;
 use App\Events\ClientEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
+use App\Models\Mediate;
 use App\Models\Message;
 use App\Models\Settings;
 use App\Models\User;
@@ -173,6 +174,21 @@ class DesignerController extends Controller
                 return Storage::download('public/images/'.$file);
         }
         return response('', 404);
+    }
+
+    public function downloadErrors(Request $request, $id){
+
+        $file = Mediate::find($id);
+        if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
+            if (file_exists('laravel/storage/app/public/error_images/' . $file))
+                return response()->download('laravel/storage/app/public/error_images/' . $file);
+        }
+        else {
+            if(Storage::exists('public/error_images/'.$file))
+                return Storage::download('public/error_images/'.$file);
+        }
+        return response('', 404);
+
     }
 
     public function deliveryUpload(Request $request) {
