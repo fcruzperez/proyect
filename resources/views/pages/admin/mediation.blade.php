@@ -92,7 +92,7 @@
                                                 <div style="color: blue; margin-left: 50px;">
                                                     @php
                                                         $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
-                                                        dd($mediate);
+                                                        dd(gettype($mediate));
                                                     @endphp
                                                     <input type="text" name="title" value="{{$mediate['title']}}">
                                                     <textarea name="content">{{$mediate['content']}}</textarea>
