@@ -66,7 +66,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <input type="hidden" name="offer_id" value="{{$offer->id}}">
-                                        <input type="file" name="delivery_files[]" required multiple
+                                        <input type="file" name="delivery_files[]" required
                                                class="@error('delivery_files') is-invalid @enderror">
                                         @error('offer_id')
                                         <div class="invalid-feedback d-block">Offer Id is required</div>

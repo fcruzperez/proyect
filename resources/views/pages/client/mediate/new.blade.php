@@ -61,7 +61,7 @@
 
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-9">
-                                    <button class="btn btn-primary" >
+                                    <button class="btn btn-primary" id="sendMediate" onclick="return confirm('Did you make everything detailly?')">
                                         {{ __('SEND') }}
                                     </button>
                                 </div>
@@ -86,4 +86,9 @@
 @endsection
 
 @section('js')
+    <script>
+        document.getElementById("sendMediate").onclick = function () {
+            this.disabled = true;
+        }
+    </script>
 @endsection
