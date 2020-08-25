@@ -86,9 +86,9 @@
 @endsection
 
 @section('js')
-    <script>
-        document.getElementById("sendMediate").onclick = function () {
-            this.disabled = true;
-        }
-    </script>
+{{--    <script>--}}
+{{--        document.getElementById("sendMediate").onclick = function () {--}}
+{{--            this.disabled = true;--}}
+{{--        }--}}
+{{--    </script>--}}
 @endsection
