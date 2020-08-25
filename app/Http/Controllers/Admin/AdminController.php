@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\DesignerRate;
+use App\Models\Mediate;
 use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -359,7 +360,7 @@ class AdminController extends Controller
 
         $inputs = $request->all();
         $mediate_id = $inputs['mediate_id'];
-        $mediate = Publish::find($mediate_id);
+        $mediate = Mediate::find($mediate_id);
         $mediate['title'] = $inputs['title'];
         $mediate['content'] = $inputs['content'];
         $mediate->save();
