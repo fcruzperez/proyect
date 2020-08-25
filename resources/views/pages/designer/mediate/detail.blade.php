@@ -31,8 +31,8 @@
                         </div>
 
                         <div class="form-group row">
-                            <div>
-                                <button class="btn btn-primary" onclick="{{url('/designer/download_errors/'.$mediate->id)}}">Download Error Images</button>
+                            <div class="col-md-12 text-center offset-6">
+                                <a class="btn btn-primary" href="{{url('/designer/download_errors/'.$mediate->id)}}">Download Error Images</a>
                             </div>
                             <div class="col-md-12 text-center offset-3">
                                 <a class="btn btn-primary" href="{{route('designer.mediate.list')}}">
