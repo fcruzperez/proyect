@@ -89,11 +89,15 @@
                                                 <div>
                                                     <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
                                                 </div>
-                                                <div style="color: blue; margin-left: 50px;">
-                                                    @php
-                                                        $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
-                                                    @endphp
+                                                @php
+                                                    $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
+                                                @endphp
+                                                <div>
+                                                    <b style="color:blue; margin-left: 50px;">Title:</b>
                                                     <input type="text" name="title" value="{{$mediate['title']}}">
+                                                </div>
+                                                <div>
+                                                    <b style="color:blue; margin-left: 50px;">Title:</b>
                                                     <textarea name="content">{{$mediate['content']}}</textarea>
                                                 </div>
 
