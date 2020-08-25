@@ -215,7 +215,7 @@ class DesignerController extends Controller
         try {
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName();
-                $path = $file->storeAs('public/delivery', $name);
+                $path = $file->store('public/delivery');
                 Delivery::create([
                     'designer_id' => $designerId,
                     'request_id' => $publish->id,

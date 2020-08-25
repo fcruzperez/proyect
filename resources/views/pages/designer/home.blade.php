@@ -49,7 +49,7 @@
                                 @elseif($offer->status === 'delivered')
                                     Delivered
                                 @elseif($offer->status === 'mediated')
-                                    In mediate
+                                    In mediation
                                 @elseif($offer->status === 'canceled')
                                     Canceled
                                 @elseif($offer->status === 'completed')
