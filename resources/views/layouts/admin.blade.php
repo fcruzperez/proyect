@@ -105,8 +105,8 @@
                                     @foreach($messages as $msg)
                                         <a class="dropdown-item" href="{{$msg->action_url}}">
                                             <?php
-                                            $msg['status'] = 'read';
-                                            $msg->save();
+                                                $msg['status'] = 'read';
+                                                $msg->save();
                                             ?>
                                             {{$msg->subject}} {{--$msg->content--}}
                                         </a>

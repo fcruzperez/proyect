@@ -74,7 +74,7 @@
                         Do not use this medium to communicate with the designer because you risk blocking your account.
                         The designer will send the correction as soon as possible, but if you still consider that the problem was not solved, your case will be analyzed by a panel of Expert Designers who will determine if the work delivered meets your requirements.
                         Finally, the Mediator will determine the percentage of return corresponding to each part.
-                        Add photos as evidence of possible error.
+                        Add <b>one zip file</b> with evidence images of existing errors.
                     </div>
                 </div>
             </div>
