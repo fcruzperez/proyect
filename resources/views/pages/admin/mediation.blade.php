@@ -38,6 +38,7 @@
                                 <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#zzz{{$publish->id}}">Details</button>
                                 <div class="modal fade" id="zzz{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
+                                        <form method="post" action="{{route('admin.update_mediate')}}">
                                         <div class="modal-content">
                                             <div class="modal-header text-center">
                                                 <h4 class="modal-title text-center">Details</h4>
@@ -91,7 +92,11 @@
                                                 </div>
                                                 @php
                                                     $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
+                                                    $mediate_id = $mediate['id'];
                                                 @endphp
+
+                                                <input type="hidden" name="mediate_id" value="{{$mediate_id}}" />
+
                                                 <div>
                                                     <b style="color:blue; margin-left: 50px;">Title:</b>
                                                     <input type="text" name="title" value="{{$mediate['title']}}">
@@ -104,6 +109,7 @@
 
                                             </div>
                                             <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save</button>
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>

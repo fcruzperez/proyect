@@ -33,17 +33,6 @@ class AdminController extends Controller
         return view('pages.admin.dashboard', $data);
     }
 
-    public function updatePublish(Request $request) {
-
-        $inputs = $request->all();
-        $publish_id = $inputs['pub_id'];
-        $publish = Publish::find($publish_id);
-        $publish['description'] = $inputs['description'];
-        $publish->save();
-
-        return redirect()->to('admin/dashboard');
-
-    }
 
     public function settings(Request $request){
 
@@ -344,6 +333,19 @@ class AdminController extends Controller
 
     }
 
+
+    public function updatePublish(Request $request) {
+
+        $inputs = $request->all();
+        $publish_id = $inputs['pub_id'];
+        $publish = Publish::find($publish_id);
+        $publish['description'] = $inputs['description'];
+        $publish->save();
+
+        return redirect()->to('admin/dashboard');
+
+    }
+
     public function mediation(Request $request) {
 
         $publishes = Publish::where('status', 'in mediation')->get();
@@ -351,6 +353,18 @@ class AdminController extends Controller
 
         return view('pages.admin.mediation', $data);
 
+    }
+
+    public function updateMediateContent(Request $request) {
+
+        $inputs = $request->all();
+        $mediate_id = $inputs['mediate_id'];
+        $mediate = Publish::find($mediate_id);
+        $mediate['title'] = $inputs['title'];
+        $mediate['content'] = $inputs['content'];
+        $mediate->save();
+
+        return redirect()->to('admin/mediation');
     }
 
     public function downloadDelivery(Request $request, $id)
