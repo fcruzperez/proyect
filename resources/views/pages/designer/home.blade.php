@@ -27,7 +27,8 @@
                         @php
                             $request_id = $offer['request_id'];
                             $request = \App\Models\Request::find($request_id);
-                            //dd($request);
+
+                            dd($request);
                         @endphp
                         <tr>
                             <td>{{$request['created_at']}}</td>
