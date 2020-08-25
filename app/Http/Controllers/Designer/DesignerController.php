@@ -185,6 +185,7 @@ class DesignerController extends Controller
 //                return response()->download($file);
 //        }
 //        else {
+        dd(Storage::exists($file));
             if(Storage::exists($file)) {
                 return Storage::download($file);
             }
