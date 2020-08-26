@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Events\AdminEvent;
+use App\Events\ClientEvent;
 use App\Events\DesignerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
@@ -360,6 +361,25 @@ class ClientController extends Controller
         $offer = Offer::find($inputs['offer_id']);
         $offer['status'] = 'accepted';
         $offer->save();
+
+        $msg = "Your offer about the {$publish->design_name} is accepted.";
+
+        $message = Message::create([
+            'user_id' => $offer->designer_id,
+            'request_id' => $publish->id,
+            'offer_id' => $offer->id,
+            'subject' => $msg,
+            'content' => $msg,
+            'action_url' => "/designer/home",
+        ]);
+
+        $data = [
+            'user_id' => $offer->designer_id,
+            'action_url' => "/designer/home",
+            'message' => $msg
+        ];
+
+        event(new DesignerEvent($data));
 
         return back();
     }
