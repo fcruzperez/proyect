@@ -182,8 +182,12 @@ class DesignerController extends Controller
         $file = $mediate['error_images'];
 
         if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
-            if (file_exists($file))
+            if (file_exists($file)) {
                 return response()->download($file);
+            }
+            else {
+                echo "No exist error images !";
+            }
         }
         else {
             if(Storage::exists($file)) {
