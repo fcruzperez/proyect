@@ -401,20 +401,22 @@ class AdminController extends Controller
     public function refund(Request $request, $id) {
 
         $publish = Publish::find($id);
-        dd($id);
-        $accepted_offer_id = $publish['accepted_offer_id'];
-        $offer = Offer::find($accepted_offer_id);
+        if ($publish != null) {
+            $accepted_offer_id = $publish['accepted_offer_id'];
+            $offer = Offer::find($accepted_offer_id);
 
 
-
-        $client_id = $publish['client_id'];
-        $client = User::find($client_id);
-        $paypal_email = $client['paypal_email'];
-        $message = "The paypal address of this client is {$paypal_email}";
+            $client_id = $publish['client_id'];
+            $client = User::find($client_id);
+            $paypal_email = $client['paypal_email'];
+            $message = "The paypal address of this client is {$paypal_email}";
 //        echo "<script type='text/javascript'>alert('$message')</script>";
-        $publish->delete();
-        $offer->delete();
+            $publish->delete();
+            $offer->delete();
+        }
+
         return back();
+
     }
 
     public function registerUser(Request $request) {
