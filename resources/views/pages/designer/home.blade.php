@@ -12,21 +12,20 @@
                 <table id="offers_table" class="table table-striped table-bordered text-center">
 
                     <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Offer Status</th>
-                        <th>Time Left</th>
-                        <th>Details</th>
-                    </tr>
+                        <tr>
+                            <th>Time</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Offer Status</th>
+                            <th>Time Left</th>
+                            <th>Details</th>
+                        </tr>
                     </thead>
 
                     <tbody>
                     @foreach($offers as $offer)
                         @php
                             $request_id = $offer['request_id'];
-                            dd($request_id);
                             $request = \App\Models\Request::find($request_id);
                             if ($offer->status === 'accepted') {
                                 $now = new DateTime();
@@ -95,25 +94,8 @@
                                         $request_id = $offer['request_id'];
                                         $request = \App\Models\Request::find($request_id);
                                         $design_name = $request['design_name'];
-
-
-                                        if ($hours === 0 && $minutes < 31) {
-                                            $msg = "Hurry up! You have 30 minutes to send the design {$design_name}";
-
-                                            $message = \App\Models\Message::create([
-                                            'user_id' => $offer->designer_id,
-                                            'subject' => $msg,
-                                            'content' => $msg,
-                                            'action_url' => "/designer/home",
-                                            ]);
-
-                                            $data = [
-                                            'user_id' => $offer->designer_id,
-                                            'action_url' => "/designer/home",
-                                            'message' => $msg
-                                            ];
-                                            event(new \App\Events\DesignerEvent($data));
                                     }
+
 
                                 @endphp
                                 @if ($offer->status === 'accepted' && $hours > 0)
@@ -170,3 +152,5 @@
         });
     </script>
 @endsection
+
+
