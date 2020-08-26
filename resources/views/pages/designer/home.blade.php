@@ -27,6 +27,15 @@
                         @php
                             $request_id = $offer['request_id'];
                             $request = \App\Models\Request::find($request_id);
+                            if ($offer->status === 'accepted') {
+                                $now = new DateTime();
+                                $accepted_time = new DateTime($offer->accepted_at);
+                                $diff = $now->diff($accepted_time);
+                                $str = $diff->format('%h hour %i minutes ago');
+                                $h = explode(' ', $str);
+                                $deadline = $offer['hours'];
+                                $deadline = $deadline + 1;
+                            }
                             //dd($request);
                         @endphp
                         <tr>
@@ -42,7 +51,11 @@
                                         Proposal Sent
                                     @endif
                                 @elseif($offer->status === 'accepted')
+                                    @if ($h[0] > $deadline)
                                     Accepted
+                                    @else
+                                    Not Delivered
+                                    @endif
                                 @elseif($offer->status === 'sent' && $request['status'] <> 'published')
                                     Not Accepted
                                 @elseif($offer->status === 'delivered')

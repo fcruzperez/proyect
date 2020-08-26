@@ -295,7 +295,7 @@
                     $deadline = $offer['hours'];
                     $deadline = $deadline + 1;
                 @endphp
-                @if($offer['status'] === 'accepted' && $h[0] > $deadline)
+                @if($offer['status'] === 'accepted' && $h[0] < $deadline)
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header text-center" style="font-size: 25px">Delivery</div>
                     <div class="card-body">
