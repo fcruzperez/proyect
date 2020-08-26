@@ -136,7 +136,7 @@
                                         </div>
                                     @endforeach
                                     <div class="col-4">
-                                        <div class="col-4" style="margin-right: 5px;"><label>Error Images:</label></div>
+                                        <div class="col-4" style="margin-right: 5px;"><label>Errors</label></div>
                                         <div class="col-8">
                                             <a class="btn btn-primary" href="{{url('admin/download_errors/'.$publish->id)}}">
                                                 Download
