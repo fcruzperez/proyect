@@ -91,9 +91,6 @@
                                         $hours = $deadline - $hours - 1;
                                         $minutes = 60 - $minutes;
 
-                                        $request_id = $offer['request_id'];
-                                        $request = \App\Models\Request::find($request_id);
-                                        $design_name = $request['design_name'];
                                     }
 
 

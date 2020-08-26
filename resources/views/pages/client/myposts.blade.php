@@ -47,7 +47,7 @@
                                 $diff2 = $now->diff($accepted_time);
                                 $str2 = $diff2->format('%h hour %i minutes ago');
                                 $h2 = explode(' ', $str2);
-                                if ($h2[0] > $deadline) {
+                                if ($h2[0] < $deadline) {
                                     $msg1 = "Designer {$designer_id} hasn't submitted the accepted work {$publish->design_name}.";
 
                                     $message = \App\Models\Message::create([

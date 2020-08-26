@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\DesignerRate;
 use App\Models\Mediate;
+use App\Models\Offer;
 use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -400,6 +401,12 @@ class AdminController extends Controller
     public function refund(Request $request, $id) {
 
         $publish = Publish::find($id);
+        $accepted_offer_id = $publish['accepted_offer_id'];
+        $offer = Offer::find($accepted_offer_id);
+        $publish->delete();
+        $offer->delete();
+
+
         $client_id = $publish['client_id'];
         $client = User::find($client_id);
         $paypal_email = $client['paypal_email'];
