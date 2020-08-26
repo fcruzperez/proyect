@@ -126,6 +126,67 @@
                             </td>
                             <td>
                                 <a class="btn btn-info" href="{{url('/designer/offer-detail/'.$offer->id)}}">Details</a>
+                                {{--                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#www{{$request->id}}">Details</button>--}}
+                                {{--                    <div class="modal fade" id="www{{$request->id}}" role="dialog" tabindex="-1" aria-hidden="true">--}}
+                                {{--                        <div class="modal-dialog" role="document">--}}
+                                {{--                            <div class="modal-content">--}}
+                                {{--                                <div class="modal-header text-center">--}}
+                                {{--                                    <h4 class="modal-title text-center">Details</h4>--}}
+                                {{--                                </div>--}}
+
+                                {{--                                <div class="modal-body text-left">--}}
+                                {{--                                    @php--}}
+                                {{--                                        $str = '';--}}
+                                {{--                                        for ($i = 0; $i < 3; $i++){--}}
+                                {{--                                            if (isset($request->formats[$i]->name)) {--}}
+                                {{--                                                $str = $str . $request->formats[$i]->name . ',';--}}
+                                {{--                                            }--}}
+                                {{--                                        }--}}
+                                {{--                                        $n = strlen($str);--}}
+                                {{--                                        $str = substr($str, 0, $n - 1);--}}
+                                {{--                                        //dd($str);--}}
+                                {{--                                    @endphp--}}
+                                {{--                                    <div>--}}
+                                {{--                                        <b class="text-center" style="color:blue; margin-left: 50px;">Format(s):</b> <b>{{ empty($str) ? 'Undefined' : $str }}</b>--}}
+                                {{--                                    </div>--}}
+
+                                {{--                                    <div>--}}
+                                {{--                                        <b style="color:blue; margin-left: 50px;">Size:</b> <b> {{$request->width}} x {{$request->height}} cm</b>--}}
+                                {{--                                    </div>--}}
+                                {{--                                    @php--}}
+                                {{--                                        $str = '';--}}
+                                {{--                                        for ($i = 0; $i < 3; $i++){--}}
+                                {{--                                            if (isset($request->fabrics[$i]->name)) {--}}
+                                {{--                                                $str = $str . $request->fabrics[$i]->name . ',';--}}
+                                {{--                                            }--}}
+                                {{--                                        }--}}
+                                {{--                                        $n = strlen($str);--}}
+                                {{--                                        $str = substr($str, 0, $n - 1);--}}
+                                {{--                                    @endphp--}}
+                                {{--                                    <div>--}}
+                                {{--                                        <b style="color:blue; margin-left: 50px;">Fabric(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>--}}
+                                {{--                                    </div>--}}
+                                {{--                                    @php--}}
+                                {{--                                        $str = '';--}}
+                                {{--                                        for ($i = 0; $i < 3; $i++){--}}
+                                {{--                                            if (isset($request->technics[$i]->name)) {--}}
+                                {{--                                                $str = $str . $request->technics[$i]->name . ',';--}}
+                                {{--                                            }--}}
+                                {{--                                        }--}}
+                                {{--                                        $n = strlen($str);--}}
+                                {{--                                        $str = substr($str, 0, $n - 1);--}}
+                                {{--                                    @endphp--}}
+                                {{--                                    <div>--}}
+                                {{--                                        <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>--}}
+                                {{--                                    </div>--}}
+
+                                {{--                                </div>--}}
+                                {{--                                <div class="modal-footer">--}}
+                                {{--                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>--}}
+                                {{--                                </div>--}}
+                                {{--                            </div>--}}
+                                {{--                        </div>--}}
+                                {{--                    </div>--}}
                             </td>
                         </tr>
                     @endforeach
