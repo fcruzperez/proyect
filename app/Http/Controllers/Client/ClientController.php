@@ -360,6 +360,7 @@ class ClientController extends Controller
 
         $offer = Offer::find($inputs['offer_id']);
         $offer['status'] = 'accepted';
+        $offer['accepted_at'] = date('Y-m-d H:i:s');
         $offer->save();
 
         $msg = "Your offer about the {$publish->design_name} is accepted.";

@@ -287,7 +287,7 @@
                     </div>
                 </div>
 
-                @if($offer['status'] === 'accepted')
+                @if($offer['status'] === 'accepted' )
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header text-center" style="font-size: 25px">Delivery</div>
                     <div class="card-body">
