@@ -258,6 +258,9 @@
                                         //$mediate = \App\Models\Mediate::where('offer_id', $id)->get();
                                         //dd($mediate->id);return;
                                     @endphp
+
+                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
+
                                     <form action="{{route('client.mediate.rejection')}}" method="post">
                                         @csrf
                                         <input type="hidden" name="publish_id" value="{{$publish->id}}">
@@ -267,7 +270,6 @@
                                         <button type="submit" class="btn btn-danger" style="float: right;" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
                                     </form>
 
-                                        <a class="btn btn-success" style="float: right;" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
 {{--                                    <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
                                 @endif
                             </div>
