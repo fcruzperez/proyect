@@ -194,7 +194,7 @@ class MediateController extends Controller
             ]);
 
             $data = [
-                'user_id' => 1,
+                'user_id' => $designer_id,
                 'action_url' => "/designer/mediate-list",
                 'message' => $msg
             ];
