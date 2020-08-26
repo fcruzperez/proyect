@@ -260,7 +260,7 @@
                             <table class="table table-responsive text-center">
                                 <tr>
                                     <th>Client Fee (USD)</th>
-                                    <th>Designer Fee (USD)</th>
+                                    <th>Designer Fee (%)</th>
                                     <th>Minimum Work Time</th>
                                     <th>Minimum Work Price (USD)</th>
                                     <th>Delta Time</th>
