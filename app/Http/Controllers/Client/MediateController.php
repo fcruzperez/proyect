@@ -163,6 +163,7 @@ class MediateController extends Controller
 
         DB::beginTransaction();
         try {
+
             $msg = "Client {$client_name} is requesting mediation about the design {$publish_name} what is made by Designer {$designer_name}";
 
             $message = Message::create([
@@ -181,6 +182,25 @@ class MediateController extends Controller
             ];
 
             event(new AdminEvent($data));
+
+
+            $message = Message::create([
+                'user_id' => $designer_id,
+                'request_id' => $publish_id,
+                'offer_id' => $offer_id,
+                'subject' => $msg,
+                'content' => $msg,
+                'action_url' => "/designer/mediate-list",
+            ]);
+
+            $data = [
+                'user_id' => 1,
+                'action_url' => "/designer/mediate-list",
+                'message' => $msg
+            ];
+
+            event(new DesignerEvent($data));
+
 
         } catch (\Exception $e) {
             DB::rollBack();
