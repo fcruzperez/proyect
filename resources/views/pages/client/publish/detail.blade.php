@@ -266,7 +266,8 @@
 
                                         <button type="submit" class="btn btn-danger" style="float: right;" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
                                     </form>
-{{--                                    <a class="btn btn-success" href="{{url('client/mediate-complete/'.$publish->id)}}">Complete</a>--}}
+
+                                        <a class="btn btn-success" style="float: right;" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
 {{--                                    <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
                                 @endif
                             </div>
