@@ -403,15 +403,16 @@ class AdminController extends Controller
         $publish = Publish::find($id);
         $accepted_offer_id = $publish['accepted_offer_id'];
         $offer = Offer::find($accepted_offer_id);
-        $publish->delete();
-        $offer->delete();
+
 
 
         $client_id = $publish['client_id'];
         $client = User::find($client_id);
         $paypal_email = $client['paypal_email'];
         $message = "The paypal address of this client is {$paypal_email}";
-        echo "<script type='text/javascript'>alert('$message')</script>";
+//        echo "<script type='text/javascript'>alert('$message')</script>";
+        $publish->delete();
+        $offer->delete();
         return back();
     }
 
