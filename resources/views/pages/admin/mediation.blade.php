@@ -118,27 +118,25 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="row">
+                                <div class="row col-12">
                                     @empty($publish->deliveries)
                                         <div class="alert alert-info">There is no delivered design.</div>
                                     @endempty
 
                                     @foreach($publish->deliveries as $key => $delivery)
 
-                                        <div class="col-12 col-sm-6 col-lg-4" style="margin-left: 5px;">
-                                            <div class="row">
-                                                <div class="col-4" style="margin-right: 5px;"><label>File{!! $key + 1 !!}</label></div>
-                                                <div class="col-8">
-                                                    <a class="btn btn-primary"
-                                                       href="{{url('admin/delivery-download/'.$delivery->id)}}">
-                                                        Download
-                                                    </a>
-                                                </div>
+                                        <div class="col-4">
+                                            <div class="col-4" style="margin-right: 5px;"><label>File{!! $key + 1 !!}</label></div>
+                                            <div class="col-8">
+                                                <a class="btn btn-primary"
+                                                   href="{{url('admin/delivery-download/'.$delivery->id)}}">
+                                                    Download
+                                                </a>
                                             </div>
                                         </div>
                                     @endforeach
-                                    <div class="col-12 col-sm-6 col-lg-4" style="margin-left: 5px;">
-                                        <label>Error Images:</label>
+                                    <div class="col-4">
+                                        <div class="col-4" style="margin-right: 5px;"><label>Error Images:</label></div>
                                         <div class="col-8">
                                             <a class="btn btn-primary" href="{{url('admin/download_errors/'.$publish->id)}}">
                                                 Download
