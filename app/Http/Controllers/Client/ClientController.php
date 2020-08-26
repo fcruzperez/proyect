@@ -706,16 +706,17 @@ class ClientController extends Controller
                 'offer_id' => $offer->id,
                 'request_id' => $publish->id,
                 'subject' => 'Your offer has been completed!',
-                'content' => "Your offer #{$offer->id} for {$request->name} has been completed.",
-                'action_url' => "/public/designer/offer-detail/{$offer->id}",
+                'content' => "Your offer #{$offer->id} for {$publish->design_name} has been completed.",
+                'action_url' => "/designer/offer-detail/{$offer->id}",
             ]);
 
             $payload = [
                 'user_id' => $offer->designer_id,
-                'action_url' => "/public/designer/offer-detail/{$offer->id}?message_id={$message->id}",
+                'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
                 'message' => 'Your offer has been completed!'
             ];
             event(new DesignerEvent($payload));
+
         } catch (\Exception $e) {
             DB::rollBack();
             logger()->error($e->getMessage());
