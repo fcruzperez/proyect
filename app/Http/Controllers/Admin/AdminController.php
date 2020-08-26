@@ -401,6 +401,7 @@ class AdminController extends Controller
     public function refund(Request $request, $id) {
 
         $publish = Publish::find($id);
+        dd($publish);
         $accepted_offer_id = $publish['accepted_offer_id'];
         $offer = Offer::find($accepted_offer_id);
 
