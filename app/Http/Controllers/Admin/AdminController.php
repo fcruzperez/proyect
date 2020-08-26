@@ -378,6 +378,17 @@ class AdminController extends Controller
         return response('', 404);
     }
 
+    public function downloadErrors(Request $request, $id)
+    {
+        $mediate = Mediate::find($id);
+
+        if (Storage::exists($mediate['error_images'])) {
+            return Storage::download($mediate['error_images']);
+        }
+        return response('', 404);
+    }
+
+
 
     public function registerUser(Request $request) {
 

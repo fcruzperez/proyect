@@ -63,6 +63,7 @@ Route::middleware(['auth', 'role:admin'])
 //        Route::post('mediation', 'AdminController@mediation')->name('mediation');
         Route::get('mediation', 'AdminController@mediation')->name('mediation');
         Route::get('delivery-download/{id}', 'AdminController@downloadDelivery')->name('delivery-download');
+        Route::get('download_errors/{id}', 'AdminController@downloadErrors')->name('download_errors');
 
 
     });
