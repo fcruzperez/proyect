@@ -381,6 +381,7 @@ class AdminController extends Controller
     public function downloadErrors(Request $request, $id)
     {
         $mediate = Mediate::find($id);
+        dd($mediate);
 
         if (Storage::exists($mediate['error_images'])) {
             return Storage::download($mediate['error_images']);
