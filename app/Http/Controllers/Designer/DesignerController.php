@@ -190,7 +190,7 @@ class DesignerController extends Controller
                 return Storage::download($file);
             }
         }
-        return back();
+        return redirect()->to('/designer/mediate-detail/'.$id);
 
     }
 
