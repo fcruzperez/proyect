@@ -51,7 +51,7 @@
                                         Proposal Sent
                                     @endif
                                 @elseif($offer->status === 'accepted')
-                                    @if ($h[0] > $deadline)
+                                    @if ($h[0] < $deadline)
                                     Accepted
                                     @else
                                     Not Delivered
