@@ -125,7 +125,7 @@
 
                                     @foreach($publish->deliveries as $key => $delivery)
 
-                                        <div class="col-12 col-sm-6 col-lg-4" style="margin-left: 20px;">
+                                        <div class="col-12 col-sm-6 col-lg-4" style="margin-left: 5px;">
                                             <div class="row">
                                                 <div class="col-4" style="margin-right: 5px;"><label>File{!! $key + 1 !!}</label></div>
                                                 <div class="col-8">
@@ -137,7 +137,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <div class="col-12 col-sm-6 col-lg-4" style="margin-left: 20px;">
+                                    <div class="col-12 col-sm-6 col-lg-4" style="margin-left: 5px;">
                                         <div class="col-4" style="margin-right: 5px;"><label>Error Images:</label></div>
                                         <div class="col-8">
                                             <a class="btn btn-primary" href="{{url('admin/download_errors/'.$publish->id)}}">
