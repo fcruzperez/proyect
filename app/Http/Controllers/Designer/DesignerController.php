@@ -102,6 +102,27 @@ class DesignerController extends Controller
 
         Offer::create($data);
 
+        $publish = Publish::find($inputs['request_id']);
+
+        $msg = "You have received an offer for your design {$publish->design_name}.";
+
+        $message = Message::create([
+            'user_id' => $publish->client_id,
+            'request_id' => $publish->id,
+//            'offer_id' => $offer->id,
+            'subject' => $msg,
+            'content' => $msg,
+            'action_url' => "/client/myposts",
+        ]);
+
+        $data = [
+            'user_id' => $publish->client_id,
+            'action_url' => "/client/myposts",
+            'message' => $msg
+        ];
+
+        event(new ClientEvent($data));
+
         return redirect('/designer/posts');
     }
 
