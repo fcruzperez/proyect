@@ -398,7 +398,8 @@ class AdminController extends Controller
     }
 
     public function refund(Request $request, $id) {
-        dd($_SERVER['REQUEST_URI']);
+//        $_SERVER['REQUEST_URI'];
+        dd($id);
         return back();
     }
 

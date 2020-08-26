@@ -59,7 +59,7 @@
 
                                     $data = [
                                         'user_id' => 1,
-                                        'action_url' => "/client/refund/{$publish->id}",
+                                        'action_url' => "/admin/refund/{$publish->id}",
                                         'message' => $msg
                                     ];
                                     event(new \App\Events\AdminEvent($data));
