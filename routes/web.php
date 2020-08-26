@@ -65,6 +65,9 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('delivery-download/{id}', 'AdminController@downloadDelivery')->name('delivery-download');
         Route::get('download_errors/{id}', 'AdminController@downloadErrors')->name('download_errors');
 
+        Route::get('refund/{id}', 'AdminController@refund')->name('refund');
+
+
 
     });
 

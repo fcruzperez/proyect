@@ -35,6 +35,7 @@
                                 $setting = $settings[count($settings) - 1];
                                 $expiration_time = $setting['expiration_time'];
                             }
+
                         @endphp
                         @if ($publish->status <> 'published' || $h[0] < $expiration_time)
                         <tr>

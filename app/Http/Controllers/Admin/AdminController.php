@@ -29,6 +29,8 @@ class AdminController extends Controller
 
         $publishes = Publish::get();
         $data = ['publishes' => $publishes];
+
+
 //        dd($data);
 
         return view('pages.admin.dashboard', $data);
@@ -395,7 +397,11 @@ class AdminController extends Controller
         return response('', 404);
     }
 
+    public function refund(Request $request, $id) {
 
+        dd($id);
+        return back();
+    }
 
     public function registerUser(Request $request) {
 

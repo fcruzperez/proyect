@@ -286,8 +286,15 @@
 
                     </div>
                 </div>
-
-                @if($offer['status'] === 'accepted' )
+                @php
+                    $now = new DateTime();
+                    $pp = new DateTime($offer->accepted_at);
+                    $diff = $now->diff($pp);
+                    $str = $diff->format('%h hour %i minutes ago');
+                    $h = explode(' ', $str);
+                    $time = $offer['hours'];
+                @endphp
+                @if($offer['status'] === 'accepted' && $h[0] < $time)
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header text-center" style="font-size: 25px">Delivery</div>
                     <div class="card-body">

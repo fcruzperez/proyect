@@ -36,6 +36,36 @@
                                 $setting = $settings[count($settings) - 1];
                                 $expiration_time = $setting['expiration_time'];
                             }
+                            if ($publish->status === 'accepted') {
+                                $offer_id = $publish['accepted_offer_id'];
+                                $offer = \App\Models\Offer::find($offer_id);
+                                $deadline = $offer['hours'];
+                                $designer_id = $offer['designer_id'];
+
+                                $now = new DateTime();
+                                $accepted_time = new DateTime($publish->accepted_at);
+                                $diff2 = $now->diff($accepted_time);
+                                $str2 = $diff2->format('%h hour %i minutes ago');
+                                $h2 = explode(' ', $str2);
+                                if ($h2[0] < $deadline) {
+                                    $msg = "Designer {$designer_id} hasn't submitted the accepted work {$publish->design_name}.";
+
+                                    $message = \App\Models\Message::create([
+                                        'user_id' => 1,
+                                        'subject' => $msg,
+                                        'content' => $msg,
+                                        'action_url' => "/admin/refund/{$publish->id}",
+                                    ]);
+
+                                    $data = [
+                                        'user_id' => 1,
+                                        'action_url' => "/client/refund/{$publish->id}",
+                                        'message' => $msg
+                                    ];
+                                    event(new \App\Events\AdminEvent($data));
+
+                                }
+                            }
 
 
                         @endphp
@@ -58,6 +88,7 @@
                             @endphp
                         @endif
                         @if ($publish->status <> 'published' || $h[0] < $expiration_time)
+
                         <tr>
                             <td>{{$publish['created_at']}}</td>
                             <td>{{$publish['design_name']}}</td>
