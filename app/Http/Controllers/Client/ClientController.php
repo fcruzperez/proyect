@@ -647,9 +647,6 @@ class ClientController extends Controller
         return view('pages.client.publish.correction', $data);
     }
 
-
-
-
     public function downloadDelivery(Request $request, $id)
     {
         $delivery = Delivery::find($id);
