@@ -90,6 +90,28 @@
                                         $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
                                         $hours = $deadline - $hours - 1;
                                         $minutes = 60 - $minutes;
+
+                                        $request_id = $offer['request_id'];
+                                        $request = \App\Models\Request::find($request_id);
+                                        $design_name = $request['design_name'];
+
+
+                                        if ($hours === 0 && $minutes < 31) {
+                                            $msg = "Hurry up! You have 30 minutes to send the design {$design_name}";
+
+                                            $message = \App\Models\Message::create([
+                                            'user_id' => $offer->designer_id,
+                                            'subject' => $msg,
+                                            'content' => $msg,
+                                            'action_url' => "/designer/home",
+                                            ]);
+
+                                            $data = [
+                                            'user_id' => $offer->designer_id,
+                                            'action_url' => "/designer/home",
+                                            'message' => $msg
+                                            ];
+                                            event(new \App\Events\DesignerEvent($data));
                                     }
 
                                 @endphp
@@ -97,6 +119,7 @@
                                     {{$hours}}:{{$minutes}} hours
                                 @elseif ($offer->status === 'accepted' && $hours === 0)
                                     {{$minutes}} minutes
+
                                 @else
                                     -------
                                 @endif
