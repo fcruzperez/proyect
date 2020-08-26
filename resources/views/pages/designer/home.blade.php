@@ -27,7 +27,6 @@
                         @php
                             $request_id = $offer['request_id'];
                             $request = \App\Models\Request::find($request_id);
-
                             //dd($request);
                         @endphp
                         <tr>

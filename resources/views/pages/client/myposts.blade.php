@@ -48,21 +48,37 @@
                                 $str2 = $diff2->format('%h hour %i minutes ago');
                                 $h2 = explode(' ', $str2);
                                 if ($h2[0] < $deadline) {
-                                    $msg = "Designer {$designer_id} hasn't submitted the accepted work {$publish->design_name}.";
+                                    $msg1 = "Designer {$designer_id} hasn't submitted the accepted work {$publish->design_name}.";
 
                                     $message = \App\Models\Message::create([
                                         'user_id' => 1,
-                                        'subject' => $msg,
-                                        'content' => $msg,
+                                        'subject' => $msg1,
+                                        'content' => $msg1,
                                         'action_url' => "/admin/refund/{$publish->id}",
                                     ]);
 
-                                    $data = [
+                                    $data1 = [
                                         'user_id' => 1,
                                         'action_url' => "/admin/refund/{$publish->id}",
-                                        'message' => $msg
+                                        'message' => $msg1
                                     ];
-                                    event(new \App\Events\AdminEvent($data));
+                                    event(new \App\Events\AdminEvent($data1));
+
+                                    $msg2 = "You haven't delivered design {$publish->design_name} within your deadline";
+
+                                    $message = \App\Models\Message::create([
+                                        'user_id' => $designer_id,
+                                        'subject' => $msg2,
+                                        'content' => $msg2,
+                                        'action_url' => "/designer/home",
+                                    ]);
+
+                                    $data2 = [
+                                        'user_id' => $designer_id,
+                                        'action_url' => "/designer/home",
+                                        'message' => $msg2
+                                    ];
+                                    event(new \App\Events\DesignerEvent($data2));
 
                                 }
                             }
