@@ -252,14 +252,12 @@
                                 @endif
                                 @if($pstatus === 'in mediation')
                                     @php
-                                        //$id = $publish->accepted_offer_id;
-                                        //dd($id);return;
-
-                                        //$mediate = \App\Models\Mediate::where('offer_id', $id)->get();
+                                        $id = $publish->accepted_offer_id;
+                                        $mediate = \App\Models\Mediate::where('offer_id', $id)->get();
                                         //dd($mediate->id);return;
                                     @endphp
 
-                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
+                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
 
                                     <form action="{{route('client.mediate.rejection')}}" method="post">
                                         @csrf

@@ -679,7 +679,6 @@ class ClientController extends Controller
             $offer->save();
 
             $mediate = Mediate::where('offer_id', $offer_id)->get();
-            dd($mediate);
             if (isset($mediate)) {
                 $mediate['status'] = 'completed';
                 $mediate->save();
