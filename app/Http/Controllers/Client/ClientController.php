@@ -673,9 +673,16 @@ class ClientController extends Controller
             $publish->save();
 
             $offer = Offer::find($publish->accepted_offer_id);
+            $offer_id = $offer['id'];
             $offer->status = 'completed';
             $offer->completed_at = $now;
             $offer->save();
+
+            $mediate = Mediate::where('offer_id', $offer_id)->get();
+            if (isset($mediate)) {
+                $mediate['status'] = 'completed';
+                $mediate->save();
+            }
 
             $message = Message::create([
                 'user_id' => $offer->designer_id,
