@@ -190,7 +190,7 @@ class DesignerController extends Controller
                 return Storage::download($file);
             }
         }
-        return response('', 404);
+        return back();
 
     }
 
