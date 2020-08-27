@@ -225,7 +225,7 @@
                         <a href="{{url('/designer/home/')}}">
                             <button type="button" class="btn btn-info">&nbsp;&nbsp;Back&nbsp;&nbsp;</button>
                         </a>
-                        @if ($offer['status'] === 'sent' && $publish['status'] <> 'accepted')
+                        @if ($offer['status'] === 'sent' && $publish['status'] <> 'accepted' && $publish['status'] <> 'canceled')
                             <button type="button" class="btn btn-primary" onclick="show({{$publish->id}})">Update</button>
                             <form action="{{ route('designer.offer-cancel', $publish->id) }}" method="post">
                                 @csrf
