@@ -46,7 +46,11 @@
                                 {{--  sent, accepted, mediated, canceled, completed--}}
                                 @if($offer->status === 'sent')
                                     @if ($request['status'] <> 'published')
-                                        Not accepted
+                                        @if ($request['status'] === 'canceled')
+                                            Canceled
+                                        @else
+                                            Not accepted
+                                        @endif
                                     @else
                                         Proposal Sent
                                     @endif
