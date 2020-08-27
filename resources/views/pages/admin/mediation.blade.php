@@ -29,6 +29,8 @@
                                 $designer_id = \App\Models\Offer::find($offer_id)['designer_id'];
                                 $designer = \App\Models\User::find($designer_id);
 
+                                $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
+
                             @endphp
                             <td>{{$publish['created_at']}}</td>
                             <td>{{$client['name']}}</td>
@@ -138,7 +140,10 @@
                                     <div class="col-4">
                                         <div class="col-4" style="margin-right: 5px;"><label>Errors</label></div>
                                         <div class="col-8">
-                                            <a class="btn btn-primary" href="{{url('admin/download_errors/'.$publish->id)}}">
+                                            @php
+
+                                            @endphp
+                                            <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}">
                                                 Download
                                             </a>
                                         </div>
