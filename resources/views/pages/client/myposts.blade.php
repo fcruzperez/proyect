@@ -80,6 +80,10 @@
                                     ];
                                     event(new \App\Events\DesignerEvent($data2));
 
+
+                                    $offer->delete();
+                                    $publish->delete();
+
                                 }
                             }
 
