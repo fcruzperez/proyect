@@ -20,6 +20,7 @@ class Mediate extends Model
     public function getStatusLabelAttribute() {
         switch($this->status) {
             case 'issued':      $label = 'Issued'; break;
+            case 'rejected':   $label = 'Rejected'; break;
             case 'completed':   $label = 'Completed'; break;
             default:            $label = 'undefined'; break;
         }

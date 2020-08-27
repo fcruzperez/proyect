@@ -21,7 +21,7 @@ class CreateMediatesTable extends Migration
             $table->string('title');
             $table->string('content');
             $table->string('error_images')->nullable();
-            $table->string('status')->default('issued')->comment('issued, completed');
+            $table->string('status')->default('issued')->comment('issued, rejected, completed');
             $table->timestamps();
         });
     }

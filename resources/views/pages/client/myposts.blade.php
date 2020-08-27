@@ -41,6 +41,7 @@
                                 $offer = \App\Models\Offer::find($offer_id);
                                 $deadline = $offer['hours'];
                                 $designer_id = $offer['designer_id'];
+                                $client_id = $publish['client_id'];
 
                                 $now = new DateTime();
                                 $accepted_time = new DateTime($publish->accepted_at);
@@ -62,6 +63,7 @@
                                         'action_url' => "/admin/refund/{$publish->id}",
                                         'message' => $msg1
                                     ];
+
                                     event(new \App\Events\AdminEvent($data1));
 
                                     $msg2 = "You haven't delivered design {$publish->design_name} within your deadline";
@@ -79,6 +81,23 @@
                                         'message' => $msg2
                                     ];
                                     event(new \App\Events\DesignerEvent($data2));
+
+
+                                    $msg3 = "Designer haven't delivered your design {$publish->design_name} within the deadline, you will be refunded soon.";
+
+                                    $message = \App\Models\Message::create([
+                                        'user_id' => $client_id,
+                                        'subject' => $msg3,
+                                        'content' => $msg3,
+                                        'action_url' => "/client/myposts",
+                                    ]);
+
+                                    $data3 = [
+                                        'user_id' => $client_id,
+                                        'action_url' => "/client/myposts",
+                                        'message' => $msg3
+                                    ];
+                                    event(new \App\Events\ClientEvent($data3));
 
 
                                     $offer->delete();
