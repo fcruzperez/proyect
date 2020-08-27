@@ -24,9 +24,10 @@
                     <tbody>
                     @foreach($mediates as $mediate)
                         <?php
-                        $offer = $mediate->offer;
-                        $mstatus = $mediate->status;
-                        $publish = $offer->request;
+                            $offer_id = $mediate['offer_id'];
+                            $offer = \App\Models\Offer::find($offer_id);
+                            $mstatus = $mediate->status;
+                            $publish = $offer->request;
                         ?>
                         <tr>
                             <td>{{$mediate->created_at}}</td>

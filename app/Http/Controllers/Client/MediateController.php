@@ -38,6 +38,7 @@ class MediateController extends Controller
     }
 
     public function list() {
+
         $mediates = Mediate::where('client_id', Auth::id())->get();
 
         return view('pages.client.mediate.list', ['mediates' => $mediates]);
