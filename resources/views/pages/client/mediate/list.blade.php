@@ -39,7 +39,7 @@
                             <td>{{$offer->hours}}</td>
                             <td>{{$offer->price}}</td>
                             <td>
-                                 <span class="p-1 text-light @if($mstatus==='issued') bg-danger @else bg-success @endif">
+                                 <span class="p-1 text-light @if($mstatus ==='issued' || $mstatus === 'rejected') bg-danger @else bg-success @endif">
                                     {{$mediate->status_label}}
                                 </span>
                             </td>
