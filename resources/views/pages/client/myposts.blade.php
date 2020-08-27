@@ -125,6 +125,7 @@
                                 event(new \App\Events\ClientEvent($data));
 
                                 $offers = $publish->offers;
+
                                 foreach ($offers as $offer) {
                                     $offer->delete();
                                 }

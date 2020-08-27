@@ -306,8 +306,11 @@ class ClientController extends Controller
     public function deletePublish(Request $request, $id) {
 
         $publish = Publish::find($id);
-        $publish->delete();
+        if (!is_null($publish)) {
+            $publish->delete();
+        }
         return redirect()->to('client/myposts');
+
     }
 
     public function listMyPosts(Request $request)
