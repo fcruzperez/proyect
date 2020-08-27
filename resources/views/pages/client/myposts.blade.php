@@ -124,6 +124,13 @@
                                 ];
                                 event(new \App\Events\ClientEvent($data));
 
+                                $offers = $publish->offers;
+                                foreach ($offers as $offer) {
+                                    $offer->delete();
+                                }
+
+                                $publish->delete();
+
                             @endphp
                         @endif
                         @if ($publish->status <> 'published' || $h[0] < $expiration_time)
