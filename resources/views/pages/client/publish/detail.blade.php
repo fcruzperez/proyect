@@ -247,28 +247,29 @@
                                             $publish->save();
                                             $offer->status = 'completed';
                                             $offer->save();
+
+
                                         @endphp
                                     @endif
                                 @endif
                                 @if($pstatus === 'in mediation')
                                     @php
-                                        //$id = $publish['accepted_offer_id'];
-                                        //$mediate = \App\Models\Mediate::where('offer_id', $id)->get();
-                                        //dd($mediate->id);return;
-                                    @endphp
+                                        $offer_id = $publish['accepted_offer_id'];
+                                        $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
 
+                                    @endphp
+                                    @if ($mediate['status'] === 'issued')
 {{--                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
 
-                                    <form action="{{route('client.mediate.rejection')}}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="publish_id" value="{{$publish->id}}">
-                                        <input type="hidden" name="publish_name" value="{{$publish->design_name}}">
-                                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                                        <form action="{{route('client.mediate.rejection')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="publish_id" value="{{$publish->id}}">
+                                            <input type="hidden" name="publish_name" value="{{$publish->design_name}}">
+                                            <input type="hidden" name="offer_id" value="{{$offer->id}}">
 
-                                        <button type="submit" class="btn btn-danger" style="float: right;" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
-                                    </form>
-
-{{--                                    <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
+                                            <button type="submit" class="btn btn-danger" style="float: right;" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
+                                        </form>
+                                    @endif
                                 @endif
                             </div>
                         </div>

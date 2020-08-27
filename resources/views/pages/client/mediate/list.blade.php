@@ -54,7 +54,9 @@
                             {{--                    <a class="btn btn-warning" href="{{url("client/mediate-cancel/{$mediate->id}")}}">Cancel</a>--}}
                             {{--                </td>--}}
                             <td>
-                                <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
+                                @if ($mediate['status'] === 'issued')
+                                    <a class="btn btn-success" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

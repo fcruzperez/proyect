@@ -74,6 +74,7 @@ class MediateController extends Controller
     }
 
     public function new(Request $request, $id) {
+
         $offer = Offer::find($id);
         return view('pages.client.mediate.new', ['offer' => $offer]);
     }
@@ -126,6 +127,7 @@ class MediateController extends Controller
             $publish->status = 'in mediation';
             $publish->mediated_at = $now;
             $publish->save();
+            $design_name = $publish['design_name'];
         } catch (\Exception $e) {
             logger()->error($e->getMessage());
             return back()->withErrors(['db error' => 'yes'])->withInput();
@@ -134,7 +136,7 @@ class MediateController extends Controller
         $payload = [
             'user_id' => $offer->designer_id,
             'action_url' => "/designer/mediate-detail/{$mediate->id}",
-            'message' => 'Your offer has been mediated!'
+            'message' => "Your offer for the design {$design_name} has been mediated!"
         ];
         event(new DesignerEvent($payload));
 
@@ -162,45 +164,50 @@ class MediateController extends Controller
         $designer_id = Offer::find($offer_id)['designer_id'];
         $designer_name = User::find($designer_id)['name'];
 
+        $mediate = Mediate::where('offer_id', $offer_id)->first();
+        $mediate['status'] = 'rejected';
+        $mediate->save();
+
         DB::beginTransaction();
         try {
 
-            $msg = "Client {$client_name} is requesting mediation about the design {$publish_name} what is made by Designer {$designer_name}";
+            $msg1 = "Client {$client_name} is requesting mediation about the design {$publish_name} what is made by Designer {$designer_name}";
 
             $message = Message::create([
                 'user_id' => 1,
                 'request_id' => $publish_id,
                 'offer_id' => $offer_id,
-                'subject' => $msg,
-                'content' => $msg,
+                'subject' => $msg1,
+                'content' => $msg1,
                 'action_url' => "/admin/mediation/",
             ]);
 
-            $data = [
+            $data1 = [
                 'user_id' => 1,
                 'action_url' => "/admin/mediation/",
-                'message' => $msg
+                'message' => $msg1
             ];
 
-            event(new AdminEvent($data));
+            event(new AdminEvent($data1));
 
+            $msg2 = "Client is requesting mediation about the design {$publish_name} what is made by you";
 
             $message = Message::create([
                 'user_id' => $designer_id,
                 'request_id' => $publish_id,
                 'offer_id' => $offer_id,
-                'subject' => $msg,
-                'content' => $msg,
+                'subject' => $msg2,
+                'content' => $msg2,
                 'action_url' => "/designer/mediate-list",
             ]);
 
-            $data = [
+            $data2 = [
                 'user_id' => $designer_id,
                 'action_url' => "/designer/mediate-list",
-                'message' => $msg
+                'message' => $msg2
             ];
 
-            event(new DesignerEvent($data));
+            event(new DesignerEvent($data2));
 
 
         } catch (\Exception $e) {
