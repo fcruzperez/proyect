@@ -70,6 +70,27 @@ class MediateController extends Controller
         $request->completed_at = $now;
         $request->save();
 
+
+
+        $msg = "Your offer about the {$request->design_name} is finished.";
+
+        $message = Message::create([
+            'user_id' => $offer->designer_id,
+            'request_id' => $request->id,
+            'offer_id' => $offer->id,
+            'subject' => $msg,
+            'content' => $msg,
+            'action_url' => "/designer/home",
+        ]);
+
+        $data = [
+            'user_id' => $offer->designer_id,
+            'action_url' => "/designer/home",
+            'message' => $msg
+        ];
+
+        event(new DesignerEvent($data));
+
         return redirect(route('client.mediate.list'));
     }
 

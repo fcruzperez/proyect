@@ -703,7 +703,7 @@ class ClientController extends Controller
             }
 
             $message = Message::create([
-                'user_id' => $offer->designer_id,
+                'user_id' => $offer['designer_id'],
                 'offer_id' => $offer->id,
                 'request_id' => $publish->id,
                 'subject' => 'Your offer has been completed!',
@@ -712,7 +712,7 @@ class ClientController extends Controller
             ]);
 
             $payload = [
-                'user_id' => $offer->designer_id,
+                'user_id' => $offer['designer_id'],
                 'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
                 'message' => 'Your offer has been completed!'
             ];
