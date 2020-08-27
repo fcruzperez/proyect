@@ -21,7 +21,9 @@
                     <tbody>
                     @foreach($mediates as $mediate)
                         <?php
-                            $offer = $mediate->offer;
+                            $offer_id = $mediate['offer_id'];
+                            $offer = \App\Models\Offer::find($offer_id);
+
                             $publish = $offer->request;
                             $mstatus = $mediate->status;
                         ?>
