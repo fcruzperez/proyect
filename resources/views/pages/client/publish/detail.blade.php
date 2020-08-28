@@ -76,9 +76,9 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
+                                    $day = $diff->days * 24 + $diff->h;
+                                    dd($day);
                                     $str = $diff->format('%h hour %i minutes');
-                                    $d = $diff->h;
-                                    dd($d);
                                     $kkk = explode(' ', $str);
                                     $h = (int)$kkk[0];
                                     if($h === 0){
