@@ -148,6 +148,9 @@
 
                                     $hours = floor($minutes / 60);
                                     $minutes = $minutes - 60 * $hours;
+
+                                    //dd($hours);
+
                                     $accepted_offer_id = $publish['accepted_offer_id'];
                                     $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
                                     $hours = $deadline - $hours - 1;
