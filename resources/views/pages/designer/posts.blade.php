@@ -12,8 +12,7 @@
                     $now = new DateTime();
                     $pp = new DateTime($publish->created_at);
                     $diff = $now->diff($pp);
-                    $str = $diff->format('%h hour %i minutes ago');
-                    $h = explode(' ', $str);
+                    $h = $diff->days * 24 + $diff->h;
 
                     $top_id = \App\Models\Settings::count();
                     if ($top_id <> 0) {
@@ -86,16 +85,17 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
-                                    $str = $diff->format('%h hour %i minutes ago');
-                                    $h = explode(' ', $str);
+                                    $hour = $diff->days * 24 + $diff->h;
+                                    $min = $diff->i;
+                                    if ($hour === 0)
+                                        $str = "{$min} minutes ago";
+                                    else
+                                        $str = "{$hour} hour {$min} minutes ago";
+
                                 @endphp
                                 <div class="col-4">Published</div>
                                 <div class="col-8">
-                                    @if ((int)$h[0] === 0)
-                                        {{$h[2]}} minutes ago
-                                    @else
-                                        {{$str}}
-                                    @endif
+                                    {{$str}}
                                 </div>
                             </div>
                             <div class="row bl1">

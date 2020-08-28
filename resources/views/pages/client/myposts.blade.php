@@ -27,8 +27,8 @@
                             $now = new DateTime();
                             $pp = new DateTime($publish->created_at);
                             $diff = $now->diff($pp);
-                            $str = $diff->format('%h hour %i minutes ago');
-                            $h = explode(' ', $str);
+                            $hour = $diff->days * 24 + $diff->h;
+                            $min = $diff->i;
 
                             $top_id = \App\Models\Settings::count();
                             if ($top_id <> 0) {
@@ -46,9 +46,9 @@
                                 $now = new DateTime();
                                 $accepted_time = new DateTime($publish->accepted_at);
                                 $diff2 = $now->diff($accepted_time);
-                                $str2 = $diff2->format('%h hour %i minutes ago');
-                                $h2 = explode(' ', $str2);
-                                if ($h2[0] > $deadline) {
+                                $hour = $diff->days * 24 + $diff->h;
+
+                                if ($hour > $deadline) {
                                     $msg1 = "Designer {$designer_id} hasn't submitted the accepted work {$publish->design_name}.";
 
                                     $message = \App\Models\Message::create([
@@ -108,7 +108,7 @@
 
 
                         @endphp
-                        @if ($publish->status === 'published' && $h[0] >= $expiration_time)
+                        @if ($publish->status === 'published' && $hour >= $expiration_time)
                             @php
                                 $msg = "Your post {$publish->design_name} has expired.";
                                 $message = \App\Models\Message::create([
@@ -134,7 +134,7 @@
 
                             @endphp
                         @endif
-                        @if ($publish->status <> 'published' || $h[0] < $expiration_time)
+                        @if ($publish->status <> 'published' || $hour < $expiration_time)
 
                         <tr>
                             <td>{{$publish['created_at']}}</td>
@@ -148,6 +148,7 @@
 
                                     $hours = floor($minutes / 60);
                                     $minutes = $minutes - 60 * $hours;
+                                    dd($hours, $minutes); return;
 
                                     //dd($hours);
 

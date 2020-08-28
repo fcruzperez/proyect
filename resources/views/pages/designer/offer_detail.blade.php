@@ -130,21 +130,19 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
-                                    $str = $diff->format('%h hour %i minutes');
-                                    $kkk = explode(' ', $str);
-                                    $h = (int)$kkk[0];
-                                    if($h === 0){
-                                        $str = $diff->format('%i minutes');
-                                    }
-                                    else {
-                                        $str = $diff->format('%h hour %i minutes');
+                                    $hour = $diff->days * 24 + $diff->h;
+                                    $min = $diff->i;
+                                    if ($hour === 0)
+                                        $str = "{$min} minutes ago";
+                                    else
+                                        $str = "{$hour} hour {$min} minutes ago";
 
-                                    }
+
 
                                 @endphp
                                 <div class="row">
                                     <div class="col-4"><label>Published</label></div>
-                                    <div class="col-8">{{$str}} ago</div>
+                                    <div class="col-8">{{$str}}</div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4">
@@ -290,12 +288,13 @@
                     $now = new DateTime();
                     $pp = new DateTime($offer->accepted_at);
                     $diff = $now->diff($pp);
-                    $str = $diff->format('%h hour %i minutes ago');
-                    $h = explode(' ', $str);
+                    $hour = $diff->days * 24 + $diff->h;
+                    $min = $diff->i;
+
                     $deadline = $offer['hours'];
                     $deadline = $deadline + 1;
                 @endphp
-                @if($offer['status'] === 'accepted' && $h[0] < $deadline)
+                @if($offer['status'] === 'accepted' && $hour < $deadline)
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header text-center" style="font-size: 25px">Delivery</div>
                     <div class="card-body">

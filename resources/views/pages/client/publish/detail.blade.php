@@ -78,6 +78,7 @@
                                     $diff = $now->diff($pp);
                                     $hour = $diff->days * 24 + $diff->h;
                                     $min = $diff->i;
+
                                     if($hour === 0){
                                         $str = "{$min} minutes";
                                     }
@@ -223,9 +224,9 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->delivered_at);
                                     $diff = $now->diff($pp);
-                                    $str = $diff->format('%h hour %i minutes ago');
-                                    //dd($str);
-                                    $h = explode(' ', $str);
+                                    $hour = $diff->days * 24 + $diff->h;
+                                    $min = $diff->i;
+
 
                                     $top_id = \App\Models\Settings::count();
                                     if ($top_id <> 0) {
@@ -235,7 +236,7 @@
                                     }
                                 @endphp
                                 @if($pstatus === 'delivered')
-                                    @if($h[0] < $claim_time)
+                                    @if($hour < $claim_time)
                                         <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
         {{--                                @endif--}}
         {{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}

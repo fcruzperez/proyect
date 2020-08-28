@@ -11,8 +11,8 @@
                     $now = new DateTime();
                     $pp = new DateTime($publish->created_at);
                     $diff = $now->diff($pp);
-                    $str = $diff->format('%h hour %i minutes ago');
-                    $h = explode(' ', $str);
+                    $hour = $diff->days * 24 + $diff->h;
+                    $min = $diff->i;
 
                     $top_id = \App\Models\Settings::count();
                     if ($top_id <> 0) {
@@ -22,7 +22,7 @@
                     }
                 @endphp
 
-                @if ($publish->status <> 'published' || $h[0] < $expiration_time)
+                @if ($publish->status <> 'published' || $hour < $expiration_time)
                 <div class="col-sm-6 col-lg-4" style="margin-top: 20px;">
                     <div class="card">
                         <div class="card-body">
@@ -86,16 +86,16 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
-                                    $str = $diff->format('%h hour %i minutes ago');
-                                    $h = explode(' ', $str);
+                                    $hour = $diff->days * 24 + $diff->h;
+                                    $min = $diff->i;
+                                    if ($hour === 0)
+                                        $str = "{$min} minutes ago";
+                                    else
+                                        $str = "{$hour} hour {$min} minutes ago";
                                 @endphp
                                 <div class="col-4">Published</div>
                                 <div class="col-8">
-                                    @if ((int)$h[0] === 0)
-                                        {{$h[2]}} minutes ago
-                                    @else
-                                        {{$str}}
-                                    @endif
+                                    {{$str}}
                                 </div>
                             </div>
                             <div class="row bl1">

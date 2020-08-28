@@ -31,8 +31,9 @@
                                 $now = new DateTime();
                                 $accepted_time = new DateTime($offer->accepted_at);
                                 $diff = $now->diff($accepted_time);
-                                $str = $diff->format('%h hour %i minutes ago');
-                                $h = explode(' ', $str);
+                                $hour = $diff->days * 24 + $diff->h;
+                                $min = $diff->i;
+
                                 $deadline = $offer['hours'];
                                 $deadline = $deadline + 1;
                             }
@@ -55,7 +56,7 @@
                                         Proposal Sent
                                     @endif
                                 @elseif($offer->status === 'accepted')
-                                    @if ($h[0] < $deadline)
+                                    @if ($hour < $deadline)
                                     Accepted
                                     @else
                                     Not Delivered
