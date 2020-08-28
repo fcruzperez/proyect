@@ -75,8 +75,9 @@
                                 @php
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
-                                    dd($now);
                                     $diff = $now->diff($pp);
+                                    dd($diff);
+
                                     $str = $diff->format('%h hour %i minutes');
                                     $kkk = explode(' ', $str);
                                     $h = (int)$kkk[0];
