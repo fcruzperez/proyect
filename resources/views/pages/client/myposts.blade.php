@@ -176,9 +176,11 @@
                                 @endif
                             </td>
                             <td>
-                                <a class="btn btn-info text-center" href="{{url("client/publish-detail/{$publish->id}")}}">
-                                    Details
-                                </a>
+                                @if ($publish['status'] <> 'canceled')
+                                    <a class="btn btn-info text-center" href="{{url("client/publish-detail/{$publish->id}")}}">
+                                        Details
+                                    </a>
+                                @endif
                             </td>
                             <td>{{$publish['status']}}</td>
                             <td>{{$publish['deposit']}}</td>
