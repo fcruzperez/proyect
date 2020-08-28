@@ -76,17 +76,13 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
-                                    $day = $diff->days * 24 + $diff->h;
+                                    $hour = $diff->days * 24 + $diff->h;
                                     $min = $diff->i;
-                                    dd($now, $pp, $day, $min);
-                                    $str = $diff->format('%h hour %i minutes');
-                                    $kkk = explode(' ', $str);
-                                    $h = (int)$kkk[0];
-                                    if($h === 0){
-                                        $str = $diff->format('%i minutes');
+                                    if($hour === 0){
+                                        $str = "{$min} minutes";
                                     }
                                     else {
-                                        $str = $diff->format('%h hour %i minutes');
+                                        $str = "{$hour} hour {$min} minutes";
 
                                     }
 
