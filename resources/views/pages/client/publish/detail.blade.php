@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4">
                                 @php
-                                    $now = new DateTime();
+                                    $now = now();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
                                     $str = $diff->format('%h hour %i minutes');
