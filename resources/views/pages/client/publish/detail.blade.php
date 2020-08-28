@@ -76,9 +76,10 @@
                                     $now = new DateTime();
                                     $pp = new DateTime($publish->created_at);
                                     $diff = $now->diff($pp);
-                                    dd($diff);
 
                                     $str = $diff->format('%h hour %i minutes');
+                                    dd($str);
+
                                     $kkk = explode(' ', $str);
                                     $h = (int)$kkk[0];
                                     if($h === 0){
