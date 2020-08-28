@@ -22,7 +22,7 @@
                     }
                 @endphp
 
-                @if ($publish->status <> 'published' || $h[0] < $expiration_time)
+                @if ($publish->status <> 'published' || $h < $expiration_time)
                 <div class="col-sm-6 col-lg-4" style="margin-top: 20px;">
                     <div class="card">
                         <div class="card-body">
