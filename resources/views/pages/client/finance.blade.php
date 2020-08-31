@@ -22,19 +22,23 @@
                     </thead>
 
                     <tbody>
-                    @foreach($offers as $offer)
+                    @foreach($publishes as $publish)
                         @php
-                            $request_id = $offer['request_id'];
-                            $request = \App\Models\Request::find($request_id);
-                            $design_name = $request['design_name'];
-                            $amount = $offer['paid'];
-                        @endphp
-                        <tr>
-                            <td>{{$offer['completed_at']}}</td>
-                            <td>{{$design_name}}</td>
-                            <td>{{$amount}}</td>
+                            $design_name = $publish['design_name'];
+                            $offer_id = $publish['accepted_offer_id'];
 
-                        </tr>
+                            $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
+                            $amount = $publish['refund'];
+
+                        @endphp
+                        @if($mediate <> null && $mediate['status'] === 'rejected')
+                            <tr>
+                                <td>{{$publish['completed_at']}}</td>
+                                <td>{{$design_name}}</td>
+                                <td>{{$amount}}</td>
+
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>

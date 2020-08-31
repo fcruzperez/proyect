@@ -72,29 +72,29 @@
                                         'user_id' => $designer_id,
                                         'subject' => $msg2,
                                         'content' => $msg2,
-                                        'action_url' => "/designer/home",
+                                        'action_url' => "/designer/finance-list",
                                     ]);
 
                                     $data2 = [
                                         'user_id' => $designer_id,
-                                        'action_url' => "/designer/home",
+                                        'action_url' => "/designer/finance-list",
                                         'message' => $msg2
                                     ];
                                     event(new \App\Events\DesignerEvent($data2));
 
 
-                                    $msg3 = "Designer haven't delivered your design {$publish->design_name} within the deadline, you will be refunded soon.";
+                                    $msg3 = "Designer haven't delivered your design {$publish->design_name} within the deadline, you will have a refund soon.";
 
                                     $message = \App\Models\Message::create([
                                         'user_id' => $client_id,
                                         'subject' => $msg3,
                                         'content' => $msg3,
-                                        'action_url' => "/client/myposts",
+                                        'action_url' => "/client/finance-list",
                                     ]);
 
                                     $data3 = [
                                         'user_id' => $client_id,
-                                        'action_url' => "/client/myposts",
+                                        'action_url' => "/client/finance-list",
                                         'message' => $msg3
                                     ];
                                     event(new \App\Events\ClientEvent($data3));

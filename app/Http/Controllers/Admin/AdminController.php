@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\ClientEvent;
+use App\Events\DesignerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
 use App\Models\DesignerRate;
 use App\Models\Mediate;
+use App\Models\Message;
 use App\Models\Offer;
 use App\Models\Settings;
 use App\Models\User;
@@ -405,17 +408,141 @@ class AdminController extends Controller
 //            $accepted_offer_id = $publish['accepted_offer_id'];
 //            $offer = Offer::find($accepted_offer_id);
 
-
+        $design_name = $publish['design_name'];
         $client_id = $publish['client_id'];
         $client = User::find($client_id);
-        $paypal_email = $client['paypal_email'];
-        $message = "The paypal address of this client is {$paypal_email}";
-        echo "<script type='text/javascript'>alert('$message')</script>";
-//            $publish->delete();
-//            $offer->delete();
-//        }
+
+        $offer_id = $publish['accepted_offer_id'];
+        $offer = Offer::find($offer_id);
+        $offer_price = $offer['price'];
+
+        $top_id = Settings::count();
+        $settings = Settings::limit($top_id)->get();
+        $setting = $settings[count($settings) - 1];
+        $client_fee = $setting['client_fee'];
+
+        $price = $offer_price + $client_fee;
+
+        $publish['refund'] = $price;
+        $publish->save();
+
+        $client['balance'] += $price;
+        $client->save();
+
+        $msg = "you are refunded about your design {$design_name}";
+
+        $message = Message::create([
+            'user_id' => $client_id,
+            'request_id' => $id,
+            'offer_id' => $offer_id,
+            'subject' => $msg,
+            'content' => $msg,
+            'action_url' => "/client/finance-list",
+        ]);
+
+        $data = [
+            'user_id' => $client_id,
+            'action_url' => "/client/finance-list",
+            'message' => $msg
+        ];
+
+        event(new ClientEvent($data));
 
         return back();
+
+    }
+
+    public function decision(Request $request) {
+
+        $inputs = $request->all();
+
+        $validator = Validator::make($inputs, [
+            'client_percent' => 'required',
+            'designer_percent' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $publish_id = $inputs['publish_id'];
+        $publish = Publish::find($publish_id);
+        $design_name = $publish['design_name'];
+        $offer_id = $publish['accepted_offer_id'];
+        $offer = Offer::find($offer_id);
+        $designer_id = $offer['designer_id'];
+        $client_id = $publish['client_id'];
+
+        $price = $offer['price'];
+        $client_percent = $inputs['client_percent'];
+        $designer_percent = $inputs['designer_percent'];
+
+        $top_id = Settings::count();
+        $settings = Settings::limit($top_id)->get();
+        $setting = $settings[count($settings) - 1];
+        $client_fee = $setting['client_fee'];
+        $designer_fee = $setting['designer_fee'];
+
+        $for_client = floatval(round($client_percent * ($price + $client_fee) / 100, 2));
+        $for_designer = floatval(round($price * (100 - $designer_fee) * $designer_percent / 10000, 2));
+
+        $now = now();
+        $publish['status'] = 'completed';
+        $publish->completed_at = $now;
+        $publish['refund'] = $for_client;
+        $publish->save();
+
+        $offer['status'] = 'completed';
+        $offer['paid'] = $for_designer;
+        $offer->completed_at = $now;
+        $offer->save();
+
+        $designer = User::find($designer_id);
+        $client = User::find($client_id);
+
+        $designer['balance'] += $for_designer;
+        $designer->save();
+        $client['balance'] += $for_client;
+        $client->save();
+
+        $msg_client = "You are received {$for_client}% refund about your design {$design_name} by the Support";
+        $msg_designer = "You are received {$for_designer}% payment about the design {$design_name} by the Support";
+
+        $message = Message::create([
+            'user_id' => $client_id,
+            'request_id' => $publish_id,
+            'offer_id' => $offer_id,
+            'subject' => $msg_client,
+            'content' => $msg_client,
+            'action_url' => "/client/finance-list",
+        ]);
+
+        $data_client = [
+            'user_id' => $client_id,
+            'action_url' => "/client/finance-list",
+            'message' => $msg_client
+        ];
+
+        event(new ClientEvent($data_client));
+
+        $message = Message::create([
+            'user_id' => $designer_id,
+            'request_id' => $publish_id,
+            'offer_id' => $offer_id,
+            'subject' => $msg_designer,
+            'content' => $msg_designer,
+            'action_url' => "/designer/finance-list",
+        ]);
+
+        $data_designer = [
+            'user_id' => $designer_id,
+            'action_url' => "/designer/finance-list",
+            'message' => $msg_designer
+        ];
+
+        event(new DesignerEvent($data_designer));
+
+        return redirect('admin/finance-list');
 
     }
 

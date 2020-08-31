@@ -749,10 +749,16 @@ class ClientController extends Controller
 
     public function financeList(Request $request)
     {
+        $user_id = Auth::id();
+        $user = User::find($user_id);
 
-
-
-        return back();
+        $publishes = Publish::where('client_id', $user_id)->where('status', 'completed')->get();
+        $balance = $user['balance'];
+        $data = [
+            'publishes' => $publishes,
+            'balance' => $balance
+        ];
+        return view('pages.client.finance', $data);
     }
 
 

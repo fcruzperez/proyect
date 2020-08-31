@@ -15,6 +15,8 @@
                         <th>Design Name</th>
                         <th>Details</th>
                         <th>Mediate</th>
+                        <th>Dicision</th>
+
                     </tr>
                     </thead>
 
@@ -41,81 +43,82 @@
                                 <div class="modal fade" id="zzz{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <form method="post" action="{{route('admin.update_mediate')}}">
-                                        @csrf
-                                        <div class="modal-content">
-                                            <div class="modal-header text-center">
-                                                <h4 class="modal-title text-center">Details</h4>
-                                            </div>
-
-                                            <div class="modal-body text-left">
-                                                <div>
-                                                    <b style="color:blue; margin-left: 50px;">Size:</b> <b> {{$publish->width}} x {{$publish->height}} {{$publish->unit}}</b>
+                                            @csrf
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title text-center">Details</h4>
                                                 </div>
-                                                @php
-                                                    $str = '';
-                                                    for ($i = 0; $i < 10; $i++){
-                                                        if (isset($publish->formats[$i]->name)) {
-                                                            $str = $str . $publish->formats[$i]->name . ',';
+
+                                                <div class="modal-body text-left">
+                                                    <div>
+                                                        <b style="color:blue; margin-left: 50px;">Size:</b> <b> {{$publish->width}} x {{$publish->height}} {{$publish->unit}}</b>
+                                                    </div>
+                                                    @php
+                                                        $str = '';
+                                                        for ($i = 0; $i < 10; $i++){
+                                                            if (isset($publish->formats[$i]->name)) {
+                                                                $str = $str . $publish->formats[$i]->name . ',';
+                                                            }
                                                         }
-                                                    }
-                                                    $n = strlen($str);
-                                                    $str = substr($str, 0, $n - 1);
-                                                //dd($str);
-                                                @endphp
-                                                <div>
-                                                    <b class="text-center" style="color:blue; margin-left: 50px;">Format(s):</b> <b>{{ empty($str) ? 'Undefined' : $str }}</b>
-                                                </div>
+                                                        $n = strlen($str);
+                                                        $str = substr($str, 0, $n - 1);
+                                                    //dd($str);
+                                                    @endphp
+                                                    <div>
+                                                        <b class="text-center" style="color:blue; margin-left: 50px;">Format(s):</b> <b>{{ empty($str) ? 'Undefined' : $str }}</b>
+                                                    </div>
 
 
-                                                @php
-                                                    $str = '';
-                                                    for ($i = 0; $i < 10; $i++){
-                                                        if (isset($publish->fabrics[$i]->name)) {
-                                                            $str = $str . $publish->fabrics[$i]->name . ',';
+                                                    @php
+                                                        $str = '';
+                                                        for ($i = 0; $i < 10; $i++){
+                                                            if (isset($publish->fabrics[$i]->name)) {
+                                                                $str = $str . $publish->fabrics[$i]->name . ',';
+                                                            }
                                                         }
-                                                    }
-                                                    $n = strlen($str);
-                                                    $str = substr($str, 0, $n - 1);
-                                                @endphp
-                                                <div>
-                                                    <b style="color:blue; margin-left: 50px;">Fabric(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
-                                                </div>
-                                                @php
-                                                    $str = '';
-                                                    for ($i = 0; $i < 10; $i++){
-                                                        if (isset($publish->technics[$i]->name)) {
-                                                            $str = $str . $publish->technics[$i]->name . ',';
+                                                        $n = strlen($str);
+                                                        $str = substr($str, 0, $n - 1);
+                                                    @endphp
+                                                    <div>
+                                                        <b style="color:blue; margin-left: 50px;">Fabric(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
+                                                    </div>
+                                                    @php
+                                                        $str = '';
+                                                        for ($i = 0; $i < 10; $i++){
+                                                            if (isset($publish->technics[$i]->name)) {
+                                                                $str = $str . $publish->technics[$i]->name . ',';
+                                                            }
                                                         }
-                                                    }
-                                                    $n = strlen($str);
-                                                    $str = substr($str, 0, $n - 1);
-                                                @endphp
-                                                <div>
-                                                    <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
+                                                        $n = strlen($str);
+                                                        $str = substr($str, 0, $n - 1);
+                                                    @endphp
+                                                    <div>
+                                                        <b style="color:blue; margin-left: 50px;">Technic(s):</b> <b> {{ empty($str) ? 'Undefined' : $str }}</b>
+                                                    </div>
+                                                    @php
+                                                        $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
+                                                        $mediate_id = $mediate['id'];
+                                                    @endphp
+
+                                                    <input type="hidden" name="mediate_id" value="{{$mediate_id}}" />
+
+                                                    <div>
+                                                        <b style="color:blue; margin-left: 50px;">Title:</b>
+                                                        <input type="text" name="title" value="{{$mediate['title']}}">
+                                                    </div>
+                                                    <div>
+                                                        <b style="color:blue; margin-left: 50px; vertical-align: top;">Content:</b>
+                                                        <textarea style="margin-left: 50px;" cols="50" name="content">{{$mediate['content']}}</textarea>
+                                                    </div>
+
+
                                                 </div>
-                                                @php
-                                                    $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
-                                                    $mediate_id = $mediate['id'];
-                                                @endphp
-
-                                                <input type="hidden" name="mediate_id" value="{{$mediate_id}}" />
-
-                                                <div>
-                                                    <b style="color:blue; margin-left: 50px;">Title:</b>
-                                                    <input type="text" name="title" value="{{$mediate['title']}}">
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                 </div>
-                                                <div>
-                                                    <b style="color:blue; margin-left: 50px; vertical-align: top;">Content:</b>
-                                                    <textarea style="margin-left: 50px;" cols="50" name="content">{{$mediate['content']}}</textarea>
-                                                </div>
-
-
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Save</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </td>
@@ -149,6 +152,36 @@
                                         </div>
                                     </div>
                                 </div>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger text-center" data-toggle="modal" data-target = "#www{{$publish->id}}">Decision</button>
+                                <div class="modal fade" id="www{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <form method="post" action="{{'admin.decision'}}">
+                                            @csrf
+                                            <div class="modal-content">
+                                                <div class="modal-title text-center"><h3>Dicision</h3></div>
+                                                <div class="modal-body">
+                                                    <div style="font-size: 20px;">
+                                                        <label for="client">Client(%)</label>
+                                                        <input type="number" name="client_percent"/>
+                                                    </div>
+                                                    <div style="font-size: 20px;">
+                                                        <label for="designer">Designer(%)</label>
+                                                        <input type="number" name="designer_percent"/>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary" onclick="return confirm('Really?')">Save</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                                <input type="hidden" name="publish_id" value="{{$publish->id}}">
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+
                             </td>
                         </tr>
                     @endforeach

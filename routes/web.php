@@ -67,6 +67,8 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::get('refund/{id}', 'AdminController@refund')->name('refund');
 
+        // % Decision
+        Route::post('decision', 'AdminController@decision')->name('decision');
 
 
     });
