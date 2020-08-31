@@ -297,7 +297,7 @@ class DesignerController extends Controller
     }
 
 
-    function finance(Request $request) {
+    function financeList(Request $request) {
 
         $user_id = Auth::id();
         $offers = Offer::where('designer_id', $user_id)->where('status', 'completed');

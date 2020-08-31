@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-12">
-                <table id="offers_table" class="table table-striped table-bordered text-center">
+                <table id="finance-table" class="table table-striped table-bordered text-center">
 
                     <thead>
                         <tr>
@@ -24,12 +24,12 @@
                         $design_name = $request['design_name'];
                         $amount = $offer['paid'];
                     @endphp
-                    <tr>
-                        <td>{{$offer['completed_at']}}</td>
-                        <td>{{$design_name}}</td>
-                        <td>{{$amount}}</td>
+                        <tr>
+                            <td>{{$offer['completed_at']}}</td>
+                            <td>{{$design_name}}</td>
+                            <td>{{$amount}}</td>
 
-                    </tr>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>

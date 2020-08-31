@@ -66,7 +66,7 @@ class MediateController extends Controller
         $settings = \App\Models\Settings::limit($top_id)->get();
         $setting = $settings[count($settings) - 1];
         $designer_fee = $settings['designer_fee'];
-        $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 1));
+        $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 2));
 
         $offer->status = 'completed';
         $offer->completed_at = $now;

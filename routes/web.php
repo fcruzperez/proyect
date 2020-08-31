@@ -155,6 +155,6 @@ Route::middleware(['auth', 'role:designer'])
 //        Route::post('withdraw-save', 'WithdrawController@save')->name('withdraw.save');
 
         // Finance
-        Route::get('finance-list', 'DesignerController@finance')->name('finance-list');
+        Route::get('finance-list', 'DesignerController@financeList')->name('finance-list');
 
     });
