@@ -4,9 +4,9 @@
 
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <h3 class="text-center"><b>Finances</b></h3>
-        <div>
+        <div class="float-right">
             <label for="balance">Balance:</label>
-            <input class="float-right" id="balance" name="balance">
+            <input id="balance" name="balance">
         </div>
         <div class="row">
             <div class="col-12">
