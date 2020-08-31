@@ -4,6 +4,10 @@
 
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <h3 class="text-center"><b>Finances</b></h3>
+        <div>
+            <label for="balance">Balance:</label>
+            <input class="float-right" id="balance" name="balance">
+        </div>
         <div class="row">
             <div class="col-12">
                 <table id="finance-table" class="table table-striped table-bordered text-center">
