@@ -300,7 +300,13 @@ class DesignerController extends Controller
     function financeList(Request $request) {
 
         $user_id = Auth::id();
+        $user = User::find($user_id);
         $offers = Offer::where('designer_id', $user_id)->where('status', 'completed')->get();
+        $balance = $user['balance'];
+        $data = [
+            'offers' => $offers,
+            'balance' => $balance
+        ];
         return view('pages.designer.finance', ['offers' => $offers]);
     }
 

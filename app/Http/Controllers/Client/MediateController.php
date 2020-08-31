@@ -78,7 +78,11 @@ class MediateController extends Controller
         $request->completed_at = $now;
         $request->save();
 
-
+        //Add balance
+        $designer_id = $offer['designer_id'];
+        $designer = User::find($designer_id);
+        $designer['balance'] += $paid;
+        $designer->save();
 
         $msg = "Your offer about the {$request->design_name} is finished.";
 

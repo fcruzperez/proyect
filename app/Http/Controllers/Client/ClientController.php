@@ -709,6 +709,12 @@ class ClientController extends Controller
             $offer->paid = $paid;
             $offer->save();
 
+            //Add balance
+            $designer_id = $offer['designer_id'];
+            $designer = User::find($designer_id);
+            $designer['balance'] += $paid;
+            $designer->save();
+
             $mediate = Mediate::where('offer_id', $offer_id)->get();
             if (isset($mediate)) {
                 $mediate['status'] = 'completed';
