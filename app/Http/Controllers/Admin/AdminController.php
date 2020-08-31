@@ -472,6 +472,7 @@ class AdminController extends Controller
         $offer = Offer::find($offer_id);
         $designer_id = $offer['designer_id'];
         $client_id = $publish['client_id'];
+        dd($offer_id);
 
         $price = $offer['price'];
         $client_percent = $inputs['client_percent'];
