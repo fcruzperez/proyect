@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile');
             $table->string('paypal_email')->nullable();
             $table->string('role')->default('designer')->comment('admin, client, designer');
+            $table->integer('balance')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
