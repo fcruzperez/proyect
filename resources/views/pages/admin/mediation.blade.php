@@ -157,7 +157,7 @@
                                 <button type="button" class="btn btn-danger text-center" data-toggle="modal" data-target = "#www{{$publish->id}}">Decision</button>
                                 <div class="modal fade" id="www{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
-                                        <form method="post" action="{{'admin.decision'}}">
+                                        <form method="post" action="{{route('admin.decision')}}">
                                             @csrf
                                             <div class="modal-content">
                                                 <div class="modal-header text-center"><h3><b>Dicision</b></h3></div>
