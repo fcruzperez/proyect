@@ -243,8 +243,11 @@
                                         <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
                                     @else
                                         @php
+                                            $now = now();
+                                            $publish->completed_at = $now;
                                             $publish->status = 'completed';
                                             $publish->save();
+                                            $offer->completed_at = $now;
                                             $offer->status = 'completed';
                                             $offer->save();
 

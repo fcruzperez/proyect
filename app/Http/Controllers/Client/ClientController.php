@@ -696,17 +696,17 @@ class ClientController extends Controller
             $top_id = \App\Models\Settings::count();
             $settings = \App\Models\Settings::limit($top_id)->get();
             $setting = $settings[count($settings) - 1];
-            $designer_fee = $settings['designer_fee'];
+            $designer_fee = $setting['designer_fee'];
 
             $offer = Offer::find($publish->accepted_offer_id);
 
-            $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 1));
-            dd($offer['price'], $paid); return;
+//            $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 1));
+//            dd($offer['price'], $paid); return;
 
             $offer_id = $offer['id'];
             $offer->status = 'completed';
             $offer->completed_at = $now;
-            $offer->paid = $paid;
+//            $offer->paid = $paid;
             $offer->save();
 
             $mediate = Mediate::where('offer_id', $offer_id)->get();
