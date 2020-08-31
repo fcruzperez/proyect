@@ -164,11 +164,11 @@
                                                 <div class="modal-body">
                                                     <div class="text-md-right" style="font-size: 20px;">
                                                         <label for="client">Client(%)</label>
-                                                        <input type="number" name="client_percent" width="20%"/>
+                                                        <input type="number" name="client_percent" style="width: 20%;"/>
                                                     </div>
                                                     <div class="text-md-right" style="font-size: 20px;">
                                                         <label for="designer">Designer(%)</label>
-                                                        <input type="number" name="designer_percent" width="20%"/>
+                                                        <input type="number" name="designer_percent" style="width: 20%;"/>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
