@@ -307,7 +307,7 @@ class DesignerController extends Controller
             'offers' => $offers,
             'balance' => $balance
         ];
-        return view('pages.designer.finance', ['offers' => $offers]);
+        return view('pages.designer.finance', $data);
     }
 
 
