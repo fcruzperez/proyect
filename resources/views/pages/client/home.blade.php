@@ -174,7 +174,7 @@
 
 @section('js')
     <script>
-        function  show(para) {
+        function show(para) {
             $('#request_id').val(para);
             $('#bidModal').modal();
         }
