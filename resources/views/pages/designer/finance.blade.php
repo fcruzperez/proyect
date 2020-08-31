@@ -5,8 +5,8 @@
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <h3 class="text-center"><b>Finances</b></h3>
         <div style="margin-bottom: 10px;">
-            <label for="balance" style="font-size: 15px;"><b>Balance:</b></label>
-            <input id="balance" name="balance">
+            <label for="balance" style="font-size: 20px;"><b>Balance:</b></label>
+            <input id="balance" name="balance" style="font-size: 20px;">
         </div>
         <div class="row">
             <div class="col-12">
