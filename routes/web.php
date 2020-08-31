@@ -114,7 +114,7 @@ Route::middleware(['auth', 'role:client'])
 //        Route::get('deposit-status', 'ClientController@depositStatus')->name('deposit.status');
 
         // finance routes
-        Route::get('finance-list', 'ClientController@financeList')->name('finance.list');
+        Route::get('finance-list', 'ClientController@financeList')->name('finance-list');
 
 
 //        Route::get('payment', 'ClientController@deposit')->name('payment');

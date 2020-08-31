@@ -61,7 +61,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('client.finance.list')}}">Finances</a>
+                                <a class="nav-link" href="{{url('client/finance-list')}}">Finances</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <?php
