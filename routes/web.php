@@ -107,7 +107,7 @@ Route::middleware(['auth', 'role:client'])
 
         Route::post('accept_bid', 'ClientController@acceptBid')->name('accept_bid');
 //
-//        Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
+        Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
 //
 //        // payment routes
 //        Route::get('deposit/paypal/{offer_id}', 'ClientController@deposit')->name('deposit');
