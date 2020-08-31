@@ -6,7 +6,7 @@
         <h3 class="text-center"><b>Finances</b></h3>
         <div style="margin-bottom: 10px;">
             <label for="balance" style="font-size: 20px;"><b>Balance:</b></label>
-            <input type="text" class="text-right" name="balance" style="font-size: 20px; width: 10%; text-align: left;" value="{{$balance}}" readonly>
+            <input type="text" class="text-right" name="balance" style="font-size: 20px; width: 8%; text-align: left;" value="{{$balance}}" readonly>
             <b>USD</b>
         </div>
         <div class="row">
