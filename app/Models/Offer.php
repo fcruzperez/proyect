@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     protected $fillable = [
-      'designer_id', 'request_id', 'withdraw_id', 'price', 'fee', 'paid', 'hours', 'status',
+      'designer_id', 'request_id', 'withdraw_id', 'price', 'fee', 'paid', 'hours', 'status', 'real_state',
       'accepted_at', 'delivered_at', 'mediated_at', 'canceled_at', 'completed_at', 'paid_at'
       ];
 
