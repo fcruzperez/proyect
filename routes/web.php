@@ -105,14 +105,13 @@ Route::middleware(['auth', 'role:client'])
         Route::get('mediate-complete/{id}', 'MediateController@complete')->name('mediate.complete');
         Route::post('mediate-rejection', 'MediateController@rejection')->name('mediate.rejection');
 
-
-
         Route::post('accept_bid', 'ClientController@acceptBid')->name('accept_bid');
-        Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
-
-        // payment routes
-        Route::get('deposit/paypal/{offer_id}', 'ClientController@deposit')->name('deposit');
-        Route::get('deposit-status', 'ClientController@depositStatus')->name('deposit.status');
+//
+//        Route::get('show_deposit', 'ClientController@showDeposit')->name('show_deposit');
+//
+//        // payment routes
+//        Route::get('deposit/paypal/{offer_id}', 'ClientController@deposit')->name('deposit');
+//        Route::get('deposit-status', 'ClientController@depositStatus')->name('deposit.status');
 
         // finance routes
         Route::get('finance-list', 'ClientController@financeList')->name('finance.list');
@@ -154,5 +153,8 @@ Route::middleware(['auth', 'role:designer'])
 //        Route::get('withdraw-new', 'WithdrawController@new')->name('withdraw.new');
 //        Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
 //        Route::post('withdraw-save', 'WithdrawController@save')->name('withdraw.save');
+
+        // Finance
+        Route::get('finance-list', 'DesignerController@finance')->name('finance-list');
 
     });

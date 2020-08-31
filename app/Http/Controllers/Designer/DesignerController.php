@@ -297,6 +297,14 @@ class DesignerController extends Controller
     }
 
 
+    function finance(Request $request) {
+
+        $user_id = Auth::id();
+        $offers = Offer::where('designer_id', $user_id)->where('status', 'completed');
+        return view('pages.designer.finance', ['offers' => $offers]);
+    }
+
+
 //    public function redeliveryUpload(Request $request) {
 //        $input = $request->all();
 //
