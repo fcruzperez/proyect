@@ -162,11 +162,11 @@
                                             <div class="modal-content">
                                                 <div class="modal-header text-center"><h3><b>Dicision</b></h3></div>
                                                 <div class="modal-body">
-                                                    <div style="font-size: 20px;">
+                                                    <div class="text-md-right" style="font-size: 20px;">
                                                         <label for="client" class="text-md-right">Client(%)</label>
                                                         <input type="number" name="client_percent" width="20%"/>
                                                     </div>
-                                                    <div style="font-size: 20px;">
+                                                    <div class="text-md-right" style="font-size: 20px;">
                                                         <label for="designer" class="text-md-right">Designer(%)</label>
                                                         <input type="number" name="designer_percent" width="20%"/>
                                                     </div>
