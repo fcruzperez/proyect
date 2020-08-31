@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
-
+        <h3 class="text-center"><b>Finances</b></h3>
         <div class="row">
             <div class="col-12">
                 <table id="finance-table" class="table table-striped table-bordered text-center">
@@ -12,7 +12,7 @@
                         <tr>
                             <th>Time</th>
                             <th>Design Name</th>
-                            <th>Amount</th>
+                            <th>Amount(USD)</th>
                         </tr>
                     </thead>
 
@@ -48,6 +48,11 @@
 
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#finance-table').DataTable();
+        });
+    </script>
 
 @endsection
 
