@@ -4,7 +4,7 @@
 
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
         <h3 class="text-center"><b>Finances</b></h3>
-        <div class="float-right">
+        <div>
             <label for="balance">Balance:</label>
             <input id="balance" name="balance">
         </div>
