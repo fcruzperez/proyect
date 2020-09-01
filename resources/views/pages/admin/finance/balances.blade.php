@@ -48,6 +48,6 @@
     <script>
         $(document).ready(function() {
             $('#balances_table').DataTable();
-        } );
+        });
     </script>
 @endsection
