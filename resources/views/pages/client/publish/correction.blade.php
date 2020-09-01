@@ -162,7 +162,7 @@
 
                 </div>
 
-                @if(in_array($pstatus, ['accepted', 'delivered', 'mediated', 'canceled', 'completed']))
+                @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation', 'canceled', 'completed']))
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header">
                         <div class="card-title">Accepted Offer</div>

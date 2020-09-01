@@ -629,6 +629,8 @@ class ClientController extends Controller
 //        return view('pages.client.paypal.cancel', ['flag' => 'error']);
     }
 
+
+
     public function publishDetail(Request $request, $id)
     {
 

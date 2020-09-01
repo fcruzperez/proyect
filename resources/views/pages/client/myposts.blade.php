@@ -14,7 +14,6 @@
                         <th>Time Left</th>
                         <th>Details</th>
                         <th>Status</th>
-                        <th>Payment</th>
                         <th>Offers</th>
                         <th>Edit</th>
                         <th>Cancel</th>
@@ -41,7 +40,11 @@
                                 $offer = \App\Models\Offer::find($offer_id);
                                 $deadline = $offer['hours'];
                                 $designer_id = $offer['designer_id'];
+                                $designer = \App\Models\User::find($designer_id);
+                                $designer_name = $designer['name'];
                                 $client_id = $publish['client_id'];
+                                $client = \App\Models\User::find($client_id);
+                                $client_name = $client['name'];
 
                                 $now = new DateTime();
                                 $accepted_time = new DateTime($publish->accepted_at);
@@ -49,7 +52,8 @@
                                 $hour = $diff->days * 24 + $diff->h;
 
                                 if ($hour >= $deadline) {
-                                    $msg1 = "Designer {$designer_id} hasn't submitted the accepted work {$publish->design_name}.";
+
+                                    $msg1 = "Designer {$designer_name} hasn't submitted the accepted work {$publish->design_name} of Client {$client_name}.";
 
                                     $message = \App\Models\Message::create([
                                         'user_id' => 1,
@@ -177,14 +181,11 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($publish['status'] <> 'canceled')
-                                    <a class="btn btn-info text-center" href="{{url("client/publish-detail/{$publish->id}")}}">
-                                        Details
-                                    </a>
-                                @endif
+                                <a class="btn btn-info text-center" href="{{url("client/publish-detail/{$publish->id}")}}">
+                                    Details
+                                </a>
                             </td>
                             <td>{{$publish['status']}}</td>
-                            <td>{{$publish['deposit']}}</td>
                             <td>
                                 @php
                                     $offer_count = count($publish->offers);
