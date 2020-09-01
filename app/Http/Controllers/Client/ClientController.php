@@ -752,7 +752,7 @@ class ClientController extends Controller
         $user_id = Auth::id();
         $user = User::find($user_id);
 
-        $publishes = Publish::where('client_id', $user_id)->where('status', 'completed')->get();
+        $publishes = Publish::where('client_id', $user_id)->where('refund', '<>', 0.00)->get();
         $balance = $user['balance'];
         $data = [
             'publishes' => $publishes,

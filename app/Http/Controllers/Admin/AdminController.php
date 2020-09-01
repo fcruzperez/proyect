@@ -423,8 +423,14 @@ class AdminController extends Controller
 
         $price = $offer_price + $client_fee;
 
+        $now = now();
         $publish['refund'] = $price;
+        $publish['completed_at'] = $now;
+        $publish['status'] = 'undelivered';
         $publish->save();
+
+        $offer['status'] = 'undelivered';
+        $offer->save();
 
         $client['balance'] += $price;
         $client->save();

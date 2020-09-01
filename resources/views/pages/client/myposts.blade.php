@@ -99,6 +99,10 @@
                                     ];
                                     event(new \App\Events\ClientEvent($data3));
 
+                                    $publish['status'] = 'canceled';
+                                    $publish->save();
+
+
                                 }
                             }
 

@@ -23,7 +23,7 @@ class CreateOffersTable extends Migration
             $table->float('paid')->default(0);
             $table->integer('hours');
             $table->string('status')->default('sent')
-                ->comment('sent, accepted, delivered, mediated, canceled, completed, paid');
+                ->comment('sent, accepted, undelivered, delivered, mediated, canceled, completed, paid');
             $table->dateTime('accepted_at')->nullable();
             $table->dateTime('delivered_at')->nullable();
             $table->dateTime('completed_at')->nullable();
