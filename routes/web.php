@@ -46,13 +46,6 @@ Route::middleware(['auth', 'role:admin'])
         Route::post('technic_update', 'AdminController@technicUpdate')->name('technic.update');
         Route::get('technic_delete/{id}', 'AdminController@technicDelete')->name('technic.delete');
 
-        // withdraw routes
-//        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw-list');
-//        Route::get('withdraw-detail', 'WithdrawController@detail')->name('withdraw-detail');
-//        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw.list');
-//        Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
-//        Route::get('withdraw-complete/{id}', 'WithdrawController@complete')->name('withdraw.complete');
-
         //Score
         Route::get('score', 'AdminController@score')->name('score');
         Route::post('update_score', 'AdminController@updateScore')->name('update_score');
@@ -67,8 +60,14 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::get('refund/{id}', 'AdminController@refund')->name('refund');
 
-        // % Decision
+        // % Decision in mediation
         Route::post('decision', 'AdminController@decision')->name('decision');
+
+        //Finance
+        Route::get('balances', 'AdminController@showBalances')->name('balances');
+        Route::get('transactions', 'AdminController@showTransactions')->name('transactions');
+        Route::get('withdraws', 'AdminController@showWithdraws')->name('withdraws');
+
 
 
     });
@@ -150,11 +149,11 @@ Route::middleware(['auth', 'role:designer'])
         Route::get('mediate-detail/{id}', 'MediateController@detail')->name('mediate.detail');
         Route::get('mediate-complete/{id}', 'MediateController@complete')->name('mediate.complete');
 
-        // withdraw routes
-//        Route::get('withdraw-list', 'WithdrawController@list')->name('withdraw.list');
-//        Route::get('withdraw-new', 'WithdrawController@new')->name('withdraw.new');
-//        Route::get('withdraw-detail/{id}', 'WithdrawController@detail')->name('withdraw.detail');
-//        Route::post('withdraw-save', 'WithdrawController@save')->name('withdraw.save');
+        // finance routes
+//        Route::get('finance-list', 'WithdrawController@list')->name('finance.list');
+//        Route::get('finance-new', 'WithdrawController@new')->name('finance.new');
+//        Route::get('finance-detail/{id}', 'WithdrawController@detail')->name('finance.detail');
+//        Route::post('finance-save', 'WithdrawController@save')->name('finance.save');
 
         // Finance
         Route::get('finance-list', 'DesignerController@financeList')->name('finance-list');

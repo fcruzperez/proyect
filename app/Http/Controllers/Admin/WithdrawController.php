@@ -40,37 +40,37 @@
 //    public function list() {
 //        $withdraws = Withdraw::get();
 //
-//        return view('pages.admin.withdraw.list', ['withdraws' => $withdraws]);
+//        return view('pages.admin.finance.list', ['withdraws' => $withdraws]);
 //    }
 //
 //    public function detail(Request $request, $id) {
-//        $withdraw = Withdraw::find($id);
-//        $offers = $withdraw->offers;
+//        $finance = Withdraw::find($id);
+//        $offers = $finance->offers;
 //
 //        if($request->has('message_id')) {
 //            Message::find($request->get('message_id'))->update(['status' => 'read']);
 //        }
 //
-//        return view('pages.admin.withdraw.detail', ['withdraw' => $withdraw, 'offers' => $offers]);
+//        return view('pages.admin.finance.detail', ['finance' => $finance, 'offers' => $offers]);
 //    }
 //
 //    public function complete(Request $request, $id) {
-//        $withdraw = Withdraw::find($id);
-//        $designer = $withdraw->designer;
-//        // payout withdraw
+//        $finance = Withdraw::find($id);
+//        $designer = $finance->designer;
+//        // payout finance
 //        $payout = new Payout();
 //        $senderBatchHeader = new PayoutSenderBatchHeader();
 //        $senderBatchHeader->setSenderBatchId(uniqid())
-//            ->setEmailSubject("You have a payout of withdraw request #{$id}");
+//            ->setEmailSubject("You have a payout of finance request #{$id}");
 //        $currencyString = json_encode([
-//            'value' => $withdraw->paid,
+//            'value' => $finance->paid,
 //            'currency' => "USD"
 //        ]);
 //        $amount = new Amount();
-//        $amount->setCurrency('USD')->setTotal($withdraw->paid);
+//        $amount->setCurrency('USD')->setTotal($finance->paid);
 //        $senderItem = new PayoutItem();
 //        $senderItem->setRecipientType('EMAIL')
-//            ->setNote("You have a payout of withdraw request #{$id}")
+//            ->setNote("You have a payout of finance request #{$id}")
 //            ->setReceiver($designer->paypal_email)
 //            ->setSenderItemId(date('YmdHis'))
 //            ->setAmount($amount);
@@ -87,33 +87,33 @@
 //            return back()->withErrors(['error' => $e->getMessage()]);
 //        }
 //
-//        $withdraw = Withdraw::find($id);
-//        $designer = $withdraw->designer->id;
+//        $finance = Withdraw::find($id);
+//        $designer = $finance->designer->id;
 //        try {
 //            $now = now();
-//            $withdraw->update([
+//            $finance->update([
 //                'status' => 'paid',
 //                'paid_at' => $now,
 //            ]);
 //            // send notification to designer
-//            $msg = "Your withdraw request #{$withdraw->id} has been completed!";
+//            $msg = "Your finance request #{$finance->id} has been completed!";
 //            $message = Message::create([
 //                'user_id' => $designer,
 //                'subject' => $msg,
 //                'content' => $msg,
-//                'action_url' => url("designer/withdraw-detail/{$withdraw->id}"),
+//                'action_url' => url("designer/finance-detail/{$finance->id}"),
 //            ]);
 //
 //            $payload = [
-//                'user_id' => $withdraw->designer_id,
-//                'action_url' => url("designer/withdraw-detail/{$withdraw->id}?message_id={$message->id}"),
+//                'user_id' => $finance->designer_id,
+//                'action_url' => url("designer/finance-detail/{$finance->id}?message_id={$message->id}"),
 //                'message' => $msg,
 //            ];
 //            event(new DesignerEvent($payload));
 //
-//            return redirect(url("admin/withdraw-list"));
+//            return redirect(url("admin/finance-list"));
 //        } catch (\Exception $e) {
-//            return back()->withErrors(['complete error' => "We can not complete designer {$withdraw->designer->name}'s withdraw request #{$withdraw->id}."]);
+//            return back()->withErrors(['complete error' => "We can not complete designer {$finance->designer->name}'s finance request #{$finance->id}."]);
 //        }
 //    }
 //}

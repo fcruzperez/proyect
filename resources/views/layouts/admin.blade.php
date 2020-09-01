@@ -82,6 +82,9 @@
                                     <a class="dropdown-item" href="{{url("/admin/transactions")}}">
                                         Transactions
                                     </a>
+                                    <a class="dropdown-item" href="{{url("/admin/withdraws")}}">
+                                        Withdraws
+                                    </a>
                                 </div>
                             </li>
 {{--                            <li class="nav-item">--}}

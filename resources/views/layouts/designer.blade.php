@@ -71,7 +71,7 @@
                                 <a class="nav-link" href="{{url('designer/finance-list')}}">Finances</a>
                             </li>
 {{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link" href="{{route('designer.withdraw.list')}}">Finances</a>--}}
+{{--                                <a class="nav-link" href="{{route('designer.finance.list')}}">Finances</a>--}}
 {{--                            </li>--}}
                             @php
                                 $userId = \Illuminate\Support\Facades\Auth::id();

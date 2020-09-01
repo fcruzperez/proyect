@@ -21,7 +21,7 @@
 //    public function list() {
 //        $withdraws = Withdraw::where('designer_id', Auth::id())->get();
 //
-//        return view('pages.designer.withdraw.list', ['withdraws' => $withdraws]);
+//        return view('pages.designer.finance.list', ['withdraws' => $withdraws]);
 //    }
 //
 //    public function new() {
@@ -31,18 +31,18 @@
 //            ->where('status', 'completed')
 //            ->get();
 //
-//        return view('pages.designer.withdraw.new', ['offers' => $offers]);
+//        return view('pages.designer.finance.new', ['offers' => $offers]);
 //    }
 //
 //    public function detail(Request $request, $id) {
-//        $withdraw = Withdraw::find($id);
-//        $offers = $withdraw->offers;
+//        $finance = Withdraw::find($id);
+//        $offers = $finance->offers;
 //
 //        if($request->has('message_id')) {
 //            Message::find($request->get('message_id'))->update(['status' => 'read']);
 //        }
 //
-//        return view('pages.designer.withdraw.detail', ['withdraw' => $withdraw, 'offers' => $offers]);
+//        return view('pages.designer.finance.detail', ['finance' => $finance, 'offers' => $offers]);
 //    }
 //
 //    public function save(Request $request) {
@@ -59,7 +59,7 @@
 //            return back()->withInput()->withErrors($validator);
 //        }
 //
-//        $withdraw = Withdraw::create([
+//        $finance = Withdraw::create([
 //            'designer_id' => Auth::id(),
 //            'total' => $input['total'],
 //            'fee' => $input['fee'],
@@ -68,11 +68,11 @@
 //        ]);
 //
 //        $offer_ids = $request->get('offer_id');
-//        Offer::whereIn('id', $offer_ids)->update(['withdraw_id' => $withdraw->id]);
+//        Offer::whereIn('id', $offer_ids)->update(['withdraw_id' => $finance->id]);
 //
 //        // send notification to admin
 //        $designer = Auth::user();
-//        $msg = "Designer {$designer->name} sent withdraw request of \${$withdraw->paid}!";
+//        $msg = "Designer {$designer->name} sent finance request of \${$finance->paid}!";
 //
 //        $admins = User::where('role', 'admin')->get();
 //
@@ -81,18 +81,18 @@
 //                'user_id' => $admin->id,
 //                'subject' => $msg,
 //                'content' => $msg,
-//                'action_url' => url("admin/withdraw-detail/{$withdraw->id}"),
+//                'action_url' => url("admin/finance-detail/{$finance->id}"),
 //            ]);
 //
 //            $payload = [
 //                'user_id' => $admin->id,
-//                'action_url' => url("admin/withdraw-detail/{$withdraw->id}?message_id=$message->id"),
+//                'action_url' => url("admin/finance-detail/{$finance->id}?message_id=$message->id"),
 //                'message' => $msg,
 //            ];
 //
 //            event(new AdminEvent($payload));
 //        }
 //
-//        return redirect(route('designer.withdraw.list'))->with(['new_success' => 'ok']);
+//        return redirect(route('designer.finance.list'))->with(['new_success' => 'ok']);
 //    }
 //}

@@ -10,7 +10,7 @@
 {{--                        <span class="card-title">New Withdraw</span>--}}
 {{--                    </div>--}}
 
-{{--                    <form method="POST" action="{{route('designer.withdraw.save')}}">--}}
+{{--                    <form method="POST" action="{{route('designer.finance.save')}}">--}}
 {{--                        @csrf--}}
 {{--                        <div class="card-body pt-3">--}}
 {{--                            <div class="col-12">--}}

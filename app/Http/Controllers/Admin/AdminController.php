@@ -580,4 +580,21 @@ class AdminController extends Controller
 
         return view('pages.admin.register');
     }
+
+
+    //Finance part
+    public function showBalances(Request $request) {
+
+        $users = User::get();
+        return view('pages.admin.finance.balances', ['users' => $users]);
+
+    }
+
+    public function showTransactions(Request $request) {
+
+    }
+
+    public function showWithdraws(Request $request) {
+
+    }
 }

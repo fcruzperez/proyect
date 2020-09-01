@@ -60,11 +60,11 @@
 {{--                                @endif--}}
 {{--                            </td>--}}
 {{--                            <td >--}}
-{{--                                <a class="btn btn-info" href="{{url("admin/withdraw-detail/{$wd->id}")}}">--}}
+{{--                                <a class="btn btn-info" href="{{url("admin/finance-detail/{$wd->id}")}}">--}}
 {{--                                    Detail--}}
 {{--                                </a>--}}
 {{--                                @if($wd->status === 'pending')--}}
-{{--                                <a class="btn btn-success" href="{{url("admin/withdraw-complete/{$wd->id}")}}">--}}
+{{--                                <a class="btn btn-success" href="{{url("admin/finance-complete/{$wd->id}")}}">--}}
 {{--                                    Complete--}}
 {{--                                </a>--}}
 {{--                                @endif--}}

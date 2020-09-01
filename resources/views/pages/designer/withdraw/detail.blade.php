@@ -9,7 +9,7 @@
 {{--                    <div class="card-header" style="text-align:center;">--}}
 {{--                        <span class="card-title">Withdraw Detail</span>--}}
 {{--                    </div>--}}
-{{--                    @if($withdraw->status === 'paid')--}}
+{{--                    @if($finance->status === 'paid')--}}
 {{--                        <span class="badge-success badge-pill">Paid</span>--}}
 {{--                    @else--}}
 {{--                        <span class="badge-warning badge-pill">Pending</span>--}}
@@ -40,15 +40,15 @@
 {{--                            <tr>--}}
 {{--                                <td></td>--}}
 {{--                                <td></td>--}}
-{{--                                <td>{{$withdraw->total}}</td>--}}
-{{--                                <td>{{$withdraw->fee}}</td>--}}
-{{--                                <td>{{$withdraw->paid}}</td>--}}
+{{--                                <td>{{$finance->total}}</td>--}}
+{{--                                <td>{{$finance->fee}}</td>--}}
+{{--                                <td>{{$finance->paid}}</td>--}}
 {{--                            </tr>--}}
 {{--                            </tfoot>--}}
 {{--                        </table>--}}
 {{--                    </div>--}}
 {{--                    <div class="card-footer text-center">--}}
-{{--                        <a class="btn btn-primary" href="{{route('designer.withdraw.list')}}">Back</a>--}}
+{{--                        <a class="btn btn-primary" href="{{route('designer.finance.list')}}">Back</a>--}}
 {{--                    </div>--}}
 {{--                </div>--}}
 {{--            </div>--}}

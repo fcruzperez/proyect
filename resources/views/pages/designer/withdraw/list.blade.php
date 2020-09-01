@@ -5,7 +5,7 @@
 {{--    <div class="container" style="font-family: Arial, Helvetica, sans-serif">--}}
 {{--        @isset($new_success)--}}
 {{--        <div class="alert alert-success alert-dismissible fade show" role="alert">--}}
-{{--            <strong>Your withdraw request successfully saved!</strong>--}}
+{{--            <strong>Your finance request successfully saved!</strong>--}}
 {{--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">--}}
 {{--                <span aria-hidden="true">&times;</span>--}}
 {{--            </button>--}}
@@ -31,7 +31,7 @@
 {{--                <h3>Withdraw List</h3>--}}
 {{--            </div>--}}
 {{--            <div class="col-12 text-right">--}}
-{{--                <a class="btn btn-success" href="{{route('designer.withdraw.new')}}">New</a>--}}
+{{--                <a class="btn btn-success" href="{{route('designer.finance.new')}}">New</a>--}}
 {{--            </div>--}}
 {{--            <div class="col-12 mt-2">--}}
 {{--                <table id="withdraw_table" class="table table-striped table-bordered text-center">--}}
@@ -69,7 +69,7 @@
 {{--                                @endif--}}
 {{--                            </td>--}}
 {{--                            <td >--}}
-{{--                                <a class="btn btn-info" href="{{url("designer/withdraw-detail/{$wd->id}")}}">--}}
+{{--                                <a class="btn btn-info" href="{{url("designer/finance-detail/{$wd->id}")}}">--}}
 {{--                                    Detail--}}
 {{--                                </a>--}}
 {{--                            </td>--}}
