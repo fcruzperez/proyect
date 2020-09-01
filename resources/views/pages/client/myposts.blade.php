@@ -99,10 +99,6 @@
                                     ];
                                     event(new \App\Events\ClientEvent($data3));
 
-
-                                    $offer->delete();
-                                    $publish->delete();
-
                                 }
                             }
 
