@@ -15,7 +15,7 @@
                         <tr>
                             <th>Time</th>
                             <th>Name</th>
-                            <th>Price</th>
+                            <th>Price(USD)</th>
                             <th>Offer Status</th>
                             <th>Time Left</th>
                             <th>Details</th>

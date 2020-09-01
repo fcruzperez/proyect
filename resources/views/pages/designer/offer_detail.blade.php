@@ -268,8 +268,17 @@
 {{--                                        @enderror--}}
 
                                     </div>
+                                    @php
+                                        $top_id = \App\Models\Settings::count();
+                                        $settings = \App\Models\Settings::limit($top_id)->get();
+                                        $setting = $settings[count($settings) - 1];
+                                        $min_work_time = $setting['minimum_work_time'];
+                                        $min_work_price = $setting['minimum_work_price'];
+                                    @endphp
 
-                                    <p>By clicking <strong>OK</strong> you agree to abide by the terms and conditions.</p>
+                                    <p>By clicking <strong>bid</strong> you agree to abide by the terms and conditions.<br>
+                                        If the client accepts your proposal, a countdown will begin immediately.<br>
+                                        Minimum work time: {{$min_work_time}} hours, Minimum work price: USD {{$min_work_price}}</p>
                                 </div>
                                 <div class="modal-footer text-center">
                                     <div class="text-center">

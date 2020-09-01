@@ -505,8 +505,7 @@ class AdminController extends Controller
         $client['balance'] += $for_client;
         $client->save();
 
-        $msg_client = "You are received {$for_client}% refund about your design {$design_name} by the Support";
-        $msg_designer = "You are received {$for_designer}% payment about the design {$design_name} by the Support";
+        $msg_client = "You are received {$client_percent}% refund about your design {$design_name} by the Support";
 
         $message = Message::create([
             'user_id' => $client_id,
@@ -524,6 +523,9 @@ class AdminController extends Controller
         ];
 
         event(new ClientEvent($data_client));
+
+
+        $msg_designer = "You are received {$designer_percent}% payment about the design {$design_name} by the Support";
 
         $message = Message::create([
             'user_id' => $designer_id,

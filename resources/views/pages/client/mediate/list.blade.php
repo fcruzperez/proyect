@@ -28,6 +28,17 @@
                             $offer = \App\Models\Offer::find($offer_id);
                             $mstatus = $mediate->status;
                             $publish = $offer->request;
+
+
+                            $top_id = \App\Models\Settings::count();
+                            $settings = \App\Models\Settings::limit($top_id)->get();
+                            $setting = $settings[count($settings) - 1];
+                            $client_fee = $setting['client_fee'];
+                            $delta_time = $setting['delta_time'];
+
+                            $time = $offer['hours'] + $delta_time;
+                            $price = $offer['price'] + $client_fee;
+
                         ?>
                         <tr>
                             <td>{{$mediate->created_at}}</td>
@@ -36,8 +47,8 @@
                                     {{$publish->design_name}}
                                 </a>
                             </td>
-                            <td>{{$offer->hours}}</td>
-                            <td>{{$offer->price}}</td>
+                            <td>{{$time}}</td>
+                            <td>{{$price}}</td>
                             <td>
                                  <span class="p-1 text-light @if($mstatus ==='issued' || $mstatus === 'rejected') bg-danger @else bg-success @endif">
                                     {{$mediate->status_label}}
