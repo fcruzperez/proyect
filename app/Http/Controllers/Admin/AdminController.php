@@ -551,7 +551,7 @@ class AdminController extends Controller
 
         event(new DesignerEvent($data_designer));
 
-        return redirect('admin/finance-list');
+        return redirect('admin/transactions');
 
     }
 
