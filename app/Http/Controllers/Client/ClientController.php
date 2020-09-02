@@ -11,6 +11,7 @@ use App\Models\Mediate;
 use App\Models\Message;
 use App\Models\Offer;
 use App\Models\User;
+use http\Exception\BadConversionException;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
 use App\Models\Technic;
@@ -800,8 +801,7 @@ class ClientController extends Controller
 
         event(new AdminEvent($data));
 
-
-
+        return back();
     }
 }
 
