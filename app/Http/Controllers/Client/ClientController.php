@@ -798,14 +798,12 @@ class ClientController extends Controller
 
         $msg = "ID {$user_id}, {$name} is requesting withdraw the amount {$amount}USD.";
 
-//        $message = Message::create([
-//            'user_id' => 1,
-//            'request_id' => '',
-//            'offer_id' => '',
-//            'subject' => $msg,
-//            'content' => $msg,
-//            'action_url' => "/admin/balances",
-//        ]);
+        $message = Message::create([
+            'user_id' => 1,
+            'subject' => $msg,
+            'content' => $msg,
+            'action_url' => "/admin/balances",
+        ]);
 
         $data = [
             'user_id' => 1,

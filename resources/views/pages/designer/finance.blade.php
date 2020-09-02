@@ -8,6 +8,41 @@
             <label for="balance" style="font-size: 20px;"><b>Balance:</b></label>
             <input type="text" class="text-right" name="balance" style="font-size: 20px; width: 7%; text-align: left;" value="{{$balance}}" readonly>
             <b style="font-size: 20px;">USD</b>
+
+            <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#withdraw_button">Withdraw</button>
+
+            <div class="modal fade" id="withdraw_button" role="dialog" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form method="post" action="{{route('designer.withdraw')}}">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title text-center">Withdraw</h4>
+                            </div>
+                            <div class="modal-body text-left">
+                                <div style="text-align: center;">
+                                    @php
+                                        $top_id = \App\Models\Settings::count();
+                                        $settings = \App\Models\Settings::limit($top_id)->get();
+                                        $setting = $settings[count($settings) - 1];
+                                        $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+                                    @endphp
+                                    <label for="amount" style="font-size: 22px;">Amount:</label>
+                                    <input type="number" name="withdraw_amount" style="width: 30%"/>
+                                </div>
+                                <div style="font-size: 15px;">
+                                    <b>Note:</b> You can withdraw only when your balance is more than {{$minimum_withdrawal_amount}}USD.
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">&nbsp;&nbsp; OK &nbsp;&nbsp;</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-12">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Designer;
 
+use App\Events\AdminEvent;
 use App\Events\ClientEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
@@ -308,6 +309,58 @@ class DesignerController extends Controller
             'balance' => $balance
         ];
         return view('pages.designer.finance', $data);
+    }
+
+    public function withdraw(Request $request) {
+
+        $inputs = $request->all();
+
+        $validator = Validator::make($inputs, [
+
+            'withdraw_amount' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+
+
+        $user_id = Auth::id();
+        $amount = $inputs['withdraw_amount'];
+
+        $top_id = Settings::count();
+        $settings = Settings::limit($top_id)->get();
+        $setting = $settings[count($settings) - 1];
+        $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+
+        if ($amount < $minimum_withdrawal_amount) {
+            $message = "Please see Note again!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            return back();
+        }
+
+        $user = User::find($user_id);
+        $name = $user['name'];
+
+        $msg = "ID {$user_id}, {$name} is requesting withdraw the amount {$amount}USD.";
+
+        $message = Message::create([
+            'user_id' => 1,
+            'subject' => $msg,
+            'content' => $msg,
+            'action_url' => "/admin/balances",
+        ]);
+
+        $data = [
+            'user_id' => 1,
+            'action_url' => "/admin/balances",
+            'message' => $msg
+        ];
+
+        event(new AdminEvent($data));
+
+        return back()->with(['success' => 'OK']);
     }
 
 
