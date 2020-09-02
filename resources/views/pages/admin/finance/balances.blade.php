@@ -40,7 +40,7 @@
                                                 <div class="modal-body" style="text-align: center;">
                                                     <label for="amount" style="font-size: 22px;">Amount: </label>
                                                     <input type="number" name="withdraw_amount" style="width: 30%;"/>
-                                                    <input type="hidden" name="user_id" value="{{$user['id']}}"/>
+                                                    <input type="hidden" name="user_id" value="{{$user['id']}}" />
                                                 </div>
 
                                                 <div class="modal-footer">

@@ -629,14 +629,12 @@ class AdminController extends Controller
 
         if ($user['role'] === 'client') {
 
-//            $message = Message::create([
-//                'user_id' => $user_id,
-//                'request_id' => '',
-//                'offer_id' => '',
-//                'subject' => $msg,
-//                'content' => $msg,
-//                'action_url' => "/client/finance-list",
-//            ]);
+            $message = Message::create([
+                'user_id' => $user_id,
+                'subject' => $msg,
+                'content' => $msg,
+                'action_url' => "/client/finance-list",
+            ]);
 
             $data = [
                 'user_id' => $user_id,
@@ -648,14 +646,12 @@ class AdminController extends Controller
         }
 
         else {
-//            $message = Message::create([
-//                'user_id' => $user_id,
-//                'request_id' => '',
-//                'offer_id' => '',
-//                'subject' => $msg,
-//                'content' => $msg,
-//                'action_url' => "/designer/finance-list",
-//            ]);
+            $message = Message::create([
+                'user_id' => $user_id,
+                'subject' => $msg,
+                'content' => $msg,
+                'action_url' => "/designer/finance-list",
+            ]);
 
             $data = [
                 'user_id' => $user_id,
