@@ -277,7 +277,7 @@
                                 @endif
                             </td>
                             <td>
-                                @if($publish['status'] == 'published')
+                                @if($publish['status'] === 'published')
 
                                     <form action="{{ route('client.cancel', $publish->id) }}" method="post">
                                         @csrf
