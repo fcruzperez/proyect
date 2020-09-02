@@ -777,8 +777,20 @@ class ClientController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+
+
         $user_id = Auth::id();
         $amount = $inputs['withdraw_amount'];
+
+        $top_id = Settings::count();
+        $settings = Settings::limit($top_id)->get();
+        $setting = $settings[count($settings) - 1];
+        $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+
+        if ($amount < $minimum_withdrawal_amount) {
+            return back();
+        }
+
         $user = User::find($user_id);
         $name = $user['name'];
 
