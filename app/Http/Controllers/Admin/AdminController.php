@@ -427,16 +427,12 @@ class AdminController extends Controller
         $now = now();
         $publish['refund'] = $price;
         $publish['completed_at'] = $now;
-        $publish['status'] = 'undelivered';
         $publish->save();
-
-        $offer['status'] = 'undelivered';
-        $offer->save();
 
         $client['balance'] += $price;
         $client->save();
 
-        $msg = "you are refunded about your design {$design_name}";
+        $msg = "You are received refund about your design {$design_name}";
 
         $message = Message::create([
             'user_id' => $client_id,

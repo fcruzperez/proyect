@@ -30,11 +30,11 @@
                             $min = $diff->i;
 
                             $top_id = \App\Models\Settings::count();
-                            if ($top_id <> 0) {
-                                $settings = \App\Models\Settings::limit($top_id)->get();
-                                $setting = $settings[count($settings) - 1];
-                                $expiration_time = $setting['expiration_time'];
-                            }
+                            $settings = \App\Models\Settings::limit($top_id)->get();
+                            $setting = $settings[count($settings) - 1];
+                            $expiration_time = $setting['expiration_time'];
+                            $delta_time = $setting['delta_time'];
+
                             if ($publish->status === 'accepted') {
                                 $offer_id = $publish['accepted_offer_id'];
                                 $offer = \App\Models\Offer::find($offer_id);
@@ -51,7 +51,7 @@
                                 $diff2 = $now->diff($accepted_time);
                                 $hour = $diff->days * 24 + $diff->h;
 
-                                if ($hour >= $deadline) {
+                                if ($hour >= $deadline + $delta_time) {
 
                                     $msg1 = "Designer {$designer_name} hasn't submitted the accepted work {$publish->design_name} of Client {$client_name}.";
 
@@ -103,8 +103,11 @@
                                     ];
                                     event(new \App\Events\ClientEvent($data3));
 
-                                    $publish['status'] = 'canceled';
+                                    $publish['status'] = 'undelivered';
                                     $publish->save();
+
+                                    $offer['status'] = 'undelivered';
+                                    $offer->save();
 
 
                                 }

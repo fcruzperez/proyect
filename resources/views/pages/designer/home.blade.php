@@ -34,8 +34,13 @@
                                 $hour = $diff->days * 24 + $diff->h;
                                 $min = $diff->i;
 
+                                $top_id = \App\Models\Settings::count();
+                                $settings = \App\Models\Settings::limit($top_id)->get();
+                                $setting = $settings[count($settings) - 1];
+                                $delta_time = $setting['delta_time'];
+
                                 $deadline = $offer['hours'];
-                                $deadline = $deadline + 1;
+
                             }
                             //dd($request);
                         @endphp
@@ -56,13 +61,11 @@
                                         Proposal Sent
                                     @endif
                                 @elseif($offer->status === 'accepted')
-                                    @if ($hour < $deadline)
+                                    @if ($hour < $deadline + $delta_time)
                                     Accepted
                                     @else
                                     Not Delivered
                                     @endif
-                                @elseif($offer->status === 'sent' && $request['status'] <> 'published')
-                                    Not Accepted
                                 @elseif($offer->status === 'delivered')
                                     Delivered
                                 @elseif($offer->status === 'mediated')
@@ -74,14 +77,6 @@
                                 @endif
                             </td>
                             <td>
-{{--                                @php--}}
-{{--                                    $accepted_at = new \Carbon\Carbon($request->accepted_at);--}}
-{{--                                    $deadline = $accepted_at->addHours($offer->hours);--}}
-{{--                                    $now = new \Carbon\Carbon();--}}
-{{--                                    $timeLeft = $deadline->diffInMinutes($now);--}}
-{{--                                    $mins = $timeLeft % 60;--}}
-{{--                                    $hr = intdiv($timeLeft, 60);--}}
-{{--                                @endphp--}}
                                 @php
                                     if ($offer->status === 'accepted') {
                                         $nowTime = strtotime(date("Y-m-d h:i:sa"));
