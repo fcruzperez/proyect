@@ -345,6 +345,7 @@ class AdminController extends Controller
 
         $inputs = $request->all();
         $publish_id = $inputs['pub_id'];
+        dd($publish_id);return;
         $publish = Publish::find($publish_id);
         $publish['description'] = $inputs['description'];
         $publish->save();

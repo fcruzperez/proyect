@@ -154,7 +154,9 @@
                                                     <b style="color:blue; margin-left: 50px; vertical-align: top;">Description:</b>
                                                     <textarea cols="50" id="description" name="description" style="margin-top: 7px; margin-left: 50px;">{{$publish->description}}</textarea>
                                                 </div>
+
                                                 <input type="hidden" name="pub_id" value="{{$publish->id}}">
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">Save</button>
