@@ -15,7 +15,7 @@
                 $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
             @endphp
 
-            @if ($balance >= $minimum_withdrawal_amount)
+            @if ($balance < $minimum_withdrawal_amount)
             <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#withdraw_button" disabled>Withdraw</button>
             @else
             <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#withdraw_button">Withdraw</button>
