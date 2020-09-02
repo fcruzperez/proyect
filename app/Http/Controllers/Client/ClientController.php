@@ -788,6 +788,8 @@ class ClientController extends Controller
         $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
 
         if ($amount < $minimum_withdrawal_amount) {
+            $message = "Please see Note again!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
             return back();
         }
 
