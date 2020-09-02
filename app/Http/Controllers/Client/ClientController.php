@@ -197,7 +197,7 @@ class ClientController extends Controller
 //                } else {
                     $fileName = str_replace('storage/', '', $storageName);
                     $filePath = '/laravel/storage/app/' . $fileName;
-                    $publish_data[$imgname] = $filePath;
+                    $old_publish[$imgname] = $filePath;
 
                 }
 
