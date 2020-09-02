@@ -43,7 +43,7 @@
                                                     <input type="number" name="withdraw_amount" style="width: 30%;"/>
                                                 </div>
 
-                                                <input type="hidden" name="user_id" value="{{$user->id}}" />
+                                                <input type="hidden" name="user_id" value="{{$user->id}}">
 
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">&nbsp;&nbsp; OK &nbsp;&nbsp;</button>
