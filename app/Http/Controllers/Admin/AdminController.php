@@ -17,7 +17,7 @@ use App\Models\Request as Publish;
 use App\Models\Technic;
 use App\Models\Format;
 use App\Models\Fabric;
-use App\Withdraw;
+use App\Models\Withdraw;
 use App\Models\RequestFabric;
 use App\Models\RequestFormat;
 use App\Models\RequestTechnic;
@@ -606,7 +606,6 @@ class AdminController extends Controller
     public function showWithdraws(Request $request) {
 
         $withdraws = Withdraw::get();
-
         return view('pages.admin.finance.withdraws', ['withdraws' => $withdraws]);
     }
 
