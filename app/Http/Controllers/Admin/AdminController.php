@@ -592,6 +592,14 @@ class AdminController extends Controller
 
     public function showTransactions(Request $request) {
 
+        $offers = Offer::where('status', 'completed')->get();
+        $publishes = Publish::where('refund', '<>', 0.00)->get();
+        $data = [
+            'offers' => $offers,
+            'publishes' => $publishes
+        ];
+        return view('pages.admin.finance.transactions', $data);
+
     }
 
     public function showWithdraws(Request $request) {
