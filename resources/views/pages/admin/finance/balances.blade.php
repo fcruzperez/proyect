@@ -27,9 +27,9 @@
                             <td> {{$user['paypal_email']}} </td>
                             <td> {{$user['balance']}} </td>
                             <td>
-                                <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#withdraw_button">Withdraw</button>
+                                <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#eee{{$user->id}}">Withdraw</button>
 
-                                <div class="modal fade" id="withdraw_button" role="dialog" tabindex="-1" aria-hidden="true">
+                                <div class="modal fade" id="eee{{$user->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <form method="post" action="{{route('admin.apply_withdraw')}}">
                                             @csrf
@@ -40,10 +40,11 @@
                                                 </div>
                                                 <div class="modal-body" style="text-align: center;">
                                                     <label for="amount" style="font-size: 22px;">Amount: </label>
-                                                    <input type="number" name="withdraw_amount" style="width: 30%;"/>
+                                                    <input type="number" name="withdraw_amount" style="width: 30%;">
+                                                    <input type="hidden" name="user_id" value="{{$user->id}}">
+
                                                 </div>
 
-                                                <input type="hidden" name="user_id" value="{{$user->id}}">
 
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">&nbsp;&nbsp; OK &nbsp;&nbsp;</button>
