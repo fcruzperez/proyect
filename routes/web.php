@@ -67,7 +67,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('balances', 'AdminController@showBalances')->name('balances');
         Route::get('transactions', 'AdminController@showTransactions')->name('transactions');
         Route::post('withdraws', 'AdminController@showWithdraws')->name('withdraws');
-        Route::get('apply_withdraw', 'AdminController@applyWithdraw')->name('apply_withdraw');
+        Route::post('apply_withdraw', 'AdminController@applyWithdraw')->name('apply_withdraw');
 
 
 
