@@ -20,7 +20,7 @@
                                 <h4 class="modal-title text-center">Withdraw</h4>
                             </div>
                             <div class="modal-body text-left">
-                                <div>
+                                <div style="text-align: center;">
                                     @php
                                         $user_id = \Illuminate\Support\Facades\Auth::id();
 
