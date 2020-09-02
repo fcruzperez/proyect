@@ -8,9 +8,17 @@
             <label for="balance" style="font-size: 20px;"><b>Balance:</b></label>
             <input type="text" class="text-right" name="balance" style="font-size: 20px; width: 7%; text-align: left;" value="{{$balance}}" readonly>
             <b style="font-size: 20px;">USD</b>
+            @php
+                $top_id = \App\Models\Settings::count();
+                $settings = \App\Models\Settings::limit($top_id)->get();
+                $setting = $settings[count($settings) - 1];
+                $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+            @endphp
 
+            @if ($balance >= $minimum_withdrawal_amount)
+            <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#withdraw_button" disabled>Withdraw</button>
+            @else
             <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#withdraw_button">Withdraw</button>
-
             <div class="modal fade" id="withdraw_button" role="dialog" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <form method="post" action="{{route('client.withdraw')}}">
@@ -21,12 +29,7 @@
                             </div>
                             <div class="modal-body text-left">
                                 <div style="text-align: center;">
-                                    @php
-                                        $top_id = \App\Models\Settings::count();
-                                        $settings = \App\Models\Settings::limit($top_id)->get();
-                                        $setting = $settings[count($settings) - 1];
-                                        $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
-                                    @endphp
+
                                     <label for="amount" style="font-size: 22px;">Amount:</label>
                                     <input type="number" name="withdraw_amount" style="width: 30%"/>
                                 </div>
@@ -43,6 +46,7 @@
                     </form>
                 </div>
             </div>
+            @endif
         </div>
         <div class="row">
             <div class="col-12">
