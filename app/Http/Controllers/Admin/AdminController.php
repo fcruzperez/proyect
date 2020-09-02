@@ -619,7 +619,6 @@ class AdminController extends Controller
         }
 
         $user_id = $inputs['user_id'];
-        dd($user_id);return;
         $amount = $inputs['withdraw_amount'];
         $user = User::find($user_id);
         $user['balance'] -= $amount;
