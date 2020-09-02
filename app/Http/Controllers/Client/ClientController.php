@@ -815,7 +815,7 @@ class ClientController extends Controller
 
         event(new AdminEvent($data));
 
-        return back();
+        return back()->with(['success' => 'OK']);
     }
 }
 
