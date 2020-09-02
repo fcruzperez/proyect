@@ -66,6 +66,8 @@
                                     @else
                                     Not Delivered
                                     @endif
+                                @elseif($offer->status === 'undelivered')
+                                    Not Delivered
                                 @elseif($offer->status === 'delivered')
                                     Delivered
                                 @elseif($offer->status === 'mediated')
