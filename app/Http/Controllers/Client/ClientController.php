@@ -782,7 +782,7 @@ class ClientController extends Controller
         $user = User::find($user_id);
         $name = $user['name'];
 
-        $msg = "ID {$user_id}, {$name} is requesting withdraw the amount {$amount}.";
+        $msg = "ID {$user_id}, {$name} is requesting withdraw the amount {$amount}USD.";
 
 //        $message = Message::create([
 //            'user_id' => 1,
