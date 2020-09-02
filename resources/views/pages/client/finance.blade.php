@@ -30,7 +30,7 @@
                                         $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
                                     @endphp
                                     <label for="amount" style="font-size: 22px;">Amount:</label>
-                                    <input type="number" name="withdraw_amount"/>
+                                    <input type="number" name="withdraw_amount" style="width: 30%"/>
                                     <input type="hidden" name="user_id" value="{{$user_id}}"/>
                                 </div>
                                 <div style="font-size: 15px;">
