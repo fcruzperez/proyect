@@ -622,6 +622,7 @@ class AdminController extends Controller
         $amount = $inputs['withdraw_amount'];
         $user = User::find($user_id);
         $user['balance'] -= $amount;
+        $user->save();
 
         $msg = "Your {$amount}USD are withdrawed.";
 
