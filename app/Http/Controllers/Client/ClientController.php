@@ -777,7 +777,7 @@ class ClientController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $user_id = $inputs['user_id'];
+        $user_id = Auth::id();
         $amount = $inputs['withdraw_amount'];
         $user = User::find($user_id);
         $name = $user['name'];

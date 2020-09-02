@@ -22,8 +22,6 @@
                             <div class="modal-body text-left">
                                 <div style="text-align: center;">
                                     @php
-                                        $user_id = \Illuminate\Support\Facades\Auth::id();
-
                                         $top_id = \App\Models\Settings::count();
                                         $settings = \App\Models\Settings::limit($top_id)->get();
                                         $setting = $settings[count($settings) - 1];
@@ -31,7 +29,6 @@
                                     @endphp
                                     <label for="amount" style="font-size: 22px;">Amount:</label>
                                     <input type="number" name="withdraw_amount" style="width: 30%"/>
-                                    <input type="hidden" name="user_id" value="{{$user_id}}"/>
                                 </div>
                                 <div style="font-size: 15px;">
                                     <b>Note:</b> You can withdraw only when your balance is more than {{$minimum_withdrawal_amount}}USD.
