@@ -8,6 +8,7 @@
             <label for="balance" style="font-size: 20px;"><b>Balance:</b></label>
             <input type="text" class="text-right" name="balance" style="font-size: 20px; width: 7%; text-align: left;" value="{{$balance}}" readonly>
             <b style="font-size: 20px;">USD</b>
+            <button class="btn btn-primary">Withdraw</button>
         </div>
         <div class="row">
             <div class="col-12">
