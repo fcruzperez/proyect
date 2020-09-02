@@ -29,12 +29,12 @@
                                         $setting = $settings[count($settings) - 1];
                                         $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
                                     @endphp
-                                    <label for="amount" style="font-size: 22px;">Amount</label>
+                                    <label for="amount" style="font-size: 22px;">Amount:</label>
                                     <input type="number" name="withdraw_amount"/>
                                     <input type="hidden" name="user_id" value="{{$user_id}}"/>
                                 </div>
-                                <div style="font-size: 20px;">
-                                    <b>Note:</b> you can withdraw only when your balance is more than {{$minimum_withdrawal_amount}}.
+                                <div style="font-size: 15px;">
+                                    <b>Note:</b> You can withdraw only when your balance is more than {{$minimum_withdrawal_amount}}USD.
                                 </div>
                             </div>
 
