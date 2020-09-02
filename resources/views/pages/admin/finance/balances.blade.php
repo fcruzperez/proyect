@@ -33,7 +33,6 @@
                                     <div class="modal-dialog" role="document">
                                         <form method="post" action="{{route('admin.apply_withdraw')}}">
                                             @csrf
-                                            <input type="hidden" name="user_id" value="{{$user->id}}" />
 
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
@@ -43,6 +42,8 @@
                                                     <label for="amount" style="font-size: 22px;">Amount: </label>
                                                     <input type="number" name="withdraw_amount" style="width: 30%;"/>
                                                 </div>
+
+                                                <input type="hidden" name="user_id" value="{{$user->id}}" />
 
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">&nbsp;&nbsp; OK &nbsp;&nbsp;</button>
