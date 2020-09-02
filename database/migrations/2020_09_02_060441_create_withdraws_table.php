@@ -13,6 +13,7 @@ class CreateWithdrawsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('withdraws');
         Schema::create('withdraws', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
