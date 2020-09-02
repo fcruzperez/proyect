@@ -763,7 +763,46 @@ class ClientController extends Controller
         return view('pages.client.finance', $data);
     }
 
+    public function withdraw(Request $request) {
 
+        $inputs = $request->all();
+
+        $validator = Validator::make($inputs, [
+
+            'withdraw_amount' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $user_id = $inputs['user_id'];
+        $amount = $inputs['withdraw_amount'];
+        $user = User::find($user_id);
+        $name = $user['name'];
+
+        $msg = "ID {$user_id}, {$name} is requesting withdraw the amount {$amount}.";
+
+        $message = Message::create([
+            'user_id' => 1,
+            'request_id' => '',
+            'offer_id' => '',
+            'subject' => $msg,
+            'content' => $msg,
+            'action_url' => "/admin/balances",
+        ]);
+
+        $data = [
+            'user_id' => 1,
+            'action_url' => "/admin/balances",
+            'message' => $msg
+        ];
+
+        event(new AdminEvent($data));
+
+
+
+    }
 }
 
 

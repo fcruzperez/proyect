@@ -66,7 +66,8 @@ Route::middleware(['auth', 'role:admin'])
         //Finance
         Route::get('balances', 'AdminController@showBalances')->name('balances');
         Route::get('transactions', 'AdminController@showTransactions')->name('transactions');
-        Route::get('withdraws', 'AdminController@showWithdraws')->name('withdraws');
+        Route::post('withdraws', 'AdminController@showWithdraws')->name('withdraws');
+        Route::get('apply_withdraw', 'AdminController@applyWithdraw')->name('apply_withdraw');
 
 
 
@@ -116,6 +117,9 @@ Route::middleware(['auth', 'role:client'])
 
         // finance routes
         Route::get('finance-list', 'ClientController@financeList')->name('finance-list');
+        Route::post('withdraw', 'ClientController@withdraw')->name('withdraw');
+
+
 
 
 //        Route::get('payment', 'ClientController@deposit')->name('payment');

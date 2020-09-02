@@ -14,6 +14,7 @@
                             <th>Email Address</th>
                             <th>Paypal Address</th>
                             <th>Balance</th>
+                            <th>Withdraw</th>
                         </tr>
                     </thead>
 
@@ -25,6 +26,35 @@
                             <td> {{$user['email']}} </td>
                             <td> {{$user['paypal_email']}} </td>
                             <td> {{$user['balance']}} </td>
+                            <td>
+                                <button type="button" class="btn btn-info text-center" data-toggle="modal" data-target = "#withdraw_button">Withdraw</button>
+
+                                <div class="modal fade" id="withdraw_button" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <form method="post" action="{{route('admin.apply_withdraw')}}">
+                                            @csrf
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title text-center">Withdraw</h4>
+                                                </div>
+                                                <div class="modal-body text-left">
+                                                    <div>
+                                                        <label for="amount" style="font-size: 22px;">Amount</label>
+                                                        <input type="number" name="withdraw_amount"/>
+                                                        <input type="hidden" name="user_id" value="{{$user['id']}}"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">&nbsp;&nbsp; OK &nbsp;&nbsp;</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+
                         </tr>
                     @endforeach
                     </tbody>

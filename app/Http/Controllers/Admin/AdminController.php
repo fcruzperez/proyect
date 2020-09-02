@@ -605,4 +605,67 @@ class AdminController extends Controller
     public function showWithdraws(Request $request) {
 
     }
+
+    public function applyWithdraw(Request $request) {
+
+        $inputs = $request->all();
+
+        $validator = Validator::make($inputs, [
+            'withdraw_amount' => 'required|integer',
+        ]);
+
+        if($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $user_id = $inputs['user_id'];
+        $amount = $inputs['withdraw_amount'];
+        $user = User::find($user_id);
+        $user['balance'] -= $amount;
+
+        $msg = "Your {$amount}USD are withdrawed.";
+
+        if ($user['role'] === 'client') {
+
+            $message = Message::create([
+                'user_id' => $user_id,
+                'request_id' => '',
+                'offer_id' => '',
+                'subject' => $msg,
+                'content' => $msg,
+                'action_url' => "/client/finance-list",
+            ]);
+
+            $data = [
+                'user_id' => $user_id,
+                'action_url' => "/client/finance-list",
+                'message' => $msg
+            ];
+
+            event(new ClientEvent($data));
+        }
+
+        else {
+            $message = Message::create([
+                'user_id' => $user_id,
+                'request_id' => '',
+                'offer_id' => '',
+                'subject' => $msg,
+                'content' => $msg,
+                'action_url' => "/designer/finance-list",
+            ]);
+
+            $data = [
+                'user_id' => $user_id,
+                'action_url' => "/designer/finance-list",
+                'message' => $msg
+            ];
+
+            event(new DesignerEvent($data));
+
+        }
+
+
+
+    }
 }
