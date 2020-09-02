@@ -20,6 +20,9 @@
                 <div class="card" id="offerCard">
                     <div class="card-body">
                         <div class="row mb-3">
+                            @php
+                                dd(url($publish->image1), url($publish->image2));
+                            @endphp
                             <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
                                 @if(!is_null($publish->image1))
                                     <img src="{{url($publish->image1)}}" class="image-box">
