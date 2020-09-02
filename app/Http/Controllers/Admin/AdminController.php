@@ -17,6 +17,7 @@ use App\Models\Request as Publish;
 use App\Models\Technic;
 use App\Models\Format;
 use App\Models\Fabric;
+use App\Models\Withdraw;
 use App\Models\RequestFabric;
 use App\Models\RequestFormat;
 use App\Models\RequestTechnic;
@@ -604,6 +605,8 @@ class AdminController extends Controller
 
     public function showWithdraws(Request $request) {
 
+        $withdraws = Withdraw::get();
+        return view('pages.admin.finance.withdraws', ['withdraws' => $withdraws]);
     }
 
     public function applyWithdraw(Request $request) {
@@ -623,6 +626,13 @@ class AdminController extends Controller
         $user = User::find($user_id);
         $user['balance'] -= $amount;
         $user->save();
+
+        Withdraw::create([
+            'user_id' => $user_id,
+            'user_name' => $user['name'],
+            'amount' => $amount
+        ]);
+
 
         $msg = "Your {$amount}USD are withdrawed.";
 
