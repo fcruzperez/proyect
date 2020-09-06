@@ -89,13 +89,13 @@
                                                 </div>
                                                 @php
                                                      $str = '';
-                                                     for ($i = 0; $i < 10; $i++){
+                                                     for ($i = 0; $i < 20; $i++){
                                                          if (isset($publish->formats[$i]->name)) {
                                                              $str = $str . $publish->formats[$i]->name . ',';
                                                          }
                                                      }
                                                      $n = strlen($str);
-                                                     $str = substr($str, 0, $n - 1);
+                                                     $str = substr($str, 20, $n - 1);
                                                  //dd($str);
                                                 @endphp
                                                 <div>
@@ -105,7 +105,7 @@
 
                                                 @php
                                                     $str = '';
-                                                    for ($i = 0; $i < 10; $i++){
+                                                    for ($i = 0; $i < 20; $i++){
                                                         if (isset($publish->fabrics[$i]->name)) {
                                                             $str = $str . $publish->fabrics[$i]->name . ',';
                                                         }
@@ -118,7 +118,7 @@
                                                 </div>
                                                 @php
                                                     $str = '';
-                                                    for ($i = 0; $i < 10; $i++){
+                                                    for ($i = 0; $i < 20; $i++){
                                                         if (isset($publish->technics[$i]->name)) {
                                                             $str = $str . $publish->technics[$i]->name . ',';
                                                         }

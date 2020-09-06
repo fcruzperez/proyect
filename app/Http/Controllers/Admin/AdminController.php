@@ -620,6 +620,10 @@ class AdminController extends Controller
         $user_id = $inputs['user_id'];
         $amount = $inputs['withdraw_amount'];
         $user = User::find($user_id);
+        $balance = $user['balance'];
+        if ($balance < $amount) {
+            return back();
+        }
         $user['balance'] -= $amount;
         $user->save();
 
