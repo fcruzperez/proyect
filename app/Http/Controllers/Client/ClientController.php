@@ -741,8 +741,8 @@ class ClientController extends Controller
 
         $designerRate = DesignerRate::where('designer_id', $designer_id)->first();
         $rate = $designerRate['rate'];
-        if ($rate === 0.0) {
-            $designerRate['rate'] = 5.0;
+        if ($rate === 0) {
+            $designerRate['rate'] = 5;
         }
         else {
             $designerRate['rate'] = round(($rate + 5) / 2, 1);
