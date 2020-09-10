@@ -732,7 +732,7 @@ class ClientController extends Controller
                 'content' => "Your offer #{$offer->id} for {$publish->design_name} has been completed.",
                 'action_url' => "/designer/offer-detail/{$offer->id}",
             ]);
-
+            dd($offer['designer_id']); return;
             $payload = [
                 'user_id' => $offer['designer_id'],
                 'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
