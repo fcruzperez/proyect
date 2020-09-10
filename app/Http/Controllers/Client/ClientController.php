@@ -727,22 +727,22 @@ class ClientController extends Controller
             $msg = "Your offer for the design {$publish['design_name']} has been completed.";
 
             $message = Message::create([
-                'user_id' => $offer['designer_id'],
-                'offer_id' => $offer->id,
+                'user_id' => $designer_id,
+                'offer_id' => $offer_id,
                 'request_id' => $publish->id,
                 'subject' => $msg,
                 'content' => $msg,
-                'action_url' => "/designer/offer-detail/{$offer->id}",
+                'action_url' => "/designer/offer-detail/{$offer_id}",
             ]);
 
 
 
-            $payload = [
+            $data = [
                 'user_id' => $designer_id,
-                'action_url' => "/designer/offer-detail/{$offer->id}",
+                'action_url' => "/designer/offer-detail/{$offer_id}",
                 'message' => $msg
             ];
-            event(new DesignerEvent($payload));
+            event(new DesignerEvent($data));
 
         } catch (\Exception $e) {
             DB::rollBack();
