@@ -195,7 +195,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation', 'completed']))
+                        @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation']))
                         <div class="row">
                             <div class="col-12 my-3">
                                 <div class="card-subtitle">Delivered Files</div>
@@ -242,7 +242,7 @@
                                         <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
         {{--                                @endif--}}
         {{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
-                                        <a class="btn btn-success" onclick="return confirm('Really?')" href="{{url('client/complete-request/'.$publish->id)}}>Complete</a>
+                                        <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
                                     @else
                                         @php
                                             $msg = "Your design {$publish['design_name']} is completed because the claim time is passed.";
@@ -284,16 +284,12 @@
                                         </form>
                                     @endif
                                 @endif
+                                <div><b>Note:</b> You can request about the mediation or rejection within {{$claim_time}} hours.</div>
                             </div>
                         </div>
                         @endif
                     </div>
-                    @if(in_array($pstatus, ['delivered', 'in mediation']))
-                    <div class="card-footer">
-                        <b style="font-size: 20px; color: blue;">Note:</b> You can request about the mediation or rejection within {{$claim_time}} hours.
-
-                    </div>
-                    @endif
+                    <div></div>
                 </div>
                 @endif
             </div>
