@@ -7,6 +7,7 @@ use App\Events\ClientEvent;
 use App\Events\DesignerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
+use App\Models\DesignerRate;
 use App\Models\Mediate;
 use App\Models\Message;
 use App\Models\Offer;
@@ -61,6 +62,7 @@ class MediateController extends Controller
         $now = now();
 
         $offer = $mediate->offer;
+        $designer_id = $offer['designer_id'];
 
         $top_id = \App\Models\Settings::count();
         $settings = \App\Models\Settings::limit($top_id)->get();
@@ -77,6 +79,16 @@ class MediateController extends Controller
         $request->status = 'completed';
         $request->completed_at = $now;
         $request->save();
+
+        $designerRate = DesignerRate::where('designer_id', $designer_id)->first();
+        $rate = $designerRate['rate'];
+        if (abs($rate) < 0.001) {
+            $designerRate['rate'] = 4.5;
+        }
+        else {
+            $designerRate['rate'] = round(($rate + 4.5) / 2, 1);
+        }
+        $designerRate->save();
 
         //Add balance
         $designer_id = $offer['designer_id'];
