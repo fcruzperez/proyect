@@ -740,12 +740,12 @@ class ClientController extends Controller
 
 
         $designerRate = DesignerRate::where('designer_id', $designer_id)->get();
-        $rate = $designerRate['rate'];
+        $rate = $designerRate->rate;
         if ($rate === 0) {
-            $designerRate['rate'] = 5;
+            $designerRate->rate = 5;
         }
         else {
-            $designerRate['rate'] = ($rate + 5) / 2;
+            $designerRate->rate = ($rate + 5) / 2;
         }
         $designerRate->save();
 
@@ -767,7 +767,7 @@ class ClientController extends Controller
 //        }
 //        DB::commit();
 
-        return back()->with(['complete_success' => 'ok']);
+        return back();
     }
 
     public function financeList(Request $request)
