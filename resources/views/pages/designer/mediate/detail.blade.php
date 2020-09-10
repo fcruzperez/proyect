@@ -57,7 +57,13 @@
                         </div>
                     </div>
                 </div>
-                @if($offer['status'] === 'mediated' && $mediate['status'] === 'issued')
+                @php
+                    $now = now();
+                    $pp = new DateTime($mediate->created_at);
+                    $diff = $now->diff($pp);
+                    $h = $diff->days * 24 + $diff->h;
+                @endphp
+                @if($offer['status'] === 'mediated' && $mediate['status'] === 'issued' && $h > $correction_time)
                     <div class="card mt-5" id="deliveryCard">
                         <div class="card-header text-center" style="font-size: 25px">Delivery  Correction</div>
                         <div class="card-body">
