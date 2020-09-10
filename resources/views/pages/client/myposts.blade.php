@@ -235,7 +235,7 @@
                                                                 <td style="text-align: center">{{intval($offer->price + $client_fee)}}</td>
                                                                 <td style="text-align: center">{{$offer->hours + $delta_time}}</td>
                                                                 <td>
-                                                                    <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
+                                                                    <div class="rating" data-rate-value = {{$offer->designer->rates}}></div>
                                                                 </td>
                                                                 <td>
                                                                     @if($publish->status === 'published')
