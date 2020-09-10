@@ -195,7 +195,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation']))
+                        @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation', 'completed']))
                         <div class="row">
                             <div class="col-12 my-3">
                                 <div class="card-subtitle">Delivered Files</div>
@@ -284,12 +284,15 @@
                                         </form>
                                     @endif
                                 @endif
-                                <div><b>Note:</b> You can request about the mediation or rejection within {{$claim_time}} hours.</div>
                             </div>
                         </div>
                         @endif
                     </div>
-                    <div></div>
+                    @if(in_array($pstatus, ['delivered', 'in mediation']))
+                    <div class="card-footer">
+                        <b>Note:</b> You can request about the mediation or rejection within {{$claim_time}} hours.
+                    </div>
+                    @endif
                 </div>
                 @endif
             </div>
