@@ -687,84 +687,85 @@ class ClientController extends Controller
 
     public function completeRequest(Request $request, $id)
     {
-        DB::beginTransaction();
+//        DB::beginTransaction();
 
-        try {
-            $publish = Publish::find($id);
+//        try {
+        $publish = Publish::find($id);
 
-            $now = now();
-            $publish->status = 'completed';
-            $publish->completed_at = $now;
-            $publish->save();
+        $now = now();
+        $publish->status = 'completed';
+        $publish->completed_at = $now;
+        $publish->save();
 
-            $top_id = \App\Models\Settings::count();
-            $settings = \App\Models\Settings::limit($top_id)->get();
-            $setting = $settings[count($settings) - 1];
-            $designer_fee = $setting['designer_fee'];
+        $top_id = \App\Models\Settings::count();
+        $settings = \App\Models\Settings::limit($top_id)->get();
+        $setting = $settings[count($settings) - 1];
+        $designer_fee = $setting['designer_fee'];
 
-            $offer = Offer::find($publish->accepted_offer_id);
+        $offer = Offer::find($publish->accepted_offer_id);
 
-            $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 2));
+        $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 2));
 //            dd($offer['price'], $paid); return;
 
-            $offer_id = $offer['id'];
-            $offer->status = 'completed';
-            $offer->completed_at = $now;
-            $offer->paid = $paid;
-            $offer->save();
+        $offer_id = $offer['id'];
+        $offer->status = 'completed';
+        $offer->completed_at = $now;
+        $offer->paid = $paid;
+        $offer->save();
 
 
-            //Add balance
-            $designer_id = $offer['designer_id'];
-            $designer = User::find($designer_id);
+        //Add balance
+        $designer_id = $offer['designer_id'];
+        $designer = User::find($designer_id);
+        $designer['balance'] += $paid;
+        $designer->save();
 
-            $msg = "Your offer for the design {$publish['design_name']} has been completed.";
-            $message = Message::create([
-                'user_id' => $designer_id,
-                'request_id' => $publish->id,
-                'offer_id' => $offer_id,
-                'subject' => $msg,
-                'content' => $msg,
-                'action_url' => "/designer/home",
-            ]);
+        $msg = "Your offer for the design {$publish['design_name']} has been completed.";
+        $message = Message::create([
+            'user_id' => $designer_id,
+            'request_id' => $publish->id,
+            'offer_id' => $offer_id,
+            'subject' => $msg,
+            'content' => $msg,
+            'action_url' => "/designer/home",
+        ]);
 
-            $data = [
-                'user_id' => $designer_id,
-                'action_url' => "/designer/home",
-                'message' => $msg
-            ];
-            event(new DesignerEvent($data));
-
-
-
-            $designerRate = DesignerRate::where('designer_id', $designer_id)->get();
-            $rate = $designerRate['rate'];
-            if ($rate === 0) {
-                $designerRate['rate'] = 5;
-            }
-            else {
-                $designerRate['rate'] = ($rate + 5) / 2;
-            }
-            $designerRate->save();
-
-            $designer['balance'] += $paid;
-            $designer->save();
-
-
-            $mediate = Mediate::where('offer_id', $offer_id)->get();
-            if (isset($mediate)) {
-                $mediate['status'] = 'completed';
-                $mediate->save();
-            }
+        $data = [
+            'user_id' => $designer_id,
+            'action_url' => "/designer/home",
+            'message' => $msg
+        ];
+        event(new DesignerEvent($data));
 
 
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            logger()->error($e->getMessage());
-            return back()->withErrors(['complete error' => $e->getMessage()]);
+        $designerRate = DesignerRate::where('designer_id', $designer_id)->get();
+        $rate = $designerRate['rate'];
+        if ($rate === 0) {
+            $designerRate['rate'] = 5;
         }
-        DB::commit();
+        else {
+            $designerRate['rate'] = ($rate + 5) / 2;
+        }
+        $designerRate->save();
+
+
+
+
+        $mediate = Mediate::where('offer_id', $offer_id)->get();
+        if (isset($mediate)) {
+            $mediate['status'] = 'completed';
+            $mediate->save();
+        }
+
+
+//
+//        } catch (\Exception $e) {
+//            DB::rollBack();
+//            logger()->error($e->getMessage());
+//            return back()->withErrors(['complete error' => $e->getMessage()]);
+//        }
+//        DB::commit();
 
         return back()->with(['complete_success' => 'ok']);
     }
