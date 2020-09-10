@@ -274,7 +274,6 @@
                                     @endphp
                                     @if ($mediate['status'] === 'issued')
 {{--                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
-                                        <a class="btn btn-success" onclick="return confirm('Really?')" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
 
                                         <form action="{{route('client.mediate.rejection')}}" method="post">
                                             @csrf
@@ -284,6 +283,8 @@
 
                                             <button type="submit" class="btn btn-danger" style="float: right;" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
                                         </form>
+                                        <a class="btn btn-success" style="float: right; margin-left: 7px;" onclick="return confirm('Really?')" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
+
                                     @endif
                                 @endif
                             </div>
