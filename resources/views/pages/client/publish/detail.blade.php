@@ -195,7 +195,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if(in_array($pstatus, ['accepted', 'undelivered', 'delivered', 'in mediation', 'completed']))
+                        @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation']))
                         <div class="row">
                             <div class="col-12 my-3">
                                 <div class="card-subtitle">Delivered Files</div>
@@ -234,6 +234,8 @@
                                         $setting = $settings[count($settings) - 1];
                                         $claim_time = $setting['claim_time'];
                                     }
+
+
                                 @endphp
                                 @if($pstatus === 'delivered')
                                     @if($hour < $claim_time)
@@ -243,13 +245,21 @@
                                         <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
                                     @else
                                         @php
-                                            $now = now();
-                                            $publish->completed_at = $now;
-                                            $publish->status = 'completed';
-                                            $publish->save();
-                                            $offer->completed_at = $now;
-                                            $offer->status = 'completed';
-                                            $offer->save();
+                                            $msg = "Your design {$publish['design_name']} is completed because the claim time is passed.";
+
+                                            $message = \App\Models\Message::create([
+                                                'user_id' => $publish['client_id'],
+                                                'subject' => $msg,
+                                                'content' => $msg,
+                                                'action_url' => "client/complete-request/'.$publish->id",
+                                            ]);
+
+                                            $data = [
+                                                'user_id' => $publish['client_id'],
+                                                'action_url' => "client/complete-request/'.$publish->id",
+                                                'message' => $msg
+                                            ];
+                                            event(new \App\Events\ClientEvent($data));
 
 
                                         @endphp
@@ -278,6 +288,12 @@
                         </div>
                         @endif
                     </div>
+                    @if(in_array($pstatus, ['delivered', 'in mediation']))
+                    <div class="card-footer">
+                        <b style="font-size: 20px; color: blue;">Note:</b> You can request about the mediation or rejection within {{$claim_time}} hours.
+
+                    </div>
+                    @endif
                 </div>
                 @endif
             </div>

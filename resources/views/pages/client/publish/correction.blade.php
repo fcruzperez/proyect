@@ -162,7 +162,7 @@
 
                 </div>
 
-                @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation', 'canceled', 'completed']))
+                @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation']))
                 <div class="card mt-5" id="deliveryCard">
                     <div class="card-header">
                         <div class="card-title">Accepted Offer</div>
@@ -218,7 +218,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                @if($pstatus === 'mediated')
+                                @if($pstatus === 'in mediation')
                                     <a class="btn btn-success" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
                                 @endif
                             </div>

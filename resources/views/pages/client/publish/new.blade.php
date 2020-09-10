@@ -214,9 +214,10 @@
                            class="col-md-4 col-form-label text-md-right">{{ __('Additional Details:') }}</label>
 
                     <div class="col-md-6">
-                        <textarea id="description" name="description" rows="5" cols="50" autofocus
+                        <textarea id="description" name="description" rows="5" cols="50" autofocus content="{{old('description')}}"
                                   placeholder="Description"></textarea>
                     </div>
+
                 </div>
 
                 <div class="form-group row">

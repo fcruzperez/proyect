@@ -26,4 +26,5 @@ class Mediate extends Model
         }
         return $label;
     }
+
 }

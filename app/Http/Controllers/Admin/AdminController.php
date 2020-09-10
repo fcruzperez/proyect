@@ -424,6 +424,13 @@ class AdminController extends Controller
 
         $price = $offer_price + $client_fee;
 
+        $designer_id = $offer['designer_id'];
+        $designerRate = DesignerRate::find('designer_id', $designer_id);
+        $rate = $designerRate['rate'];
+        $rate = 0.8 * $rate;
+        $designerRate['rate'] = $rate;
+        $designerRate->save();
+
         $now = now();
         $publish['refund'] = $price;
         $publish['completed_at'] = $now;
@@ -622,6 +629,8 @@ class AdminController extends Controller
         $user = User::find($user_id);
         $balance = $user['balance'];
         if ($balance < $amount) {
+            $message = "We can't withdraw";
+            echo "<script type='text/javascript'>alert('$message');</script>";
             return back();
         }
         $user['balance'] -= $amount;

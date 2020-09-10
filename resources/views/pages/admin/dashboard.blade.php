@@ -22,23 +22,6 @@
 
                     <tbody>
                     @foreach($publishes as $publish)
-                        @php
-                            $now = new DateTime();
-                            $pp = new DateTime($publish->created_at);
-                            $diff = $now->diff($pp);
-                            $hour = $diff->days * 24 + $diff->h;
-                            $min = $diff->i;
-
-
-                            $top_id = \App\Models\Settings::count();
-                            if ($top_id <> 0) {
-                                $settings = \App\Models\Settings::limit($top_id)->get();
-                                $setting = $settings[count($settings) - 1];
-                                $expiration_time = $setting['expiration_time'];
-                            }
-
-                        @endphp
-                        @if ($publish->status <> 'published' || $hour < $expiration_time)
                         <tr>
                             @php
                                 $client_id = $publish['client_id'];
@@ -89,13 +72,18 @@
                                                 </div>
                                                 @php
                                                      $str = '';
-                                                     for ($i = 0; $i < 20; $i++){
+                                                     $len1 = count($publish->formats);
+                                                     $len2 = count($publish->fabrics);
+                                                     $len3 = count($publish->technics);
+
+                                                     for ($i = 0; $i < $len1; $i++){
                                                          if (isset($publish->formats[$i]->name)) {
                                                              $str = $str . $publish->formats[$i]->name . ',';
                                                          }
                                                      }
                                                      $n = strlen($str);
-                                                     $str = substr($str, 20, $n - 1);
+                                                     $str = substr($str, 0, $n - 1);
+
                                                  //dd($str);
                                                 @endphp
                                                 <div>
@@ -105,7 +93,7 @@
 
                                                 @php
                                                     $str = '';
-                                                    for ($i = 0; $i < 20; $i++){
+                                                    for ($i = 0; $i < $len2; $i++){
                                                         if (isset($publish->fabrics[$i]->name)) {
                                                             $str = $str . $publish->fabrics[$i]->name . ',';
                                                         }
@@ -118,7 +106,7 @@
                                                 </div>
                                                 @php
                                                     $str = '';
-                                                    for ($i = 0; $i < 20; $i++){
+                                                    for ($i = 0; $i < $len3; $i++){
                                                         if (isset($publish->technics[$i]->name)) {
                                                             $str = $str . $publish->technics[$i]->name . ',';
                                                         }
@@ -171,7 +159,6 @@
                             <td>{{$publish['deposit']}}</td>
                             <td>{{count($publish->offers)}}</td>
                         </tr>
-                        @endif
                     @endforeach
                     </tbody>
                 </table>

@@ -221,6 +221,7 @@ class DesignerController extends Controller
     }
 
     public function deliveryUpload(Request $request) {
+
         $input = $request->all();
 
         $validator = Validator::make($input, [
@@ -255,9 +256,7 @@ class DesignerController extends Controller
                 $publish->status = 'delivered';
                 $publish->delivered_at = $now;
                 $publish->save();
-            }
 
-            if ($publish->status <> 'in mediation') {
                 $offer->status = 'delivered';
                 $offer->delivered_at = $now;
                 $offer->save();

@@ -70,7 +70,8 @@
 
                                     event(new \App\Events\AdminEvent($data1));
 
-                                    $msg2 = "You haven't delivered design {$publish->design_name} within your deadline";
+
+                                    $msg2 = "You haven't delivered design {$publish->design_name} within your deadline. Your score will be decreased.";
 
                                     $message = \App\Models\Message::create([
                                         'user_id' => $designer_id,

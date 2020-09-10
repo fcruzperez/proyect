@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
+        <div class="text-center" style="font-size: 30px;">Balances</div>
         <div class="row">
             <div class="col-12">
                 <table id="balances_table" class="table table-striped table-bordered text-center">
