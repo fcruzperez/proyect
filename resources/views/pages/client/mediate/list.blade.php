@@ -53,10 +53,16 @@
                             $time = $offer['hours'] + $delta_time;
                             $price = $offer['price'] + $client_fee;
 
-                            if ($mediate['status'] === 'issued' && $h < $correction_time) {
+                            if ($mediate['status'] === 'issued' && $h >= $correction_time) {
 
                                 $mediate['status'] = 'completed';
                                 $mediate->save();
+
+                                $publish['status'] = 'completed';
+                                $publish->save();
+
+                                $offer['status'] = 'completed';
+                                $offer->save();
 
                                 $msg1 = "Designer {$designer_name} hasn't sent the correction about the {$publish->design_name} of Client {$client_name}.";
 
