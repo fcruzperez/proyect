@@ -715,17 +715,8 @@ class ClientController extends Controller
             //Add balance
             $designer_id = $offer['designer_id'];
             $designer = User::find($designer_id);
-            $designer['balance'] += $paid;
-            $designer->save();
-
-            $mediate = Mediate::where('offer_id', $offer_id)->get();
-            if (isset($mediate)) {
-                $mediate['status'] = 'completed';
-                $mediate->save();
-            }
 
             $msg = "Your offer for the design {$publish['design_name']} has been completed.";
-            dd($msg); return;
             $message = Message::create([
                 'user_id' => $designer_id,
                 'request_id' => $publish->id,
@@ -741,6 +732,17 @@ class ClientController extends Controller
                 'message' => $msg
             ];
             event(new DesignerEvent($data));
+
+            $designer['balance'] += $paid;
+            $designer->save();
+
+            $mediate = Mediate::where('offer_id', $offer_id)->get();
+            if (isset($mediate)) {
+                $mediate['status'] = 'completed';
+                $mediate->save();
+            }
+
+
 
         } catch (\Exception $e) {
             DB::rollBack();
