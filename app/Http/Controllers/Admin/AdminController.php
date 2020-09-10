@@ -425,9 +425,14 @@ class AdminController extends Controller
         $price = $offer_price + $client_fee;
 
         $designer_id = $offer['designer_id'];
-        $designerRate = DesignerRate::find('designer_id', $designer_id);
+        $designerRate = DesignerRate::where('designer_id', $designer_id)->first();
         $rate = $designerRate['rate'];
-        $rate = 0.8 * $rate;
+        if ($publish['status'] === 'undelivered') {
+            $rate = 0.8 * $rate;
+        }
+        else {
+            $rate = 0.9 * $rate;
+        }
         $designerRate['rate'] = round($rate,1);
         $designerRate->save();
 
