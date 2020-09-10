@@ -739,7 +739,7 @@ class ClientController extends Controller
 
 
 
-        $designerRate = DesignerRate::where('designer_id', $designer_id)->get();
+        $designerRate = DesignerRate::where('designer_id', $designer_id)->first();
         $rate = $designerRate['rate'];
         if (abs($rate) < 0.001) {
             $designerRate['rate'] = 5;
@@ -748,6 +748,7 @@ class ClientController extends Controller
             $designerRate['rate'] = round(($rate + 5) / 2, 1);
         }
         $designerRate->save();
+        dd($designerRate); return;
 
 
         $mediate = Mediate::where('offer_id', $offer_id)->get();
