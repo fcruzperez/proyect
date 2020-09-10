@@ -741,10 +741,10 @@ class ClientController extends Controller
             $designerRate = DesignerRate::where('designer_id', $designer_id)->get();
             $rate = $designerRate['rate'];
             if ($rate === 0) {
-                $rate = 5;
+                $designerRate['rate'] = 5;
             }
             else {
-                $rate = ($rate + 5) / 2;
+                $designerRate['rate'] = ($rate + 5) / 2;
             }
             $designerRate->save();
 
