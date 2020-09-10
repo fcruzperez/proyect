@@ -88,7 +88,7 @@
                                     event(new \App\Events\DesignerEvent($data2));
 
 
-                                    $msg3 = "Designer haven't delivered your design {$publish->design_name} within the deadline, you will have a refund soon.";
+                                    $msg3 = "Designer hasn't delivered your design {$publish->design_name} within the deadline, you will have a refund soon.";
 
                                     $message = \App\Models\Message::create([
                                         'user_id' => $client_id,

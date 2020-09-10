@@ -233,6 +233,7 @@
                                         $settings = \App\Models\Settings::limit($top_id)->get();
                                         $setting = $settings[count($settings) - 1];
                                         $claim_time = $setting['claim_time'];
+                                        $correction_time = $setting['correction_time'];
                                     }
 
 
@@ -290,7 +291,8 @@
                     </div>
                     @if(in_array($pstatus, ['delivered', 'in mediation']))
                     <div class="card-footer">
-                        <b>Note:</b> You can request about the mediation or rejection within {{$claim_time}} hours.
+                        <b>Note:</b> You can make mediation  within {{$claim_time}} hours. Then, designer will send you the correction within {{$correction_time}} hours.
+                                     If the correction is not also in your mind, you can reject this. At this time, you must wait for the result of the Support.
                     </div>
                     @endif
                 </div>
