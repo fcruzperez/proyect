@@ -725,7 +725,7 @@ class ClientController extends Controller
             }
 
             $msg = "Your offer for the design {$publish['design_name']} has been completed.";
-
+            dd($msg); return;
             $message = Message::create([
                 'user_id' => $designer_id,
                 'request_id' => $publish->id,
