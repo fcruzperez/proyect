@@ -728,14 +728,12 @@ class ClientController extends Controller
 
             $message = Message::create([
                 'user_id' => $designer_id,
-                'offer_id' => $offer_id,
                 'request_id' => $publish->id,
+                'offer_id' => $offer_id,
                 'subject' => $msg,
                 'content' => $msg,
                 'action_url' => "/designer/offer-detail/{$offer_id}",
             ]);
-
-
 
             $data = [
                 'user_id' => $designer_id,
