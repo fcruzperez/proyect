@@ -7,6 +7,7 @@ use App\Events\ClientEvent;
 use App\Events\DesignerEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Delivery;
+use App\Models\DesignerRate;
 use App\Models\Mediate;
 use App\Models\Message;
 use App\Models\Offer;
@@ -712,6 +713,7 @@ class ClientController extends Controller
             $offer->paid = $paid;
             $offer->save();
 
+
             //Add balance
             $designer_id = $offer['designer_id'];
             $designer = User::find($designer_id);
@@ -723,18 +725,29 @@ class ClientController extends Controller
                 'offer_id' => $offer_id,
                 'subject' => $msg,
                 'content' => $msg,
-                'action_url' => "/designer/offer-detail/{$offer_id}",
+                'action_url' => "/designer/home",
             ]);
 
             $data = [
                 'user_id' => $designer_id,
-                'action_url' => "/designer/offer-detail/{$offer_id}",
+                'action_url' => "/designer/home",
                 'message' => $msg
             ];
             event(new DesignerEvent($data));
 
             $designer['balance'] += $paid;
             $designer->save();
+
+            $designerRate = DesignerRate::where('designer_id', $designer_id)->get();
+            $rate = $designerRate['rate'];
+            if ($rate === 0) {
+                $rate = 5;
+            }
+            else {
+                $rate = ($rate + 5) / 2;
+            }
+            $designerRate->save();
+
 
             $mediate = Mediate::where('offer_id', $offer_id)->get();
             if (isset($mediate)) {
