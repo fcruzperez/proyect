@@ -739,7 +739,7 @@ class ClientController extends Controller
 
 
 
-        $designerRate = DesignerRate::where('designer_id', $designer_id)->first();
+        $designerRate = DesignerRate::where('designer_id', $designer_id)->get()[0];
         $rate = $designerRate['rate'];
         if ($rate === 0.0) {
             $designerRate['rate'] = 5.0;
