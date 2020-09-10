@@ -746,6 +746,7 @@ class ClientController extends Controller
             else {
                 $designerRate['rate'] = ($rate + 5) / 2;
             }
+            dd($designerRate['rate']); return;
             $designerRate->save();
 
 
