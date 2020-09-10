@@ -724,19 +724,23 @@ class ClientController extends Controller
                 $mediate->save();
             }
 
+            $msg = "Your offer for the design {$publish['design_name']} has been completed.";
+
             $message = Message::create([
                 'user_id' => $offer['designer_id'],
                 'offer_id' => $offer->id,
                 'request_id' => $publish->id,
-                'subject' => 'Your offer has been completed!',
-                'content' => "Your offer #{$offer->id} for {$publish->design_name} has been completed.",
+                'subject' => $msg,
+                'content' => $msg,
                 'action_url' => "/designer/offer-detail/{$offer->id}",
             ]);
-            dd($offer['designer_id']); return;
+
+
+
             $payload = [
-                'user_id' => $offer['designer_id'],
-                'action_url' => "/designer/offer-detail/{$offer->id}?message_id={$message->id}",
-                'message' => 'Your offer has been completed!'
+                'user_id' => $designer_id,
+                'action_url' => "/designer/offer-detail/{$offer->id}",
+                'message' => $msg
             ];
             event(new DesignerEvent($payload));
 
