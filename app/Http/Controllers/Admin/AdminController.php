@@ -428,7 +428,7 @@ class AdminController extends Controller
         $designerRate = DesignerRate::find('designer_id', $designer_id);
         $rate = $designerRate['rate'];
         $rate = 0.8 * $rate;
-        $designerRate['rate'] = $rate;
+        $designerRate['rate'] = round($rate,1);
         $designerRate->save();
 
         $now = now();
