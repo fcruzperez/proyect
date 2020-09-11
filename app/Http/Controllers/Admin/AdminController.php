@@ -631,6 +631,18 @@ class AdminController extends Controller
 
         $user_id = $inputs['user_id'];
         $amount = $inputs['withdraw_amount'];
+
+        $top_id = Settings::count();
+        $settings = Settings::limit($top_id)->get();
+        $setting = $settings[count($settings) - 1];
+        $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
+
+        if ($amount < $minimum_withdrawal_amount) {
+            $message = "Please see Note again!";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            return back();
+        }
+
         $user = User::find($user_id);
         $balance = $user['balance'];
         if ($balance < $amount) {
@@ -638,6 +650,7 @@ class AdminController extends Controller
             echo "<script type='text/javascript'>alert('$message');</script>";
             return back();
         }
+
         $user['balance'] -= $amount;
         $user->save();
 
