@@ -645,6 +645,7 @@ class AdminController extends Controller
 
         $user = User::find($user_id);
         $balance = $user['balance'];
+
         if ($balance < $amount) {
             $message = "We can't withdraw";
             echo "<script type='text/javascript'>alert('$message');</script>";

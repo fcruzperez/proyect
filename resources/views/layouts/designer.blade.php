@@ -67,8 +67,19 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('designer.mediate.list')}}">Mediation</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('designer/finance-list')}}">Finances</a>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                                    Finances
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{url("designer/finance-list")}}">
+                                        Transactions
+                                    </a>
+                                    <a class="dropdown-item" href="{{url("designer/withdraw-list")}}">
+                                        Withdraws
+                                    </a>
+                                </div>
                             </li>
 {{--                            <li class="nav-item">--}}
 {{--                                <a class="nav-link" href="{{route('designer.finance.list')}}">Finances</a>--}}

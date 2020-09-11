@@ -10,6 +10,7 @@ use App\Models\Mediate;
 use App\Models\Message;
 use App\Models\Settings;
 use App\Models\User;
+use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
 use App\Models\Technic;
@@ -165,7 +166,8 @@ class DesignerController extends Controller
 
     }
 
-    public function cancelBid($rid) {
+    public function cancelBid($rid)
+    {
 
         $designer_id = Auth::user()->id;
         Offer::where('request_id', $rid)->where('designer_id', $designer_id)->delete();
@@ -173,11 +175,12 @@ class DesignerController extends Controller
 
     }
 
-    public function offerDetail(Request $request, $id) {
+    public function offerDetail(Request $request, $id)
+    {
         $offer = Offer::find($id);
         $publish = $offer->request;
 
-        if($request->has('message_id')) {
+        if ($request->has('message_id')) {
             $message = Message::find($request->get('message_id'));
             $message->status = 'read';
             $message->save();
@@ -186,19 +189,20 @@ class DesignerController extends Controller
         return view('pages.designer.offer_detail', ['publish' => $publish, 'offer' => $offer]);
     }
 
-    public function downloadImage($file) {
+    public function downloadImage($file)
+    {
         if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
             if (file_exists('laravel/storage/app/public/images/' . $file))
                 return response()->download('laravel/storage/app/public/images/' . $file);
-        }
-        else {
-            if(Storage::exists('public/images/'.$file))
-                return Storage::download('public/images/'.$file);
+        } else {
+            if (Storage::exists('public/images/' . $file))
+                return Storage::download('public/images/' . $file);
         }
         return response('', 404);
     }
 
-    public function downloadErrors(Request $request, $id){
+    public function downloadErrors(Request $request, $id)
+    {
 
         $mediate = Mediate::find($id);
         $file = $mediate['error_images'];
@@ -206,21 +210,20 @@ class DesignerController extends Controller
         if (strtoupper(substr(PHP_OS, 0, 3)) <> 'WIN') {
             if (file_exists($file)) {
                 return response()->download($file);
-            }
-            else {
+            } else {
                 echo "No exist error images !";
             }
-        }
-        else {
-            if(Storage::exists($file)) {
+        } else {
+            if (Storage::exists($file)) {
                 return Storage::download($file);
             }
         }
-        return redirect()->to('/designer/mediate-detail/'.$id);
+        return redirect()->to('/designer/mediate-detail/' . $id);
 
     }
 
-    public function deliveryUpload(Request $request) {
+    public function deliveryUpload(Request $request)
+    {
 
         $input = $request->all();
 
@@ -229,7 +232,7 @@ class DesignerController extends Controller
             'delivery_files' => 'required'
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         }
 
@@ -265,8 +268,7 @@ class DesignerController extends Controller
             // send notification to client
             if ($publish->status <> 'in mediation') {
                 $msg = "Your {$publish->design_name} design is finished.";
-            }
-            else {
+            } else {
                 $msg = "Your {$publish->design_name} design is redelivered.";
             }
 
@@ -297,7 +299,8 @@ class DesignerController extends Controller
     }
 
 
-    function financeList(Request $request) {
+    function financeList(Request $request)
+    {
 
         $user_id = Auth::id();
         $user = User::find($user_id);
@@ -310,7 +313,8 @@ class DesignerController extends Controller
         return view('pages.designer.finance', $data);
     }
 
-    public function withdraw(Request $request) {
+    public function withdraw(Request $request)
+    {
 
         $inputs = $request->all();
 
@@ -322,7 +326,6 @@ class DesignerController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
 
 
         $user_id = Auth::id();
@@ -361,6 +364,15 @@ class DesignerController extends Controller
 
         return back()->with(['success' => 'OK']);
     }
+
+    public function withdrawList(Request $request) {
+
+        $user_id = Auth::id();
+        $withdraws = Withdraw::where('user_id', $user_id)->get();
+        return view('pages.designer.withdraws', ['withdraws' => $withdraws]);
+    }
+
+}
 
 
 //    public function redeliveryUpload(Request $request) {
@@ -428,4 +440,4 @@ class DesignerController extends Controller
 //
 //        return back()->with(['success' => 'OK']);
 //    }
-}
+

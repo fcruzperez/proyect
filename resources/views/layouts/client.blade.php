@@ -60,8 +60,18 @@
                                 <a class="nav-link" href="{{route('client.mediate.list')}}">Mediation</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('client/finance-list')}}">Finances</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                                    Finances
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{url("client/finance-list")}}">
+                                        Transactions
+                                    </a>
+                                    <a class="dropdown-item" href="{{url("client/withdraw-list")}}">
+                                        Withdraws
+                                    </a>
+                                </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <?php

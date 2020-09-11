@@ -119,6 +119,8 @@ Route::middleware(['auth', 'role:client'])
         // finance routes
         Route::get('finance-list', 'ClientController@financeList')->name('finance-list');
         Route::post('withdraw', 'ClientController@withdraw')->name('withdraw');
+        Route::get('withdraw-list', 'ClientController@withdrawList')->name('withdraw-list');
+
 
 
 
@@ -163,6 +165,8 @@ Route::middleware(['auth', 'role:designer'])
         // Finance
         Route::get('finance-list', 'DesignerController@financeList')->name('finance-list');
         Route::post('withdraw', 'DesignerController@withdraw')->name('withdraw');
+        Route::get('withdraw-list', 'DesignerController@withdrawList')->name('withdraw-list');
+
 
 
     });
