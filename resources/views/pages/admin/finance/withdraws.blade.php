@@ -14,7 +14,7 @@
                             <th>Time</th>
                             <th>User_Id</th>
                             <th>User Name</th>
-                            <th>Amount</th>
+                            <th>Amount(USD)</th>
                         </tr>
                     </thead>
 

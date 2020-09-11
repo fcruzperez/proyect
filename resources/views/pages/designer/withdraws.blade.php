@@ -12,7 +12,7 @@
                     <thead>
                     <tr>
                         <th>Time</th>
-                        <th>Amount</th>
+                        <th>Amount(USD)</th>
                     </tr>
                     </thead>
 
