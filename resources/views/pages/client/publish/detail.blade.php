@@ -195,7 +195,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if(in_array($pstatus, ['accepted', 'delivered', 'in mediation', 'completed']))
+                        @if(in_array($pstatus, ['delivered', 'in mediation', 'completed']))
                         <div class="row">
                             <div class="col-12 my-3">
                                 <div class="card-subtitle">Delivered Files</div>

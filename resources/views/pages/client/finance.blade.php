@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container" style="font-family: Arial, Helvetica, sans-serif">
-        <h3 class="text-center"><b>Transactions</b></h3>
+        <h3 class="text-center">Transactions</h3>
         <div style="margin-bottom: 10px;">
             <label for="balance" style="font-size: 20px;"><b>Balance:</b></label>
             <input type="text" class="text-right" name="balance" style="font-size: 20px; width: 7%; text-align: left;" value="{{$balance}}" readonly>
