@@ -252,12 +252,13 @@
                                                 'user_id' => $publish['client_id'],
                                                 'subject' => $msg,
                                                 'content' => $msg,
-                                                'action_url' => "/client/complete-request/'.$publish->id",
+                                                'action_url' => "/client/complete-request/{$publish->id}",
+
                                             ]);
 
                                             $data = [
                                                 'user_id' => $publish['client_id'],
-                                                'action_url' => "/client/complete-request/'.$publish->id",
+                                                'action_url' => "/client/complete-request/{$publish->id}",
                                                 'message' => $msg
                                             ];
                                             event(new \App\Events\ClientEvent($data));
