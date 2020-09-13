@@ -243,7 +243,7 @@
                                         <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
         {{--                                @endif--}}
         {{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
-                                        <a class="btn btn-success" onclick="return confirm('really?')" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
+                                        <a class="btn btn-success" onclick="return confirm('Really?')" href="{{url('client/complete-request/'.$publish->id)}}">Complete</a>
                                     @else
                                         @php
                                             $msg = "Your design {$publish['design_name']} is completed because the claim time is passed.";
