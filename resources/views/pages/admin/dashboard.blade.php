@@ -15,7 +15,6 @@
                         <th>Time Left</th>
                         <th>Details</th>
                         <th>Status</th>
-                        <th>Payment</th>
                         <th>Offers</th>
                     </tr>
                     </thead>
@@ -156,8 +155,72 @@
                                 </div>
                             </td>
                             <td>{{$publish['status']}}</td>
-                            <td>{{$publish['deposit']}}</td>
-                            <td>{{count($publish->offers)}}</td>
+                            <td>
+                                @php
+                                    $offer_count = count($publish->offers);
+
+                                @endphp
+                                {{$offer_count}}&nbsp;
+                                @if($offer_count > 0)
+                                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#ttt{{$publish->id}}">Offers</button>
+                                    <div class="modal fade" id="ttt{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-center">
+                                                    <h4 class="modal-title text-center"><b>Offers</b></h4>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <table class="text-center">
+                                                        <thead>
+                                                            <tr style="font-weight: bold;">
+                                                                <td>Designer Name</td>
+                                                                <td>Price(USD)</td>
+                                                                <td>Time(hours)</td>
+                                                                <td>Designer Rating</td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @php
+                                                            $offers = $publish->offers;
+                                                            $pstatus = $publish['status'];
+
+
+                                                        @endphp
+                                                        @foreach($offers as $offer)
+                                                            @php
+                                                                $designer_id = $offer['designer_id'];
+                                                                $designer = \App\Models\User::find($designer_id);
+                                                            @endphp
+                                                            <tr>
+                                                                <td style="text-align: center">{{$designer->name}}</td>
+                                                                <td style="text-align: center">{{$offer->price}}</td>
+                                                                <td style="text-align: center">{{$offer->price}}</td>
+                                                                <td style="text-align: center">{{$offer->hours}}</td>
+                                                                <td>
+                                                                    <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
+                                                                </td>
+                                                                <td>
+                                                                    @if(in_array($pstatus, ['accepted', 'undelivered', 'delivered', 'in mediation', 'completed']))
+                                                                    @if($publish->accepted_offer_id === $offer->id)
+                                                                            <strong>Accepted</strong>
+                                                                        @endif
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="modal-footer text-center">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -177,10 +240,18 @@
 
     <script src = https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js></script>
     <script src = https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js></script>
+    <script src="{{asset('plugins/raterjs/rater.min.js')}}"></script>
+
 
     <script>
         $(document).ready(function() {
             $('#publishes_table').DataTable();
+
+            $('.rating').rate({
+                max_value: 5,
+                step_size: 0.1,
+                readonly: true,
+            });
         } );
     </script>
 @endsection

@@ -222,11 +222,6 @@
                                                                 $settings = \App\Models\Settings::limit($top_id)->get();
                                                                 $setting = $settings[count($settings) - 1];
                                                                 $client_fee = $setting['client_fee'];
-                                                            }
-                                                            $top_id = \App\Models\Settings::count();
-                                                            if ($top_id <> 0) {
-                                                                $settings = \App\Models\Settings::limit($top_id)->get();
-                                                                $setting = $settings[count($settings) - 1];
                                                                 $delta_time = $setting['delta_time'];
                                                              }
                                                         @endphp
