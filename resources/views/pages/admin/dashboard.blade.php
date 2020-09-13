@@ -194,7 +194,7 @@
                                                                 $designer = \App\Models\User::find($designer_id);
                                                             @endphp
                                                             <tr>
-                                                                <td style="text-align: center">{{$designer->name}}</td>
+                                                                <td style="text-align: center">{{$designer['name']}}</td>
                                                                 <td style="text-align: center">{{$offer->price}}</td>
                                                                 <td style="text-align: center">{{$offer->hours}}</td>
                                                                 <td>
@@ -202,7 +202,7 @@
                                                                 </td>
                                                                 <td>
                                                                     @if(in_array($pstatus, ['accepted', 'undelivered', 'delivered', 'in mediation', 'completed']))
-                                                                    @if($publish->accepted_offer_id === $offer->id)
+                                                                        @if($publish->accepted_offer_id === $offer->id)
                                                                             <strong>Accepted</strong>
                                                                         @endif
                                                                     @endif
