@@ -692,7 +692,6 @@ class ClientController extends Controller
 
         try {
             $publish = Publish::find($id);
-            dd($publish); return;
 
             $now = now();
             $publish->status = 'completed';

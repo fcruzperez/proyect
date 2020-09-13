@@ -250,6 +250,8 @@
 
                                             $message = \App\Models\Message::create([
                                                 'user_id' => $publish['client_id'],
+                                                'request_id' => $publish->id,
+                                                'offer_id' => $offer->id,
                                                 'subject' => $msg,
                                                 'content' => $msg,
                                                 'action_url' => "/client/complete-request/{$publish->id}",
