@@ -181,13 +181,13 @@
                                                                 <td></td>
                                                             </tr>
                                                         </thead>
+
                                                         <tbody>
                                                         @php
                                                             $offers = $publish->offers;
                                                             $pstatus = $publish['status'];
-
-
                                                         @endphp
+
                                                         @foreach($offers as $offer)
                                                             @php
                                                                 $designer_id = $offer['designer_id'];
@@ -195,7 +195,6 @@
                                                             @endphp
                                                             <tr>
                                                                 <td style="text-align: center">{{$designer->name}}</td>
-                                                                <td style="text-align: center">{{$offer->price}}</td>
                                                                 <td style="text-align: center">{{$offer->price}}</td>
                                                                 <td style="text-align: center">{{$offer->hours}}</td>
                                                                 <td>
