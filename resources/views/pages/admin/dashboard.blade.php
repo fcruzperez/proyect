@@ -199,7 +199,7 @@
                                                                 <td style="text-align: center">{{$offer->price}}</td>
                                                                 <td style="text-align: center">{{$offer->hours}}</td>
                                                                 <td>
-{{--                                                                    <div class="rating" data-rate-value = {{$rate}}></div>--}}
+                                                                    <div class="rating" data-rate-value = {{$rate}}></div>
                                                                 </td>
                                                                 <td>
                                                                     @if(in_array($pstatus, ['accepted', 'undelivered', 'delivered', 'in mediation', 'completed']))
