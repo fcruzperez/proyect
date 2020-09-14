@@ -733,12 +733,12 @@ class ClientController extends Controller
                 'offer_id' => $offer_id,
                 'subject' => $msg,
                 'content' => $msg,
-                'action_url' => "/designer/home",
+                'action_url' => "/designer/finance-list",
             ]);
 
             $data = [
                 'user_id' => $designer_id,
-                'action_url' => "/designer/home",
+                'action_url' => "/designer/finance-list",
                 'message' => $msg
             ];
             event(new DesignerEvent($data));
