@@ -96,7 +96,7 @@ class MediateController extends Controller
         $designer['balance'] += $paid;
         $designer->save();
 
-        $msg = "Your offer about the {$request->design_name} is completed.";
+        $msg = "Your offer about the design {$request->design_name} is completed.";
 
         $message = Message::create([
             'user_id' => $offer->designer_id,

@@ -374,7 +374,7 @@ class ClientController extends Controller
         $offer['accepted_at'] = date('Y-m-d H:i:s');
         $offer->save();
 
-        $msg = "Your offer about the {$publish->design_name} is accepted.";
+        $msg = "Your offer about the design {$publish->design_name} is accepted.";
 
         $message = Message::create([
             'user_id' => $offer->designer_id,
