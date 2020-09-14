@@ -116,7 +116,7 @@
 
 
                         @endphp
-                        @if ($publish->status === 'published' && $hour < $expiration_time)
+                        @if ($publish->status === 'published' && $hour >= $expiration_time)
                             @php
                                 $msg = "Your post {$publish->design_name} has expired.";
                                 $message = \App\Models\Message::create([
