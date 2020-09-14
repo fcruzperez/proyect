@@ -53,16 +53,7 @@
                             $time = $offer['hours'] + $delta_time;
                             $price = $offer['price'] + $client_fee;
 
-                            if ($mediate['status'] === 'issued' && $h >= $correction_time) {
-
-                                $mediate['status'] = 'completed';
-                                $mediate->save();
-
-                                $publish['status'] = 'completed';
-                                $publish->save();
-
-                                $offer['status'] = 'completed';
-                                $offer->save();
+                            if ($mediate['status'] === 'issued') {
 
                                 $msg1 = "Designer {$designer_name} hasn't sent the correction about the {$publish->design_name} of Client {$client_name}.";
 
@@ -70,19 +61,19 @@
                                     'user_id' => 1,
                                     'subject' => $msg1,
                                     'content' => $msg1,
-                                    'action_url' => "/admin/refund/{$publish->id}",
+                                    'action_url' => "/admin/mediation/",
                                 ]);
 
                                 $data1 = [
                                     'user_id' => 1,
-                                    'action_url' => "/admin/refund/{$publish->id}",
+                                    'action_url' => "/admin/mediation/",
                                     'message' => $msg1
                                 ];
 
                                 event(new \App\Events\AdminEvent($data1));
 
 
-                                $msg2 = "You haven't delivered the correction about the design {$publish->design_name} within correction time. Your score will be decreased.";
+                                $msg2 = "You haven't delivered the correction about the design {$publish->design_name} within correction time. Wait the result of Support.";
 
                                 $message = \App\Models\Message::create([
                                     'user_id' => $designer_id,
@@ -99,18 +90,18 @@
                                 event(new \App\Events\DesignerEvent($data2));
 
 
-                                $msg3 = "Designer hasn't delivered the correction about your design {$publish->design_name} within correction time, you will have a refund soon.";
+                                $msg3 = "Designer hasn't delivered the correction about your design {$publish->design_name} within correction time, Wait the result of Support.";
 
                                 $message = \App\Models\Message::create([
                                     'user_id' => $client_id,
                                     'subject' => $msg3,
                                     'content' => $msg3,
-                                    'action_url' => "/client/finance-list",
+                                    'action_url' => "/client/mediate-list",
                                 ]);
 
                                 $data3 = [
                                     'user_id' => $client_id,
-                                    'action_url' => "/client/finance-list",
+                                    'action_url' => "/client/mediate-list",
                                     'message' => $msg3
                                 ];
                                 event(new \App\Events\ClientEvent($data3));
@@ -128,7 +119,7 @@
                             <td>{{$time}}</td>
                             <td>{{$price}}</td>
                             <td>
-                                 <span class="p-1 text-light @if($mstatus ==='issued' || $mstatus === 'rejected') bg-danger @else bg-success @endif">
+                                 <span class="p-1 text-light @if($mstatus ==='issued' || $mstatus ==='redelivered' || $mstatus === 'rejected') bg-danger @else bg-success @endif">
                                     {{$mediate->status_label}}
                                 </span>
                             </td>
