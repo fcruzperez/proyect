@@ -171,7 +171,7 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <table class="text-center">
+                                                    <table class="text-center table-responsive">
                                                         <thead>
                                                             <tr style="font-weight: bold;">
                                                                 <td>Designer Name</td>
