@@ -269,6 +269,11 @@ class DesignerController extends Controller
             if ($publish->status <> 'in mediation') {
                 $msg = "Your {$publish->design_name} design is finished.";
             } else {
+                $offer_id = $offer->id;
+                $mediate = Mediate::where('offer_id', $offer_id)->first();
+                $mediate['status'] = 'redelivered';
+                $mediate->save();
+
                 $msg = "Your {$publish->design_name} design is redelivered.";
             }
 

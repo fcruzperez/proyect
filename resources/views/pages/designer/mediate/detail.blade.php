@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="col-12 text-center">
                                         <input type="reset" class="btn btn-warning mr-2" value="Reset"/>
-                                        <button type="submit" class="btn btn-success">Delivery</button>
+                                        <button type="submit" class="btn btn-success">Redelivery</button>
                                     </div>
                                 </div>
                             </form>

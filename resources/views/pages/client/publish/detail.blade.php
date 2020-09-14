@@ -275,7 +275,7 @@
                                         $mediate = \App\Models\Mediate::where('offer_id', $offer_id)->first();
 
                                     @endphp
-                                    @if ($mediate['status'] === 'issued')
+                                    @if ($mediate['status'] === 'redelivered')
 {{--                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
                                         <a class="btn btn-success" style="float: right; margin-left: 7px;" onclick="return confirm('Will you complete this, Really?')" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
 
