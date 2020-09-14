@@ -34,7 +34,7 @@
                                     <input type="number" name="withdraw_amount" style="width: 30%"/>
                                 </div>
                                 <div style="font-size: 15px;">
-                                    <b>Note:</b> You can withdraw only when your balance is more than {{$minimum_withdrawal_amount}}USD.
+                                    <b>Note:</b> You can withdraw only when your balance is more than {{$minimum_withdrawal_amount}}USD. Wait until Support will withdraw money.
                                 </div>
                             </div>
 

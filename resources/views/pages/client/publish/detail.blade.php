@@ -304,13 +304,12 @@
                                                 $msg = "Your design {$publish['design_name']} is completed because the claim time is passed.";
 
                                                 $message = \App\Models\Message::create([
-                                                'user_id' => $publish['client_id'],
-                                                'request_id' => $publish->id,
-                                                'offer_id' => $offer->id,
-                                                'subject' => $msg,
-                                                'content' => $msg,
-                                                'action_url' => "/client/mediate-complete/{$mediate->id}",
-
+                                                    'user_id' => $publish['client_id'],
+                                                    'request_id' => $publish->id,
+                                                    'offer_id' => $offer->id,
+                                                    'subject' => $msg,
+                                                    'content' => $msg,
+                                                    'action_url' => "/client/mediate-complete/{$mediate->id}",
                                                 ]);
 
                                                 $data = [
@@ -319,6 +318,7 @@
                                                 'message' => $msg
                                                 ];
                                                 event(new \App\Events\ClientEvent($data));
+
                                             @endphp
                                         @endif
                                     @endif
