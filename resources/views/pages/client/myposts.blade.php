@@ -51,12 +51,14 @@
                                 $diff2 = $now->diff($accepted_time);
                                 $hour = $diff->days * 24 + $diff->h;
 
-                                if ($hour >= $deadline + $delta_time) {
+                                if ($hour < $deadline + $delta_time) {
 
                                     $msg1 = "Designer {$designer_name} hasn't submitted the accepted work {$publish->design_name} of Client {$client_name}.";
 
                                     $message = \App\Models\Message::create([
                                         'user_id' => 1,
+                                        'request_id' => $publish->id,
+                                        'offer_id' => $offer_id,
                                         'subject' => $msg1,
                                         'content' => $msg1,
                                         'action_url' => "/admin/refund/{$publish->id}",
