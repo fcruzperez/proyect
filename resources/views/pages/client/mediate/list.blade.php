@@ -53,12 +53,14 @@
                             $time = $offer['hours'] + $delta_time;
                             $price = $offer['price'] + $client_fee;
 
-                            if ($mediate['status'] === 'issued' && $h >= $correction_time) {
+                            if ($mediate['status'] === 'issued' && $h < $correction_time) {
 
                                 $msg1 = "Designer {$designer_name} hasn't sent the correction about the {$publish->design_name} of Client {$client_name}.";
 
                                 $message = \App\Models\Message::create([
                                     'user_id' => 1,
+                                    'request_id' => $publish->id,
+                                    'offer_id' => $offer_id,
                                     'subject' => $msg1,
                                     'content' => $msg1,
                                     'action_url' => "/admin/mediation/",
@@ -77,6 +79,8 @@
 
                                 $message = \App\Models\Message::create([
                                     'user_id' => $designer_id,
+                                    'request_id' => $publish->id,
+                                    'offer_id' => $offer_id,
                                     'subject' => $msg2,
                                     'content' => $msg2,
                                     'action_url' => "/designer/mediate-list",
@@ -94,6 +98,8 @@
 
                                 $message = \App\Models\Message::create([
                                     'user_id' => $client_id,
+                                    'request_id' => $publish->id,
+                                    'offer_id' => $offer_id,
                                     'subject' => $msg3,
                                     'content' => $msg3,
                                     'action_url' => "/client/mediate-list",
