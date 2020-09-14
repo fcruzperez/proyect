@@ -235,7 +235,7 @@ class MediateController extends Controller
 
             event(new AdminEvent($data1));
 
-            $msg2 = "Client is requesting mediation about the design {$publish_name} what is made by you";
+            $msg2 = "Client is requesting mediation about the design {$publish_name} what is made by you. Wait for the result of the Support.";
 
             $message = Message::create([
                 'user_id' => $designer_id,

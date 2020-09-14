@@ -286,39 +286,41 @@
 
 
                                     @endphp
-                                    @if ($mediate['status'] === 'redelivered' && $h < $claim_time)
-{{--                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
-                                        <a class="btn btn-success" style="float: right; margin-left: 7px;" onclick="return confirm('Will you complete this, Really?')" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
+                                    @if ($mediate['status'] === 'redelivered')
+                                        @if($h < $claim_time)
+    {{--                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
+                                            <a class="btn btn-success" style="float: right; margin-left: 7px;" onclick="return confirm('Will you complete this, Really?')" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
 
-                                        <form action="{{route('client.mediate.rejection')}}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="publish_id" value="{{$publish->id}}">
-                                            <input type="hidden" name="publish_name" value="{{$publish->design_name}}">
-                                            <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                                            <form action="{{route('client.mediate.rejection')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="publish_id" value="{{$publish->id}}">
+                                                <input type="hidden" name="publish_name" value="{{$publish->design_name}}">
+                                                <input type="hidden" name="offer_id" value="{{$offer->id}}">
 
-                                            <button type="submit" class="btn btn-danger" style="float: right;" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
-                                        </form>
-                                    @else
-                                        @php
-                                            $msg = "Your design {$publish['design_name']} is completed because the claim time is passed.";
+                                                <button type="submit" class="btn btn-danger" style="float: right;" onclick="return(confirm('Will you reject this offer, really?'))">Rejection</button>
+                                            </form>
+                                        @else
+                                            @php
+                                                $msg = "Your design {$publish['design_name']} is completed because the claim time is passed.";
 
-                                            $message = \App\Models\Message::create([
-                                            'user_id' => $publish['client_id'],
-                                            'request_id' => $publish->id,
-                                            'offer_id' => $offer->id,
-                                            'subject' => $msg,
-                                            'content' => $msg,
-                                            'action_url' => "/client/mediate-complete/{$mediate->id}",
+                                                $message = \App\Models\Message::create([
+                                                'user_id' => $publish['client_id'],
+                                                'request_id' => $publish->id,
+                                                'offer_id' => $offer->id,
+                                                'subject' => $msg,
+                                                'content' => $msg,
+                                                'action_url' => "/client/mediate-complete/{$mediate->id}",
 
-                                            ]);
+                                                ]);
 
-                                            $data = [
-                                            'user_id' => $publish['client_id'],
-                                            'action_url' => "/client/mediate-complete/{$mediate->id}",
-                                            'message' => $msg
-                                            ];
-                                            event(new \App\Events\ClientEvent($data));
-                                        @endphp
+                                                $data = [
+                                                'user_id' => $publish['client_id'],
+                                                'action_url' => "/client/mediate-complete/{$mediate->id}",
+                                                'message' => $msg
+                                                ];
+                                                event(new \App\Events\ClientEvent($data));
+                                            @endphp
+                                        @endif
                                     @endif
                                 @endif
                             </div>
