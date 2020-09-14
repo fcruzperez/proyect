@@ -192,7 +192,6 @@
                                                             @php
                                                                 $designer_id = $offer['designer_id'];
                                                                 $designer = \App\Models\User::find($designer_id);
-                                                                dd($offer->designer->rate); return;
                                                             @endphp
                                                             <tr>
                                                                 <td style="text-align: center">{{$designer['name']}}</td>
