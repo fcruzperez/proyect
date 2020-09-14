@@ -233,6 +233,19 @@
 @section('stylesheet')
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <style>
+        .rating {
+            font-size: 28px;
+        }
+        .rating .rate-hover-layer {
+            color: orange;
+        }
+        .rating .rate-select-layer {
+            color: orange;
+        }
+    </style>
+
 @endsection
 
 
