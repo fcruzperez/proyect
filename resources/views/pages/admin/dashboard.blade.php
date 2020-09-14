@@ -192,13 +192,14 @@
                                                             @php
                                                                 $designer_id = $offer['designer_id'];
                                                                 $designer = \App\Models\User::find($designer_id);
+                                                                $rate = $offer->designer->rate;
                                                             @endphp
                                                             <tr>
                                                                 <td style="text-align: center">{{$designer['name']}}</td>
                                                                 <td style="text-align: center">{{$offer->price}}</td>
                                                                 <td style="text-align: center">{{$offer->hours}}</td>
                                                                 <td>
-                                                                    <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
+                                                                    <div class="rating" data-rate-value = {{$rate}}></div>
                                                                 </td>
                                                                 <td>
                                                                     @if(in_array($pstatus, ['accepted', 'undelivered', 'delivered', 'in mediation', 'completed']))
