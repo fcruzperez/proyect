@@ -170,7 +170,7 @@
                                                     <h4 class="modal-title text-center"><b>Offers</b></h4>
                                                 </div>
 
-                                                <div class="modal-body">
+                                                <div class="modal-body" style="padding: 5px; !important;">
                                                     <table class="text-center">
                                                         <thead>
                                                             <tr style="font-weight: bold;">
