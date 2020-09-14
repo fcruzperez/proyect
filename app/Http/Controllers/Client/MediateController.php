@@ -104,12 +104,12 @@ class MediateController extends Controller
             'offer_id' => $offer->id,
             'subject' => $msg,
             'content' => $msg,
-            'action_url' => "/designer/home",
+            'action_url' => "/designer/finance-list",
         ]);
 
         $data = [
             'user_id' => $offer->designer_id,
-            'action_url' => "/designer/home",
+            'action_url' => "/designer/finance-list",
             'message' => $msg
         ];
 
