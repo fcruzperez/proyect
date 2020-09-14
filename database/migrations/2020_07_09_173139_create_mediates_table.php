@@ -22,6 +22,7 @@ class CreateMediatesTable extends Migration
             $table->string('content');
             $table->string('error_images')->nullable();
             $table->string('status')->default('issued')->comment('issued, redelivered, rejected, completed');
+            $table->dateTime('redelivered_at')->nullable();
             $table->timestamps();
         });
     }
