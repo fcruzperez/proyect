@@ -170,7 +170,7 @@
                                                     <h4 class="modal-title text-center"><b>Offers</b></h4>
                                                 </div>
 
-                                                <div class="modal-body" style="padding: 5px; !important;">
+                                                <div class="modal-body">
                                                     <table class="text-center">
                                                         <thead>
                                                             <tr style="font-weight: bold;">
@@ -243,6 +243,10 @@
         }
         .rating .rate-select-layer {
             color: orange;
+        }
+
+        .modal-body {
+            overflow: auto;
         }
 
     </style>
