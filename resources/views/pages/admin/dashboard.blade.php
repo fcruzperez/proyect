@@ -164,7 +164,7 @@
                                 @if($offer_count > 0)
                                     <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#ttt{{$publish->id}}">Offers</button>
                                     <div class="modal fade" id="ttt{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
                                                     <h4 class="modal-title text-center"><b>Offers</b></h4>
