@@ -308,13 +308,13 @@
                                             'offer_id' => $offer->id,
                                             'subject' => $msg,
                                             'content' => $msg,
-                                            'action_url' => "client/mediate-complete/{$mediate->id}",
+                                            'action_url' => "/client/mediate-complete/{$mediate->id}",
 
                                             ]);
 
                                             $data = [
                                             'user_id' => $publish['client_id'],
-                                            'action_url' => "client/mediate-complete/{$mediate->id}",
+                                            'action_url' => "/client/mediate-complete/{$mediate->id}",
                                             'message' => $msg
                                             ];
                                             event(new \App\Events\ClientEvent($data));
