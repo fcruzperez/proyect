@@ -106,6 +106,9 @@
                                 ];
                                 event(new \App\Events\ClientEvent($data3));
 
+                                $mediate['status'] = 'rejected';
+                                $mediate->save();
+
 
                             }
                         ?>
