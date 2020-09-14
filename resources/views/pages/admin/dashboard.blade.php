@@ -245,9 +245,9 @@
             color: orange;
         }
 
-        .modal-body {
-            overflow: auto;
-        }
+        /*.modal-body {*/
+        /*    overflow: auto;*/
+        /*}*/
 
     </style>
 
