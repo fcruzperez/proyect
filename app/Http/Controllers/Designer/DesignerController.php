@@ -272,6 +272,7 @@ class DesignerController extends Controller
                 $offer_id = $offer->id;
                 $mediate = Mediate::where('offer_id', $offer_id)->first();
                 $mediate['status'] = 'redelivered';
+                $mediate['redelivered_at'] = $now;
                 $mediate->save();
 
                 $msg = "Your {$publish->design_name} design is redelivered.";
