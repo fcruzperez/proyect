@@ -427,12 +427,7 @@ class AdminController extends Controller
         $designer_id = $offer['designer_id'];
         $designerRate = DesignerRate::where('designer_id', $designer_id)->first();
         $rate = $designerRate['rate'];
-        if ($publish['status'] === 'undelivered') {
-            $rate = 0.8 * $rate;
-        }
-        else {
-            $rate = 0.9 * $rate;
-        }
+        $rate = 0.8 * $rate;
         $designerRate['rate'] = round($rate,1);
         $designerRate->save();
 
@@ -519,6 +514,11 @@ class AdminController extends Controller
         $designer->save();
         $client['balance'] += $for_client;
         $client->save();
+
+        $designerRate = DesignerRate::where('designer_id', $designer_id)->first();
+        $rate = $designerRate['rate'];
+        $designerRate['rate'] = floatval(round(($rate + $designer_percent / 100 * 5) / 2, 1));
+        $designerRate->save();
 
         $msg_client = "You are received {$client_percent}% refund about your design {$design_name} by the Support";
 
