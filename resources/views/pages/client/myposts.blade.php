@@ -51,7 +51,7 @@
                                 $diff2 = $now->diff($accepted_time);
                                 $hour = $diff->days * 24 + $diff->h;
 
-                                if ($hour < $deadline + $delta_time) {
+                                if ($hour >= $deadline + $delta_time) {
 
                                     $msg1 = "Designer {$designer_name} hasn't submitted the accepted work {$publish->design_name} of Client {$client_name}.";
 
@@ -79,12 +79,12 @@
                                         'user_id' => $designer_id,
                                         'subject' => $msg2,
                                         'content' => $msg2,
-                                        'action_url' => "/designer/finance-list",
+                                        'action_url' => "/designer/home",
                                     ]);
 
                                     $data2 = [
                                         'user_id' => $designer_id,
-                                        'action_url' => "/designer/finance-list",
+                                        'action_url' => "/designer/home",
                                         'message' => $msg2
                                     ];
                                     event(new \App\Events\DesignerEvent($data2));
@@ -96,12 +96,12 @@
                                         'user_id' => $client_id,
                                         'subject' => $msg3,
                                         'content' => $msg3,
-                                        'action_url' => "/client/finance-list",
+                                        'action_url' => "/client/myposts",
                                     ]);
 
                                     $data3 = [
                                         'user_id' => $client_id,
-                                        'action_url' => "/client/finance-list",
+                                        'action_url' => "/client/myposts",
                                         'message' => $msg3
                                     ];
                                     event(new \App\Events\ClientEvent($data3));
@@ -115,9 +115,8 @@
 
                                 }
                             }
-
-
                         @endphp
+
                         @if ($publish->status === 'published' && $hour >= $expiration_time)
                             @php
                                 $msg = "Your post {$publish->design_name} has expired.";
@@ -133,13 +132,10 @@
                                     'message' => $msg
                                 ];
                                 event(new \App\Events\ClientEvent($data));
-
-
-
                             @endphp
                         @endif
-                        @if ($publish->status <> 'published' || $hour < $expiration_time)
 
+                        @if ($publish->status <> 'published' || $hour < $expiration_time)
                         <tr>
                             <td>{{$publish['created_at']}}</td>
                             <td>{{$publish['design_name']}}</td>
@@ -168,11 +164,6 @@
                                 @endphp
 
                                 @if ($publish['status'] === 'accepted' && $hours > 0)
-                                    {{--                                @if ($hours == 0)--}}
-                                    {{--                                    {{$minutes}}--}}
-                                    {{--                                @elsdee--}}
-                                    {{--                                    {{$hours. 'hour ' . $minutes . 'minutes'}}--}}
-                                    {{--                                @endif--}}
                                     {{$hours}}:{{$minutes}} hours
                                 @elseif ($publish['status'] === 'accepted' & $hours === 0)
                                     {{$minutes}} minutes
