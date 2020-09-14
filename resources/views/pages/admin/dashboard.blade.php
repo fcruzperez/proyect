@@ -178,7 +178,7 @@
                                                                 <td>Price(USD)</td>
                                                                 <td>Time(hours)</td>
                                                                 <td>Designer Rating</td>
-                                                                <td></td>
+                                                                <td>Accepted Offer</td>
                                                             </tr>
                                                         </thead>
 
@@ -244,6 +244,7 @@
         .rating .rate-select-layer {
             color: orange;
         }
+
     </style>
 
 @endsection
