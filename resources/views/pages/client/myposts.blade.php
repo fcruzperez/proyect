@@ -217,9 +217,6 @@
                                                                 <td style="text-align: center">{{intval($offer->price + $client_fee)}}</td>
                                                                 <td style="text-align: center">{{$offer->hours + $delta_time}}</td>
                                                                 <td>
-                                                                    @php
-                                                                        dd($offer->designer->rate); return;
-                                                                    @endphp
                                                                     <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
 
                                                                 </td>
