@@ -192,7 +192,7 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <table class="text-center pagination">
+                                                    <table class="text-center">
                                                         <thead>
                                                         <tr style="font-weight: bold;">
                                                             <td>Price(USD)</td>
