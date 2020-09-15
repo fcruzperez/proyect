@@ -670,12 +670,12 @@ class AdminController extends Controller
                 'user_id' => $user_id,
                 'subject' => $msg,
                 'content' => $msg,
-                'action_url' => "/client/finance-list",
+                'action_url' => "/client/withdraw-list",
             ]);
 
             $data = [
                 'user_id' => $user_id,
-                'action_url' => "/client/finance-list",
+                'action_url' => "/client/withdraw-list",
                 'message' => $msg
             ];
 

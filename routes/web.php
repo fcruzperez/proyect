@@ -121,10 +121,6 @@ Route::middleware(['auth', 'role:client'])
         Route::post('withdraw', 'ClientController@withdraw')->name('withdraw');
         Route::get('withdraw-list', 'ClientController@withdrawList')->name('withdraw-list');
 
-
-
-
-
 //        Route::get('payment', 'ClientController@deposit')->name('payment');
 //        Route::get('payment-cancel', 'ClientController@cancelPayment')->name('payment.cancel');
 //        Route::get('payment-success', 'ClientController@successPayment')->name('payment.success');

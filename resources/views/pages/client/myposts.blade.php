@@ -192,7 +192,7 @@
                                                 </div>
 
                                                 <div class="modal-body">
-                                                    <table class="text-center">
+                                                    <table class="text-center pagination">
                                                         <thead>
                                                         <tr style="font-weight: bold;">
                                                             <td>Price(USD)</td>
@@ -227,8 +227,6 @@
                                                                             <input type="hidden" name="offer_id" value="{{$offer->id}}" />
                                                                             <input type="hidden" name="price" value="{{$offer->price}}" />
                                                                             <input type="hidden" name="time" value="{{$offer->hours}}" />
-                                                                            <input type="hidden" name="name" value="{{$offer->name}}" />
-
                                                                             <button type="submit" class="btn btn-primary">Accept</button>
                                                                         </form>
                                                                     @else
