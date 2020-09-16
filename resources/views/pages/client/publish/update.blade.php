@@ -168,9 +168,9 @@
 
                                         <input type="hidden" id="unit" value="{{$publish['unit']}}">
 
-                                        <input id="unit_mm" type="radio" name="unit">
+                                        <input id="unit_mm" type="radio" name="unit" value="mm">
                                         <label for="unit_mm" style="padding-right: 20px;" class="form-check-label">{{ __('mm') }}</label>
-                                        <input id="unit_in" type="radio" name="unit">
+                                        <input id="unit_in" type="radio" name="unit" value="in">
                                         <label for="unit_in" class="form-check-label">{{ __('in') }}</label>
                                     </div>
                                 </div>
@@ -325,6 +325,7 @@
         $(document).ready(function () {
 
            var unit = $('#unit').value;
+           console.log(unit);
 
            if (unit === 'mm') {
                $('#unit_mm').prop('checked', true);
