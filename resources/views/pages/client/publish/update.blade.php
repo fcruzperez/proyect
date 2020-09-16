@@ -168,9 +168,9 @@
 
                                         <input type="hidden" id="unit" value="{{$publish['unit']}}">
 
-                                        <input id="unit_mm" type="radio" name="unit" value="mm">
+                                        <input id="unit_mm" type="radio" name="unit" value="mm" <? if($publish['unit'] === 'mm') print "selected";?>>
                                         <label for="unit_mm" style="padding-right: 20px;" class="form-check-label">{{ __('mm') }}</label>
-                                        <input id="unit_in" type="radio" name="unit" value="in">
+                                        <input id="unit_in" type="radio" name="unit" value="in" <? if($publish['unit'] === 'in') print "selected";?>>
                                         <label for="unit_in" class="form-check-label">{{ __('in') }}</label>
                                     </div>
                                 </div>
@@ -324,16 +324,15 @@
 
         $(document).ready(function () {
 
-           var unit = $('#unit').value;
-           console.log(unit);
-
-           if (unit === 'mm') {
-               $('#unit_mm').prop('checked', true);
-
-           }
-           else {
-               $('#unit_in').prop('checked', true);
-           }
+           // var unit = $('#unit').value;
+           //
+           // if (unit === 'mm') {
+           //     $('#unit_mm').prop('checked', true);
+           //
+           // }
+           // else {
+           //     $('#unit_in').prop('checked', true);
+           // }
 
            document.getElementById('add_info').value = document.getElementById('description').value;
         });
