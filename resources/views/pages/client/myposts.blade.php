@@ -183,7 +183,7 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center" id="details" onclick="show()">Offers</button>
+                                    <button type="button" class="btn btn-info text-center aa" id="details" onclick="show()">Offers</button>
                                     <div class="modal fade" id="detailModal" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -318,6 +318,10 @@
                 max_value: 5,
                 step_size: 0.1,
                 readonly: true,
+            });
+
+            $(document).on('click', '.aa', function () {
+               $('#detailModal').modal('show');
             });
         } );
 
