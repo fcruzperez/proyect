@@ -218,7 +218,7 @@
                                                                 <td style="text-align: center">{{$offer->hours + $delta_time}}</td>
                                                                 <td>
                                                                     <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
-                                                                    ersresreses
+
                                                                 </td>
                                                                 <td>
                                                                     @if($publish->status === 'published')
@@ -307,6 +307,7 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{asset('plugins/raterjs/rater.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#publishes_table').DataTable();
