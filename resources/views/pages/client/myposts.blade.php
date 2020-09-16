@@ -183,8 +183,8 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center" onclick="show({{$publish->id}})" id="details" data-toggle="modal">Offers</button>
-                                    <div class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal">Offers</button>
+                                    <div class="modal fade" id="detail_modal" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
@@ -318,18 +318,10 @@
             });
         } );
 
+        $('#details').on('click', function () {
+            $('#detail_modal').modal();
 
-        function show(para) {
-
-            $('.rating').rate({
-                max_value: 5,
-                step_size: 0.1,
-                readonly: true,
-            });
-            // $('#request_id').val(para);
-            $('#details').modal();
-
-        }
+        });
 
         function acceptBid(publish_id, offer_id) {
             var data = {
