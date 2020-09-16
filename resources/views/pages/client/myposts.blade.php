@@ -183,7 +183,7 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center" id="details{{$publish->id}}" onclick="show()" data-toggle="modal">Offers</button>
+                                    <button type="button" class="btn btn-info text-center" id="details" onclick="show({{$publish->id}})" data-toggle="modal">Offers</button>
                                     <div class="modal fade" id="sss" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -192,6 +192,8 @@
                                                 </div>
 
                                                 <div class="modal-body">
+                                                    <input type="hidden" name="request_id" id="request_id" >
+
                                                     <table class="text-center">
                                                         <thead>
                                                         <tr style="font-weight: bold;">
@@ -318,13 +320,15 @@
             });
         } );
 
-        function show() {
+        function show(para) {
 
             $('.rating').rate({
                 max_value: 5,
                 step_size: 0.1,
                 readonly: true,
             });
+
+            $('#request_id').val(para);
 
             $('#sss').modal('show');
 
