@@ -218,7 +218,7 @@
                                                                 <td style="text-align: center">{{$offer->hours + $delta_time}}</td>
                                                                 <td>
                                                                     <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
-
+                                                                    ersresreses
                                                                 </td>
                                                                 <td>
                                                                     @if($publish->status === 'published')

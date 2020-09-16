@@ -177,7 +177,7 @@
         {
             this.settings.update_input_field_name.val(this.value);
         }
-    }
+    };
 
     /*
      * Function to add a layer
@@ -224,7 +224,7 @@
         });
 
         return layer;
-    }
+    };
 
     Rate.prototype.updateServer = function()
     {
@@ -242,12 +242,12 @@
                 }, this)
             });
         }
-    }
+    };
 
     Rate.prototype.getValue = function()
     {
         return this.value;
-    }
+    };
 
     Rate.prototype.hover = function(ev)
     {
@@ -286,7 +286,7 @@
                 });
             }
         }
-    }
+    };
 
     /*
      * Event for when a rating has been selected (clicked)
@@ -302,13 +302,13 @@
             this.setValue(this.toValue(selected_width));
             this.raise_select_layer = true;
         }
-    }
+    };
 
     Rate.prototype.mouseout = function()
     {
         this.layers.hover_layer.css({display: 'none'});
         this.layers.select_layer.css({display: 'block'});
-    }
+    };
 
     /*
      * Takes a width (px) and returns the value it resembles
@@ -316,7 +316,7 @@
     Rate.prototype.toWidth = function(val)
     {
         return val / this.settings.max_value * 100;
-    }
+    };
 
     /*
      * Takes a value and calculates the width of the selected/hovered layer
@@ -343,37 +343,37 @@
         val = (Math.ceil(val / this.settings.step_size)) * this.settings.step_size;
         val = val > this.settings.max_value ? this.settings.max_value : val;
         return val;
-    }
+    };
 
     Rate.prototype.getElement = function(layer_name, index)
     {
         return $(this.element).find(".rate-" + layer_name + " span").eq(index - 1);
-    }
+    };
 
     Rate.prototype.getLayers = function()
     {
         return this.layers;
-    }
+    };
 
     Rate.prototype.setFace = function(value, face)
     {
         this.set_faces[value] = face;
-    }
+    };
 
     Rate.prototype.setAdditionalData = function(data)
     {
         this.settings.additional_data = data;
-    }
+    };
 
     Rate.prototype.getAdditionalData = function()
     {
         return this.settings.additional_data;
-    }
+    };
 
     Rate.prototype.removeFace = function(value)
     {
         delete this.set_faces[value];
-    }
+    };
 
     Rate.prototype.setValue = function(value)
     {
@@ -496,17 +496,17 @@
             }
 
         }
-    }
+    };
 
     Rate.prototype.increment = function()
     {
         this.setValue(this.getValue() + this.settings.step_size);
-    }
+    };
 
     Rate.prototype.decrement = function()
     {
         this.setValue(this.getValue() - this.settings.step_size);
-    }
+    };
 
     $.fn.rate.settings = {
         max_value: 5,
