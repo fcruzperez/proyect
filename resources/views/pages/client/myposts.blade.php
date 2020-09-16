@@ -183,7 +183,7 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center aa" id="details" onclick="show()">Offers</button>
+                                    <button type="button" class="btn btn-info text-center aa" id="details">Offers</button>
                                     <div class="modal fade" id="detailModal" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
