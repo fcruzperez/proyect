@@ -183,7 +183,7 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center aa" id="details">Offers</button>
+                                    <button type="button" class="btn btn-info text-center" onclick="show()" id="details">Offers</button>
                                     <div class="modal fade" id="detailModal" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -192,7 +192,7 @@
                                                 </div>
 
                                                 <div class="modal-body">
-
+                                                    <input type="hidden" id="request_id" name="request_id">
                                                     <table class="text-center">
                                                         <thead>
                                                         <tr style="font-weight: bold;">
@@ -203,6 +203,7 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+
                                                         @php
                                                             $offers = $publish->offers;
                                                             $top_id = \App\Models\Settings::count();
@@ -314,15 +315,11 @@
         $(document).ready(function() {
             $('#publishes_table').DataTable();
 
-            $('.rating').rate({
-                max_value: 5,
-                step_size: 0.1,
-                readonly: true,
-            });
-
-            $(document).on('click', '.aa', function () {
-               $('#detailModal').modal('show');
-            });
+            // $('.rating').rate({
+            //     max_value: 5,
+            //     step_size: 0.1,
+            //     readonly: true,
+            // });
         } );
 
         function show() {
