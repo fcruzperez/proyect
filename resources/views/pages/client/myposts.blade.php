@@ -184,7 +184,7 @@
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
                                     <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#sss{{$publish->id}}">Offers</button>
-                                    <div class="modal fade" id="sss{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <div class="modal fade" id="detail_modal" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
@@ -316,6 +316,19 @@
                 step_size: 0.1,
                 readonly: true,
             });
+
+            $(document).on('click', '#details', function() {
+                //   alert($(this).closest('tr').find('.contact_name').text());
+
+                $('.rating').rate({
+                    max_value: 5,
+                    step_size: 0.1,
+                    readonly: true,
+                });
+                $("#detail_modal").modal("show");
+
+            });
+
         } );
 
 
