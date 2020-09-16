@@ -20,7 +20,7 @@
                     </thead>
 
                     <tbody>
-                    @foreach($publishes as $publish)
+                    @foreach($publishes as $pub_index => $publish)
                         <tr>
                             @php
                                 $client_id = $publish['client_id'];
@@ -162,8 +162,8 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#ttt{{$publish->id}}">Offers</button>
-                                    <div class="modal fade" id="ttt{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <button type="button" class="btn btn-info text-center" id="details" onclick="show(this)">Offers</button>
+                                    <div class="modal fade" id="offersModal{{ $pub_index }}" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
@@ -265,11 +265,23 @@
         $(document).ready(function() {
             $('#publishes_table').DataTable();
 
-            $('.rating').rate({
+            // $('.rating').rate({
+            //     max_value: 5,
+            //     step_size: 0.1,
+            //     readonly: true,
+            // });
+        } );
+
+        function show(el) {
+
+            $(el).next().find('.rating').rate({
                 max_value: 5,
                 step_size: 0.1,
                 readonly: true,
             });
-        } );
+
+            $(el).next().modal('show')
+        }
+
     </script>
 @endsection
