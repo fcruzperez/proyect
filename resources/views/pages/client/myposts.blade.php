@@ -184,7 +184,7 @@
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
                                     <button type="button" class="btn btn-info text-center" id="details" onclick="show({{$publish->id}})" data-toggle="modal">Offers</button>
-                                    <div class="modal fade" id="sss" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <div class="modal fade" id="sss({{$publish->id}})" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
@@ -330,7 +330,7 @@
 
             $('#request_id').val(para);
 
-            $('#sss').modal('show');
+            $('#sss({{$publish->id}})').modal('show');
 
         }
 
