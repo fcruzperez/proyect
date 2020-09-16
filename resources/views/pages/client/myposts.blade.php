@@ -183,8 +183,8 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal">Offers</button>
-                                    <div class="modal fade" id="detail_modal" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <button type="button" class="btn btn-info text-center" id="details" data-toggle="modal" data-target = "#sss{{$publish->id}}">Offers</button>
+                                    <div class="modal fade" id="sss{{$publish->id}}" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
@@ -318,10 +318,6 @@
             });
         } );
 
-        $('#details').on('click', function () {
-            $('#detail_modal').modal();
-
-        });
 
         function acceptBid(publish_id, offer_id) {
             var data = {
