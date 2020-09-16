@@ -168,9 +168,9 @@
 
                                         <input type="hidden" id="unit" value="{{$publish['unit']}}">
 
-                                        <input id="unit_mm" type="radio" name="unit" value="mm" <? if($publish['unit'] === 'mm') print "selected";?>>
+                                        <input id="unit_mm" type="radio" name="unit" value="mm" <?php if($publish['unit'] === 'mm') {echo 'checked';}?>>
                                         <label for="unit_mm" style="padding-right: 20px;" class="form-check-label">{{ __('mm') }}</label>
-                                        <input id="unit_in" type="radio" name="unit" value="in" <? if($publish['unit'] === 'in') print "selected";?>>
+                                        <input id="unit_in" type="radio" name="unit" value="in" <? if($publish['unit'] === 'in') {echo 'checked';}?>>
                                         <label for="unit_in" class="form-check-label">{{ __('in') }}</label>
                                     </div>
                                 </div>
