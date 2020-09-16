@@ -325,7 +325,7 @@
                 step_size: 0.1,
                 readonly: true,
             });
-            $('##sss{{$publish->id}}').modal();
+            $('##sss{{$publish->id}}').modal('show');
 
         }
 
