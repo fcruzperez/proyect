@@ -21,7 +21,7 @@
                     </thead>
 
                     <tbody>
-                    @foreach($publishes as $publish)
+                    @foreach($publishes as $pub_index => $publish)
                         @php
                             $now = new DateTime();
                             $pp = new DateTime($publish->created_at);
@@ -183,8 +183,8 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center" onclick="show()" id="details">Offers</button>
-                                    <div class="modal fade" id="detailModal" role="dialog" tabindex="-1" aria-hidden="true">
+                                    <button type="button" class="btn btn-info text-center" onclick="show(this)">Offers</button>
+                                    <div class="modal fade" id="detailModal{{ $pub_index }}" role="dialog" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
@@ -322,15 +322,15 @@
             // });
         } );
 
-        function show() {
+        function show(el) {
 
-            $('.rating').rate({
+            $(el).next().find('.rating').rate({
                 max_value: 5,
                 step_size: 0.1,
                 readonly: true,
             });
 
-            $('#detailModal').modal();
+            $(el).next().modal('show')
 
         }
 
