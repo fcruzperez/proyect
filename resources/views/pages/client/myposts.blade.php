@@ -183,7 +183,7 @@
                                 @endphp
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
-                                    <button type="button" class="btn btn-info text-center" id="details" onclick="show({{$publish->id}})" data-toggle="modal">Offers</button>
+                                    <button type="button" class="btn btn-info text-center" id="details" onclick="show({{$publish->id}})">Offers</button>
                                 @endif
                             </td>
                             <td>
@@ -225,8 +225,6 @@
                             </div>
 
                             <div class="modal-body">
-
-                                <input type="hidden" name="request_id" id="request_id" >
 
                                 <table class="text-center">
                                     <thead>
@@ -332,7 +330,6 @@
                 readonly: true,
             });
 
-            $('#request_id').val(para);
             $('#detailModal').modal();
 
         }
