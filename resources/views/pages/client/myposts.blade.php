@@ -317,7 +317,7 @@
                 readonly: true,
             });
 
-            $(document).on('click', '#sss{{$publish->id}}', function() {
+            $(document).on('click', '#details', function() {
                 //   alert($(this).closest('tr').find('.contact_name').text());
 
                 $('.rating').rate({
@@ -325,7 +325,7 @@
                     step_size: 0.1,
                     readonly: true,
                 });
-                $("#detail_modal").modal("show");
+                $("#sss{{$publish->id}}").modal("show");
 
             });
 
