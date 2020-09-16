@@ -184,71 +184,6 @@
                                 {{$offer_count}}&nbsp;
                                 @if($offer_count > 0)
                                     <button type="button" class="btn btn-info text-center" id="details" onclick="show({{$publish->id}})" data-toggle="modal">Offers</button>
-                                    <div class="modal fade" id="sss({{$publish->id}})" role="dialog" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header text-center">
-                                                    <h4 class="modal-title text-center"><b>Offers</b></h4>
-                                                </div>
-
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="request_id" id="request_id" >
-
-                                                    <table class="text-center">
-                                                        <thead>
-                                                        <tr style="font-weight: bold;">
-                                                            <td>Price(USD)</td>
-                                                            <td>Time(hours)</td>
-                                                            <td>Designer Rating</td>
-                                                            <td></td>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @php
-                                                            $offers = $publish->offers;
-                                                            $top_id = \App\Models\Settings::count();
-                                                            if ($top_id <> 0) {
-                                                                $settings = \App\Models\Settings::limit($top_id)->get();
-                                                                $setting = $settings[count($settings) - 1];
-                                                                $client_fee = $setting['client_fee'];
-                                                                $delta_time = $setting['delta_time'];
-                                                             }
-                                                        @endphp
-                                                        @foreach($offers as $offer)
-                                                            <tr>
-                                                                <td style="text-align: center">{{intval($offer->price + $client_fee)}}</td>
-                                                                <td style="text-align: center">{{$offer->hours + $delta_time}}</td>
-                                                                <td>
-                                                                    <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
-
-                                                                </td>
-                                                                <td>
-                                                                    @if($publish->status === 'published')
-                                                                        <form method="get" action="{{route('client.show_deposit')}}">
-                                                                            @csrf
-                                                                            <input type="hidden" name="request_id" value="{{$publish->id}}" />
-                                                                            <input type="hidden" name="offer_id" value="{{$offer->id}}" />
-                                                                            <input type="hidden" name="price" value="{{$offer->price}}" />
-                                                                            <input type="hidden" name="time" value="{{$offer->hours}}" />
-                                                                            <button type="submit" class="btn btn-primary">Accept</button>
-                                                                        </form>
-                                                                    @else
-                                                                        @if($publish->accepted_offer_id === $offer->id)
-                                                                            <strong>Accepted</strong>
-                                                                        @endif
-                                                                    @endif
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="modal-footer text-center">
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 @endif
                             </td>
                             <td>
@@ -278,6 +213,74 @@
                         </tr>
                         @endif
                     @endforeach
+
+                    <div class="modal fade" id="detailModal" role="dialog" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title text-center"><b>Offers</b></h4>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <input type="hidden" name="request_id" id="request_id" >
+
+                                    <table class="text-center">
+                                        <thead>
+                                        <tr style="font-weight: bold;">
+                                            <td>Price(USD)</td>
+                                            <td>Time(hours)</td>
+                                            <td>Designer Rating</td>
+                                            <td></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @php
+                                            $offers = $publish->offers;
+                                            $top_id = \App\Models\Settings::count();
+                                            if ($top_id <> 0) {
+                                                $settings = \App\Models\Settings::limit($top_id)->get();
+                                                $setting = $settings[count($settings) - 1];
+                                                $client_fee = $setting['client_fee'];
+                                                $delta_time = $setting['delta_time'];
+                                             }
+                                        @endphp
+                                        @foreach($offers as $offer)
+                                            <tr>
+                                                <td style="text-align: center">{{intval($offer->price + $client_fee)}}</td>
+                                                <td style="text-align: center">{{$offer->hours + $delta_time}}</td>
+                                                <td>
+                                                    <div class="rating" data-rate-value = {{$offer->designer->rate}}></div>
+
+                                                </td>
+                                                <td>
+                                                    @if($publish->status === 'published')
+                                                        <form method="get" action="{{route('client.show_deposit')}}">
+                                                            @csrf
+                                                            <input type="hidden" name="request_id" value="{{$publish->id}}" />
+                                                            <input type="hidden" name="offer_id" value="{{$offer->id}}" />
+                                                            <input type="hidden" name="price" value="{{$offer->price}}" />
+                                                            <input type="hidden" name="time" value="{{$offer->hours}}" />
+                                                            <button type="submit" class="btn btn-primary">Accept</button>
+                                                        </form>
+                                                    @else
+                                                        @if($publish->accepted_offer_id === $offer->id)
+                                                            <strong>Accepted</strong>
+                                                        @endif
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer text-center">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     </tbody>
                 </table>
             </div>
@@ -329,8 +332,7 @@
             });
 
             $('#request_id').val(para);
-
-            $('#sss({{$publish->id}})').modal('show');
+            $('#detailModal').modal();
 
         }
 
