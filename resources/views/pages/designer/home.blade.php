@@ -90,7 +90,7 @@
                                         $minutes = $minutes - 60 * $hours;
                                         $accepted_offer_id = $request['accepted_offer_id'];
                                         $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
-                                        $hours = $deadline - $hours - 1;
+                                        $hours = $deadline - $hours;
                                         $minutes = 60 - $minutes;
 
                                     }
