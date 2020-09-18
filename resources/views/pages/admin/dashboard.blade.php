@@ -237,9 +237,9 @@
 
                                     @foreach($publish->deliveries as $key => $delivery)
 
-                                    <div class="col-4" style="margin-left: -15px;">
-                                        <div class="col-4" style="margin-left: 15px;"><label>File{!! $key + 1 !!}:</label></div>
-                                        <div class="col-8">
+                                    <div class="col-4">
+                                        <div class="col-4" style="margin-left: -10px;"><label>File{!! $key + 1 !!}:</label></div>
+                                        <div class="col-8" style="margin-left: -10px;">
                                             <a class="btn btn-primary"
                                                href="{{url('admin/delivery-download/'.$delivery->id)}}">
                                                 Download
