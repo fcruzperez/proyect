@@ -52,7 +52,48 @@
                                 $diff2 = $now->diff($accepted_time);
                                 $hour = $diff->days * 24 + $diff->h;
 
-                                if ($hour >= $deadline + $delta_time) {
+                                if ($hour < $deadline + $delta_time) {
+
+
+                                    $design_name = $publish['design_name'];
+                                    $client_id = $publish['client_id'];
+                                    $client = \App\Models\User::find($client_id);
+
+                                    $offer_id = $publish['accepted_offer_id'];
+                                    $offer = \App\Models\Offer::find($offer_id);
+                                    $offer_price = $offer['price'];
+
+                                    $top_id = \App\Models\Settings::count();
+                                    $settings = \App\Models\Settings::limit($top_id)->get();
+                                    $setting = $settings[count($settings) - 1];
+                                    $client_fee = $setting['client_fee'];
+
+                                    $price = $offer_price + $client_fee;
+
+                                    $designer_id = $offer['designer_id'];
+                                    $designerRate = \App\Models\DesignerRate::where('designer_id', $designer_id)->first();
+                                    $rate = $designerRate['rate'];
+                                    $rate = 0.8 * $rate;
+                                    $designerRate['rate'] = round($rate, 1);
+                                    $designerRate->save();
+
+                                    $now = now();
+                                    $publish['refund'] = $price;
+                                    $publish['completed_at'] = $now;
+                                    $publish['status'] = 'undelivered';
+
+                                    $publish->save();
+
+
+                                    $offer['status'] = 'undelivered';
+                                    $offer['completed_at'] = $now;
+
+                                    $offer->save();
+
+                                    $client['balance'] += $price;
+                                    $client->save();
+
+
 
                                     $msg1 = "Designer {$designer_name} hasn't submitted the accepted work {$publish->design_name} of Client {$client_name}.";
 
@@ -62,12 +103,12 @@
                                         'offer_id' => $offer_id,
                                         'subject' => $msg1,
                                         'content' => $msg1,
-                                        'action_url' => "/admin/refund/{$publish->id}",
+                                        'action_url' => "/admin/dashboard",
                                     ]);
 
                                     $data1 = [
                                         'user_id' => 1,
-                                        'action_url' => "/admin/refund/{$publish->id}",
+                                        'action_url' => "/admin/dashboard",
                                         'message' => $msg1
                                     ];
 
@@ -78,6 +119,8 @@
 
                                     $message = \App\Models\Message::create([
                                         'user_id' => $designer_id,
+                                        'request_id' => $publish->id,
+                                        'offer_id' => $offer_id,
                                         'subject' => $msg2,
                                         'content' => $msg2,
                                         'action_url' => "/designer/home",
@@ -91,27 +134,25 @@
                                     event(new \App\Events\DesignerEvent($data2));
 
 
-                                    $msg3 = "Designer hasn't delivered your design {$publish->design_name} within the deadline, you will have a refund soon.";
+                                    $msg3 = "Designer hasn't delivered your design {$publish->design_name} within the deadline, you are received a refund.";
 
                                     $message = \App\Models\Message::create([
                                         'user_id' => $client_id,
+                                        'request_id' => $publish->id,
+                                        'offer_id' => $offer_id,
                                         'subject' => $msg3,
                                         'content' => $msg3,
-                                        'action_url' => "/client/myposts",
+                                        'action_url' => "/client/finance-list",
                                     ]);
 
                                     $data3 = [
                                         'user_id' => $client_id,
-                                        'action_url' => "/client/myposts",
+                                        'action_url' => "/client/finance-list",
                                         'message' => $msg3
                                     ];
                                     event(new \App\Events\ClientEvent($data3));
 
-                                    $publish['status'] = 'undelivered';
-                                    $publish->save();
 
-                                    $offer['status'] = 'undelivered';
-                                    $offer->save();
 
                                 }
                             }
