@@ -341,7 +341,7 @@
 
                                     @endphp
                                     @if ($mediate['status'] === 'redelivered')
-                                        @if($h > $claim_time)
+                                        @if($h < $claim_time)
     {{--                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
                                             <a class="btn btn-success" style="float: right; margin-left: 7px;" onclick="return confirm('Will you complete this, Really?')" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
 
