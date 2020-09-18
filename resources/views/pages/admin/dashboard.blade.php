@@ -261,6 +261,8 @@
                                             </div>
                                         </div>
                                         @endforeach
+
+                                        @if ($mediate['error_images'])
                                         <div class="col-4">
                                             <div class="col-4" style="margin-left: 15px;"><label>Errors:</label></div>
                                             <div class="col-8" style="margin-left: 15px;">
@@ -270,6 +272,7 @@
                                                 </a>
                                             </div>
                                         </div>
+                                        @endif
                                     @endif
                                 </div>
 
