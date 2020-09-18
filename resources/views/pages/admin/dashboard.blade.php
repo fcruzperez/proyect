@@ -238,7 +238,7 @@
 
                                         @foreach($publish->deliveries as $key => $delivery)
 
-                                        <div class="col-12">
+                                        <div class="col-4">
                                             <div class="col-4"><label>File{!! $key + 1 !!}:</label></div>
                                             <div class="col-8">
                                                 <a class="btn btn-primary"
