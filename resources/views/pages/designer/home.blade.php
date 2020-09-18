@@ -86,7 +86,7 @@
                                         $acceptedTime  = new DateTime($request->accepted_at);
                                         $diff = $now->diff($acceptedTime);
                                         $hours = $diff->days * 24 + $diff->h;
-                                        $minutes = $diff->m;
+                                        $minutes = $diff->i;
                                         $accepted_offer_id = $request['accepted_offer_id'];
                                         $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
                                         $hours = $deadline - $hours - 1;
