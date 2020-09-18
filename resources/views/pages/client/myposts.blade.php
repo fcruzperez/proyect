@@ -52,7 +52,7 @@
                                 $diff2 = $now->diff($accepted_time);
                                 $hour = $diff->days * 24 + $diff->h;
 
-                                if ($hour >= $deadline + $delta_time) {
+                                if ($hour < $deadline + $delta_time) {
 
                                     $msg1 = "Designer {$designer_name} hasn't submitted the accepted work {$publish->design_name} of Client {$client_name}.";
 
@@ -112,6 +112,8 @@
 
                                     $offer['status'] = 'undelivered';
                                     $offer->save();
+
+                                    return redirect('admin/refund/'.$publish->id);
 
 
                                 }
