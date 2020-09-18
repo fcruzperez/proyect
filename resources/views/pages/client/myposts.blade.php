@@ -24,6 +24,7 @@
                     @foreach($publishes as $pub_index => $publish)
 
                         @php
+                            dd($publish); return;
                             $now = new DateTime();
                             $pp = new DateTime($publish->created_at);
                             $diff = $now->diff($pp);
