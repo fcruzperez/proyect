@@ -229,7 +229,7 @@ class DesignerController extends Controller
 
         $validator = Validator::make($input, [
             'offer_id' => 'required|exists:offers,id',
-            'delivery_files' => 'required|mimes:zip,rar'
+            'delivery_files' => 'required|mimes:zip'
         ]);
 
         if ($validator->fails()) {
