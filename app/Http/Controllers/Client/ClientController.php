@@ -695,6 +695,7 @@ class ClientController extends Controller
         DB::beginTransaction();
 
         try {
+
             $publish = Publish::find($id);
 
             $now = now();
@@ -702,8 +703,8 @@ class ClientController extends Controller
             $publish->completed_at = $now;
             $publish->save();
 
-            $top_id = \App\Models\Settings::count();
-            $settings = \App\Models\Settings::limit($top_id)->get();
+            $top_id = Settings::count();
+            $settings = Settings::limit($top_id)->get();
             $setting = $settings[count($settings) - 1];
             $designer_fee = $setting['designer_fee'];
 

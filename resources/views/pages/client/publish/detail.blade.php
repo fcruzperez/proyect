@@ -239,7 +239,7 @@
 
                                 @endphp
                                 @if($pstatus === 'delivered')
-                                    @if($hour < $claim_time)
+                                    @if($hour > $claim_time)
                                         <a class="btn btn-danger mr-3" href="{{url('client/mediate-offer/'.$offer->id)}}">Mediate</a>
         {{--                                @endif--}}
         {{--                                @if($pstatus != 'in mediate' && $publish->deliverd_at)--}}
@@ -247,24 +247,78 @@
                                     @else
                                         @php
                                             $msg = "Your design {$publish['design_name']} is completed because the claim time is passed.";
-
                                             $message = \App\Models\Message::create([
                                                 'user_id' => $publish['client_id'],
                                                 'request_id' => $publish->id,
                                                 'offer_id' => $offer->id,
                                                 'subject' => $msg,
                                                 'content' => $msg,
-                                                'action_url' => "/client/complete-request/{$publish->id}",
+                                                'action_url' => "/client/publish-detail/{$publish->id}",
 
                                             ]);
 
                                             $data = [
                                                 'user_id' => $publish['client_id'],
-                                                'action_url' => "/client/complete-request/{$publish->id}",
+                                                'action_url' => "/client/publish-detail/{$publish->id}",
                                                 'message' => $msg
                                             ];
                                             event(new \App\Events\ClientEvent($data));
 
+
+
+                                            $publish->status = 'completed';
+                                            $publish->completed_at = $now;
+                                            $publish->save();
+
+                                            $top_id = \App\Models\Settings::count();
+                                            $settings = \App\Models\Settings::limit($top_id)->get();
+                                            $setting = $settings[count($settings) - 1];
+                                            $designer_fee = $setting['designer_fee'];
+
+                                            $offer = Offer::find($publish->accepted_offer_id);
+
+                                            $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 2));
+                                    //            dd($offer['price'], $paid); return;
+
+                                            $offer_id = $offer['id'];
+                                            $offer->status = 'completed';
+                                            $offer->completed_at = $now;
+                                            $offer->paid = $paid;
+                                            $offer->save();
+
+
+                                            //Add balance
+                                            $designer_id = $offer['designer_id'];
+                                            $designer = \App\Models\User::find($designer_id);
+                                            $designer['balance'] += $paid;
+                                            $designer->save();
+
+                                            $msg1 = "Your offer for the design {$publish['design_name']} has been completed.";
+                                            $message = Message::create([
+                                                'user_id' => $designer_id,
+                                                'request_id' => $publish->id,
+                                                'offer_id' => $offer_id,
+                                                'subject' => $msg1,
+                                                'content' => $msg1,
+                                                'action_url' => "/designer/finance-list",
+                                            ]);
+
+                                            $data1 = [
+                                                'user_id' => $designer_id,
+                                                'action_url' => "/designer/finance-list",
+                                                'message' => $msg1
+                                            ];
+                                            event(new DesignerEvent($data1));
+
+                                            $designerRate = \App\Models\DesignerRate::where('designer_id', $designer_id)->first();
+                                            $rate = $designerRate['rate'];
+                                            if (abs($rate) < 0.001) {
+                                                $designerRate['rate'] = 5;
+                                            }
+                                            else {
+                                                $designerRate['rate'] = round(($rate + 5) / 2, 1);
+                                            }
+                                            $designerRate->save();
 
                                         @endphp
                                     @endif
