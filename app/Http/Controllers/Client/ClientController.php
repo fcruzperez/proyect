@@ -325,7 +325,7 @@ class ClientController extends Controller
     {
 
         $userId = Auth::id();
-        $publishes = Publish::where('client_id', $userId)->sortByDesc('id')->get();
+        $publishes = Publish::where('client_id', $userId)->get()->orderBy('id', 'DESC');
 
         $data = ['publishes' => $publishes];
         return view('pages.client.myposts', $data);
