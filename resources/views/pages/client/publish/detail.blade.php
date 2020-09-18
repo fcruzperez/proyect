@@ -275,7 +275,7 @@
                                             $setting = $settings[count($settings) - 1];
                                             $designer_fee = $setting['designer_fee'];
 
-                                            $offer = Offer::find($publish->accepted_offer_id);
+                                            $offer = \App\Models\Offer::find($publish->accepted_offer_id);
 
                                             $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 2));
                                     //            dd($offer['price'], $paid); return;
@@ -294,7 +294,7 @@
                                             $designer->save();
 
                                             $msg1 = "Your offer for the design {$publish['design_name']} has been completed.";
-                                            $message = Message::create([
+                                            $message = \App\Models\Message::create([
                                                 'user_id' => $designer_id,
                                                 'request_id' => $publish->id,
                                                 'offer_id' => $offer_id,
@@ -308,7 +308,7 @@
                                                 'action_url' => "/designer/finance-list",
                                                 'message' => $msg1
                                             ];
-                                            event(new DesignerEvent($data1));
+                                            event(new \App\Events\DesignerEvent($data1));
 
                                             $designerRate = \App\Models\DesignerRate::where('designer_id', $designer_id)->first();
                                             $rate = $designerRate['rate'];
