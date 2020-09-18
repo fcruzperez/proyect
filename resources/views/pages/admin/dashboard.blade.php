@@ -238,12 +238,14 @@
 
                                         @foreach($publish->deliveries as $key => $delivery)
 
-                                        <div class="text-center">
-                                            <label>File{!! $key + 1 !!}</label>
-                                            <a class="btn btn-primary"
-                                               href="{{url('admin/delivery-download/'.$delivery->id)}}">
-                                                Download
-                                            </a>
+                                        <div class="col-4">
+                                            <div class="col-4" style="margin-right: 5px;"><label>File{!! $key + 1 !!}:</label></div>
+                                            <div class="col-8">
+                                                <a class="btn btn-primary"
+                                                   href="{{url('admin/delivery-download/'.$delivery->id)}}">
+                                                    Download
+                                                </a>
+                                            </div>
                                         </div>
                                         @endforeach
                                     @else
