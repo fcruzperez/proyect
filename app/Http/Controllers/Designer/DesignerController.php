@@ -248,7 +248,8 @@ class DesignerController extends Controller
                 $name = $file->getClientOriginalName();
                 $ex = $file->extension();
                 if ($ex <> 'zip') {
-                    echo 'Upload Zip file!';
+                    $message = 'Upload only Zip file!';
+                    echo "<script type='text/javascript'>alert('$message');</script>";
                     return back();
                 }
                 $path = $file->store('public/delivery');
