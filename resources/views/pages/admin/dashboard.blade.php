@@ -242,10 +242,10 @@
                                         </div>
                                     @endforeach
 
-                                    @if ($publish['status'] = 'in mediation')
+                                    @if ($publish['status'] === 'in mediation')
                                     @php
                                         $accepted_id = $publish['accepted_offer_id'];
-                                        $mediate = \App\Models\Mediate::where('offer_id', $accepted_id);
+                                        $mediate = \App\Models\Mediate::where('offer_id', $accepted_id)->first();
                                     @endphp
                                     <div class="col-4">
                                         <div class="col-4" style="margin-right: 5px;"><label>Errors</label></div>
