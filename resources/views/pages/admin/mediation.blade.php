@@ -141,7 +141,7 @@
                                         </div>
                                     @endforeach
                                     <div class="col-4">
-                                        <div class="col-4" style="margin-right: 10px;"><label>Errors:</label></div>
+                                        <div class="col-4" style="margin-left: 10px;"><label>Errors:</label></div>
                                         <div class="col-8">
                                             @php
 
