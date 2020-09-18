@@ -431,7 +431,7 @@
                                                     'message' => $msg
                                                 ];
 
-                                                event(new DesignerEvent($data));
+                                                event(new \App\Events\DesignerEvent($data));
 
                                             @endphp
                                         @endif
