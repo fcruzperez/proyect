@@ -262,8 +262,8 @@
                                         </div>
                                         @endforeach
                                         <div class="col-4">
-                                            <div class="col-4" style="margin-left: 5px;"><label>Errors</label></div>
-                                            <div class="col-8" style="margin-left: 5px;">
+                                            <div class="col-4" style="margin-left: 15px;"><label>Errors</label></div>
+                                            <div class="col-8" style="margin-left: 15px;">
 
                                                 <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}">
                                                     Download
