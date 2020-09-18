@@ -263,7 +263,7 @@
                                         @endforeach
 
                                         @if ($mediate['error_images'])
-                                        <div class="col-4" style="margin-left: 12px;">
+                                        <div class="col-4" style="margin-left: 15px;">
                                             <div class="col-4"><label>Errors:</label></div>
                                             <div class="col-8">
 
