@@ -237,7 +237,7 @@
 
                                     @foreach($publish->deliveries as $key => $delivery)
 
-                                    <div class="col-4" style="margin-left: -10px;">
+                                    <div class="col-4">
                                         <div class="col-4"><label>File{!! $key + 1 !!}:</label></div>
                                         <div class="col-8">
                                             <a class="btn btn-primary"
@@ -249,7 +249,7 @@
                                         @endforeach
 
                                     @if ($mediate['error_images'])
-                                    <div class="col-4" style="margin-left: 15px;">
+                                    <div class="col-4">
                                         <div class="col-4"><label>Errors:</label></div>
                                         <div class="col-8">
 
