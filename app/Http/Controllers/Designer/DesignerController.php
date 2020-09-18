@@ -229,7 +229,7 @@ class DesignerController extends Controller
 
         $validator = Validator::make($input, [
             'offer_id' => 'required|exists:offers,id',
-            'delivery_files' => 'required|file|mimes:zip'
+            'delivery_files' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -246,6 +246,11 @@ class DesignerController extends Controller
         try {
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName();
+                $ex = $file->extension();
+                if ($ex <> 'zip') {
+                    echo 'Upload Zip file!';
+                    return back();
+                }
                 $path = $file->store('public/delivery');
                 Delivery::create([
                     'designer_id' => $designerId,
