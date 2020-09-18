@@ -75,7 +75,7 @@
                                 event(new \App\Events\AdminEvent($data1));
 
 
-                                $msg2 = "You haven't delivered the correction about the design {$publish->design_name} within correction time. Wait the result of Support.";
+                                $msg2 = "You haven't delivered the correction about the design {$publish->design_name} within correction time. Wait for the result of Support.";
 
                                 $message = \App\Models\Message::create([
                                     'user_id' => $designer_id,
@@ -94,7 +94,7 @@
                                 event(new \App\Events\DesignerEvent($data2));
 
 
-                                $msg3 = "Designer hasn't delivered the correction about your design {$publish->design_name} within correction time, Wait the result of Support.";
+                                $msg3 = "Designer hasn't delivered the correction about your design {$publish->design_name} within correction time, Wait for the result of Support.";
 
                                 $message = \App\Models\Message::create([
                                     'user_id' => $client_id,
