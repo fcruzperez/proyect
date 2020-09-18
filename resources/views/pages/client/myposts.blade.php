@@ -313,7 +313,7 @@
         $(document).ready(function() {
             $('#publishes_table').DataTable(
                 {
-                    'order' : [[ 2, 'asc']]
+                    'columnDefs' : [{ "orderable": false, "targets": 2 }]
                 }
             );
 
