@@ -253,7 +253,7 @@
 
                                         <div class="col-4">
                                             <div class="col-4" style="margin-right: 5px;"><label>File{!! $key + 1 !!}:</label></div>
-                                            <div class="col-8">
+                                            <div class="col-8" style="margin-right: 5px;">
                                                 <a class="btn btn-primary"
                                                    href="{{url('admin/delivery-download/'.$delivery->id)}}">
                                                     Download
@@ -263,7 +263,7 @@
                                         @endforeach
                                         <div class="col-4">
                                             <div class="col-4" style="margin-right: 5px;"><label>Errors</label></div>
-                                            <div class="col-8">
+                                            <div class="col-8" style="margin-right: 5px;">
 
                                                 <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}">
                                                     Download
