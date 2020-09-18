@@ -46,13 +46,12 @@
                                 $client_id = $publish['client_id'];
                                 $client = \App\Models\User::find($client_id);
                                 $client_name = $client['name'];
-
                                 $now = new DateTime();
                                 $accepted_time = new DateTime($publish->accepted_at);
                                 $diff2 = $now->diff($accepted_time);
                                 $hour = $diff->days * 24 + $diff->h;
 
-                                if ($hour < $deadline + $delta_time) {
+                                if ($hour >= $deadline + $delta_time) {
 
 
                                     $design_name = $publish['design_name'];
