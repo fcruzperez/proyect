@@ -229,7 +229,7 @@ class DesignerController extends Controller
 
         $validator = Validator::make($input, [
             'offer_id' => 'required|exists:offers,id',
-            'delivery_files' => 'required|mimes:jpeg'
+            'delivery_files' => 'required|file|mimes:zip'
         ]);
 
         if ($validator->fails()) {
@@ -241,6 +241,7 @@ class DesignerController extends Controller
         $designerId = Auth::id();
 
         $files = $request->file('delivery_files');
+
         DB::beginTransaction();
         try {
             foreach ($files as $file) {
