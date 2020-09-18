@@ -229,7 +229,14 @@
                                         <div class="alert alert-info">There is no delivered design.</div>
                                     @endempty
 
-                                    @foreach($publish->deliveries as $key => $delivery)
+                                    @php
+                                        $accepted_id = $publish['accepted_offer_id'];
+                                        $mediate = \App\Models\Mediate::where('offer_id', $accepted_id)->first();
+                                    @endphp
+
+                                    @if (!$mediate)
+
+                                        @foreach($publish->deliveries as $key => $delivery)
 
                                         <div class="col-4" style="margin-right: 5px;"><label>File{!! $key + 1 !!}</label></div>
                                         <div class="col-8">
@@ -238,19 +245,28 @@
                                                 Download
                                             </a>
                                         </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        @foreach($publish->deliveries as $key => $delivery)
 
-                                    @if ($publish['status'] === 'in mediation')
-                                    @php
-                                        $accepted_id = $publish['accepted_offer_id'];
-                                        $mediate = \App\Models\Mediate::where('offer_id', $accepted_id)->first();
-                                    @endphp
-                                        <div class="col-4" style="margin-right: 5px;"><label>Errors</label></div>
-                                        <div class="col-8">
+                                        <div class="col-4">
+                                            <div class="col-4" style="margin-right: 5px;"><label>File{!! $key + 1 !!}</label></div>
+                                            <div class="col-8">
+                                                <a class="btn btn-primary"
+                                                   href="{{url('admin/delivery-download/'.$delivery->id)}}">
+                                                    Download
+                                                </a>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                        <div class="col-4">
+                                            <div class="col-4" style="margin-right: 5px;"><label>Errors</label></div>
+                                            <div class="col-8">
 
-                                            <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}">
-                                                Download
-                                            </a>
+                                                <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}">
+                                                    Download
+                                                </a>
+                                            </div>
                                         </div>
                                     @endif
                                 </div>
