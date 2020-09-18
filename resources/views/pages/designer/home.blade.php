@@ -81,16 +81,15 @@
                             <td>
                                 @php
                                     if ($offer->status === 'accepted') {
-                                        $nowTime = strtotime(date("Y-m-d h:i:sa"));
-                                        $acceptedTime = strtotime((string)$request['accepted_at']);
-                                        $interval = abs($nowTime - $acceptedTime);
-                                        $minutes = round($interval / 60);
 
-                                        $hours = floor($minutes / 60);
-                                        $minutes = $minutes - 60 * $hours;
+                                        $now = new DateTime();
+                                        $acceptedTime  = new DateTime($request->accepted_at);
+                                        $diff = $now->diff($acceptedTime);
+                                        $hours = $diff->days * 24 + $diff->h;
+                                        $minutes = $diff->m;
                                         $accepted_offer_id = $request['accepted_offer_id'];
                                         $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
-                                        $hours = $deadline - $hours;
+                                        $hours = $deadline - $hours - 1;
                                         $minutes = 60 - $minutes;
 
                                     }
