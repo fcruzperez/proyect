@@ -32,7 +32,7 @@ class AdminController extends Controller
 {
     public function dashboard(Request $request) {
 
-        $publishes = Publish::orderBy('id', 'DESC')->get();
+        $publishes = Publish::all();
         $data = ['publishes' => $publishes];
 
 

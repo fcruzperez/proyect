@@ -311,7 +311,11 @@
     <script src="{{asset('plugins/raterjs/rater.min.js')}}"></script>
     <script>
         $(document).ready(function() {
-            $('#publishes_table').DataTable();
+            $('#publishes_table').DataTable(
+                {
+                    'order' : [[ 2, 'asc']]
+                }
+            );
 
             // $('.rating').rate({
             //     max_value: 5,
