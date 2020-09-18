@@ -141,14 +141,11 @@
                             <td>{{$publish['design_name']}}</td>
                             <td>
                                 @php
-                                    $nowTime = strtotime(date("Y-m-d h:i:sa"));
-                                    $acceptedTime = strtotime((string)$publish['accepted_at']);
-                                    $interval = abs($nowTime - $acceptedTime);
-                                    $minutes = round($interval / 60);
-
-                                    $hours = floor($minutes / 60);
-                                    $minutes = $minutes - 60 * $hours;
-
+                                    $now = new DateTime();
+                                    $acceptedTime  = new DateTime($publish->accepted_at);
+                                    $diff = $now->diff($acceptedTime);
+                                    $hours = $diff->days * 24 + $diff->h;
+                                    $minutes = $diff->i;
                                     $accepted_offer_id = $publish['accepted_offer_id'];
                                     $deadline = \App\Models\Offer::find($accepted_offer_id)['hours'];
                                     $hours = $deadline - $hours - 1;
