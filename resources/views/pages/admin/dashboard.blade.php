@@ -265,7 +265,7 @@
                                             <div class="col-4" style="margin-right: 5px;"><label>Errors</label></div>
                                             <div class="col-8" style="margin-right: 5px;">
 
-                                                <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}">
+                                                <a class="btn btn-sm" href="{{url('admin/download_errors/'.$mediate->id)}}">
                                                     Download
                                                 </a>
                                             </div>
