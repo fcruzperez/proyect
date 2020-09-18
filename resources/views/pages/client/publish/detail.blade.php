@@ -341,7 +341,7 @@
 
                                     @endphp
                                     @if ($mediate['status'] === 'redelivered')
-                                        @if($h < $claim_time)
+                                        @if($h > $claim_time)
     {{--                                    <a class="btn btn-success" style="float: right; margin-left: 5px;" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>--}}
                                             <a class="btn btn-success" style="float: right; margin-left: 7px;" onclick="return confirm('Will you complete this, Really?')" href="{{url("client/mediate-complete/{$mediate->id}")}}">Complete</a>
 
@@ -363,15 +363,75 @@
                                                     'offer_id' => $offer->id,
                                                     'subject' => $msg,
                                                     'content' => $msg,
-                                                    'action_url' => "/client/mediate-complete/{$mediate->id}",
+                                                    'action_url' => "/client/mediate-list",
                                                 ]);
 
                                                 $data = [
                                                 'user_id' => $publish['client_id'],
-                                                'action_url' => "/client/mediate-complete/{$mediate->id}",
+                                                'action_url' => "/client/mediate-list",
                                                 'message' => $msg
                                                 ];
                                                 event(new \App\Events\ClientEvent($data));
+
+
+                                                $mediate->status = 'completed';
+                                                $mediate->save();
+
+                                                $now = now();
+
+                                                $offer = $mediate->offer;
+                                                $designer_id = $offer['designer_id'];
+
+                                                $top_id = \App\Models\Settings::count();
+                                                $settings = \App\Models\Settings::limit($top_id)->get();
+                                                $setting = $settings[count($settings) - 1];
+                                                $designer_fee = $setting['designer_fee'];
+                                                $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 2));
+
+                                                $offer->status = 'completed';
+                                                $offer->completed_at = $now;
+                                                $offer->paid = $paid;
+                                                $offer->save();
+
+                                                $request = $offer->request;
+                                                $request->status = 'completed';
+                                                $request->completed_at = $now;
+                                                $request->save();
+
+                                                $designerRate = \App\Models\DesignerRate::where('designer_id', $designer_id)->first();
+                                                $rate = $designerRate['rate'];
+                                                if (abs($rate) < 0.001) {
+                                                    $designerRate['rate'] = 4.5;
+                                                }
+                                                else {
+                                                    $designerRate['rate'] = round(($rate + 4.5) / 2, 1);
+                                                }
+                                                $designerRate->save();
+
+                                                //Add balance
+                                                $designer_id = $offer['designer_id'];
+                                                $designer = \App\Models\User::find($designer_id);
+                                                $designer['balance'] += $paid;
+                                                $designer->save();
+
+                                                $msg = "Your offer about the design {$request->design_name} is completed.";
+
+                                                $message = \App\Models\Message::create([
+                                                    'user_id' => $offer->designer_id,
+                                                    'request_id' => $request->id,
+                                                    'offer_id' => $offer->id,
+                                                    'subject' => $msg,
+                                                    'content' => $msg,
+                                                    'action_url' => "/designer/finance-list",
+                                                ]);
+
+                                                $data = [
+                                                    'user_id' => $offer->designer_id,
+                                                    'action_url' => "/designer/finance-list",
+                                                    'message' => $msg
+                                                ];
+
+                                                event(new DesignerEvent($data));
 
                                             @endphp
                                         @endif

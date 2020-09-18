@@ -11,6 +11,7 @@ use App\Models\DesignerRate;
 use App\Models\Mediate;
 use App\Models\Message;
 use App\Models\Offer;
+use App\Models\Settings;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Request as Publish;
@@ -64,8 +65,8 @@ class MediateController extends Controller
         $offer = $mediate->offer;
         $designer_id = $offer['designer_id'];
 
-        $top_id = \App\Models\Settings::count();
-        $settings = \App\Models\Settings::limit($top_id)->get();
+        $top_id = Settings::count();
+        $settings = Settings::limit($top_id)->get();
         $setting = $settings[count($settings) - 1];
         $designer_fee = $setting['designer_fee'];
         $paid = floatval(round($offer['price'] * (100 - $designer_fee) / 100, 2));
