@@ -139,7 +139,7 @@
                                     @endforeach
 
                                     @if ($mediate['error_images'])
-                                    <div class="col-4">
+                                    <div class="col-4" style="margin-left: 10px;">
                                         <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}"><i class="fa fa-download"></i>
                                             Error
                                         </a>
