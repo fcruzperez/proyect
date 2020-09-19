@@ -172,7 +172,7 @@
                 </div>
 
                 @if(in_array($pstatus, ['accepted', 'undelivered', 'delivered', 'in mediation', 'completed']))
-                <div class="card mt-5 card-info" id="deliveryCard">
+                <div class="card mt-5" id="deliveryCard">
                     <div class="card-header">
                         <div class="card-title">Accepted Offer</div>
                         <?php //dd($publish->accepted_at); ?>
