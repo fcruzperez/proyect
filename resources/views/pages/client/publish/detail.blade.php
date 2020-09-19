@@ -205,7 +205,7 @@
                             @endempty
 
                             @foreach($publish->deliveries as $key => $delivery)
-                            <div class="col-12">
+                            <div class="col-12 col-sm-4 col-lg-6">
                                 <div class="row" style="margin-left: 15px;">
                                         <a class="btn btn-primary"
                                            href="{{url('client/delivery-download/'.$delivery->id)}}"><i class="fa fa-download"></i>
