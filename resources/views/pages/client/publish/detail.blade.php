@@ -17,7 +17,7 @@
 
         <div class="row">
             <div class="col-12" style="margin-top: 20px;">
-                <div class="card" id="offerCard">
+                <div class="card card" id="offerCard">
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-12 col-sm-6 col-lg-2 px-0 image-wrapper">
@@ -172,7 +172,7 @@
                 </div>
 
                 @if(in_array($pstatus, ['accepted', 'undelivered', 'delivered', 'in mediation', 'completed']))
-                <div class="card mt-5" id="deliveryCard">
+                <div class="card mt-5 card-info" id="deliveryCard">
                     <div class="card-header">
                         <div class="card-title">Accepted Offer</div>
                         <?php //dd($publish->accepted_at); ?>

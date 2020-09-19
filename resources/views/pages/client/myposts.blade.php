@@ -222,7 +222,7 @@
                                 @if($offer_count > 0)
                                     <button type="button" class="btn btn-info text-center" onclick="show(this)">Offers</button>
                                     <div class="modal fade" id="detailModal{{ $pub_index }}" role="dialog" tabindex="-1" aria-hidden="true">
-                                        <div class="modal-dialog animated zoomIn animated-3x" role="document">
+                                        <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header text-center">
                                                     <h4 class="modal-title text-center"><b>Offers</b></h4>
