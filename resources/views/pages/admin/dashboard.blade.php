@@ -253,7 +253,7 @@
                                         <div class="col-4"><label>Errors:</label></div>
                                         <div class="col-8">
 
-                                            <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}">
+                                            <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}"><i class="fa fa-download"></i>
                                                 Download
                                             </a>
                                         </div>
