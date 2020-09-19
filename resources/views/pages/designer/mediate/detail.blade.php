@@ -32,7 +32,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <a class="btn btn-primary" href="{{url('/designer/download_errors/'.$mediate->id)}}">Download Error Images</a>
+                                <a class="btn btn-primary" href="{{url('/designer/download_errors/'.$mediate->id)}}"><i class="fa fa-download">Error</a>
                             </div>
                             <div class="col-md-6" style="float: right;">
                                 <a class="btn btn-danger" href="{{route('designer.mediate.list')}}">
