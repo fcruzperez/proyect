@@ -238,23 +238,18 @@
                                     @foreach($publish->deliveries as $key => $delivery)
 
                                     <div class="col-4">
-                                        <div class="col-8">
-                                            <a class="btn btn-primary"
-                                               href="{{url('admin/delivery-download/'.$delivery->id)}}"><i class="fa fa-download"></i>
-                                                File{!! $key + 1 !!}
-                                            </a>
-                                        </div>
+                                        <a class="btn btn-primary"
+                                           href="{{url('admin/delivery-download/'.$delivery->id)}}"><i class="fa fa-download"></i>
+                                            File{!! $key + 1 !!}
+                                        </a>
                                     </div>
-                                        @endforeach
+                                    @endforeach
 
                                     @if ($mediate['error_images'])
                                     <div class="col-4">
-                                        <div class="col-8">
-
-                                            <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}"><i class="fa fa-download"></i>
-                                                Errors
-                                            </a>
-                                        </div>
+                                        <a class="btn btn-primary" href="{{url('admin/download_errors/'.$mediate->id)}}"><i class="fa fa-download"></i>
+                                            Error
+                                        </a>
                                     </div>
                                     @endif
 
