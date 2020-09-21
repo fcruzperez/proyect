@@ -30,7 +30,7 @@
                                 <td>
                                     @php
                                         $designer_rate = \App\Models\DesignerRate::where('designer_id', $designer_id)->get()[0]['rate'];
-                                        if (empty($designer_rate)) $designer_rate = 0;
+                                        if (!isset($designer_rate)) $designer_rate = 0;
                                     @endphp
                                     {{$designer_rate}}
 {{--                                    @if ($designer_name->rates != null)--}}
