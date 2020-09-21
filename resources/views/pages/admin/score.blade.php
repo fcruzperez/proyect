@@ -23,7 +23,6 @@
                                 <td>{{ $designer_id }}</td>
                                 <td>
                                     @php
-                                        dd($designer_ids); return;
                                         $designer_name = \App\Models\User::find($designer_id)['name'];
                                     @endphp
                                     {{ $designer_name }}
@@ -31,7 +30,7 @@
                                 <td>
                                     @php
                                         $designer_rate = \App\Models\DesignerRate::where('designer_id', $designer_id)->get()[0]['rate'];
-                                        if ($designer_rate === null) $designer_rate = 0;
+                                        if (empty($designer_rate)) $designer_rate = 0;
                                     @endphp
                                     {{$designer_rate}}
 {{--                                    @if ($designer_name->rates != null)--}}
