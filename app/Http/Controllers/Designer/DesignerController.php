@@ -343,19 +343,20 @@ class DesignerController extends Controller
 
         $user_id = Auth::id();
         $amount = $inputs['withdraw_amount'];
+        $user = User::find($user_id);
+        $balance = $user['balance'];
 
         $top_id = Settings::count();
         $settings = Settings::limit($top_id)->get();
         $setting = $settings[count($settings) - 1];
         $minimum_withdrawal_amount = $setting['minimum_withdrawal_amount'];
 
-        if ($amount < $minimum_withdrawal_amount) {
+        if ($amount < $minimum_withdrawal_amount || $amount > $balance) {
             $message = "Please see Note again!";
             echo "<script type='text/javascript'>alert('$message');</script>";
             return back();
         }
 
-        $user = User::find($user_id);
         $name = $user['name'];
 
         $msg = "ID {$user_id}, {$name} is requesting withdraw the amount {$amount}USD.";
